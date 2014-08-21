@@ -1,0 +1,73 @@
+<apex:page Controller="PatientSummaryReport" action="{!generatePatientSummaryReport}" sideBar="false" showHeader="false" id="pageId" tabStyle="Account" cache="true" contentType="application/vnd.ms-excel#PatientSummaryReport.csv">
+"","","","PATIENT SUMMARY REPORT","","",""
+"Study:","{!studyName}"
+"As of:","<apex:outputText value="{0,date,MMMM, dd yyyy}"><apex:param value="{!dateOfReport}" /></apex:outputText>"
+"Patient Active in Screening (not yet randomized)"
+<!------------------------------------ TOTAL ADVERSE EVENTS BY PARTICIPANT AND TREATMENT ARM ------------------------------>
+"I-SPY 2 ID","Trial Site","Screening Consent Date","Registration Date","Gender","Race","Ethnicity","Menopausal Status","MRI Volume Pre-tx","OSE","OSP","Zip"
+<apex:repeat value="{!lstActivePatientSummary}" var="summary">
+"{!summary.ISPY2Id}","{!summary.trialSiteName}","<apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!summary.consentDate}"/></apex:outputText>","<apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!summary.regDate}"/></apex:outputText>","{!summary.gender}","{!summary.race}","{!summary.ethnicity}","{!summary.menopausalStatus}","{!summary.mriVolumeStatus}","{!summary.oseStatus}","{!summary.ospStatus}","{!summary.zip}"
+</apex:repeat>
+""
+<!------------------------------------ patient Completed screening ------------------------------------>                           
+"Patients Completed Screening(have completed Randomization)"
+<!------------------------------------ TOTAL ADVERSE EVENTS BY PARTICIPANT AND TREATMENT ARM ------------------------------>
+"I-SPY 2 ID","Trial Site","Screening Consent Date","Registration Date","Gender","Race","Ethnicity","Menopausal Status","MRI Volume Pre-tx","OSE","OSP","Zip","Randomization consent signed"
+<apex:repeat value="{!lstCompletePatientSummary}" var="summary">
+"{!summary.ISPY2Id}","{!summary.trialSiteName}","<apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!summary.consentDate}"/></apex:outputText>","<apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!summary.regDate}"/></apex:outputText>","{!summary.gender}","{!summary.race}","{!summary.ethnicity}","{!summary.menopausalStatus}","{!summary.mriVolumeStatus}","{!summary.oseStatus}","{!summary.ospStatus}","{!summary.zip}","{!summary.isConsentSigned}"
+</apex:repeat>
+""
+<!------------------------------------ treatment phase ------------------------------------>                           
+"Patient in Treatment Phase"
+<!------------------------------------ treatment phase------------------------------>
+"I-SPY 2 ID","Trial Site","Treatment Consent Date","First Paclitaxel Treatment","Last Paclitaxel Treatment","Last Paclitaxel Cycle","First Ac Treatment","Last Ac Treatment","Last Ac Cycle","Surgery Date","Most Recent Follow up","Lost to Follow up","Off Study","Off Study Reason"
+<apex:repeat value="{!lstTreatmentPhaseSummary}" var="summary">
+"{!summary.ISPY2ID}","{!summary.trialSiteName}","<apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!summary.treatmentConsentDate}" /></apex:outputText>","<apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!summary.firstPaclitTreatmentDate}" /></apex:outputText>","<apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!summary.lastPaclitTreatmentDate}" /></apex:outputText>","{!summary.lastPaclitTreatmentCycle }","<apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!summary.firstACTreatmentDate}" /></apex:outputText>","<apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!summary.lastACTreatmentDate}" /></apex:outputText>","{!summary.lastACTreatmentCycle}","<apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!summary.surgeryDate}" /></apex:outputText>","<apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!summary.mostRecentFollowup}" /></apex:outputText>","<apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!summary.lostToFollowup}" /></apex:outputText>","<apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!summary.offStudyDate}" /></apex:outputText>","{!summary.offStudyReason}"
+</apex:repeat>
+""
+"Screening CRFs Submitted"
+"Trial Site","Tissue -Pre-Tx Submitted","Blood -Pre-Tx Submitted",MammaPrint Submitted Approved","Baseline Symptoms Submitted ","Baseline Symptoms Approved ","Response Eval,Baseline Submitted ","Response Eval,Baseline  Approved"
+<apex:repeat value="{!lstSCWrapper}" var="summary">
+"{!summary.trialSiteName}","{!summary.tissuePreTxSubmitted}","{!summary.bloodPreTxSubmitted}","{!summary.mammaPrintSubmitted}","{!summary.baselineSubmitted}","{!summary.baselineApproved}","{!summary.responseEvalSubmitted}","{!summary.responseEvalApproved}"
+</apex:repeat>
+""
+"PROTOCOL VIOLATIONS"
+"Protocol Violation by Reason"
+"Reason","Violation"
+"Total Protocol Violations","{!protocolViolationWrapper.total}"
+"On-study procedure required by protocol not completed","{!protocolViolationWrapper.onStudyProcedure}"
+"Incorrect therapy given to patient","{!protocolViolationWrapper.incorrectTherapyGiven}"
+"Screening and on-study test/lab done outside the protocol","{!protocolViolationWrapper.screeningOnStudy}"
+"Screening procedure required by protocol not done","{!protocolViolationWrapper.screeningProcedureRequired}"
+"Eligibility criteria exception","{!protocolViolationWrapper.eligiblityCritertia}"
+"Enrollment of ineligible patient","{!protocolViolationWrapper.enrollmentIneligiblePatient}"
+"Patient became pregnant prior to surgery","{!protocolViolationWrapper.patientBecamePregnant}"
+"Other","{!protocolViolationWrapper.other}"
+<apex:repeat value="{!protocolViolationWrapper.lstOtherProtoViolation}" var="otherViolation">
+"{!otherViolation.otherViolation}","{!otherViolation.numberOfOtherViolation}"
+</apex:repeat>
+""
+" Treatment CRFs Submitted (table 1)"
+"Trial Site","Chemo Treatment Submitted","Chemo Treatment Approved","MRI -Early Tx Submitted","MRI -Early Tx Approved","MRI -Inter Reg Submitted","MRI -Inter Reg Approved","MRI -Pre Surg Submitted","MRI -Pre Surg Approved","AE Submitted ","AE Approved ","Post Surgery Submitted  ","Post Surgery Approved"
+<apex:repeat value="{!lstTreatmentCRFReportsWrapper1}" var="summary">
+"{!summary.trialSiteName}","{!summary.chemoTreatmentSubmitted}","{!summary.chemoTreatmentApproved}","{!summary.mriVolumeEarlySubmitted}","{!summary.mriVolumeEarlyApproved}","{!summary.mriVolumeInterSubmitted}","{!summary.mriVolumeInterApproved}","{!summary.mriVolumePreSurgerySubmitted}","{!summary.mriVolumePreSurgeryApproved}","{!summary.aeSubmitted}","{!summary.aeApproved}","{!summary.postSurgerySubmitted}","{!summary.postSurgeryApproved}"
+</apex:repeat>
+""
+" Treatment CRFs Submitted (table 2)"
+"Trial Site","Chemo Summary Submitted","Chemo Summary Approved","Response Eval. -inter Reg Submitted","Response Eval. -inter Reg Approved","Response Eval. -pre Surg Submitted","Response Eval. -pre Surg Approved","Follow -up Submitted","Follow -up Approved","Lost To Follow-Up Submitted ","Lost To Follow-Up Approved ","No Longer Lost F/U Submitted  ","No Longer Lost F/U Approved"
+<apex:repeat value="{!lstTreatmentCRFReportsWrapper2}" var="summary">
+"{!summary.trialSiteName}","{!summary.chemoSummarySubmitted}","{!summary.chemoSummaryApproved}","{!summary.responseEvalInterRegSubmitted}","{!summary.responseEvalInterRegApproved}","{!summary.responseEvalPreSurgSubmitted}","{!summary.responseEvalPreSurgApproved}","{!summary.followUpSubmitted}","{!summary.followUpApproved}","{!summary.losttoFollowUpSubmitted}","{!summary.losttoFollowUpApproved}","{!summary.noLongerLostFUSubmitted}","{!summary.noLongerLostFUApproved}"
+</apex:repeat>
+""
+"Treatment CRFs Submitted (table 3)"
+"Trial Site","Off study Submitted","Off study Approved",Tissue Early Tx Submitted ","Tissue -Inter Reg Submitted ","Tissue -Surgery Submitted ","Protocol Violation Submitted ","Protocol Violation  Approved"
+<apex:repeat value="{!lstTreatmentCRFReportsWrapper3}" var="scWrapper">
+"{!scWrapper.trialSiteName}","{!scWrapper.offStudySubmitted}","{!scWrapper.offStudyApproved}","{!scWrapper.TissueEarlyTxSubmitted}","{!scWrapper.TissueInterRegSubmitted }","{!scWrapper.TissueSurgerySubmitted}","{!scWrapper.ProtocolViolationSubmitted}","{!scWrapper.ProtocolViolationApproved}"
+</apex:repeat>
+""
+"Treatment CRFs Submitted (table 3)"
+"Trial Site","Blood- Early Tx Submitted","Blood  -Inter Reg Submitted","Blood -Pre-Surg Submitted ",
+<apex:repeat value="{!lstTreatmentCRFReportsWrapper4}" var="scWrapper">
+"{!scWrapper.trialSiteName}","{!scWrapper.bloodEarlyTxSubmitted}","{!scWrapper.bloodInterTxSubmitted}","{!scWrapper.bloodSurgerySubmitted}",
+</apex:repeat>
+</apex:page>

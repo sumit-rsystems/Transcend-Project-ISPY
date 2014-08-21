@@ -1,0 +1,71 @@
+<apex:page controller="CrfXMLSelection" id="pageId"  sidebar="false">
+<script>
+	function checkvalidation(obj){
+		//alert('---------obj-------'+obj.value); 
+		if(obj.value == 'Registration XML'){
+			RegistrationXMLpage();
+		} else if(obj.value == 'Adverse Event XML'){
+			AdverseEventXMLpage();
+		}else{
+			document.getElementById('RegisDiv').style.display='none';
+			document.getElementById('AdversDiv').style.display='none';
+		}
+	}
+	function RegistrationXMLpage() {
+	    	var divObj = document.getElementById('RegisDiv');
+	     	var browserName = navigator.appName;
+	        if(browserName == 'Netscape'){
+	        	divObj.style.display='';
+			} else {
+	        	divObj.style.display='';
+			}
+			document.getElementById('AdversDiv').style.display='none';
+		}
+	function AdverseEventXMLpage() {            
+    	
+    	var divObj = document.getElementById('AdversDiv');
+     	var browserName = navigator.appName;
+        if(browserName == 'Netscape'){
+        	divObj.style.display='';
+		} else {
+        	divObj.style.display='';
+		}
+		document.getElementById('RegisDiv').style.display='none';
+	}
+</script>
+<style>
+	.selectbox{
+			background-color: #2F96E4;
+			font-family: Arial, sans-serif;
+			font-size: 12px;
+			font-weight: normal;
+			height: 25px;
+			position: relative;
+			width: 152px;
+			border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+			color:#fff;
+			font-size:12px; font-weight: bold;
+			padding:3px 0 3px 10px;
+		}
+</style>
+    <apex:form id="formId">
+        <table width="100%">
+     	    <tr>
+	           	<td align="Center" >
+				    <apex:selectList value="{!XML}" size="1" styleclass="selectbox" onchange="checkvalidation(this);">
+				        <apex:selectOptions value="{!items}" />
+				        <apex:actionSupport event="onchange" action="{!test}" />
+				    </apex:selectList><br/><br/>
+			 	</td>
+		    </tr>
+		</table>	   
+		    
+	    <div id="RegisDiv" style="display: none;">
+    	   <apex:iframe id="regfrmId" height="600" width="100%" src="/apex/RegistrationXML"  scrolling="false"/>
+	    </div>
+	    <div id="AdversDiv" style="display: none;">
+    	   <apex:iframe id="advrsevenId" height="900" width="100%" src="/apex/AdverseEventXML" scrolling="false"/>
+	    </div>
+	</apex:form>
+   
+</apex:page>

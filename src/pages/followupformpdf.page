@@ -1,0 +1,259 @@
+<apex:page StandardController="Followup_Form__c" extensions="FollowupFormController" sideBar="false" id="pageId" tabStyle="Account"  renderAs="pdf">
+
+	<style>
+		.mystyle{
+			background-color: #cf00f8; 
+		}
+		
+		.activeTab {
+		 	background: none repeat scroll 0 0 #FFFFFF;
+		    border-bottom: 2px solid #FFFFFF;
+		    color: #000000;
+		    font-weight: 600;
+		    width: 180px;
+		}
+		
+		.inactiveTab {
+			cursor: pointer;
+			background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+		  	color: white; /*#3C3C3C;*/
+		  	font-weight: bold;
+		  	font-size: 12px;
+		  	height: 15px;
+		  	width: 180px;:  
+		  	vertical-align: middle;
+		  	border: none;
+		}
+		 
+		.rich-tab-inactive {
+		 	background-repeat: repeat-x;
+		 	border-color: #FFFFFF;
+		 	border-style: none;
+		 	border-width: 0;
+		 	cursor: pointer;
+		}
+		
+		.rich-tabhdr-side-border {
+		 	background-image:none; 
+		 	border-radius: 4px 4px 0 0;
+		 	background-color: none;
+		 	width: 2px;
+		}
+		
+		.rich-tabhdr-side-cell {
+			box-shadow: 0 -2px 2px #A7A7A8;
+		 	border-top: 2px solid #056FC1;
+		 	border-left: 2px solid #056FC1;
+		 	border-right: 2px solid #056FC1;
+		 	border-radius: 4px 4px 0 0;
+		}
+		
+		.rich-tabpanel-content {
+			background-color: #fff;
+		 	border-left: 2px solid #056FC1;
+		 	border-right: 2px solid #056FC1;
+		 	border-bottom: 2px solid #056FC1;
+		}
+		
+		.rich-tab-bottom-line {
+			border-bottom: 1px solid #056FC1;
+		}
+		
+		.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+		 	background-color: #97C7EC;
+		}
+		
+		body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+		 	background-color: #fff;
+		}
+	</style>
+	<script>
+		
+		function cancelConfirm() {
+			if(confirm('Completely Cancel and Remove?')) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	</script>
+	<apex:form >
+				<table width="800px">
+					<col width="400px" />
+					<col width="400px" />
+			 	 	<tr>
+			 			<td style="width:400px"><b>Followup Form</b></td>
+			 			<td  style="width:400px">&nbsp;</td>
+			 		</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td> <apex:commandLink value="Attach Pdf" action="/apex/followupformpdf">
+			           		 <apex:param name="fupformId"  value="{!FF.Id}"  />
+			           		  <apex:param name="trialPat"  value="{}"   />
+		        			</apex:commandLink>
+		        		</td>
+			 		</tr>
+			 		<tr>
+			 			<td><b>Survival Status</b> </td>
+			 			<td></td>
+			 		</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputField value="{!FF.Start_Date__c}"> 
+			 				</apex:outputField>&nbsp;&nbsp;<apex:outputField value="{!FF.End_Date__c}"> </apex:outputField>
+			 			</td>
+			 	 	</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputField value="{!FF.Survival_Status__c}"></apex:outputField> 
+			 			</td>
+			 		</tr>
+
+			 	    <tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputText value="{!FF.Patient_diagnose_with_new__c}" ></apex:outputText>&nbsp;&nbsp;
+			 				<apex:outputField value="{!FF.Date__c}"></apex:outputField> 
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td></td>
+			 		</tr>
+
+			 		<tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputField value="{!FF.Causeof_Death__c}"  ></apex:outputField> 
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputField value="{!FF.Describe_Cause_of_Death__c}"  ></apex:outputField> 
+			 			</td>
+			 		</tr>
+	
+					<tr>
+			 			<td></td>
+			 			<td>
+					 		<apex:outputText value="{!FF.Patient_doc_clinial_assessment__c}" ></apex:outputText>&nbsp;&nbsp;
+			 				<apex:outputField value="{!FF.Clinical_assessment_Date__c}"></apex:outputField> 
+			 			</td>
+			 		</tr>
+			 		<tr height="2px"></tr>
+			 		<tr>
+			 			<td><b>Notice of Progression</b></td>
+			 			<td></td>
+			 		</tr>
+			    	<tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputText value="{!FF.patient_diagnosed_local_progression__c}" ></apex:outputText>&nbsp;&nbsp;
+			 				<apex:outputField value="{!FF.Local_progression_Date__c}"></apex:outputField> 
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputField value="{!FF.Local__c}" ></apex:outputField> 
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputText value="{!FF.patient_diagnosed_distant_progression__c}" ></apex:outputText>&nbsp;&nbsp;
+			 				<apex:outputField value="{!FF.Distant_progression_Date__c}"></apex:outputField> 
+			 			</td>
+			 		</tr>
+			    	<tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputField value="{!FF.Distant__c}" ></apex:outputField> 
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td> 
+			 				<apex:outputField value="{!FF.Recurrence_progression_information__c}" ></apex:outputField> 
+			 			</td>
+			 		</tr>
+			 		<tr height="2px"></tr>
+			 		<tr>
+			 			<td><b>Radiation Therapy</b></td>
+			 			<td></td>
+			 		</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputText value="{!FF.Patient_received_adjuvant_therapy__c}" ></apex:outputText>&nbsp;&nbsp;
+			 				<apex:outputField value="{!FF.Radiation_Therapy_Start_Date__c}"></apex:outputField>&nbsp;&nbsp;
+			 				<apex:outputField value="{!FF.Radiation_Therapy_End_Date__c}"></apex:outputField>
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td></td>
+			 		</tr>
+			 		<tr height="2px"></tr>
+			 		<tr>
+			 			<td><b>Long term Therapy</b></td>
+			 			<td></td>
+			 		</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputText value="{!FF.Long_Term_Therapy_for_primary_Trial__c }" ></apex:outputText>
+			 			</td>
+			 		</tr>
+			 		<tr>
+				 		<td></td>
+			 			<td></td>
+			 		</tr>
+			 		<tr height="2px"></tr>
+			 		<tr>
+				 		<td><b>Menopausal Status</b></td>
+			 			<td></td>
+			 		</tr>
+			 		<tr>
+				 		<td></td>
+			 			<td></td>
+			 		</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputText value="{!FF.Date_of_Last_Menstrual_period_UKData__c}"></apex:outputText>
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputText value="{!FF.On_Estrogen_Replacement__c}"></apex:outputText>
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputText value="{!FF.Bilateral_oophorectomy__c}"> </apex:outputText>
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td></td>
+			 			<td>
+			 				<apex:outputText value="{!FF.Hysterectomy__c}"> </apex:outputText>
+			 			</td>
+			 		</tr>
+			 		<tr>
+				 		<td></td>
+			 			<td>
+			 				<apex:outputField value="{!FF.Menopausal_status__c}"> </apex:outputField>
+			 			</td>
+			 		</tr>
+				</table>
+				
+		
+	</apex:form>
+	
+</apex:page>

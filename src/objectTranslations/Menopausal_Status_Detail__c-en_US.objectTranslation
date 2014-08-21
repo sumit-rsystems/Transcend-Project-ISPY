@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Menopausal Status Detail</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Menopausal Status Details</value>
+    </caseValues>
+    <fields>
+        <label><!-- Age --></label>
+        <name>AgeVal__c</name>
+        <picklistValues>
+            <masterLabel>Age &lt; 50</masterLabel>
+            <translation><!-- Age &lt; 50 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Age &gt; 50</masterLabel>
+            <translation><!-- Age &gt; 50 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- ApprovalURL --></label>
+        <name>ApprovalURL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bilateral Oophorectomy Date --></label>
+        <name>Bilateral_Oophorectomy_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bilateral Oophorectomy  Snomed --></label>
+        <name>Bilateral_Oophorectomy_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bilateral oophorectomy --></label>
+        <name>Bilateral_oophorectomy__c</name>
+    </fields>
+    <fields>
+        <label><!-- CRF Id --></label>
+        <name>CRF_Id__c</name>
+        <relationshipLabel><!-- Menopausal Status Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Completed Date --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date of Last Menstrual Period Snomed --></label>
+        <name>Date_of_Last_Menstrual_Period_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date of Last Menstrual Period --></label>
+        <name>Date_of_Last_Menstrual_Period__c</name>
+    </fields>
+    <fields>
+        <label><!-- ECOG Snomed --></label>
+        <name>ECOG_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enstrogent Replacement Duration Months should be in the range of 1-12. --></help>
+        <label><!-- Enstrogent Replacement Duration Months --></label>
+        <name>Enstrogent_Replacement_Duration_Months__c</name>
+    </fields>
+    <fields>
+        <help><!-- Please provide Enstrogent Replacement Duration Years in YYYY format. --></help>
+        <label><!-- Enstrogent Replacement Duration Years --></label>
+        <name>Enstrogent_Replacement_Duration_Years__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Save and Close --></label>
+        <name>First_Save_and_Close__c</name>
+    </fields>
+    <fields>
+        <label><!-- Follow Up Detail --></label>
+        <name>Follow_Up_Detail__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hysterectomy Date --></label>
+        <name>Hysterectomy_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hysterectomy Snomed --></label>
+        <name>Hysterectomy_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hysterectomy --></label>
+        <name>Hysterectomy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Menstrual Day --></label>
+        <name>Last_Menstrual_Day__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Menstrual Month --></label>
+        <name>Last_Menstrual_Month__c</name>
+    </fields>
+    <fields>
+        <help><!-- Please provide Last Menstrual Year in YYYY format --></help>
+        <label><!-- Last Menstrual Year --></label>
+        <name>Last_Menstrual_Year__c</name>
+    </fields>
+    <fields>
+        <label><!-- MenoStatus_OS Snomed --></label>
+        <name>MenoStatus_OS_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Menopausal Status Val Snomed --></label>
+        <name>Menopausal_Status_Val_Snomed__c</name>
+    </fields>
+    <fields>
+        <help><!-- Menopausal Status depends on &quot;Age&quot;. --></help>
+        <label><!-- Menopausal Status --></label>
+        <name>Menopausal_Status__c</name>
+        <picklistValues>
+            <masterLabel>Above categories not applicable AND Age &lt; 50</masterLabel>
+            <translation><!-- Above categories not applicable AND Age &lt; 50 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Above categories not applicable AND Age &gt; 50</masterLabel>
+            <translation><!-- Above categories not applicable AND Age &gt; 50 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Perimenopausal(6-12 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement)</masterLabel>
+            <translation><!-- Perimenopausal(6-12 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Postmenopausal (prior bilateral ovariectomy OR &gt; 12 months since LMP with no prior hysterectomy)</masterLabel>
+            <translation><!-- Postmenopausal (prior bilateral ovariectomy OR &gt; 12 months since LMP with no prior hysterectomy) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Premenopausal(&lt;6 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement)</masterLabel>
+            <translation><!-- Premenopausal(&lt;6 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement) --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- On Estrogen Replacement Snomed --></label>
+        <name>On_Estrogen_Replacement_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- On Estrogen Replacement --></label>
+        <name>On_Estrogen_Replacement__c</name>
+    </fields>
+    <fields>
+        <label><!-- OriginalCRF --></label>
+        <name>OriginalCRF__c</name>
+        <relationshipLabel><!-- Menopausal Status Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Patient --></label>
+        <name>Patient__c</name>
+        <relationshipLabel><!-- Menopausal Status Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Patient age --></label>
+        <name>Patient_age__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Follow-up</masterLabel>
+            <translation><!-- Follow-up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening</masterLabel>
+            <translation><!-- Screening --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment</masterLabel>
+            <translation><!-- Treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- RPMA Her2 0= Negative Snomed --></label>
+        <name>RPMA_Her2_0_Negative_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- RPMA Her2 1= Positive Snomed --></label>
+        <name>RPMA_Her2_1_Positive_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- RPMA Her2 2= not done Snomed --></label>
+        <name>RPMA_Her2_2_not_done_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- RPMA Her2 Snomed --></label>
+        <name>RPMA_Her2_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Root CRF Id --></label>
+        <name>Root_CRF_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Not Required</masterLabel>
+            <translation><!-- Approval Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Pending</masterLabel>
+            <translation><!-- Approval Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cloned</masterLabel>
+            <translation><!-- Cloned --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Submitter --></label>
+        <name>Submitter__c</name>
+        <relationshipLabel><!-- Menopausal Status Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- Menopausal CRF --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Unknown Date Snomed --></label>
+        <name>Unknown_Date_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unknown Date --></label>
+        <name>Unknown_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unknown Date but &gt;12 Months Ago --></label>
+        <name>Unknown_Date_but_12_Months_Ago__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_MenopausalStatus_Id --></label>
+        <name>pg_MenopausalStatus_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_status --></label>
+        <name>pg_status__c</name>
+    </fields>
+    <layouts>
+        <layout>Adhoc</layout>
+        <sections>
+            <label><!-- Comments --></label>
+            <section>Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Menopausal Status --></label>
+            <section>Menopausal Status</section>
+        </sections>
+        <sections>
+            <label><!-- Menopausal Status Detail Edit --></label>
+            <section>Menopausal Status Detail Edit</section>
+        </sections>
+        <sections>
+            <label><!-- Menstrual Details --></label>
+            <section>Menstrual Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Approval Pending</layout>
+        <sections>
+            <label><!-- Comments --></label>
+            <section>Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Menopausal Status --></label>
+            <section>Menopausal Status</section>
+        </sections>
+        <sections>
+            <label><!-- Menopausal Status Detail --></label>
+            <section>Menopausal Status Detail</section>
+        </sections>
+        <sections>
+            <label><!-- Menstrual Details --></label>
+            <section>Menstrual Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Menopausal Status Detail Layout</layout>
+        <sections>
+            <label><!-- Comments --></label>
+            <section>Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Menopausal Status --></label>
+            <section>Menopausal Status</section>
+        </sections>
+        <sections>
+            <label><!-- Menopausal Status Detail Edit --></label>
+            <section>Menopausal Status Detail Edit</section>
+        </sections>
+        <sections>
+            <label><!-- Menstrual Details --></label>
+            <section>Menstrual Details</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Adhoc --></label>
+        <name>Adhoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Bilateral Oophorectomy Date should be less than or equal to current date --></errorMessage>
+        <name>Bilateral_Oopherectomy_LT_Today</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please Provide Bilateral Oophorectomy Date --></errorMessage>
+        <name>Bilateral_oophorectomy</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please Check  Bilateral oophorectomy or remove  Bilateral_oophorectomy Date --></errorMessage>
+        <name>Bilateral_oophorectomy_Date</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Enstrogent Replacement Duration Months should be less than 12. --></errorMessage>
+        <name>Enstrogent_Replacement_Months_Validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please provide Hysterectomy Date --></errorMessage>
+        <name>Hysterectomy</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please Check Hysterectomy or remove Hysterectomy Date --></errorMessage>
+        <name>Hysterectomy_Date</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Hysterectomy Date should be less than or equal to current date --></errorMessage>
+        <name>Hysterectomy_Date_LT_Today</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please uncheck &quot;Unknown Date&quot; and &quot;Unknown Date but 12 Months Ago&quot; Or remove Last Menstrual Period. --></errorMessage>
+        <name>LMP_date</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Specified attribute is not between the expected values of 1 and 31 --></errorMessage>
+        <name>Last_Menstrual_Day_1_to_31</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Specified attribute is not between the expected values of 1 and 12. --></errorMessage>
+        <name>Last_Menstrual_Month_between_1_and_12</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Value is less than allowable minimum of &apos;1,000&apos; --></errorMessage>
+        <name>Last_Menstrual_Year_greater_than_1000</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Last Menstrual Year should be less than current year. --></errorMessage>
+        <name>Last_Menstrual_Year_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select value. --></errorMessage>
+        <name>Menopausal_Status_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Date of last menstrual period should be less than or equal to the current date. --></errorMessage>
+        <name>Menstrual_Period_Date_GT_Today</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please provide Enstrogent Replacement Duration --></errorMessage>
+        <name>On_Estrogen_Replacement_Val</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please Provide Enstrogent Replacement Duration Month and Year. --></errorMessage>
+        <name>On_estrogen_replacement</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Enstrogent Replacement Duration Years should be less than current year. --></errorMessage>
+        <name>On_estrogen_replacement_Year_Validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please check On Estrogen Replacement. --></errorMessage>
+        <name>On_estrogen_replacement_false</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select either Unknown Date or Unknown Date but &gt; 12 months ago --></errorMessage>
+        <name>Unknown_Date_validation</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Delete --></label>
+        <name>Delete</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Sign_and_Submit --></label>
+        <name>Sign_and_Submit</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Submit --></label>
+        <name>Submit</name>
+    </webLinks>
+</CustomObjectTranslation>

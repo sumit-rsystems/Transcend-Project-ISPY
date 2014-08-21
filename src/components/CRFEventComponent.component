@@ -1,0 +1,30 @@
+<apex:component controller="CRFEventComponentController" allowDML="true">
+<apex:attribute name="rId" description="This is the value for the component." type="String" required="true" assignTo="{!recordId}"/>
+<apex:attribute name="rtId" description="This is the value for the component." type="String" required="true" assignTo="{!rootId}"/>
+<apex:attribute name="objectName" description="This is the value for the component." type="String" required="true" assignTo="{!objectName}"/>
+
+<!--	<script>alert('{!wrapCrfList.size}')</script>-->
+	<apex:repeat value="{!wrapCrfList}" var="crf">
+		<fieldset>
+			<legend><b>{!crf.createdDate}</b></legend>
+			<table>
+				<tr>
+					<td>
+						<apex:outputPanel rendered="{!crf.isSiteUserComment}">
+							<apex:outputLabel value="Entered by Study Coordinator"/>&nbsp;(<apex:outputText value="{!crf.eventOwnerName}" />)
+						</apex:outputPanel>
+						<apex:outputPanel rendered="{!crf.isDccComment}">
+							<apex:outputLabel value="DCC Verdict"/>&nbsp;(<b><apex:outputText value="{!crf.dccVerdict}" /></b>)
+						</apex:outputPanel>
+					</td>
+				</tr>
+				<tr>
+					<td><apex:outputLabel value="Comments:" rendered="{!crf.isCommentShow}"/></td>
+				</tr>
+				<tr>
+					<td><apex:outputText value="{!crf.Comment}" /></td>
+				</tr>
+			</table>
+		</fieldset>
+	</apex:repeat>
+</apex:component>

@@ -1,0 +1,5 @@
+<apex:page controller="MammaPrintNewController">
+	<apex:pageBlock >
+		<apex:pageMessage summary="Patients's Tissue Specimen CRF Is Not Completed." severity="error" strength="3" /><br />
+	</apex:pageBlock>
+</apex:page>

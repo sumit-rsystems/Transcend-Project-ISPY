@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Failed Registration</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Failed Registrations</value>
+    </caseValues>
+    <fields>
+        <label><!-- CRF Id --></label>
+        <name>CRF_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- CRF Name --></label>
+        <name>CRF_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- CaXchangeId --></label>
+        <name>CaXchangeId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Error Code --></label>
+        <name>Error_Code__c</name>
+        <picklistValues>
+            <masterLabel>1000</masterLabel>
+            <translation><!-- 1000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1001</masterLabel>
+            <translation><!-- 1001 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1002</masterLabel>
+            <translation><!-- 1002 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1003</masterLabel>
+            <translation><!-- 1003 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1004</masterLabel>
+            <translation><!-- 1004 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1005</masterLabel>
+            <translation><!-- 1005 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1006</masterLabel>
+            <translation><!-- 1006 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1007</masterLabel>
+            <translation><!-- 1007 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1008</masterLabel>
+            <translation><!-- 1008 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1009</masterLabel>
+            <translation><!-- 1009 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1010</masterLabel>
+            <translation><!-- 1010 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1011</masterLabel>
+            <translation><!-- 1011 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1012</masterLabel>
+            <translation><!-- 1012 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1013</masterLabel>
+            <translation><!-- 1013 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1014</masterLabel>
+            <translation><!-- 1014 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1015</masterLabel>
+            <translation><!-- 1015 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1016</masterLabel>
+            <translation><!-- 1016 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1017</masterLabel>
+            <translation><!-- 1017 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1018</masterLabel>
+            <translation><!-- 1018 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1019</masterLabel>
+            <translation><!-- 1019 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1020</masterLabel>
+            <translation><!-- 1020 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1021</masterLabel>
+            <translation><!-- 1021 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1022</masterLabel>
+            <translation><!-- 1022 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1025</masterLabel>
+            <translation><!-- 1025 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1026</masterLabel>
+            <translation><!-- 1026 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1027</masterLabel>
+            <translation><!-- 1027 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1031</masterLabel>
+            <translation><!-- 1031 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1032</masterLabel>
+            <translation><!-- 1032 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1033</masterLabel>
+            <translation><!-- 1033 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1034</masterLabel>
+            <translation><!-- 1034 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1035</masterLabel>
+            <translation><!-- 1035 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1041</masterLabel>
+            <translation><!-- 1041 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1042</masterLabel>
+            <translation><!-- 1042 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1043</masterLabel>
+            <translation><!-- 1043 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1050</masterLabel>
+            <translation><!-- 1050 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1051</masterLabel>
+            <translation><!-- 1051 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1052</masterLabel>
+            <translation><!-- 1052 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1053</masterLabel>
+            <translation><!-- 1053 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1054</masterLabel>
+            <translation><!-- 1054 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1055</masterLabel>
+            <translation><!-- 1055 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1060</masterLabel>
+            <translation><!-- 1060 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1061</masterLabel>
+            <translation><!-- 1061 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1062</masterLabel>
+            <translation><!-- 1062 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1063</masterLabel>
+            <translation><!-- 1063 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1064</masterLabel>
+            <translation><!-- 1064 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1065</masterLabel>
+            <translation><!-- 1065 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1066</masterLabel>
+            <translation><!-- 1066 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1068</masterLabel>
+            <translation><!-- 1068 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1069</masterLabel>
+            <translation><!-- 1069 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1070</masterLabel>
+            <translation><!-- 1070 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1071</masterLabel>
+            <translation><!-- 1071 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1072</masterLabel>
+            <translation><!-- 1072 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1073</masterLabel>
+            <translation><!-- 1073 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1074</masterLabel>
+            <translation><!-- 1074 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1075</masterLabel>
+            <translation><!-- 1075 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1079</masterLabel>
+            <translation><!-- 1079 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1080</masterLabel>
+            <translation><!-- 1080 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1081</masterLabel>
+            <translation><!-- 1081 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1082</masterLabel>
+            <translation><!-- 1082 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1083</masterLabel>
+            <translation><!-- 1083 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1084</masterLabel>
+            <translation><!-- 1084 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1085</masterLabel>
+            <translation><!-- 1085 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1086</masterLabel>
+            <translation><!-- 1086 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1087</masterLabel>
+            <translation><!-- 1087 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1088</masterLabel>
+            <translation><!-- 1088 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1089</masterLabel>
+            <translation><!-- 1089 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1090</masterLabel>
+            <translation><!-- 1090 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1091</masterLabel>
+            <translation><!-- 1091 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1092</masterLabel>
+            <translation><!-- 1092 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1093</masterLabel>
+            <translation><!-- 1093 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1094</masterLabel>
+            <translation><!-- 1094 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1095</masterLabel>
+            <translation><!-- 1095 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1096</masterLabel>
+            <translation><!-- 1096 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1097</masterLabel>
+            <translation><!-- 1097 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1098</masterLabel>
+            <translation><!-- 1098 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1099</masterLabel>
+            <translation><!-- 1099 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1100</masterLabel>
+            <translation><!-- 1100 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1101</masterLabel>
+            <translation><!-- 1101 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1106</masterLabel>
+            <translation><!-- 1106 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1107</masterLabel>
+            <translation><!-- 1107 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- IsConsent --></label>
+        <name>IsConsent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Error Message --></label>
+        <name>Last_Error_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Run DateTime --></label>
+        <name>Last_Run_DateTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Status --></label>
+        <name>Last_Status__c</name>
+        <picklistValues>
+            <masterLabel>Failure</masterLabel>
+            <translation><!-- Failure --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Success</masterLabel>
+            <translation><!-- Success --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Last Success Message --></label>
+        <name>Last_Success_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRN --></label>
+        <name>MRN__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Retry --></label>
+        <name>Number_of_Retry__c</name>
+    </fields>
+    <fields>
+        <label><!-- Patient --></label>
+        <name>Patient__c</name>
+        <relationshipLabel><!-- Failed Registrations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Auto Retry --></label>
+        <name>Retry__c</name>
+    </fields>
+    <fields>
+        <label><!-- ReturnId --></label>
+        <name>ReturnId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Site --></label>
+        <name>Site__c</name>
+        <relationshipLabel><!-- Failed Registrations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Study Id --></label>
+        <name>Study_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- System Name --></label>
+        <name>System_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trial --></label>
+        <name>Trial__c</name>
+        <relationshipLabel><!-- Failed Registrations --></relationshipLabel>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

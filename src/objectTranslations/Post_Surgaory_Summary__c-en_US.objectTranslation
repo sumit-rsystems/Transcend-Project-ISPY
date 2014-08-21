@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Post Surgery Summary</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Post Surgery Summaries</value>
+    </caseValues>
+    <fields>
+        <label><!-- ApprovalURL --></label>
+        <name>ApprovalURL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Are Calcifications Present? --></label>
+        <name>Are_Calcifications_Present__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- CRF --></label>
+        <name>CRF__c</name>
+        <relationshipLabel><!-- Post Surgery Summaries --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Calcification Details --></label>
+        <name>Calcification_Details__c</name>
+        <picklistValues>
+            <masterLabel>Benign</masterLabel>
+            <translation><!-- Benign --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DCIS</masterLabel>
+            <translation><!-- DCIS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Invasive</masterLabel>
+            <translation><!-- Invasive --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- CompletedDate --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date Of Procedure --></label>
+        <name>Date_Of_Procedure__c</name>
+    </fields>
+    <fields>
+        <label><!-- Diameter of largest met --></label>
+        <name>Diameter_of_largest_met__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Save and Close --></label>
+        <name>First_Save_and_Close__c</name>
+    </fields>
+    <fields>
+        <label><!-- Gross Changes Measurement Unit --></label>
+        <name>Gross_Changes_Measurement_Unit__c</name>
+        <picklistValues>
+            <masterLabel>CM</masterLabel>
+            <translation><!-- CM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MM</masterLabel>
+            <translation><!-- MM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Gross Mass Measurement Unit --></label>
+        <name>Gross_Mass_Measurement_Unit__c</name>
+        <picklistValues>
+            <masterLabel>CM</masterLabel>
+            <translation><!-- CM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MM</masterLabel>
+            <translation><!-- MM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- If in situ disease present, is it at the true margin? --></help>
+        <label><!-- In Situ Disease At True Margin? --></label>
+        <name>In_Situ_Disease_At_True_Margin__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- In Situ disease in any of the separately submitted margins? --></help>
+        <label><!-- In Situ Disease Present? --></label>
+        <name>In_Situ_Disease_Present__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- If invasive CA is present, is it at the true margin? --></help>
+        <label><!-- Invasive CA at true margin? --></label>
+        <name>Invasive_CA_at_true_margin__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Invasive CA in any of the separately submitted margins? --></help>
+        <label><!-- Invasive CA Present? --></label>
+        <name>Invasive_CA_present__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Is DCIS Present? --></label>
+        <name>Is_DCIS_Present__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Is LCIS Present? --></label>
+        <name>Is_LCIS_Present__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Is invasive tumor present? --></label>
+        <name>Is_invasive_tumor_present__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Largest Gross Mass Measurement Unit --></label>
+        <name>Largest_Gross_Mass_Measurement_Unit__c</name>
+        <picklistValues>
+            <masterLabel>CM</masterLabel>
+            <translation><!-- CM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MM</masterLabel>
+            <translation><!-- MM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Lymph node dissection done? --></label>
+        <name>Lymph_node_dissection_done__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Number of lymph nodes positive --></label>
+        <name>Number_of_lymph_nodes_positive__c</name>
+    </fields>
+    <fields>
+        <label><!-- OriginalCRF --></label>
+        <name>OriginalCRF__c</name>
+        <relationshipLabel><!-- Post Surgery Summaries --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Other Change --></label>
+        <name>Other_Change__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Changes Present? --></label>
+        <name>Other_Changes_Present__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Other Changes --></label>
+        <name>Other_Changes__c</name>
+        <picklistValues>
+            <masterLabel>Fibroadenoma</masterLabel>
+            <translation><!-- Fibroadenoma --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Papilloma</masterLabel>
+            <translation><!-- Papilloma --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Radial scar</masterLabel>
+            <translation><!-- Radial scar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sclerosing adenosis</masterLabel>
+            <translation><!-- Sclerosing adenosis --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Follow-up</masterLabel>
+            <translation><!-- Follow-up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening</masterLabel>
+            <translation><!-- Screening --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment</masterLabel>
+            <translation><!-- Treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Primary Tumor Bed Area --></label>
+        <name>Primary_Tumor_Bed_Area__c</name>
+    </fields>
+    <fields>
+        <label><!-- RCB Class --></label>
+        <name>RCB_Class__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overall Center Cellularity --></label>
+        <name>RCB_Overall_Center_Cellularity__c</name>
+    </fields>
+    <fields>
+        <label><!-- RCB index --></label>
+        <name>RCB_index__c</name>
+    </fields>
+    <fields>
+        <label><!-- Root CRF Id --></label>
+        <name>Root_CRF_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Size of Gross Mass Height --></label>
+        <name>Size_of_Gross_Mass_Height__c</name>
+    </fields>
+    <fields>
+        <label><!-- Size of Gross Mass Width --></label>
+        <name>Size_of_Gross_Mass_Width__c</name>
+    </fields>
+    <fields>
+        <label><!-- Size of Largest Gross Mass Height --></label>
+        <name>Size_of_Largest_Gross_Mass_Height__c</name>
+    </fields>
+    <fields>
+        <label><!-- Size of Largest Gross Mass Width --></label>
+        <name>Size_of_Largest_Gross_Mass_Width__c</name>
+    </fields>
+    <fields>
+        <label><!-- Span of gross changes height --></label>
+        <name>Span_of_gross_changes_height__c</name>
+    </fields>
+    <fields>
+        <label><!-- Span of gross changes width --></label>
+        <name>Span_of_gross_changes_width__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Not Required</masterLabel>
+            <translation><!-- Approval Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Pending</masterLabel>
+            <translation><!-- Approval Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cloned</masterLabel>
+            <translation><!-- Cloned --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Submitter --></label>
+        <name>Submitter__c</name>
+        <relationshipLabel><!-- Post Surgery Summaries --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Surgeon Other --></label>
+        <name>Surgeon_Other__c</name>
+    </fields>
+    <fields>
+        <label><!-- Surgeon --></label>
+        <name>Surgeon__c</name>
+        <relationshipLabel><!-- Post Surgery Summaries --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- TestHarnessId --></label>
+        <name>TestHarnessId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Examined Nodes --></label>
+        <name>Total_Examined_Nodes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Positive Nodes --></label>
+        <name>Total_Positive_Nodes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Span Measurement Unit --></label>
+        <name>Total_Span_Measurement_Unit__c</name>
+        <picklistValues>
+            <masterLabel>CM</masterLabel>
+            <translation><!-- CM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MM</masterLabel>
+            <translation><!-- MM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Total span of multifocal gross masses height --></help>
+        <label><!-- Total span multifocal gross mass height --></label>
+        <name>Total_span_multifocal_gross_mass_height__c</name>
+    </fields>
+    <fields>
+        <help><!-- Total span of multifocal gross masses width --></help>
+        <label><!-- Total span multifocal gross mass width --></label>
+        <name>Total_span_multifocal_gross_mass_width__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trial Patient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- Post Surgery Summaries --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Tumor Present --></label>
+        <name>Tumor_Present__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type Of Tumor --></label>
+        <name>Type_Of_Tumor__c</name>
+        <picklistValues>
+            <masterLabel>Gross Stromal Alterations/Fibrosis</masterLabel>
+            <translation><!-- Gross Stromal Alterations/Fibrosis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Multifocal Discrete Masses</masterLabel>
+            <translation><!-- Multifocal Discrete Masses --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>None Present</masterLabel>
+            <translation><!-- None Present --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Single Discrete Mass</masterLabel>
+            <translation><!-- Single Discrete Mass --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Check if patient has a pathologic complete response --></help>
+        <label><!-- pcr? --></label>
+        <name>pcr__c</name>
+    </fields>
+    <fields>
+        <label><!-- percentage of CA in Situ Disease --></label>
+        <name>percentage_of_CA_in_Situ_Disease__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_PostSurgerysummary_Id --></label>
+        <name>pg_PostSurgerysummary_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- separately submitted margins --></label>
+        <name>separately_submitted_margins__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Adhoc</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Histology --></label>
+            <section>Histology</section>
+        </sections>
+        <sections>
+            <label><!-- Lymph Nodes --></label>
+            <section>Lymph Nodes</section>
+        </sections>
+        <sections>
+            <label><!-- Margins --></label>
+            <section>Margins</section>
+        </sections>
+        <sections>
+            <label><!-- RCB --></label>
+            <section>RCB</section>
+        </sections>
+        <sections>
+            <label><!-- Receptors --></label>
+            <section>Receptors</section>
+        </sections>
+        <sections>
+            <label><!-- Specimens --></label>
+            <section>Specimens</section>
+        </sections>
+        <sections>
+            <label><!-- procedure --></label>
+            <section>procedure</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Approval Pending</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Histology --></label>
+            <section>Histology</section>
+        </sections>
+        <sections>
+            <label><!-- Lymph Nodes --></label>
+            <section>Lymph Nodes</section>
+        </sections>
+        <sections>
+            <label><!-- Margins --></label>
+            <section>Margins</section>
+        </sections>
+        <sections>
+            <label><!-- RCB --></label>
+            <section>RCB</section>
+        </sections>
+        <sections>
+            <label><!-- Receptors --></label>
+            <section>Receptors</section>
+        </sections>
+        <sections>
+            <label><!-- Specimens --></label>
+            <section>Specimens</section>
+        </sections>
+        <sections>
+            <label><!-- procedure --></label>
+            <section>procedure</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Live</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Histology --></label>
+            <section>Histology</section>
+        </sections>
+        <sections>
+            <label><!-- Lymph Nodes --></label>
+            <section>Lymph Nodes</section>
+        </sections>
+        <sections>
+            <label><!-- Margins --></label>
+            <section>Margins</section>
+        </sections>
+        <sections>
+            <label><!-- RCB --></label>
+            <section>RCB</section>
+        </sections>
+        <sections>
+            <label><!-- Receptors --></label>
+            <section>Receptors</section>
+        </sections>
+        <sections>
+            <label><!-- Specimens --></label>
+            <section>Specimens</section>
+        </sections>
+        <sections>
+            <label><!-- procedure --></label>
+            <section>procedure</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- AdHoc --></label>
+        <name>AdHoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Date_Of_Procedure_date_validation</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Cancel --></label>
+        <name>Cancel</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Complete --></label>
+        <name>Complete</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- SignAndSubmit --></label>
+        <name>SignAndSubmit</name>
+    </webLinks>
+</CustomObjectTranslation>

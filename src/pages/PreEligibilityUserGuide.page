@@ -1,0 +1,24 @@
+<apex:page sidebar="false" showheader="false">
+	<div align="center"><h3>How to complete Pre-Eligibility Checklists form?</h3></div>
+	<hr /> 
+		<p>All patients approached to participate in the I-SPY 2 TRIAL should have a Pre-Eligibility Checklist completed, even if a patient does not sign a Screening Consent Form (this CRF is also used to track patients who decline the Screening Consent or do not meet all of the pre-eligibility criteria).
+		</p> 
+		<p style="color:red;"><i>NOTE: a patient record must be completed before completing this CRF, see instructions for how to complete a patient record above.</i></p>
+     	<p>  A patient must meet each listed criteria in order to be eligible to be screened for this trial.  If a patient signs the Screening Consent Form, all information will auto-populate and appear on the On-Study Eligibility CRF. No Source Documentation is attached to this CRF, but instead source documents used to complete this CRF are attached to the On-Study Eligibility CRF.
+       		To open the Pre-Eligibility Checklist, select the patient from the 'Patient' Tab; select 'Trial' and click 'Submit New' for 'Pre-Eligibility Checklist.'
+	 	</p>
+	<div align="center"><apex:image url="{!URLFOR($Resource.PreEligibilityImages, 'PreEligibilityImage1.png')}" width="100%" height="100%"/> </div>
+	<ul>
+		<li>Check the checkbox next to each eligibility item that the patient meets; if the patient doesn't meet a criteria requirement, leave the checkbox unchecked.  The Pre-Eligibility checklist criteria are listed in section 4.1.1 of the I-SPY 2 Protocol.</li>
+		<li>Select the ECOG score from the drop down list.</li>
+		<li>Only patients who meet all of the protocol criteria will be eligible to be screened for this study, and this checkbox on the CRF is automatically answered based on selections made above.  If a patient doesn't meet all the criteria listed, then the patient will be considered a screen fail patient and will not be allowed to continue on the study.</li>
+		<li>Answer whether the patient signed the screening consent or not.  If the patient declined to sign the consent form, choose the best reason the patient provided you from the list provided.</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+	<div align="center"><apex:image url="{!URLFOR($Resource.PreEligibilityImages, 'preEligibiltyImage2.png')}" width="100%" height="100%"/> </div>	
+	<ul>
+		<li>Review that the information on the Complete screen is correct. If any of the information is not correct, select 'Previous' to go back to the screen to update the incorrect information. If the information on the Complete screen is correct, enter your password and select 'Sign and Submit.'</li>
+		<li>Once the Pre-Eligibility Checklist is completed (Signed and Submitted), it will appear on the patient's CRF Screen as completed, 'Approval Not Required.' </li>
+	</ul>
+	<p>The Pre-Eligibility Checklist is pulled forward to the On-Study Eligibility form for those patients who sign an I-SPY 2 Screening Consent.  Source documentation used for this checklist is to be attached to the On- Study Eligibility form.</p>
+</apex:page>

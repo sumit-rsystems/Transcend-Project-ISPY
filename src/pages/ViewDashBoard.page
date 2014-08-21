@@ -1,0 +1,12 @@
+<apex:page Controller="ViewDashBoard">
+    <apex:form >
+     <apex:pageBlock title="Dashboard">
+             <apex:pageBlockTable value="{!dashboards}" var="dsh">
+                  <apex:column >
+                 <apex:outputLink value="/apex/dashboard2?Id={!dsh.Id}">{!dsh.name}</apex:outputLink>
+                 </apex:column>
+              </apex:pageBlockTable>
+           
+          </apex:pageBlock>
+         </apex:form> 
+</apex:page>

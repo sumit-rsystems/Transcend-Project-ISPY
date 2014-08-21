@@ -1,0 +1,80 @@
+<apex:page controller="TrialSummaryReportNew" sidebar="false" tabStyle="Summary_Report__tab">
+<style>
+	.odd{
+		background-color: #ECECFF;
+	}
+	
+	.siteTableFooter{
+		font-weight: bold;
+		border-top: 1px solid #000;
+		border-bottom: 1px solid #000;
+	}
+	
+	.siteTableHeader{
+		border-bottom: 1px solid #000;
+	}
+</style>
+	<apex:form id="formId">
+		<apex:outputPanel id="reportDiv" layout="block" style="font-family :Arial,sans-serif;">
+			<table style="border: 2px black solid; height: 110; width: 100%">
+		        <tr>
+		            <td style="width: 150px;">
+		                <apex:image id="theImage" value="{!$Resource.Logo}" width="150" height="100"/>
+		            </td>
+		            <td valign="top">
+		                <table width="100%" height="108px;">
+		                    <tr>
+		                        <td style="font-size: 20px; font-family: Arial;">
+		                            <center><b>Trial Summary Report</b></center>
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                        <td >
+		                            <table>
+		                                <tr>
+		                                    <td style="font-size: 17px; font-family: Arial;">
+		                                        <b>Study: </b>
+		                                    </td>
+		                                    <td style="font-size: 14px; font-family: Arial;">
+		                                        {!trial.Name} 
+		                                    </td>
+		                                </tr> 
+		                                <tr> 
+		                                    <td style="font-size: 17px; font-family: Arial;">    
+		                                        <b>As of:</b>
+		                                    </td>
+		                                    <td>
+		                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 14px; font-family: Arial;">
+		                                            <apex:param value="{!asOfDate}" />
+		                                        </apex:outputText>&nbsp;
+		                                    </td>
+		                                </tr> 
+		                            </table>
+		                        </td>
+		                    </tr>
+		                </table>
+		            </td>
+		        </tr>
+		    </table>
+		    <br/> 
+		    <table width="100%">
+		    	<tr>
+		    		<td align="right">
+		    			<b><apex:commandLink action="{!redirectNewPage}" value="PDF" target="_blank" style="color : blue;">
+		    				<apex:param value="PDF" name="format"/>
+		    			</apex:commandLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+		    			<apex:commandLink action="{!redirectNewPage}" value="HTML" target="_blank" style="color : blue;">
+		    				<apex:param value="HTML" name="format"/>
+		    			</apex:commandLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+		    			<apex:commandLink action="{!redirectNewPage}" value="CSV" style="color : blue;">
+		    				<apex:param value="CSV" name="format"/>
+		    			</apex:commandLink></b> 
+		    		</td>
+		    	</tr>
+		    </table>
+		    <div style="width: 100%; background-color: #D3D3D3; padding-left: 5px; font-size: 16px; "><b>STUDY ACCRUAL SUMMARY</b></div>
+		   	<div style="padding-top: 10px;">
+		    </div>
+		</apex:outputPanel>
+	</apex:form>
+</apex:page>

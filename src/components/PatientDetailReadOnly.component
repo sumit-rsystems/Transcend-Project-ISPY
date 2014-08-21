@@ -1,0 +1,136 @@
+<apex:component controller="patientReadOnlyController">
+<div id = "content_area" style="margin-top: 10px;">
+
+	<apex:attribute assignTo="{!patientIdAttribute}" name="patientId" type="string" description="takes patient Id" />
+	
+	<apex:tabPanel switchType="client" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;" rendered="{!IF(AND($Profile.Name != 'Lab User', $Profile.Name != 'DCC User'), true, false)}">
+ 		<apex:tab label="Personal Info" name="PersonalInfo" id="PersonalInfoTab" >
+          	<apex:pageBlock tabStyle="Account" >
+          		<apex:pageBlockSection >
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="First Name:"/>
+          				<apex:outputText value="{!patientObj.First_Name__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Middle Name:"/>
+          				<apex:outputText value="{!patientObj.Middle_Name__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Last Name:"/>
+          				<apex:outputText value="{!patientObj.Last_Name__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Suffix:"/>
+          				<apex:outputText value="{!patientObj.Suffix__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Gender:"/>
+          				<apex:outputText value="{!patientObj.Gender__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Birthdate:"/>
+          				<apex:outputField value="{!patientObj.Birthdate__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Age:"/>
+          				<apex:outputField value="{!patientObj.Age__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Institution:"/>
+          				<apex:outputField value="{!patientObj.Institute_Text__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Owner:"/>
+          				<apex:outputText value="{!patientObj.Owner.Name}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Subject Id:"/>
+          				<apex:outputText value="{!subjectId}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Race:"/>
+          				<apex:outputField value="{!patientObj.Race__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Ethnicity:"/>
+          				<apex:outputField value="{!patientObj.Ethnicity__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Medical Record Number:"/>
+          				<apex:outputField value="{!patientObj.Medical_Record_Number__c}" />
+          			</apex:pageBlockSectionItem>
+          		</apex:pageBlockSection>
+          	</apex:pageBlock>
+    	</apex:tab>
+    	 <apex:tab label="Address" name="Address" id="AddressTab">
+ 			<apex:pageBlock tabStyle="Account" >
+          		<apex:pageBlockSection >
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Address Line 1:"/>
+          				<apex:outputField value="{!patientObj.Address_Line_1__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Address Line 2:"/>
+          				<apex:outputField value="{!patientObj.Address_Line_2__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="City:"/>
+          				<apex:outputField value="{!patientObj.City__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="State:"/>
+          				<apex:outputField value="{!patientObj.State__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Country:"/>
+          				<apex:outputField value="{!patientObj.Country__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Zip:"/>
+          				<apex:outputField value="{!patientObj.Zip__c}" />
+          			</apex:pageBlockSectionItem>
+          			
+          		</apex:pageBlockSection>
+          	</apex:pageBlock>
+         </apex:tab>
+         <apex:tab label="Physicians" name="Physicians" id="PhysiciansTab">
+         	<apex:pageBlock tabStyle="Account">
+          		<apex:pageBlockSection >
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Primary MD:"/>
+          				<apex:outputText value="{!patientObj.Primary_MD__r.Name}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Created By:"/>
+          				<apex:outputText value="{!patientObj.CreatedBy.Name}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Surgeon:"/>
+          				<apex:outputText value="{!patientObj.Surgeon__r.Name}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Last Modified By:"/>
+          				<apex:outputText value="{!patientObj.LastModifiedBy.Name}" />
+          			</apex:pageBlockSectionItem>
+          		</apex:pageBlockSection>
+          	</apex:pageBlock>
+         </apex:tab>
+	</apex:tabPanel>
+	<apex:tabPanel switchType="client" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;" rendered="{!IF(OR($Profile.Name = 'Lab User', $Profile.Name = 'DCC User'), true, false)}">
+ 		<apex:tab label="Personal Info" name="PersonalInfo" >
+          	<apex:pageBlock tabStyle="Account" >
+          		<apex:pageBlockSection >
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Institution:"/>
+          				<apex:outputField value="{!patientObj.Institute_Text__c}" />
+          			</apex:pageBlockSectionItem>
+          			<apex:pageBlockSectionItem >
+          				<apex:outputLabel value="Subject Id:"/>
+          				<apex:outputText value="{!subjectId}" />
+          			</apex:pageBlockSectionItem>
+          		</apex:pageBlockSection>
+          	</apex:pageBlock>
+    	</apex:tab>
+	</apex:tabPanel>
+</div>
+</apex:component>

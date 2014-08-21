@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Invasive Tumor Detail</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Invasive Tumor Details</value>
+    </caseValues>
+    <fields>
+        <label><!-- Anterior/Inferior Size --></label>
+        <name>Anterior_Inferior_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Anterior/Inferior --></label>
+        <name>Anterior_Inferior__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Anterior/Superior Size --></label>
+        <name>Anterior_Superior_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Anterior/Superior --></label>
+        <name>Anterior_Superior__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Anterios/Superior Size --></label>
+        <name>Anterios_Superior_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Calcifications Present --></label>
+        <name>Calcifications_Present__c</name>
+        <picklistValues>
+            <masterLabel>Benign</masterLabel>
+            <translation><!-- Benign --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Invasive</masterLabel>
+            <translation><!-- Invasive --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Invasive &amp; Benign</masterLabel>
+            <translation><!-- Invasive &amp; Benign --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Calcifications --></label>
+        <name>Calcifications__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Closest Margin --></label>
+        <name>Closest_Margin__c</name>
+        <picklistValues>
+            <masterLabel>&lt;1mm</masterLabel>
+            <translation><!-- &lt;1mm --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt;1cm</masterLabel>
+            <translation><!-- &gt;1cm --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not reported</masterLabel>
+            <translation><!-- Not reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Specifiy</masterLabel>
+            <translation><!-- Specifiy --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Deep Margin Size --></label>
+        <name>Deep_Margin_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deep Margin --></label>
+        <name>Deep_Margin__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Derma lymphatic vascular invasion --></label>
+        <name>Derma_lymphatic_vascular_invasion__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dermal Involvement --></label>
+        <name>Dermal_Involvement__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No skin / nipple present</masterLabel>
+            <translation><!-- No skin / nipple present --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not reported</masterLabel>
+            <translation><!-- Not reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Suspicious</masterLabel>
+            <translation><!-- Suspicious --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Evidence of therapeutic effects --></label>
+        <name>Evidence_of_therapeutic_effects__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Histology --></label>
+        <name>Histology__c</name>
+        <relationshipLabel><!-- Invasive Tumor Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Invasive carcinoma mixed ductal and lobular type --></help>
+        <label><!-- Invasive carcinoma mixed ductal &amp; lobula --></label>
+        <name>Invasive_carcinoma_mixed_ductal_lobular__c</name>
+    </fields>
+    <fields>
+        <label><!-- Invasive cribiform carcinoma --></label>
+        <name>Invasive_cribiform_carcinoma__c</name>
+    </fields>
+    <fields>
+        <label><!-- Invasive ductal carcinoma nos --></label>
+        <name>Invasive_ductal_carcinoma_nos__c</name>
+    </fields>
+    <fields>
+        <label><!-- Invasive lobular carcinoma alveolar type --></label>
+        <name>Invasive_lobular_carcinoma_alveolar_type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Invasive lobular carcinoma classic type --></label>
+        <name>Invasive_lobular_carcinoma_classic_type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Invasive margins --></label>
+        <name>Invasive_margins__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Invasive margins size --></label>
+        <name>Invasive_margins_size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Invasive papillary carcinoma --></label>
+        <name>Invasive_papillary_carcinoma__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lateral Size --></label>
+        <name>Lateral_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lateral --></label>
+        <name>Lateral__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Lympatic-vascular Invasion --></label>
+        <name>Lympatic_vascular_Invasion__c</name>
+        <picklistValues>
+            <masterLabel>None</masterLabel>
+            <translation><!-- None --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not reported</masterLabel>
+            <translation><!-- Not reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Present</masterLabel>
+            <translation><!-- Present --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Medical Size --></label>
+        <name>Medical_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Medical --></label>
+        <name>Medical__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Medullary carcinoma --></label>
+        <name>Medullary_carcinoma__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mitotic Count --></label>
+        <name>Mitotic_Count__c</name>
+        <picklistValues>
+            <masterLabel>1pt</masterLabel>
+            <translation><!-- 1pt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2pt</masterLabel>
+            <translation><!-- 2pt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3pt</masterLabel>
+            <translation><!-- 3pt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Indeterminate</masterLabel>
+            <translation><!-- Indeterminate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not reported</masterLabel>
+            <translation><!-- Not reported --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Mucinous carcinoma --></label>
+        <name>Mucinous_carcinoma__c</name>
+    </fields>
+    <fields>
+        <label><!-- Multi-focal Tumor --></label>
+        <name>Multi_focal_Tumor__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not reported</masterLabel>
+            <translation><!-- Not reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Muscle involvement --></label>
+        <name>Muscle_involvement__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not reported</masterLabel>
+            <translation><!-- Not reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Nuclear Grade --></label>
+        <name>Nuclear_Grade__c</name>
+        <picklistValues>
+            <masterLabel>Grade I (low)</masterLabel>
+            <translation><!-- Grade I (low) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Grade II (Intermediate)</masterLabel>
+            <translation><!-- Grade II (Intermediate) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Grade III (high)</masterLabel>
+            <translation><!-- Grade III (high) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Indeterminate</masterLabel>
+            <translation><!-- Indeterminate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not reported</masterLabel>
+            <translation><!-- Not reported --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- On-Study Pathology Form --></label>
+        <name>On_Study_Pathology_Form__c</name>
+        <relationshipLabel><!-- Invasive Tumor Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Other --></label>
+        <name>Other__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other changes present --></label>
+        <name>Other_changes_present__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Other(if other, mention type in textbox) --></label>
+        <name>Other_if_other_mention_type_in_textbox__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overall cancer cellularity --></label>
+        <name>Overall_cancer_cellularity__c</name>
+    </fields>
+    <fields>
+        <label><!-- Paget disease --></label>
+        <name>Paget_disease__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pleomorphic lobular carcinoma --></label>
+        <name>Pleomorphic_lobular_carcinoma__c</name>
+    </fields>
+    <fields>
+        <label><!-- Post Surgery Summary --></label>
+        <name>Post_Surgery_Summary__c</name>
+        <relationshipLabel><!-- Invasive Tumor Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- SBR Grade --></label>
+        <name>SBR_Grade__c</name>
+    </fields>
+    <fields>
+        <label><!-- Signs of Treatment Effect --></label>
+        <name>Signs_of_Treatment_Effect__c</name>
+    </fields>
+    <fields>
+        <label><!-- Skin Involvement --></label>
+        <name>Skin_Involvement__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No skin / nipple present</masterLabel>
+            <translation><!-- No skin / nipple present --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not reported</masterLabel>
+            <translation><!-- Not reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Suspicious</masterLabel>
+            <translation><!-- Suspicious --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Specify No --></label>
+        <name>Specify_No__c</name>
+    </fields>
+    <fields>
+        <label><!-- Specify Units --></label>
+        <name>Specify_Units__c</name>
+        <picklistValues>
+            <masterLabel>CM</masterLabel>
+            <translation><!-- CM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MM</masterLabel>
+            <translation><!-- MM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Total Points --></label>
+        <name>Total_Points__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tubular carcinoma --></label>
+        <name>Tubular_carcinoma__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tubule/Papilla formation --></label>
+        <name>Tubule_Papilla_formation__c</name>
+        <picklistValues>
+            <masterLabel>1pt</masterLabel>
+            <translation><!-- 1pt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2pt</masterLabel>
+            <translation><!-- 2pt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3pt</masterLabel>
+            <translation><!-- 3pt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Indeterminate</masterLabel>
+            <translation><!-- Indeterminate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not reported</masterLabel>
+            <translation><!-- Not reported --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Tubulolobular carcinoma --></label>
+        <name>Tubulolobular_carcinoma__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tumor Measurement Unit --></label>
+        <name>Tumor_Measurement_Unit__c</name>
+        <picklistValues>
+            <masterLabel>CM</masterLabel>
+            <translation><!-- CM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MM</masterLabel>
+            <translation><!-- MM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Tumor Size Height --></label>
+        <name>Tumor_Size_Height__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tumor Size Width --></label>
+        <name>Tumor_Size_Width__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tumor Size --></label>
+        <name>Tumor_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ulceration by tumor --></label>
+        <name>Ulceration_by_tumor__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unknown/Not Reported --></label>
+        <name>Unknown_Not_Reported__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_InvasiveTumor_Id --></label>
+        <name>pg_InvasiveTumor_Id__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

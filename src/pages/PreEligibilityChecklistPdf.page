@@ -1,0 +1,182 @@
+<apex:page renderAs="pdf" standardController="PreEligibility_Checklist__c" extensions="PreEligibilityChecklist"  sidebar="false"  tabStyle="Patient_Custom__c">
+   <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : Pre-Eligibility Checklist" initial="" 
+    instituteName="" subjectId="{!preObj.Patient__c}"></c:CRFPdfHeader>
+    <br/>
+                     
+
+    <div style="background-color:#97C7EC"><b style="margin:10px;color:white">Pre-Eligibility Checklist</b></div>     
+    <table width="100%" style="margin:10px">
+        <tr>
+            <td valign="top" width="7%">
+                <apex:outputField value="{!preObj.Histologically_confirmed_invasive_cancer__c}" />
+            </td>
+             <td valign="top"> 
+                 <apex:outputText value="Patient has histologically confirmed invasive cancer of the female breast as confirmed by core needle, fine needle aspirate, or incisional biopsy* (*Incisional biopsy is allowed if residual tumor after biopsy measures at least 2.5cm), per protocol 4.1.1 A (incisional biopsy is allowed if residual tumor after biopsy measures at least 2.5 cm)" />
+             </td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <apex:outputField value="{!preObj.Clinically_radiologically_measurable__c}" />
+            </td>
+            <td valign="top">
+                <apex:outputText value="Patient has clinically or radiologically measurable disease in breast defined as longest diameter = 2.5cm, per protocol 4.1.1 B" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">    
+                <apex:outputField value="{!preObj.Cytotoxic_Regiments__c}" />
+            </td>
+            <td valign="top"> 
+                <apex:outputText value="Patient has not had prior cytotoxic regimens or other targeted anticancer therapies to the ipsilateral breast for this malignancy, per protocol 4.1.1 C" />
+            </td>
+        </tr>
+        
+        <tr>
+            <td valign="top">
+                <apex:outputField value="{!preObj.X30_Days_Investigational_Agents__c}" />
+            </td>
+            <td valign="top">
+                 <apex:outputText value="Patient has not had other investigational agents within 30 days of study enrollment, per protocol 4.2 A" />
+            </td>
+        </tr>
+        
+        <tr>
+            <td valign="top">
+               <apex:outputField value="{!preObj.Not_had_prior_RT__c}" />
+            </td>
+            <td valign="top">
+                <apex:outputText value="Patient has not had prior RT to the ipsilateral breast for this malignancy, per protocol 4.1.1 C" />
+            </td>
+        </tr>
+       
+       <tr>
+            <td valign="top">
+                  <apex:outputField value="{!preObj.Patient_is_18_years_or_older__c}" />
+            </td>
+            <td valign="top">
+                      <apex:outputText value="Patient is 18 years or older, per protocol 4.1.1 D" />
+            </td>
+        </tr>
+        
+        <tr>
+            <td valign="top">
+                <apex:outputField value="{!preObj.Non_Pregnant_Not_Lactating__c}" />
+            </td>
+            <td valign="top">
+                  <apex:outputText value="Patient is non-pregnant and non-lactating, per protocol 4.1.1 G" />
+            </td>
+        </tr>
+          
+        <tr>
+            <td valign="top">
+                    <apex:outputField value="{!preObj.Ferromegnatic_Prostheses__c}" />
+            </td>
+            <td valign="top">
+                 <apex:outputText value="Patient has no ferromagnetic prostheses that are not compatible with an MRI machine, per protocol 4.1.1 H" />
+            </td>
+        </tr>
+        
+        <tr>
+            <td valign="top">
+                    <apex:outputField value="{!preObj.Patient_is_willing_to_have_core_biospy__c}" />                        
+            </td>
+            <td valign="top">
+                  <apex:outputText value="Patient is willing to have study core biopsy" />
+            </td>
+        </tr>
+        
+         <tr>
+            <td valign="top">
+                  <apex:outputField value="{!preObj.Patient_is_willin_to_have_study_MRI__c}" />
+            </td>
+            <td valign="top">
+                    <apex:outputText value="Patient is willing to have study MRI" />
+            </td>
+        </tr>
+                         
+    </table>
+    <br/>
+   <div style="background-color:#97C7EC"><b style="margin:10px;color:white"> ECOG Score</b></div>
+    <table style="margin-left:10px;">
+        <tr >
+        <td  >
+        <apex:outputText value="ECOG :" />&nbsp;
+        </td >
+        <td >
+        <apex:outputField value="{!preObj.ECOG_Score__c}" />
+        </td>
+        </tr>
+     </table>
+    
+  <br/><br/>
+   <div style="background-color:#97C7EC"><b style="margin:10px;color:white">Patient is eligible to be screened for the study</b></div>
+     <table style="margin-left:10px;">   
+        <tr>
+        <td>
+        <apex:outputText value="Patient is eligible to be screened for the study" />
+        </td>
+        <td>
+        <apex:outputField value="{!preObj.Patient_is_eligible_to_be_screened_for_t__c}" id="imgCompleteId"/> 
+        </td>
+        </tr>
+         
+        <tr>  
+        <td>
+        <apex:outputText value="Did patient sign the I-SPY 2 Screening Consent Form?" />
+        </td>
+        <td>
+        <apex:outputField value="{!preObj.Patient_signed_up_for_I_SPY2_screening__c}" />
+        </td>
+        </tr>
+        
+        <tr>
+        <td>
+        <apex:outputText value="If patient did not sign screening consent, what was the primary reason?" />
+        </td>
+        <td>
+        <apex:outputText value="{!preObj.Reason_for_not_signing_screening_consent__c}" />
+        </td>
+        </tr>
+    </table>
+    <br/>
+     <!--       <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+   </table>
+    <c:CRFPDFFooter crfFormName="PreEligibility Checklists , v1"  />
+</apex:page>-->
+<table > 
+    <tr>
+        <td >
+            <apex:outputLabel style="float:right;font-weight:bold;"  value="CRF Status:" />
+        </td>
+        <td >
+            <apex:outputField value="{!preObj.Status__c}"/>
+        </td>
+    
+   
+    </tr> 
+      </table>
+      <br/>
+      <br/>
+   <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  
+</apex:page>

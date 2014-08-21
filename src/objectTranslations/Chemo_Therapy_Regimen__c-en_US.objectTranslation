@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Chemo Therapy Regimen</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Chemo Therapy Regimens</value>
+    </caseValues>
+    <fields>
+        <label><!-- Administered dose Units --></label>
+        <name>Administered_dose_Units__c</name>
+        <picklistValues>
+            <masterLabel>mg</masterLabel>
+            <translation><!-- mg --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Agent --></label>
+        <name>Agent__c</name>
+        <relationshipLabel><!-- Chemo Therapy Regimens --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Chemo Treatment --></label>
+        <name>Chemo_Treatment__c</name>
+        <relationshipLabel><!-- Chemo Therapy Regimens --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Day# --></label>
+        <name>Day__c</name>
+    </fields>
+    <fields>
+        <label><!-- Did patient stop receiving? --></label>
+        <name>Did_patient_stop_receiving__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dose Delay? --></label>
+        <name>Dose_Delay__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Dose Mod Reason Number --></label>
+        <name>Dose_Mod_Reason_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dose Mod Reason --></label>
+        <name>Dose_Mod_Reason__c</name>
+        <picklistValues>
+            <masterLabel>Dose delayed</masterLabel>
+            <translation><!-- Dose delayed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dose delayed and reduced</masterLabel>
+            <translation><!-- Dose delayed and reduced --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dose held (not given)</masterLabel>
+            <translation><!-- Dose held (not given) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dose reduced</masterLabel>
+            <translation><!-- Dose reduced --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dosing error</masterLabel>
+            <translation><!-- Dosing error --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Drug discontinued early</masterLabel>
+            <translation><!-- Drug discontinued early --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No dose modification</masterLabel>
+            <translation><!-- No dose modification --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Dose Mod --></label>
+        <name>Dose_Mod__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dose modification --></label>
+        <name>Dose_modification__c</name>
+        <picklistValues>
+            <masterLabel>Dose delayed</masterLabel>
+            <translation><!-- Dose delayed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dose delayed and reduced</masterLabel>
+            <translation><!-- Dose delayed and reduced --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dose held (not given)</masterLabel>
+            <translation><!-- Dose held (not given) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dose reduced</masterLabel>
+            <translation><!-- Dose reduced --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dosing error</masterLabel>
+            <translation><!-- Dosing error --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Drug discontinued early</masterLabel>
+            <translation><!-- Drug discontinued early --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No dose modification</masterLabel>
+            <translation><!-- No dose modification --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Agent --></label>
+        <name>Other_Agent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Dose Mod Reason --></label>
+        <name>Other_Dose_Mod_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Reason Patient Stop Receiving --></label>
+        <name>Other_Reason_Patient_Stop_Receiving__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prescribed Dose --></label>
+        <name>Prescribed_Dose__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prescribed dose Units --></label>
+        <name>Prescribed_dose_Units__c</name>
+        <picklistValues>
+            <masterLabel>AUC</masterLabel>
+            <translation><!-- AUC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>mg/kg</masterLabel>
+            <translation><!-- mg/kg --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>mg/m2</masterLabel>
+            <translation><!-- mg/m2 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Reason why patient stopped receiving --></label>
+        <name>Reason_why_patient_stopped_receiving__c</name>
+        <picklistValues>
+            <masterLabel>Due to S/AE</masterLabel>
+            <translation><!-- Due to S/AE --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Due to progression</masterLabel>
+            <translation><!-- Due to progression --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient Preference</masterLabel>
+            <translation><!-- Patient Preference --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Report Request --></label>
+        <name>Report_Request__c</name>
+        <relationshipLabel><!-- Chemo Therapy Regimens --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- To be used in AE Report only. This report uses this object&apos;s rows in GUI, but we need different color for alternate rows. We can use wrapper, but this is lot of work for small thing. So adding this field here and value will be set in AE report class but n --></help>
+        <label><!-- Row Color --></label>
+        <name>Row_Color__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Dose Administered --></label>
+        <name>Total_Dose__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_ChemotherapyRegimens_Id --></label>
+        <name>pg_ChemotherapyRegimens_Id__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,105 @@
+<apex:page StandardController="Chemo_Summary_Form__c" renderAs="pdf" extensions="ChemoSummaryFormController" sideBar="false" id="pageId"  tabStyle="Patient_Custom__c">
+  <apex:form >
+  <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : Chemo Summary Form" initial="" 
+    instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+    
+   <br/><br/> 
+               
+                   
+                    <apex:outputPanel rendered="{!IF(currentTab = 'lastTab',true,false)}">
+                       <c:ChemoSummaryCompletePageComponent regimenName="Taxane" trialPatientId="{!trialPatientId}" id="CompId1" key="regAgent1" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+                    </apex:outputPanel>
+                    <br/>
+                    <apex:outputPanel rendered="{!IF(currentTab = 'lastTab',true,false)}">
+                        <c:ChemoSummaryCompletePageComponent regimenName="Anthracycline" trialPatientId="{!trialPatientId}" id="CompId2" key="regAgent2" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+                    </apex:outputPanel>
+                    <br/>
+                    <apex:outputPanel rendered="{!IF(currentTab = 'lastTab',true,false)}">
+                        <c:ChemoSummaryCompletePageComponent regimenName="Investigational" trialPatientId="{!trialPatientId}" id="CompId3" key="regAgent3" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+                    </apex:outputPanel>
+                    <br/>
+                    <apex:outputPanel rendered="{!IF(currentTab = 'lastTab',true,false)}">
+                        <c:ChemoSummaryCompletePageComponent regimenName="Other" trialPatientId="{!trialPatientId}" id="CompId4" key="regAgent4" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+                    </apex:outputPanel>
+                    
+                    
+   <br/>
+   <br/>
+        
+   <!--   <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+   </table>  
+    <c:CRFPDFFooter crfFormName="Chemo Summary Form , v1"  />             
+                
+  
+   
+</apex:page>-->
+<table   cellpadding="5"> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="CRF Status:" />
+        </td>
+        <td >
+            <apex:outputField value="{!chemoSummary.Status__c}"/>
+        </td>
+    
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"   value="DCC Action:" />
+        </td>
+        <td >
+            <apex:outputField value="{!chemoSummary.Status__c}"/>
+        </td>
+    </tr> 
+    </tr> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="DCC Comments:" />
+        </td>
+        <td >
+           <!-- <apex:outputField value="{!}"/>-->
+           <c:CRFEventComponentcomments rId="{!chemoSummary.Id}" objectNamec="Chemo_Summary_Form__c" rtId="{!chemoSummary.Root_CRF_Id__c}"/>
+        </td>
+    </tr> 
+  </table>
+  <br/>
+  <br/>
+  
+  <apex:pageBlock tabStyle="Account">
+ <!-- <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(chemoSummary.Id))}">
+        <c:CRFAttachmentComponent rId="{!chemoSummary.Id}" feedCRFName="Chemo_Summary_Form__Feed"/>
+  </apex:pageBlockSection> -->
+  <c:CRFAttachmentComponentPdf rId="{!chemoSummary.Id}" feedCRFNamePdf="Chemo_Summary_Form__Feed" rtId="{!chemoSummary.Root_CRF_Id__c}"/>
+  <br/>
+  
+  <div style="background-color:#97C7EC"><b style="margin:10px;color:white">CRF Events</b></div>
+  
+   <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(chemoSummary.Id))}">
+         <c:CRFEventComponent rId="{!chemoSummary.Id}" objectName="Chemo_Summary_Form__c" rtId="{!chemoSummary.Root_CRF_Id__c}"/>
+   </apex:pageBlockSection>
+        
+  </apex:pageBlock>   
+           
+           
+  <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  </apex:form>
+</apex:page>

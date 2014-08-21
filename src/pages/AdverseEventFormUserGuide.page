@@ -1,0 +1,79 @@
+<apex:page sidebar="false" showheader="false">
+	<style>
+		.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+	</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete Adverse Event (AE) form?</h2>
+	</apex:outputPanel>
+	<p>The Adverse Event Form is used to document all side effects (AEs and SAEs) that the patient's experience while they participate in this trial (see section 11 of the I-SPY 2 Protocol for what is considered an S/AE). This CRF is completed multiple times through the study- see section 12.1 of the I-SPY 2 Protocol for submission schedule.</p>
+	<p style="color:red;"><i>Note:</i></p>
+	<ul style="color:red;">
+		<li><i>The Baseline Symptoms Form must be approved by the DCC prior to completing the first AE CRF since this form is designed to pull forward all ongoing symptoms the patient has (to eliminate repeated data entry of the same information).</i></li>
+		<li><i>AE Forms are designed in a way that any ongoing event from one AE Form is pulled forward on to the next AE From (to eliminate repeated data entry of the same information), so you must have the first AE Form approved by the DCC before you start the next form (in case there are changes that need to be made to the first).</i></li>
+		<li><i>There is a hyper-link to the CTCAE v4 as a searchable pdf at the top of Page 1 and Page 2.</i></li>
+	</ul>
+	<p><i>To open the AE Form, select the patient from the 'Patient' Tab; select 'Trial'; Select ‘Treatment’ tab and select ‘Submit New’ for ‘AE Form’.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.AdverseEventImages, 'ae1.PNG')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Select the visit date using the blue calendar button to the right of the data field.  You can also manually enter the date in m/d/yyyy format.</li>
+		<li>Answer the question as to whether the patient was hospitalized since the last AE report [No OR Yes].</li>
+		<li>Answer the question as to whether a caAERS report was filed with the DCC since the last assessment [No OR Yes].</li>
+		<li>If the patient was hospitalized or had an SAE after signing the treatment consent form and prior to starting study treatment, you would select 'Yes.' For instructions on how to file an SAE report with the DCC, see section 'Safety Data Reporting Guidelines' in the Manual of Operations and Procedures (MOP).</li>
+		<li>Displayed are the patient's Baseline Conditions for reference only and are not editable.</li>
+		<li>Listed are any Baseline Symptoms and/or AEs that are ongoing (not resolved) from the last submitted AE Form.</li>
+		<li>If a prior AE displayed on the first screen has changed in status (it has resolved or changed in grade), you update the prior AE by selecting the AE and opening it so it is editable.</li>
+		<li>If the prior AE has resolved, change the answer using the drop down list [answer Yes], and enter the resolved end date using the blue calendar button to the right of the data field.  You can also manually enter the date in m/d/yyyy format.  Select 'Save' to save the changes before moving to the next entry or screen. Select 'Cancel' to not save any changes that you just made to entry on this CRF.</li>
+	</ul>
+	<p><i>Select 'Next' to advance to 'AE page 1'.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.AdverseEventImages, 'ae2.PNG')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>This tab is pre-populated with the most common side effects known for the investigational agent the patient was randomized to. The default answer to all adverse events is 'Not Assessed'.  If a patient was not randomized to an investigational agent, this page will be blank and not display any potential side effects.</li>
+		<li>If the patient was reviewed for any of the listed adverse events by a clinician but did not experience any of the listed adverse events, change the status from 'Not assessed' to 'No'.</li>
+		<li>If the patient experienced any of the listed adverse events, change the status from 'Not assessed' to 'Yes'. If you selected 'Yes' for a symptom by accident, select 'No' or 'Not assessed' next to the individual symptom, as appropriate, and it will no longer be included as a reported/experienced adverse event.</li>
+		<li>If the patient did experience an adverse event, a pop-up box will appear with fields that need to be completed.</li>
+		<li>For an AE, use the drop down list to select the grade [defined by CTCAE v4].</li>
+		<li>If the adverse event grade is 3 or higher, a set of 5 questions will appear to help assess if the adverse event is an AE or SAE (see questions in screen shot above).  Answer all 5 questions.  If the answer to any of the 5 questions is a 'Yes', the SAE status will automatically display Yes.  Additionally, an SAE report must be submitted to the DCC, if it hasn't already. For instructions on how to file an SAE report with the DCC, see section 'Safety Data Reporting Guidelines' in the Manual of Operations and Procedures (MOP).</li>
+		<li>For an AE, use the drop down list to select the attribution [defined by CTCAE v4].</li>
+		<li>For an AE, enter the onset date using the blue calendar button to the right of the data field (you can also manually enter the date in mm/dd/yyyy format).</li>
+		<li>For an AE, use the drop down list to select the resolved status [No OR Yes].</li>
+		<li>For an AE, enter the patient's verbatim complaint in the text box.</li>
+		<li>If an adverse event has been resolved use the drop down list to change its status [No OR Yes] and report the date the adverse event was resolved by using the blue calendar button to the right of the data field. You can also manually enter the date in mm/dd/yyyy format.</li>
+		<li>If you selected 'Yes' for a symptom by accident, select 'no' or 'not assessed' next to the individual symptom and it will no longer be included as a reported adverse event.</li>
+	</ul>
+	<p><i>Select 'Next' to advance to 'AE page 2'.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.AdverseEventImages, 'ae3.PNG')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>If the patient experienced any new adverse event since the last AE Form was completed, use CTCAE v4 to report these events.  The default answer to all adverse events is 'Not assessed'.</li>
+		<li>If a System Organ Class was reviewed by a clinician but no adverse events were experienced, change the status from 'Not assessed' to 'No'.  Additionally, if a specific adverse event was reviewed a clinician but not experience select the adverse event and change it from the default to 'No'.</li>
+		<li>If the patient has an adverse event, select 'Yes' to the System Organ Class (SOC) that the event is categorized in and then click 'add toxicity' to get the pop-up list of adverse events that belong to that class and then select the adverse event. If you selected 'Yes' for a symptom by accident, select 'No' or 'Not assessed' next to the individual symptom and it will no longer be included as a reported adverse event.</li>
+		<li>If the patient did experience an adverse event, a pop-up box will appear with fields that need to be completed.</li>
+		<li>For an AE, use the drop down list to select the grade [defined by CTCAE v4].</li>
+		<li>If the adverse event grade is 3 or higher, a set of 5 questions will appear to help assess if the adverse event is an AE or SAE (see questions in screen shot above).  Answer all 5 questions.  If the answer to any of the 5 questions is a 'Yes', the SAE status will automatically display Yes.  Additionally, an SAE report must be submitted to the DCC, if it hasn't already. For instructions on how to file an SAE report with the DCC, see section 'Safety Data Reporting Guidelines' in the Manual of Operations and Procedures (MOP).</li>
+		<li>For an AE, use the drop down list to select the attribution [defined by CTCAE v4].</li>
+		<li>For an AE, enter the onset date using the blue calendar button to the right of the data field. Y you can also manually enter the date in m/d/yyyy format.</li>
+		<li>For an AE, use the drop down list to select the resolved status [No OR Yes].</li>
+		<li>If an AE is resolved (answered Yes), enter the end date using the blue calendar button to the right of the data field. Y you can also manually enter the date in m/d/yyyy format.</li>
+		<li>For an AE, enter the patient's verbatim complaint in the text box.</li>
+		<li>If an adverse event has been resolved use the drop down list to change its status [No OR Yes] and report the date the adverse event was resolved by using the blue calendar button to the right of the data field. You can also manually enter the date in m/d/yyyy format.</li>
+		<li>If you selected 'Yes' for a symptom but want to change the symptom, delete all of the data you entered and then select 'No' or 'Not assessed' next to the individual symptom and it will no longer be included as an experienced adverse event.</li>
+	</ul>
+	<p><i>After all symptoms have been reported, select 'Next' to advance to the 'Comments &amp; Attachments' tab.</i></p>
+	<p>Attach all relevant de-identified pathology reports, clinical notes, laboratory notes, and imaging reports (source documents) that document the data that is listed on this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+	<p>Provide any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+	<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+	<ul>
+		<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the screen to update the incorrect information.</li>
+		<li>When you are ready to send the CRF to the DCC for verification, enter your password and select 'Sign and Submit.'</li>
+	</ul>
+	</apex:outputPanel>
+</apex:page>

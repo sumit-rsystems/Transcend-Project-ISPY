@@ -1,0 +1,78 @@
+<apex:page sidebar="false" showheader="false">
+<style>
+		.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+	</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete Chemo Treatment form?</h2>
+	</apex:outputPanel>
+	<p>The Chemo Treatment Form is used to document the patient's neoadjuvant study treatment while participating in this study.  This CRF is completed for each cycle of neoadjuvant chemotherapy: Paclitaxel cycles 1-12 and AC cycles 13-16.  The information entered here will be calculated and reported in the Chemo Summary Form, once the patient has completed all cycles of neoadjuvant chemotherapy.</p>
+	<p>The information used to complete this form comes from the patient's Chemotherapy Orders and Chemotherapy Infusion Notes.</p>
+	<p><i>To open the Chemo Treatment Form, select the patient from the 'Patient' Tab; select 'Trial'; Select ‘Treatment’ tab and select ‘Submit New’ for 'Chemo Treatment Form.'</i></p>
+	<p><apex:image url="{!URLFOR($Resource.ChemoTreatmentformImages, 'ChemoImage1.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Select the date of therapy (infusion/administration date) using the blue calendar button to the right of the data field.  You can also manually enter the date in m/d/yyyy format.</li>
+		<li>The cycle number is auto-populated [numerical values 1-16], see table below as a guide.</li>
+		<li>NOTE: the cycle number is associated with the standard chemotherapy cycle (paclitaxel and AC).  In the event that a standard agent is held but the investigational agent continues to be administered, use the same cycle number from before (the cycle number will increase when the standard agent is again administered). </li>
+		<li>Enter in the patient's weight that was used for the dosing in this cycle in kg in the text box [numerical values up to 2-decimal places].  This helps monitor the patient's dose of an agent by the DCC.  If the text box is left blank, a zero will auto-fill and display on the completed screen.</li>
+		<li>Enter in the patient's height that was used for the dosing in this cycle in cm in the text box [numerical values up to 2-decimal places].  This helps monitor patient's dosing of an agent by the DCC.  If the text box is left blank, a zero will auto-fill and display on the completed screen.
+
+				<br /><i style="color:red;"><b>NOTE: Standard conversion from pounds (lb) to kilograms (kg) is 1lb = 0.45 kg.  Standard conversion from inches (in) to centimeters (cm) is 1 in = 2.54 cm.
+				Height and weight are required fields to be completed so the DCC can monitor any errors in dosing. Not all clinics re-measure a patient's height on each weekly paclitaxel clinic visit, so it is ok to use the height from C1D1 and provide a copy of this source document on all subsequent CRFs. 
+
+				</b></i><br /><br /><i style="color:red;"><b>NOTE: For CRFs that where just the oral investigational agent is administered (eg. Neratinib, or ABT- 888), you can either: leave the height and weight as entered on corresponding paclitaxel cycle (eg. C1D1) and attach the source documentation from that cycle (eg. C1D1), or leave the height and weight fields blank (eg. C2D2-D7) since the dosing of the oral investigational agents isn't weight dependent.</b></i>
+		</li>
+		<br /><li>Select “Yes” for “Did the patient go off-study treatment” to enable the checkbox of the agents. For each agent that was administered that cycle, check the corresponding checkboxes to indicate what agent was given.  An unchecked box indicates that agent was not given to the patient.
+				<br /><i style="color:red;"><b>NOTE: For agents that administered daily, a Chemo Treatment CRF needs to be completed for each day the agent was scheduled to be administered until the Chemo Treatment CRF is updated to allow 7-day entries on the same CRF for the daily agents.</b></i>
+		</li>
+		<li>For each agent administered (checkbox is checked), enter the prescribed dose in the units listed in the text box [numerical value].</li>
+		<li>For each agent administered (checkbox is checked), enter the total dose administered in the units listed in the text box [numerical value].</li>
+		<li>For each agent administered (checkbox is checked), enter the study day the dose was administered using the table below as a guide in the text box [numerical value].</li>
+		<li>For each agent administered (checkbox is checked), select whether this dose was delayed using the drop down list [No OR Yes].</li>
+		<li>For each agent administered (checkbox is checked), if a dose modification happened for this cycle and day, enter how much of an increase or decrease the modification was in the text box (this helps to explain the change in prescribed dose if there was one).</li>
+		<li>For each agent administered (checkbox is checked), select the reason for a dose modification using the drop down list [No dose modification, Dose held (not given), Dose delay, Dose reduced, Dose delayed and reduced, Drug discontinued early, Dosing error, OR Other-specify in text box].
+				<br /><i style="color:red;"><b>NOTE: if NO modification was made, choose 'No dose modification' or leave blank (will display as 'not specified' on Complete Tab).
+				Dose held (not given) is used for the study to indicate that an agent was not administered and will not be made up.  In the instance where a standard agent is held but that dose will be made up at a later date, you would indicate this as a dose delay and not dose held.  In the instance where an investigational agent is held and will not be made up at a later date, you would choose dose held.</b></i>
+		</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Growth Factors' tab.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.ChemoTreatmentformImages, 'ChemoImage2.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Select the growth factor the patient received during this corresponding cycle by checking the checkbox.</li>
+		<li>Enter the prescribed dose for this corresponding cycle in the units listed in the text box [numerical value].</li>
+		<li>Enter the total dose that was administered for this cycle in the units listed in the text box [numerical value].</li>
+		<li>Select the route the growth factor was administered using the drop down list [IV, Oral, OR Injection].</li>
+		<li>If there are any notes that need to be added about the growth factor, enter them into the Notes text box.</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Concomitant Medications' tab.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.ChemoTreatmentformImages, 'ChemoImage3.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>If the patient is taking any medications other than the chemotherapy listed on the first screen of this CRF, click on either 'add a medication' and the directory of medications (RxNorm list) will appear.  Search this pop-up list using the filter at the top of the list and select the medication.  Currently, if the patient's medication is not on this list, there is NOT a select 'add other' with a text box for direct data entry.  If the patient's medication is not on the RxNorm list, you do not need to include it on the CRF but make sure it is in the attached source documents.</li>
+		<li>For a selected medication, enter in the start date and end date (if applicable): year in the year field [4-digit numerical value], month [2-digit numerical value] in the month field, day [2-digit numerical value] in the day field. If only the month and/or year are known, enter those into their respective fields. You may also enter the date using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+		<li>For a selected medication, enter in the dose and units in the text box.</li>
+		<li>For a selected medication, enter in the route the medication is delivered in the text box (you may leave blank if it is unknown or not documented).</li>
+		<li>For a selected medication, enter in the frequency at which the patient takes the medication in the text box.</li>
+		<li>Select <b>'Save'</b> to save this medication before moving to the next entry or screen. Select 'Cancel' to not save the data to the CRF.</li>
+		<li>If you need to make a change to a medication that is already saved to the list, re-open the medication by clicking on the name of the medication.  You can either: change the name of the medication, remove it from the list, or change any of the other details about the medication.</li>
+		<li>Select <b>'Save'</b> to these before moving to the next entry or screen. Select 'Cancel' to not save any of the changes just made to the CRF.</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Comments &amp; Attachments' tab.</i></p>
+	<p>Attach all relevant de-identified pathology reports, clinical notes, laboratory notes, and imaging reports (source documents) that document the data that is listed on this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+	<p>Provide any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+	<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+	<ul>
+		<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the screen to update the incorrect information.</li>
+		<li>When you are ready to send the CRF to the DCC for verification, enter your password and select 'Sign and Submit.'</li>
+	</ul>
+	<p><apex:image url="{!URLFOR($Resource.ChemoTreatmentformImages, 'ChemoImage4.png')}" width="100%" height="100%"/></p>
+	</apex:outputPanel>
+</apex:page>

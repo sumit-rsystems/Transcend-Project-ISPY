@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Chemo Summary Form</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Chemo Summary Forms</value>
+    </caseValues>
+    <fields>
+        <label><!-- AnthracyclineRegimenTreatmentEndReason --></label>
+        <name>Anthracycline_Regimen__c</name>
+        <picklistValues>
+            <masterLabel>Alternative therapy</masterLabel>
+            <translation><!-- Alternative therapy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Death during treatment</masterLabel>
+            <translation><!-- Death during treatment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Disease progression, relapse during active treatment</masterLabel>
+            <translation><!-- Disease progression, relapse during active treatment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other complicating disease</masterLabel>
+            <translation><!-- Other complicating disease --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient declared ineligible</masterLabel>
+            <translation><!-- Patient declared ineligible --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient withdrawal or refusal after beginning protocol therapy</masterLabel>
+            <translation><!-- Patient withdrawal or refusal after beginning protocol therapy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient withdrawal or refusal prior to beginning protocol therapy</masterLabel>
+            <translation><!-- Patient withdrawal or refusal prior to beginning protocol therapy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Toxicity/side effects/complications</masterLabel>
+            <translation><!-- Toxicity/side effects/complications --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment completed per protocol criteria</masterLabel>
+            <translation><!-- Treatment completed per protocol criteria --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- ApprovalURL --></label>
+        <name>ApprovalURL__c</name>
+    </fields>
+    <fields>
+        <label><!-- CRF --></label>
+        <name>CRF__c</name>
+        <relationshipLabel><!-- Chemo Summary Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- CompletedDate --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective_Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Date of Anthracycline Therapy --></label>
+        <name>First_Date_of_Anthracycline_Therapy__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Date of Investigational Therapy --></label>
+        <name>First_Date_of_Investigational_Therapy__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Date of Taxane Therapy --></label>
+        <name>First_Date_of_Taxane_Therapy__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Save and Close --></label>
+        <name>First_Save_and_Close__c</name>
+    </fields>
+    <fields>
+        <label><!-- InvestigationalRegimenTreatmentEndReason --></label>
+        <name>InvestigationalRegimenTreatmentEndReason__c</name>
+        <picklistValues>
+            <masterLabel>Alternative therapy</masterLabel>
+            <translation><!-- Alternative therapy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Death during treatment</masterLabel>
+            <translation><!-- Death during treatment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Disease progression, relapse during active treatment</masterLabel>
+            <translation><!-- Disease progression, relapse during active treatment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other complicating disease</masterLabel>
+            <translation><!-- Other complicating disease --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient declared ineligible</masterLabel>
+            <translation><!-- Patient declared ineligible --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient withdrawal or refusal after beginning protocol therapy</masterLabel>
+            <translation><!-- Patient withdrawal or refusal after beginning protocol therapy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient withdrawal or refusal prior to beginning protocol therapy</masterLabel>
+            <translation><!-- Patient withdrawal or refusal prior to beginning protocol therapy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Toxicity/side effects/complications</masterLabel>
+            <translation><!-- Toxicity/side effects/complications --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment completed per protocol criteria</masterLabel>
+            <translation><!-- Treatment completed per protocol criteria --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Last Date of Anthracycline Therapy --></label>
+        <name>Last_Date_of_Anthracycline_Therapy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Date of Investigational Therapy --></label>
+        <name>Last_Date_of_Investigational_Therapy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Date of Taxane Therapy --></label>
+        <name>Last_Date_of_Taxane_Therapy__c</name>
+    </fields>
+    <fields>
+        <label><!-- OriginalCRF --></label>
+        <name>OriginalCRF__c</name>
+        <relationshipLabel><!-- Chemo Summary Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Other Reason --></label>
+        <name>Other_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Follow-up</masterLabel>
+            <translation><!-- Follow-up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening</masterLabel>
+            <translation><!-- Screening --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment</masterLabel>
+            <translation><!-- Treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Root CRF Id --></label>
+        <name>Root_CRF_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Pending</masterLabel>
+            <translation><!-- Approval Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cloned</masterLabel>
+            <translation><!-- Cloned --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Submitter --></label>
+        <name>Submitter__c</name>
+        <relationshipLabel><!-- Chemo Summary Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Taxane Regimen Treatment End Reasons --></label>
+        <name>Taxane_Regimen_Treatment_End_Reasons__c</name>
+        <picklistValues>
+            <masterLabel>Alternative therapy</masterLabel>
+            <translation><!-- Alternative therapy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Death during treatment</masterLabel>
+            <translation><!-- Death during treatment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Disease progression, relapse during active treatment</masterLabel>
+            <translation><!-- Disease progression, relapse during active treatment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other complicating disease</masterLabel>
+            <translation><!-- Other complicating disease --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient declared ineligible</masterLabel>
+            <translation><!-- Patient declared ineligible --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient withdrawal or refusal after beginning protocol therapy</masterLabel>
+            <translation><!-- Patient withdrawal or refusal after beginning protocol therapy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient withdrawal or refusal prior to beginning protocol therapy</masterLabel>
+            <translation><!-- Patient withdrawal or refusal prior to beginning protocol therapy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Toxicity/side effects/complications</masterLabel>
+            <translation><!-- Toxicity/side effects/complications --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment completed per protocol criteria</masterLabel>
+            <translation><!-- Treatment completed per protocol criteria --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- TestHarnessId --></label>
+        <name>TestHarnessId__c</name>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- Chemo Summary Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- pg_ChemoSummary_Id --></label>
+        <name>pg_ChemoSummary_Id__c</name>
+    </fields>
+    <layouts>
+        <layout>Chemo Summary Form Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- AdHoc --></label>
+        <name>AdHoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>First_Date_of_Anthracycline_future_valid</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>First_Date_of_Investigational_date_valid</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>First_Date_of_Taxane_date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Last_Date_of_Anthracycline_date_validati</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Last_Date_of_Investigation_date_validati</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Last_Date_of_Taxane_date_validation</name>
+    </validationRules>
+</CustomObjectTranslation>

@@ -1,0 +1,31 @@
+<apex:page controller="ReportRequestListingController" sideBar="false">
+	<apex:pageBlock title="Report Request" id="pageBlockId">
+		<apex:pageBlockSection columns="1" id="secId">
+			<apex:pageBlockTable value="{!lstReportRequest}" var="repReq">
+				<apex:column value="{!repReq.Selected_Institution_Name__c}" headerValue="Institiution Name" />
+				<apex:column value="{!repReq.Selected_Trial_Name__c}" headerValue="Trial Name" />
+				<apex:column value="{!repReq.Report_Type__c}" headerValue="Report Type" />
+				<apex:column value="{!repReq.Status__c}" headerValue="Status" />
+				<apex:column value="{!repReq.CreatedDate}" headerValue="Submitted Date" />
+				<apex:column >
+	               	<apex:facet name="header">Attachments</apex:facet>
+	               	<apex:outputPanel rendered="{!IF(repReq.Report_Type__c = 'Patient Summary', true, false)}">
+		               	<a href="/apex/PatientSummaryReport_HTML?repReqId={!repReq.Id}" target="_blank">View HTML</a><br/>
+		               	<a href="/apex/PatientSummaryReport_PDF?repReqId={!repReq.Id}" target="_blank">View PDF</a><br/>
+		               	<a href="/apex/PatientSummaryReport_CSV?repReqId={!repReq.Id}" >View CSV</a>
+		            </apex:outputPanel>
+		            <apex:outputPanel rendered="{!IF(repReq.Report_Type__c = 'Trial Summary', true, false)}">
+		               	<a href="/apex/TrialSummaryReportHTML?repReqId={!repReq.Id}" target="_blank">View HTML</a><br/>
+		               	<a href="/apex/TrialSummaryReportPDF?repReqId={!repReq.Id}" target="_blank">View PDF</a><br/>
+		               	<a href="/apex/TrialSummaryReportCSV?repReqId={!repReq.Id}" >View CSV</a>
+		            </apex:outputPanel>
+		            <apex:outputPanel rendered="{!IF(repReq.Report_Type__c = 'Adverse Event', true, false)}">
+		               	<a href="/apex/AdverseEventReportForHTML?repReqId={!repReq.Id}" target="_blank">View HTML</a><br/>
+		               	<a href="/apex/AdverseEventReportForPDF?repReqId={!repReq.Id}" target="_blank">View PDF</a><br/>
+		               	<a href="/apex/AdverseEventReportForCSV?repReqId={!repReq.Id}" >View CSV</a>
+		            </apex:outputPanel>
+               	</apex:column>
+			</apex:pageBlockTable>
+		</apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

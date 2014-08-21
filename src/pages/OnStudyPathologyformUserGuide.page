@@ -1,0 +1,100 @@
+<apex:page sidebar="false" showheader="false">
+	<style>
+		.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+	</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete On-Study Pathology form?</h2>
+		</apex:outputPanel>
+		<p>The On-Study Pathology Form is used to collect information about the patient's pathologic tumor characteristics from the breast that is on-study. This information is used to help determined the patient's eligibility to be randomized to a study treatment arm.</p>
+		<p>The information used to complete this form can be found from pathology reports.</p>
+		<p><i>To open the On-Study Pathology Form, select the patient from the 'Patient' Tab, select ‘Trial' select 'Submit New' for  'On-Study Pathology Form’.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.OnStudyPathologyFormImages, 'pathologyImage1.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Select if the patient has bilateral breast cancer [Yes OR No].</li>
+			<li>Select the tumor laterality of the breast that meets the study's eligibility criteria [Left OR Right].  If both breasts meet the study's eligibility criteria, defer to the treating physician's choice (Note: only one breast can be in the study).</li>
+			<li>Under Positive Breast Biopsies, select 'add a procedure' to open a field that allows for description of the biopsy that was done for the breast that is on-study and was diagnostically evaluated by a Pathologist.</li>
+			<li>Select the date of the breast biopsy using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+			<li>Select the breast biopsy procedure using the drop down list [FNA, Core biopsy, OR Excisional biopsy].</li>
+			<li>If a breast core biopsy procedure was chosen, select the type of image guidance that was used for the procedure by selecting the one(s) used [Ultrasound, Palpation guided, Mammography, MRI, Stereotactic].</li>
+			<li>Select the laterality of the breast biopsy procedure using the drop down list [Left, Right, OR Unknown]. NOTE: this laterally must match the laterally chosen above, otherwise this information will not appear on the summary tab of this CRF (contralateral information is not collected).</li>
+			<li>Select the location of the breast biopsy procedure using the drop down list [Unknown/Not indicated, not applicable, Upper inner quadrant, Upper outer quadrant, Lower inner quadrant, Lower outer quadrant, Axillary tail of breast, Overlapping lesion of breast, Central, Subareolar region, OR Nipple].</li>
+			<li>Select <b>'Save'</b> after completing these selections and before moving to the next procedure or tab.</li>
+			<li>Repeat these steps to add another positive breast biopsy procedure if there was one done.</li>
+			<li>Under Lymph Node Biopsies, select 'add a procedure' top open a field that allows for description of the biopsy.</li>
+			<li>Select the date of the lymph node biopsy using the blue calendar button to the right of the data field. You can also manually enter the date in mm/dd/yyyy format.</li>
+			<li>Select the lymph node biopsy procedure using the drop down list [FNA (lymph node) OR Core biopsy(lymph node)].</li>
+			<li>If a lymph node core biopsy procedure was chosen, select the type of image guidance that was used for the procedure by selecting the one(s) used [Ultrasound, Palpation guided, Mammography, MRI, Stereotactic].</li>
+			<li>Select the laterality of the lymph node biopsy procedure using the drop down list [Left, Right, OR Unknown].  NOTE: this laterally must match the laterally chosen above, otherwise this information will not appear on the summary tab of this CRF (contralateral information is not collected).</li>
+			<li>Select the location of the lymph node biopsy procedure using the drop down list [Unknown/Not indicated, Axillary (lymph node), Infraclavicular (lymph node), Internal mammary (lymph node), OR Supraclavicular (lymph node)].</li>
+			<li>Select the node result using the drop down list [Positive OR Negative].</li>
+			<li>Select 'Save' after completing these selections and before moving to the next procedure or screen.</li>
+			<li>Repeat these steps to add another lymph node biopsy procedure if there was one done.</li>
+			<li>If you have saved a procedure to the list but need to update it, click the <b>‘pencil’</b> icon in ‘Action’ column for that procedure, make the changes and click 'Save' icon. If you do not want to save the updated data, select 'Cross’ button and none of the changes will be saved.</li>
+			<li>If you have saved a procedure to the list but it needs to be removed, click <b>‘Bin’</b> icon in ‘Action’ column for that procedure and the procedure will no longer be displayed on the CRF.</li>
+		</ul>
+		<p><i>Select 'Next' to advance to the 'Disease Description' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.OnStudyPathologyFormImages, 'pathologyImage2.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Answer the question if the breast biopsy has DCIS present [Yes, No, OR Not reported].</li>
+			<li>If DCIS is present (answered Yes) the questions on the screen shot above will display.</li>
+			<li>Select all of the DCIS histology types that are present in the specimen [Punctate necrosis, Comedonecrosis, Papillary, Micropapillary, Necrosis, Cribiform, Cruciform, Clinging, Solid, Apocrine, Intra-cystic (encysted papillary), Other- specify in text box].</li>
+			<li>Select if Calcifications are present in the DCIS [Yes, No, OR Not reported].  If calcifications are present, select the type from the drop down list [Benign, DCIS &amp; Benign, OR DCIS].</li>
+			<li>Select the highest nuclear grade of the DCIS that is present [Grade I (low), Grade II (intermediate), Grade III (high), Indeterminate, OR Not reported].</li>
+		</ul>
+		<p><apex:image url="{!URLFOR($Resource.OnStudyPathologyFormImages, 'PathologyImage3.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Answer the question if the breast biopsy has LCIS present [Yes, No, OR Not reported].</li>
+			<li>If LCIS is present (answered Yes) the question on the screen shot above will display.</li>
+			<li>Select the type of LCIS that is present in the specimen [Classic, Small cell, Large cell, Pleomorphic, OR Unknown].</li>
+		</ul>
+		<p><apex:image url="{!URLFOR($Resource.OnStudyPathologyFormImages, 'pathologyImage4.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Answer the question if the breast biopsy has invasive tumor present [Yes, No, OR Not reported].</li>
+			<li>Select all of the Invasive histology types that are present in the specimen [Invasive ductal carcinoma nos, Invasive lobular carcinoma classic type, Invasive lobular carcinoma alveolar type, Pleomorphic lobular carcinoma, Tubulobular carcinoma, Invasive carcinoma mixed ductal and lobular type, Tubular carcinoma, Mucinous carcinoma, Medullary carcinoma, Invasive papillary carcinoma, Invasive cribiform carcinoma, Other-specify in text box].</li>
+			<li>Check the checkbox if signs of treatment effect are present in the Invasive disease, if there are not, leave the checkbox unchecked.</li>
+			<li>Select if Calcifications are present in the Invasive disease [Yes, No, OR Not reported]. If calcifications are present, select the type from the drop down list [Benign, Invasive &amp; Benign, OR Invasive].</li>
+			<li>Select the Nuclear grade of the Invasive disease [Grade I (low), Grade II (intermediate), Grade III (high), Indeterminate, OR Not reported].</li>
+			<li>Select the Mitotic count of the Invasive disease [1pt, 2pt, 3pt, Indeterminate, OR Not reported].</li>
+			<li>Select the Tubule/papilla formation of the Invasive disease [1pt, 2pt, 3pt, Indeterminate, OR Not reported]. Based on the selected answers for nuclear grade, mitotic count, tubule/papilla formation, the total points will be automatically calculated and the corresponding SBR Grade will automatically be assigned.  If any one of the 3 SBR components is Indeterminate and/or Not reported, the total points and SBR Grade will not be calculated and will be reported as N/A.</li>
+			<li>Select if lymphatic-vascular invasion is present in the Invasive disease [Yes, No, OR Not reported].</li>
+			<li>Select if skin involvement is present in the Invasive disease [Yes, No, Suspicious, Not reported, OR No skin/nipple present].</li>
+		</ul>
+		<p><i>Select 'Next' to advance to the ‘Receptors' tab.</i></p>
+		<ul>
+			<li>Select the ER status of the breast biopsy [Negative, Positive, Indeterminate, OR Not reported].</li>
+			<li>Select the ER Proportion Score from the drop down list using the Allred Scoring System [ 0, 1 (less than 1%), 2 (1%-10%), 3 (10%-33%), 4 (33%-66%), 5 (66%-100%), OR Not available].</li>
+			<li>Select the ER Intensity Score from the drop down list using the Allred Scoring System [0 (negative), 1(weak), 2 (intermediate), 3 (strong), OR Not available].</li>
+			<li>The ER Total Score will automatically calculate based upon the selections made and automatically assigned using the Allred Scoring System.  If Not available was chosen for any of the scores, a result of 0 will display.  NOTE: if a sample is scored with 2 different scores, enter the highest score reported.</li>
+			<li>Select the PR status of the breast biopsy [Negative, Positive, Indeterminate, OR Not reported].</li>
+			<li>Select the PR Proportion Score from the drop down list using the Allred Scoring System [ 0, 1 (less than 1%), 2 (1%-10%), 3 (10%-33%), 4 (33%-66%), 5 (66%-100%), OR Not available].</li>
+			<li>Select the PR Intensity Score from the drop down list using the Allred Scoring System [0 (negative), 1 (weak), 2 (intermediate), 3 (strong), OR Not available].</li>
+			<li>The PR Total Score will automatically calculate based upon the selections made and automatically assigned using the Allred Scoring System. If Not available was chosen for any of the scores, a result of 0 will display.  NOTE: if a sample is scored with 2 different scores, enter the highest score reported.</li>
+			<li>Select the HER2/neu status done by IHC of the breast biopsy [Negative, Positive, Indeterminate, OR Not reported]. If IHC was not done, check the checkbox next to IHC test not done in the list of IHC tests.</li>
+			<li>Select the type of IHC test that was used by checking the checkbox next to the corresponding test [DAKO Herceptest, Ventana Kit, CB-11, Other-specify in text box].  If IHC was not done, check the checkbox next to IHC test not done.</li>
+			<li>Select the result of the IHC test using the drop down list [0, 1+, 2+, OR 3+] or use the text box to enter the score or result reported.  NOTE: if a sample is scored with 2 different scores, enter the highest score reported.</li>
+			<li>Select the HER2/neu status done by FISH of the breast biopsy [Negative, Positive, Indeterminate, OR Not reported]. If FISH was not done, check the checkbox next to FISH test not done in the list of FISH tests.</li>
+			<li>Select the type of FISH test that was used by checking the checkbox next to the corresponding test [Ventana Oncorprobe, Other-specify in text box].  If FISH was not done, check the checkbox next to FISH test not done in the list of FISH tests.</li>
+			<li>Select the result of the FISH test using the drop down list [0, 1+, 2+, OR 3+] or use the text box to enter the ratio score reported.</li>
+		</ul>
+		<p><apex:image url="{!URLFOR($Resource.OnStudyPathologyFormImages, 'pathologyImage5.png')}" width="100%" height="100%"/></p>
+		<p><i>Select 'Next' to advance to the 'Comments &amp; Attachments' tab.</i></p>
+		<p>Attach all relevant de-identified pathology reports (source documents) that document the data that was entered for this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+		<p>Provide any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+		<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+		<ul>
+			<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the previous screen to update the incorrect information.</li>
+			<li>When you are ready to send the CRF to the DCC for verification, enter your password and select 'Sign and Submit'.</li>
+		</ul>
+		<p><apex:image url="{!URLFOR($Resource.OnStudyPathologyFormImages, 'pathologyImage6.png')}" width="100%" height="100%"/></p>
+	</apex:outputPanel>
+</apex:page>

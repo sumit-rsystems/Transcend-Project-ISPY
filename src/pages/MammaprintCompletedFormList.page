@@ -1,0 +1,35 @@
+<apex:page controller="MammaPrintNewController" action="{!getCompletedFormList}" sidebar="false" title="Mamma Print Completed">
+	<apex:pageBlock title="Completed Mammaprint Forms">
+		<apex:pageBlockTable cellpadding="5" cellspacing="1" width="100%" value="{!lstCompletedForm}" var="app" rowClasses="odd,even">
+	<!--	==============================make Action column=============================    -->
+		    <apex:column headerClass="tableHead">
+		        <apex:facet name="header">Action</apex:facet>
+		        <a href="/apex/SignAndSubmitPage??form_Code=00005&id={!app.Id}">Sign and Submit </a>
+<!--		        <apex:outputLink value="{!app.}" target="_blank">Approve / Reject</apex:outputLink>-->
+		    </apex:column>
+		   
+	<!--	==============================make Type column=============================    -->
+		    <apex:column headerClass="tableHead">
+		        <apex:facet name="header">Specimen Collection Date</apex:facet>
+		         <apex:outputText value="{0,date,MM'/'dd'/'yyyy' ' }"> <apex:param value="{!app.Specimen_Collection_Dates__c}" /> </apex:outputText>
+		    </apex:column>
+		    
+	<!--	==============================make Submitted By column=============================    -->
+		    <apex:column headerClass="tableHead">
+		        <apex:facet name="header">Specimen Used</apex:facet>
+		        <apex:outputLabel value="{!app.Specimen_Used__c}"/>
+		    </apex:column>
+		    
+	<!--	==============================make Date Submitted column=============================    -->
+		    <apex:column headerClass="tableHead">
+		        <apex:facet name="header">Completed By</apex:facet>
+		         <apex:outputLabel value="{!app.Owner.Name}"/>
+		    </apex:column>
+		    <!--	==============================make Date Submitted column=============================    -->
+		    <apex:column headerClass="tableHead">
+		        <apex:facet name="header">Completed Date</apex:facet>
+		        <apex:outputText value="{0,date,MM'/'dd'/'yyyy' '}"> <apex:param value="{!app.CompletedDate__c}" /> </apex:outputText>
+		    </apex:column>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+</apex:page>

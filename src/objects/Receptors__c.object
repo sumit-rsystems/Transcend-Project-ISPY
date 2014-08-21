@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>CB_11_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>CB-11 Value</label>
+        <picklist>
+            <controllingField>CB_11__c</controllingField>
+            <picklistValues>
+                <fullName>0</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>+1</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>+2</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>+3</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CB_11__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>CB-11</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>DAKO_Herceptest_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>DAKO Herceptest  Value</label>
+        <picklist>
+            <controllingField>DAKO_Herceptest__c</controllingField>
+            <picklistValues>
+                <fullName>0</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>+1</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>+2</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>+3</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DAKO_Herceptest__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>DAKO Herceptest</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ER_TS_OS_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>ER_TS_OS Snomed</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ERpos_OS_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>ERpos_OS Snomed</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Estrogen_Intensity_Score_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(Estrogen_Intensity_Score__c  , &apos;0 (negative)&apos;), 0, IF(ISPICKVAL(Estrogen_Intensity_Score__c  , &apos;1 (weak)&apos;), 1, IF(ISPICKVAL(Estrogen_Intensity_Score__c  , &apos;2 (intermediate)&apos;), 2, IF(ISPICKVAL(Estrogen_Intensity_Score__c  , &apos;3 (strong)&apos;), 3, 0))))</formula>
+        <label>Estrogen Intensity Score Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Estrogen_Intensity_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>Estrogen Intensity Score</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0 (negative)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1 (weak)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 (intermediate)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 (strong)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Estrogen_Proportion_Score_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(Estrogen_Receptor_Proportion_Score__c, &apos;0&apos;), 0, IF(ISPICKVAL(Estrogen_Receptor_Proportion_Score__c, &apos;1 (less than 1%)&apos;), 1, IF(ISPICKVAL(Estrogen_Receptor_Proportion_Score__c, &apos;2 (1%-10%)&apos;), 2, IF(ISPICKVAL(Estrogen_Receptor_Proportion_Score__c, &apos;3 (10%-33%)&apos;), 3,  IF( ISPICKVAL(Estrogen_Receptor_Proportion_Score__c, &apos;4 (33%-66%)&apos;) , 4,  IF( ISPICKVAL(Estrogen_Receptor_Proportion_Score__c, &apos;5 (66%-100%)&apos;) , 5, 0) ) ))))</formula>
+        <label>Estrogen Proportion Score Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Estrogen_Receptor_Proportion_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>Estrogen Receptor  Proportion Score</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1 (less than 1%)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 (1%-10%)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 (10%-33%)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 (33%-66%)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5 (66%-100%)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Estrogen_Receptor_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Estrogen Receptor  Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Negative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Positive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indeterminate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Reported</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Estrogen_Total_Score_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL(Estrogen_Intensity_Score__c, &apos;Not available&apos;) || ISPICKVAL(Estrogen_Receptor_Proportion_Score__c, &apos;Not available&apos;), 0, Estrogen_Intensity_Score_Number__c  +  Estrogen_Proportion_Score_Number__c)</formula>
+        <label>Estrogen Total Score Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FISH_test_not_done__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>FISH test not done</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Fish__c</fullName>
+        <externalId>false</externalId>
+        <label>Fish</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Negative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Positive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indeterminate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Reported</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HER2_neu_Marker__c</fullName>
+        <externalId>false</externalId>
+        <label>HER2/neu Marker Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Negative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Positive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indeterminate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Reported</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Her2Pos_OS_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>Her2Pos_OS Snomed</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IHC__c</fullName>
+        <externalId>false</externalId>
+        <label>IHC</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Negative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Positive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indeterminate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Reported</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>IHC_test_not_done__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>IHC test not done</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Letarality__c</fullName>
+        <externalId>false</externalId>
+        <label>Letarality</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Left</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Right</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>On_Study_Pathology_Form__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>On-Study Pathology Form</label>
+        <referenceTo>On_Study_Pathology_Form__c</referenceTo>
+        <relationshipLabel>Receptors</relationshipLabel>
+        <relationshipName>Receptors</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Other_FISH_Results__c</fullName>
+        <externalId>false</externalId>
+        <label>Other FISH Results</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_FISH_Test_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Other FISH Test Value</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_FISH_Test__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Other FISH Test</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Other_IHC_Results__c</fullName>
+        <externalId>false</externalId>
+        <label>Other IHC Results</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_IHC_Test_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Other IHC Test Value</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_IHC_Test__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Other IHC Test</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PgR_TS_OS_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>PgR_TS_OS Snomed</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Post_Surgery_Summary__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Post Surgery Summary</label>
+        <referenceTo>Post_Surgaory_Summary__c</referenceTo>
+        <relationshipLabel>Receptors</relationshipLabel>
+        <relationshipName>Receptors</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Progesterone_Intensity_Score_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(Progesterone_Intensity_Score__c, &apos;0 (negative)&apos;), 0, IF(ISPICKVAL(Progesterone_Intensity_Score__c, &apos;1 (weak)&apos;), 1, IF(ISPICKVAL(Progesterone_Intensity_Score__c, &apos;2 (intermediate)&apos;), 2, IF(ISPICKVAL(Progesterone_Intensity_Score__c, &apos;3 (strong)&apos;), 3, 0))))</formula>
+        <label>Progesterone Intensity Score Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Progesterone_Intensity_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>Progesterone Intensity Score</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0 (negative)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1 (weak)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 (intermediate)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 (strong)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Progesterone_Proportion_Score_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(Progesterone_Receptor_Proportion_Score__c, &apos;0&apos;), 0, IF(ISPICKVAL(Progesterone_Receptor_Proportion_Score__c, &apos;1 (less than 1%)&apos;), 1, IF(ISPICKVAL(Progesterone_Receptor_Proportion_Score__c, &apos;2 (1%-10%)&apos;), 2, IF(ISPICKVAL(Progesterone_Receptor_Proportion_Score__c, &apos;3 (10%-33%)&apos;), 3, IF( ISPICKVAL(Progesterone_Receptor_Proportion_Score__c, &apos;4 (33%-66%)&apos;) , 4, IF( ISPICKVAL(Progesterone_Receptor_Proportion_Score__c, &apos;5 (66%-100%)&apos;) , 5, 0) ) ))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Progesterone Proportion Score Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Progesterone_Receptor_Proportion_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>Progesterone Receptor Proportion Score</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1 (less than 1%)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 (1%-10%)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 (10%-33%)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 (33%-66%)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5 (66%-100%)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not available</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Progesterone_Receptor_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Progesterone Receptor  Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Negative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Positive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indeterminate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Reported</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Progesterone_Total_Score_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL(Progesterone_Receptor_Proportion_Score__c, &apos;Not available&apos;) || ISPICKVAL(Progesterone_Intensity_Score__c, &apos;Not available&apos;), 0,  Progesterone_Intensity_Score_Number__c  +  Progesterone_Proportion_Score_Number__c )</formula>
+        <label>Progesterone Total Score Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Score_ER__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Score ER</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Score_PR__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Score PR</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Estrogen</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Progesteron</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HER2/neu marker</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Ventana_Oncoprobe_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Ventana Oncoprobe Value</label>
+        <picklist>
+            <controllingField>Ventana_Oncoprobe__c</controllingField>
+            <picklistValues>
+                <fullName>0</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>+1</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>+2</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>+3</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Ventana_Oncoprobe__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Ventana Oncoprobe</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Ventana_kit_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Ventana kit Value</label>
+        <picklist>
+            <controllingField>Ventana_kit__c</controllingField>
+            <picklistValues>
+                <fullName>0</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>+1</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>+2</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>+3</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Ventana_kit__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Ventana kit</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Vysis_Path_Vision_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Vysis/Path Vision Value</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vysis_Path_Vision__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Vysis/Path Vision</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>pg_Receptors_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_Receptors_Id</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Receptors</label>
+    <nameField>
+        <displayFormat>REC-{000000}</displayFormat>
+        <label>Receptors Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Receptors</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

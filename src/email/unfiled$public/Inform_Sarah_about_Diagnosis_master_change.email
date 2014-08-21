@@ -1,0 +1,5 @@
+Hi,<br/>
+{!Daignosis_Master__c.LastModifiedBy} has changed the following diagnosis master record.<br/>
+<a href="https://na9.salesforce.com/{!Daignosis_Master__c.Id}">{!Daignosis_Master__c.Name}</a> <br/><br/>
+
+Thanks.

@@ -1,0 +1,5 @@
+<apex:page controller="caTissueIntegration">
+	<apex:form >
+		<apex:commandButton action="{!executeCreateParticipantFromTestingPage}" value="Call CaTissue"/>
+	</apex:form>
+</apex:page>

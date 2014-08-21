@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Lymph Node</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Lymph Nodes</value>
+    </caseValues>
+    <fields>
+        <label><!-- Additional Nodes --></label>
+        <name>Additional_Nodes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Axillary Nodes --></label>
+        <name>Axillary_Nodes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cluster Detection Result --></label>
+        <name>Cluster_Detection_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Detection Result --></label>
+        <name>Detection_Result__c</name>
+        <picklistValues>
+            <masterLabel>Not reported</masterLabel>
+            <translation><!-- Not reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>cluster</masterLabel>
+            <translation><!-- cluster --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>focus</masterLabel>
+            <translation><!-- focus --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>single</masterLabel>
+            <translation><!-- single --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Examined --></label>
+        <name>Examined__c</name>
+    </fields>
+    <fields>
+        <label><!-- Extramodal Extension --></label>
+        <name>Extramodal_Extension__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Focus Detection Result --></label>
+        <name>Focus_Detection_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Letarality --></label>
+        <name>Letarality__c</name>
+        <picklistValues>
+            <masterLabel>Left</masterLabel>
+            <translation><!-- Left --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Right</masterLabel>
+            <translation><!-- Right --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Location --></label>
+        <name>Location__c</name>
+        <picklistValues>
+            <masterLabel>Axillary</masterLabel>
+            <translation><!-- Axillary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Axillary tail of breast</masterLabel>
+            <translation><!-- Axillary tail of breast --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Central (breast)</masterLabel>
+            <translation><!-- Central (breast) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Infraclavicular</masterLabel>
+            <translation><!-- Infraclavicular --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal mammary</masterLabel>
+            <translation><!-- Internal mammary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lower inner quadrant (breast)</masterLabel>
+            <translation><!-- Lower inner quadrant (breast) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lower outer quadrant (breast)</masterLabel>
+            <translation><!-- Lower outer quadrant (breast) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Overlapping lesion of breast</masterLabel>
+            <translation><!-- Overlapping lesion of breast --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Subareolar region (breast)</masterLabel>
+            <translation><!-- Subareolar region (breast) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Supraclavicular</masterLabel>
+            <translation><!-- Supraclavicular --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown/not indicated</masterLabel>
+            <translation><!-- Unknown/not indicated --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Upper inner quadrant (breast)</masterLabel>
+            <translation><!-- Upper inner quadrant (breast) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Upper outer quadrant (breast)</masterLabel>
+            <translation><!-- Upper outer quadrant (breast) --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Method of Detection --></label>
+        <name>Method_of_Detection__c</name>
+        <picklistValues>
+            <masterLabel>H&amp;E only</masterLabel>
+            <translation><!-- H&amp;E only --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IHC + H&amp;E</masterLabel>
+            <translation><!-- IHC + H&amp;E --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IHC only</masterLabel>
+            <translation><!-- IHC only --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown</masterLabel>
+            <translation><!-- Unknown --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Nodes Checkbox Value --></label>
+        <name>Node_Checkbox_Value__c</name>
+        <picklistValues>
+            <masterLabel>Additional Nodes</masterLabel>
+            <translation><!-- Additional Nodes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Axillary Nodes</masterLabel>
+            <translation><!-- Axillary Nodes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sentinel Nodes</masterLabel>
+            <translation><!-- Sentinel Nodes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Not reported Detection Result --></label>
+        <name>Not_reported_Detection_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Positive --></label>
+        <name>Positive__c</name>
+    </fields>
+    <fields>
+        <label><!-- Post Surgery Summary --></label>
+        <name>Post_Surgery_Summary__c</name>
+        <relationshipLabel><!-- Lymph Nodes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Procedure --></label>
+        <name>Procedure__c</name>
+        <relationshipLabel><!-- Lymph Nodes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Sentinel Nodes --></label>
+        <name>Sentinel_Nodes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Single Detection Result --></label>
+        <name>Single_Detection_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Size of Largest Tumor --></label>
+        <name>Size_of_Largest_Tumor__c</name>
+        <picklistValues>
+            <masterLabel>&lt;1mm</masterLabel>
+            <translation><!-- &lt;1mm --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt;1cm</masterLabel>
+            <translation><!-- &gt;1cm --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Specify</masterLabel>
+            <translation><!-- Specify --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Specific Size of Largest Tumor --></label>
+        <name>Specific_Size_of_Largest_Tumor__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tumor Size Measurement Unit --></label>
+        <name>Tumor_Size_Measurement_Unit__c</name>
+        <picklistValues>
+            <masterLabel>CM</masterLabel>
+            <translation><!-- CM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MM</masterLabel>
+            <translation><!-- MM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- pg_Lymph node _Id --></label>
+        <name>pg_Lymph_node_Id__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

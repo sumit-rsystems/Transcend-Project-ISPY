@@ -1,0 +1,146 @@
+<apex:page standardController="Off_Study_Detail__c" extensions="OffStudyController" id="pageId" sidebar="false"   tabStyle="Patient_Custom__c" renderAs="pdf">
+   <apex:form >
+
+    <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : Off Study Form" initial="" 
+       instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+   
+      
+      
+    <br/>
+    
+    <br/>
+    <table style="margin:15px" >
+            <tr>
+                <td>
+                     <apex:outputLabel value="Date patient went off study  " />
+                </td>
+                <td>
+                    
+                          <apex:outputField value="{!offStudyObj.Date_patient_went_off_study__c}" /> 
+                    
+                </td>
+            </tr> 
+    </table>         
+            
+      
+      <apex:pageBlock >
+      
+      
+      <br/>
+                <div style="background-color:#97C7EC"><b style="margin:10px;color:white">Reason(s) patient is off study</b></div>  
+                <br/>
+      <apex:pageBlockSection columns="1">
+                <apex:outputField value="{!offStudyObj.Patient_completed_study_per_protocol__c}" />
+                <apex:outputField value="{!offStudyObj.Patient_did_not_want_to_complete_MRI__c}" label="Patient did not want to complete study MRI scans" />
+                <apex:outputField value="{!offStudyObj.Patient_did_nt_want_to_complete_core_bio__c}" label="Patient did not want to complete study core biopsy"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Patient did not continue on treatment arm"/>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!offStudyObj.Patient_did_nt_continue_on_treatment_arm__c}" />
+                        <apex:outputPanel rendered="{!IF((offStudyObj.Why_patient_didnt_continue_treatment_arm__c != 'Other'), true, false)}">
+                            ({!offStudyObj.Why_patient_didnt_continue_treatment_arm__c})
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF((offStudyObj.Why_patient_didnt_continue_treatment_arm__c != 'Other'), false, true)}">
+                            ({!offStudyObj.Why_patient_didnt_continue_treatment_arm__c}:&nbsp; 
+                        </apex:outputPanel>
+                        <apex:outputText label=" " rendered="{!IF((offStudyObj.Why_patient_didnt_continue_treatment_arm__c != 'Other'), false, true)}">
+                            {!offStudyObj.Treatment_arm_other_reason__c})
+                        </apex:outputText>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Patient did not have surgery"/>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!offStudyObj.Patient_did_not_have_surgery__c}" />
+                        <apex:outputText label="Reason" rendered="{!offStudyObj.Patient_did_not_have_surgery__c}">
+                            ({!offStudyObj.Patient_did_not_have_surgery_reason__c})
+                        </apex:outputText>
+                    </apex:outputPanel>
+                 </apex:pageBlockSectionItem>
+                <apex:outputField value="{!offStudyObj.Patient_Died__c}" />
+                <br/>
+                <apex:outputText rendered="{!offStudyObj.Patient_Died__c}" value="<strong>If patient was still undergoing neoadjuvant treatment, in addition to AE form, complete the Chemo Summary form</strong>" escape="false" />
+                <apex:outputField value="{!offStudyObj.Did_patient_withdraw_for_survival__c}" label="Did patient withdraw consent to be followed for survival?"/>
+                <apex:outputField value="{!offStudyObj.Patient_withdrew_for_specimens__c}" label="Patient withdrew consent for use of specimens for further research?"/>
+            </apex:pageBlockSection>
+            </apex:pageBlock>
+            
+            <br/>
+            <br/>
+     <!--  <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+      </table>
+      
+    <c:CRFPDFFooter crfFormName="Off Study , v1"  />           
+</apex:page> -->
+<table   cellpadding="5"> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="CRF Status:" />
+        </td>
+        <td style="margin-right:0px;" width="34%">
+            <apex:outputField value="{!offStudyObj.Status__c}"/>
+        </td>
+    
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"   value="DCC Action:" />
+        </td>
+        <td >
+            <apex:outputField value="{!offStudyObj.Status__c}"/>
+        </td>
+    </tr> 
+    </tr> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="DCC Comments:" />
+        </td>
+        <td >
+           <!-- <apex:outputField value="{!}"/>-->
+           <c:CRFEventComponentcomments rId="{!offStudyObj.Id}" objectNamec="Off_Study_Detail__c" />
+        </td>
+    </tr> 
+  </table>
+  <br/>
+  <br/>
+  
+  <apex:pageBlock tabStyle="Account">
+  <!--<apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(offStudyObj.Id))}">
+        <c:CRFAttachmentComponent rId="{!offStudyObj.Id}" feedCRFName="Off_Study_Detail__Feed"/>
+  </apex:pageBlockSection> -->
+  <c:CRFAttachmentComponentPdf rId="{!offStudyObj.Id}" feedCRFNamePdf="Off_Study_Detail__Feed" />
+  <br/>
+  
+  <div style="background-color:#97C7EC"><b style="margin:10px;color:white">CRF Events</b></div>
+  
+  <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(offStudyObj.Id))}">
+                <!--<apex:outputText value="<b>{!offStudyObj.CreatedDate}</b>" escape="false"/>
+                <apex:outputField value="{!offStudyObj.CreatedById}" label="Entered by Study Coordinator"/>-->
+                <c:CRFEventComponent rId="{!offStudyObj.Id}" objectName="Off_Study_Detail__c" rtId="{!offStudyObj.Root_CRF_Id__c}"/>
+            </apex:pageBlockSection>
+        
+  </apex:pageBlock>   
+           
+           
+  <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  </apex:form>
+</apex:page>

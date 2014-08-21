@@ -1,0 +1,37 @@
+<apex:page showHeader="false" sidebar="false">
+<style>
+	.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete MammaPrint Microarray form?</h2>
+		</apex:outputPanel>
+		<p>The MammaPrint Microarray Form is used to report the results of MammaPrint and TargetPrint HER2 done at Agendia, Inc.  This CRF is completed by Agendia (the biotech company that runs this test).  Once this form is completed, it can be viewed in the patient's list of CRFs.  This information is used to help determined if a patient is eligible to be randomized for this trial, along with which study treatment this patient is eligible to be randomized to.</p>
+		<p>The information used to complete this form comes from a patient's pre-treatment core biopsy, so you MUST complete the Tissue Specimen Form before this form can be completed.</p>
+		<p><i>To view the MammaPrint Microarray Form, select the patient from the 'Patient' Tab, select 'Trial' and Click “Submit New” for 'MammaPrint Form'.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.MammaPrintScreenshot, 'Mammaprint1.png')}" width="115%" height="115%"/></p>
+		<ul>
+			<li>The form lists the date the report was issued by Agendia, along with the specimen ID identifying which specimen the results were generated from.</li>
+			<li>MammaPrint results are found in the section title MammaPrint Risk</li>
+			<li>RISK- is the MammaPrint risk score for the patient and is the used to help determine if a patient is eligible TO BE randomized as described in table 3.1 of the I-SPY 2 Protocol  [<i>High risk, Low Risk, Quantity not sufficient, OR Quality not sufficient</i>].</li>
+			<li>If Pre-treatment or Early-treatment is selected, the ACRIN ID and text box will appear.  If a site is participating in the ACRIN 6693 MRS protocol, you will register the patient with ACRIN to that protocol and enter the assigned ACRIN ID in this text box [4-digit numerical value].  If your patient isn't registered prior to the pre-treatment MRI scan but does the MRS scan, you can enter the ACRIN ID on the next MRI CRF (early-treatment).  If your site is not participating in the ACRIN 6693 MRS protocol, leave the text box blank.</li>
+			<li>MAMMAPRINT INDEX- is the actual score that is used in both the assignment of RISK and RISK CATEGORY [<i>-1.0 to 1.0</i>].</li>
+			<li>TargetPrint HER2 results are found in the section titled TargetPrint HER2 Index</li>
+			<li>TARGETPRINT HER2 INDEX- is the actual score that is used to determine the overall Her2 status [<i>-1.0 to 1.0</i>].</li>
+			<li>TARGETPRINT HER2 STATUS- is the Her2 status as determined by TargetPrint [<i>Negative OR Positive</i>]. </li>
+			<li>Answer the question whether additional masses or enhancements were reported on this MRI scan [<i>No OR Yes</i>].</li>
+		</ul>
+		<p class="redColor"><i><b>NOTE: This report should be shared with the patient's physician so the physician can communicate the results to the patient.  However, since this test was done under an FDA IND, this report is not to become a part of the patient's medical record.</b></i></p>
+		<p><apex:image url="{!URLFOR($Resource.MammaPrintScreenshot, 'Mammaprint2.png')}" width="115%" height="115%"/></p>
+		<p>Once the form is filled, enter your secure code to ‘Sign and Submit’.</p> 
+	</apex:outputPanel> 
+</apex:page>

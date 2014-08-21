@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>On-Study Pathology Form</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>On-Study Pathology Forms</value>
+    </caseValues>
+    <fields>
+        <label><!-- ApprovalURL --></label>
+        <name>ApprovalURL__c</name>
+    </fields>
+    <fields>
+        <label><!-- CRF --></label>
+        <name>CRF__c</name>
+        <relationshipLabel><!-- On-Study Pathology Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- CompletedDate --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <help><!-- Does the patient have bilateral breast cancer? --></help>
+        <label><!-- Patient have bilateral breast cancer? --></label>
+        <name>Does_the_patient_have_bilateral_breast_c__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Effective_Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Estrogen Receptor Status Snomed --></label>
+        <name>Estrogen_Receptor_Status_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Estrogen Receptor Status Val Snomed --></label>
+        <name>Estrogen_Receptor_Status_Val_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- First_Save_and_Close --></label>
+        <name>First_Save_and_Close__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fish Snomed --></label>
+        <name>Fish_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fish val Snomed --></label>
+        <name>Fish_val_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- HER2/neu Marker Status Snomed --></label>
+        <name>HER2_neu_Marker_Status_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- HER2/neu Marker Status val Snomed --></label>
+        <name>HER2_neu_Marker_Status_val_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- IHC Snomed --></label>
+        <name>IHC_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- IHC Val Snomed --></label>
+        <name>IHC_Val_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is DCIS Present? --></label>
+        <name>Is_DCIS_Present__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Is LCIS Present? --></label>
+        <name>Is_LCIS_Present__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Is invasive tumor present? --></label>
+        <name>Is_invasive_tumor_present__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Nuclear Grade Snomed --></label>
+        <name>Nuclear_Grade_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- OriginalCRF --></label>
+        <name>OriginalCRF__c</name>
+        <relationshipLabel><!-- On-Study Pathology Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Patient have bilateral breast Snomed --></label>
+        <name>Patient_have_bilateral_breast_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Patient have bilateral breast val Snomed --></label>
+        <name>Patient_have_bilateral_breast_val_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Follow-up</masterLabel>
+            <translation><!-- Follow-up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening</masterLabel>
+            <translation><!-- Screening --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment</masterLabel>
+            <translation><!-- Treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Progesterone Receptor Status Snomed --></label>
+        <name>Progesterone_Receptor_Status_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Progesterone Receptor Status val Snomed --></label>
+        <name>Progesterone_Receptor_Status_val_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Root CRF Id --></label>
+        <name>Root_CRF_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Not Required</masterLabel>
+            <translation><!-- Approval Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Pending</masterLabel>
+            <translation><!-- Approval Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cloned</masterLabel>
+            <translation><!-- Cloned --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Submitter --></label>
+        <name>Submitter__c</name>
+        <relationshipLabel><!-- On-Study Pathology Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- TestHarnessId --></label>
+        <name>TestHarnessId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Score ER Snomed --></label>
+        <name>Total_Score_ER_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Score PR Snomed --></label>
+        <name>Total_Score_PR_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- On-Study Pathology Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Tumor laterality Snomed --></label>
+        <name>Tumor_laterality_Snomed__c</name>
+    </fields>
+    <fields>
+        <help><!-- Tumor laterality (or side with most advanced disease) --></help>
+        <label><!-- Tumor laterality --></label>
+        <name>Tumor_laterality__c</name>
+        <picklistValues>
+            <masterLabel>Left</masterLabel>
+            <translation><!-- Left --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Right</masterLabel>
+            <translation><!-- Right --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Tumor laterality val Snomed --></label>
+        <name>Tumor_laterality_val_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_onstudypathology_Id --></label>
+        <name>pg_onstudypathology_Id__c</name>
+    </fields>
+    <layouts>
+        <layout>Approval Pending</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Live</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>On-Study Pathology Form Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- AdHoc --></label>
+        <name>AdHoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Complete --></label>
+        <name>Complete</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Delete --></label>
+        <name>Delete</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Edit --></label>
+        <name>Edit</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Edit --></label>
+        <name>New_Edit</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Sign_and_Submit --></label>
+        <name>Sign_and_Submit</name>
+    </webLinks>
+</CustomObjectTranslation>

@@ -1,0 +1,1 @@
+<br/><br/>{!Menopausal_Status_Detail__c.Submitter__c} has requested your approval for the following item: <a href="{!Menopausal_Status_Detail__c.ApprovalURL__c}" >Click Here</a> <br/><br/> Please click this link to approve or reject this record. <br/><br/>Thank you, <br/><a href="http://www.salesforce.com" >salesforce.com</a>

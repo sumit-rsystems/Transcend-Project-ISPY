@@ -1,0 +1,286 @@
+<apex:page standardController="Registration__c" renderAs="pdf" extensions="Registration" id="pageId" tabStyle="Patient_Custom__c" sidebar="false">
+    <apex:form >
+    <head>        
+        <style type="text/css" media="print">           
+            @page {                 
+                @top-center {                   
+                    content: element(header);               
+                }
+                @bottom-left {
+                    content: element(footer);
+                }           
+            }                       
+ 
+            div.header {                
+                padding: 10px;              
+                position: running(header);           
+            }           
+            div.footer {                
+                display: block;             
+                padding: 5px;               
+                position: running(footer);          
+            }                       
+ 
+            .pagenumber:before {                
+                content: counter(page);             
+            }                       
+            .pagecount:before {             
+                content: counter(pages);            
+            }                   
+        </style>            
+    </head>     
+    
+    <div class="header">        
+    <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : Registration" initial="" 
+    instituteName="" subjectId="{!patientObj.Id}"></c:CRFPdfHeader>
+    </div>
+      
+    <br/>                  
+    <div class="content">        
+    
+    <div style="background-color:#97C7EC"><b style="color:white;margin:5px"> Patient</b></div>
+    
+    <table width="100%" cellpadding="5"  >
+    <tr>
+    <td  width="38%"> 
+    <b><apex:outputLabel style="float:right" value="Name"/></b>
+    </td>
+    <td width="58%">
+    <apex:outputLabel rendered="{!patientObj.First_Name__c!= ''}">
+    <apex:outputField value="{!patientObj.First_Name__c}"/>&nbsp;
+    </apex:outputLabel>
+    <apex:outputField value="{!patientObj.Last_Name__c}"/>&nbsp;
+    (<apex:outputField value="{!patientObj.Initials__c}"/>)
+    </td>
+    <!--<td align="center">
+    <apex:image value="{!$Resource.CheckMark}" width="10" height="10" rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false) && firstNmLastNmInitl == true}"/>
+    <apex:image value="{!$Resource.UnCheckMark}" width="10" height="10" rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false) && firstNmLastNmInitl == false}"/>
+    
+    </td>-->
+    </tr>
+    
+    <tr>
+    <td >
+    <b><apex:outputLabel style="float:right" value="Gender"/></b>
+    </td>    
+    <td>
+    <apex:outputField value="{!patientObj.Gender__c}"/>
+    </td>
+    </tr>
+    
+    <tr>
+    <td >
+    <b><apex:outputLabel style="float:right" value="Race / Ethnicity"/></b>
+    </td>    
+    <td>
+    <apex:outputField value="{!patientObj.Race__c}"/>&nbsp;/&nbsp;
+    <apex:outputField value="{!patientObj.Ethnicity__c}"/>
+    </td>
+  <!--  <td align="center">
+    <apex:image value="{!$Resource.CheckMark}" width="10" height="10" rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false) && RaceEthnicity == true}"/>
+    <apex:image value="{!$Resource.UnCheckMark}" width="10" height="10" rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false) && RaceEthnicity == false}"/>
+    
+    </td>-->
+    </tr>
+    
+    
+    <tr>
+    <td >
+    <b><apex:outputLabel style="float:right" value="Country of birth"/></b>
+    </td>
+    <td>   
+    <apex:outputField value="{!patientObj.Country_of_Birth__c}"/>
+    </td>
+    </tr>
+    
+    <tr>
+    <td >
+    <b><apex:outputLabel style="float:right" value="SSN (last 4)"/></b>
+    </td>
+    <td>
+    <apex:outputField value="{!patientObj.SSN__c}"/>
+    </td>
+   <!-- <td align="center">
+    <apex:image value="{!$Resource.CheckMark}" width="10" height="10" rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false) && SSN== true}"/>
+    <apex:image value="{!$Resource.UnCheckMark}" width="10" height="10" rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false) && SSN== false}"/>
+    
+    </td>-->
+    </tr>
+    
+    <tr>
+    <td >
+    <b><apex:outputLabel style="float:right" value="MRN / Institute"/></b>
+    </td>
+    <td>
+    <apex:outputField value="{!patientObj.Medical_Record_Number__c}"/>&nbsp;
+    /&nbsp;<apex:outputText value="{!patientObj.Institute_Text__c}"/>
+    </td>
+    </tr>
+    
+    <tr>
+    <td >
+    <b><apex:outputLabel style="float:right" value="Zip"/></b>
+    </td>
+    <td>
+    <apex:outputField value="{!patientObj.Zip__c}"/>
+    </td>
+    </tr> 
+    </table>
+    
+    <br/>
+    
+    <div style="background-color:#97C7EC"><b style="color:white;margin:5px"> Registration</b></div>
+    
+    <table width="100%" cellpadding="5"  >
+    <tr>
+    <td width="38%">
+    <b><apex:outputLabel style="float:right" value="Registration Date"/></b>
+    </td>
+    <td width="58%">
+    <apex:outputField value="{!registrationObj.Registration_Date__c}"/>
+    </td>
+    </tr>
+    
+    <tr>
+    <td >
+    <b><apex:outputLabel style="float:right" value="Study Coordinator"/></b>
+    </td>
+    <td >
+    <apex:outputText value="{!registrationObj.createdBy.name}"/>
+    </td>
+    </tr>
+    
+    <tr>
+    <td align="right" ><b>I-SPY 2 Subject Id</b>
+    
+    </td>
+    <td>
+    <apex:outputField value="{!registrationObj.ISPY2_Subject_Id__c}"/>
+    </td>
+   <!-- <td align="center">   
+    <apex:image value="{!$Resource.CheckMark}" width="10" height="10"  rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false) && ISPY2SubjectId == true}"/>
+    <apex:image value="{!$Resource.UnCheckMark}" width="10" height="10"  rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false) && ISPY2SubjectId == false}"/>
+    
+    </td>-->
+    </tr>
+    
+    <tr>
+    <td>
+    <b><apex:outputLabel style="float:right" value="Oncologist"/></b>
+    </td>
+    <td>        
+    <apex:outputText value="{!registrationObj.Oncologist__r.name}"/>              
+    </td>
+    </tr>
+    
+    <tr>
+    <td>
+    <b><apex:outputLabel style="float:right" value="Surgeon"/></b>
+    </td>
+    <td>        
+    <apex:outputText value="{!registrationObj.Surgeon__r.name}"/>
+    </td>
+    </tr>
+    
+    <tr>
+    <td>
+    <b><apex:outputLabel style="float:right" value="Clinical Coordinator"/></b>
+    </td>
+    <td>        
+    <apex:outputText value="{!registrationObj.Clinical_Coordinator__r.name}"/>
+    </td>
+    </tr>
+    
+    <tr>
+    <td>
+    <b><apex:outputLabel style="float:right" value="Radiology Coordinator"/></b>
+    </td>
+    <td>        
+    <apex:outputText value="{!registrationObj.Radiology_Coordinator__r.name}"/>
+    </td>
+    </tr>
+    
+    <tr>
+    <td>
+    <b><apex:outputLabel style="float:right" value="IRB Approval Date"/></b>
+    </td>
+    <td>        
+    <apex:outputField value="{!registrationObj.IRB_Approval_Date__c}"/>
+    </td>
+    </tr>
+    
+    <tr>
+    <td>
+    <b><apex:outputLabel style="float:right" value="Screening Informed Consent Date"/></b>
+    </td>
+    <td>        
+    <apex:outputField value="{!registrationObj.Screening_Informed_Consent_Date__c}"/>         
+    </td>
+    </tr>
+    
+    <tr >
+    <td>
+    <b><apex:outputLabel style="float:right" value="HIPPA Consent Date"/></b>
+    </td>
+    <td>        
+    <apex:outputField value="{!registrationObj.HIPPA_Consent_Date__c}"/>
+    </td>
+    </tr>
+    <tr style="height:80px;">
+    <td>
+    <b><apex:outputLabel style="float:right" value="CRF Status:"/></b>
+    </td>
+    <td>        
+    <apex:outputField value="{!registrationObj.Status__c}"/>
+    </td>
+    </tr>
+    </table>
+    
+    
+  <!--  <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+    </table>
+    </div>
+   
+    <div class="footer">  
+    <c:CRFPDFFooter crfFormName="Patient Registration  Form , v1"  />
+    </div>
+    
+    </apex:form>
+</apex:page>-->
+<!--<table > 
+    <tr>
+        <td  >
+            <apex:outputLabel style="float:right;font-weight:bold;"  value="CRF Status :" />
+        </td>
+        <td >
+            <apex:outputField value="{!registrationObj.Status__c}"/>
+        </td>
+    
+   
+    </tr> 
+      </table> -->
+   <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  </div>
+  </apex:form>
+  
+</apex:page>

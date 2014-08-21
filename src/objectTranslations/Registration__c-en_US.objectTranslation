@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Registration</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Registrations</value>
+    </caseValues>
+    <fields>
+        <label><!-- CRF --></label>
+        <name>CRF__c</name>
+        <relationshipLabel><!-- Registrations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Clinical Coordinator Email --></label>
+        <name>Clinical_Coordinator_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Clinical Coordinator Fax --></label>
+        <name>Clinical_Coordinator_Fax__c</name>
+    </fields>
+    <fields>
+        <label><!-- Clinical Coordinator Phone --></label>
+        <name>Clinical_Coordinator_Phone__c</name>
+    </fields>
+    <fields>
+        <help><!-- If you doesn&apos;t found clinical coordinator in lookup list then click on &quot;New&quot; button in lookup. --></help>
+        <label><!-- Clinical Coordinator --></label>
+        <name>Clinical_Coordinator__c</name>
+        <relationshipLabel><!-- Registrations (Clinical Coordinator) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Completed Date --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Country of birth --></label>
+        <name>Country_of_birth__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ethnicity --></label>
+        <name>Ethnicity__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Name --></label>
+        <name>First_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Save and Close --></label>
+        <name>First_Save_and_Close__c</name>
+    </fields>
+    <fields>
+        <label><!-- Gender --></label>
+        <name>Gender__c</name>
+        <picklistValues>
+            <masterLabel>Female</masterLabel>
+            <translation><!-- Female --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Male</masterLabel>
+            <translation><!-- Male --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- HIPPA Consent Date --></label>
+        <name>HIPPA_Consent_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- IRB Approval Date --></label>
+        <name>IRB_Approval_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- ISPY2 Subject Id --></label>
+        <name>ISPY2_Subject_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Initials --></label>
+        <name>Initials__c</name>
+    </fields>
+    <fields>
+        <label><!-- Institution Id --></label>
+        <name>Institution_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Institution --></label>
+        <name>Institution__c</name>
+        <relationshipLabel><!-- Registrations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Institution --></label>
+        <name>Institution_readOnly__c</name>
+    </fields>
+    <fields>
+        <label><!-- Integration Timestamp --></label>
+        <name>Integration_Timestamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsCaTissueDone --></label>
+        <name>IsCaTissueDone__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsIntegrationSuccess --></label>
+        <name>IsIntegrationSuccess__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lab --></label>
+        <name>Lab__c</name>
+        <relationshipLabel><!-- Registrations (Lab) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Last Name --></label>
+        <name>Last_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Middle Name --></label>
+        <name>Middle_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- If you doesn&apos;t found oncologist in lookup list then click on &quot;New&quot; button in lookup. --></help>
+        <label><!-- Oncologist --></label>
+        <name>Oncologist__c</name>
+        <relationshipLabel><!-- Registrations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- OriginalCRF --></label>
+        <name>OriginalCRF__c</name>
+        <relationshipLabel><!-- Registrations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Patient Initials --></label>
+        <name>Patient_Initials__c</name>
+    </fields>
+    <fields>
+        <label><!-- Patient --></label>
+        <name>Patient__c</name>
+        <relationshipLabel><!-- Registrations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Follow-up</masterLabel>
+            <translation><!-- Follow-up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening</masterLabel>
+            <translation><!-- Screening --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment</masterLabel>
+            <translation><!-- Treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- PreEligibility Checklist --></label>
+        <name>PreEligibility_Checklist__c</name>
+        <relationshipLabel><!-- Registrations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Race --></label>
+        <name>Race__c</name>
+    </fields>
+    <fields>
+        <label><!-- Radiology Coordinator Email --></label>
+        <name>Radiology_Coordinator_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Radiology Coordinator Fax --></label>
+        <name>Radiology_Coordinator_Fax__c</name>
+    </fields>
+    <fields>
+        <label><!-- Radiology Coordinator Phone --></label>
+        <name>Radiology_Coordinator_Phone__c</name>
+    </fields>
+    <fields>
+        <help><!-- If you doesn&apos;t found radiology coordinator in lookup list then click on &quot;New&quot; button in lookup. --></help>
+        <label><!-- Radiology Coordinator --></label>
+        <name>Radiology_Coordinator__c</name>
+        <relationshipLabel><!-- Registrations (Radiology Coordinator) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Registration Date --></label>
+        <name>Registration_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- SSN --></label>
+        <name>SSN__c</name>
+    </fields>
+    <fields>
+        <label><!-- Screening Informed Consent Date --></label>
+        <name>Screening_Informed_Consent_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Site --></label>
+        <name>Site__c</name>
+        <relationshipLabel><!-- Registrations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Not Required</masterLabel>
+            <translation><!-- Approval Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Pending</masterLabel>
+            <translation><!-- Approval Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- If you doesn&apos;t found surgeon in lookup list then click on &quot;New&quot; button in lookup. --></help>
+        <label><!-- Surgeon --></label>
+        <name>Surgeon__c</name>
+        <relationshipLabel><!-- Registrations (Surgeon) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- Registrations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Trial --></label>
+        <name>Trial__c</name>
+        <relationshipLabel><!-- Registrations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- pg_Oncologist --></label>
+        <name>pg_Oncologist__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_Surgeon --></label>
+        <name>pg_Surgeon__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_clinicalCoordname --></label>
+        <name>pg_clinicalCoordname__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_radioCoordname --></label>
+        <name>pg_radioCoordname__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_registration_Id --></label>
+        <name>pg_registration_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_status --></label>
+        <name>pg_status__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_studyCoordname --></label>
+        <name>pg_studyCoordname__c</name>
+    </fields>
+    <layouts>
+        <layout>Adhoc</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Legal/Dates --></label>
+            <section>Legal/Dates</section>
+        </sections>
+        <sections>
+            <label><!-- Patient Information --></label>
+            <section>Patient Information</section>
+        </sections>
+        <sections>
+            <label><!-- Study Staff --></label>
+            <section>Study Staff</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Approval Pending</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Legal/Dates --></label>
+            <section>Legal/Dates</section>
+        </sections>
+        <sections>
+            <label><!-- Patient Information --></label>
+            <section>Patient Information</section>
+        </sections>
+        <sections>
+            <label><!-- Study Staff --></label>
+            <section>Study Staff</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Registration Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Legal/Dates --></label>
+            <section>Legal/Dates</section>
+        </sections>
+        <sections>
+            <label><!-- Patient Information --></label>
+            <section>Patient Information</section>
+        </sections>
+        <sections>
+            <label><!-- Study Staff --></label>
+            <section>Study Staff</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Registration Layout - DCC</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- AdHoc --></label>
+        <name>AdHoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Date can&apos;t be in future --></errorMessage>
+        <name>No_Future_Date</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Date can&apos;t be in future --></errorMessage>
+        <name>No_Future_Date_HIPPA</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Date can&apos;t be in future --></errorMessage>
+        <name>No_Future_Date_Registration</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Date can&apos;t be in future --></errorMessage>
+        <name>No_Future_Date_Screening_consent_date</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- HIPPA Consent Date field is required. --></errorMessage>
+        <name>When_Status_Is_Complet_HIPPA_Date_fields</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- IRB Approval Date field is required. --></errorMessage>
+        <name>When_Status_Is_Complete_IRB_Date_fields</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Screening Informed Consent Date field is required. --></errorMessage>
+        <name>When_Status_Is_Complete_Scre_Date_fields</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Adhoc_Cancel_Button --></label>
+        <name>Adhoc_Cancel_Button</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Adhoc_Submit_button --></label>
+        <name>Adhoc_Submit_button</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- SignAndSubmit --></label>
+        <name>SignAndSubmit</name>
+    </webLinks>
+</CustomObjectTranslation>

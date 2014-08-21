@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>XML Configuaration</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>XML Configuarations</value>
+    </caseValues>
+    <fields>
+        <label><!-- CRF Type --></label>
+        <name>CRF_Type__c</name>
+        <relationshipLabel><!-- XML Configuarations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Field API Name --></label>
+        <name>Field_API_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Object API Name --></label>
+        <name>Object_API_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Here store the string that will become xml node tag in generated xml --></help>
+        <label><!-- XML Node --></label>
+        <name>XML_Node__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

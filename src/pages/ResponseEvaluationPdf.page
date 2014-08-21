@@ -1,0 +1,380 @@
+<apex:page standardController="Response_Evaluation_Form__c" renderAs="pdf" extensions="ResponseEvaluationFormController" sideBar="false"  tabStyle="Patient_Custom__c" >
+  <apex:form >                
+<c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : Response Evaluation Form" initial="" 
+    instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+    <br/>
+    <font size="3"><b>Response Evaluation Summary</b></font>
+    <br/><br/>
+                    <table width="50%">
+                        <tr>
+                            <td colspan="2"><b>Disease Assessment</b></td>
+                        </tr>
+                        <tr>
+                            <td >Reporting Period:</td>
+                            <td>
+                                    <apex:outputField value="{!responseEval.Reporting__c}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Date of Clinical Assessment:</td>
+                            <td>
+                                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!responseEval.Date_of_clinical_assessment__c}"/>
+                                    </apex:outputText>
+                           </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <br />
+                    
+                    <b><font size="3">Target Lesions</font></b>
+                    <br />
+                    <br />
+                    
+                    <table width="100%" >
+                        <tr style="background-color:#F2F2F2" >
+                            <th>Lesion</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Distance from nipple</th>
+                            <th>Longest diameter</th>
+                            <th>Clip placed</th>
+                        </tr>
+                          <apex:repeat value="{!lstDiseaseAssessmentWrapper}" var="daWrapper1">
+                            <tr style="border:1px solid #F2F2F2;">
+                                <td>
+                                <apex:outputText value="{!daWrapper1.targetLesion}" />
+                                </td>
+                           
+                                <td>
+                                       <apex:outputText value="{!daWrapper1.diseaseAssessment.O_Clock_Position_From__c}" />
+                                </td>
+                          
+                                <td>
+                                <apex:outputText value="{!daWrapper1.diseaseAssessment.O_Clock_Position_To__c}" />
+                                </td>
+                          
+                                <td>
+                               <apex:outputText value="{0,number, 0.0}">
+                                          <apex:param value="{!daWrapper1.diseaseAssessment.Distance_from_nipple__c}"/>
+                                    </apex:outputText>
+                                <!--<apex:outputText value="{!daWrapper1.diseaseAssessment.Distance_from_nipple__c}" />-->
+                                </td>
+                          
+                                <td>
+                                <apex:outputText value="{0,number, 0.0}">
+                                          <apex:param value="{!daWrapper1.diseaseAssessment.Longest_Diameter__c}"/>
+                                    </apex:outputText>
+                               <!-- <apex:outputText value="{!daWrapper1.diseaseAssessment.Longest_Diameter__c}" />-->
+                                </td>
+                          
+                                <td>
+                                     <apex:outputText value="{!daWrapper1.diseaseAssessment.Clip_placed__c}" />
+                                </td>
+                            </tr>
+                         </apex:repeat>
+                      </table> 
+                    <br />   
+                    <br />
+                   
+                   
+                    <table>
+                        <tr>
+                            <td width="70%">Sum of LD(cm):</td>
+                            <td>
+                                   <apex:outputText value="{0,number, 0.0}">
+                                          <apex:param value="{!sumOfLD}" />
+                                    </apex:outputText>
+                                   <!-- <apex:outputText value="{!sumOfLD}" />-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Disease Extent(cm):</td>
+                            <td>
+                                    <apex:outputField value="{!responseEval.Disease_Extent__c}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Palpable nodes:</td>
+                            <td>
+                                    <apex:outputField value="{!responseEval.Palpable_nodes__c}" />
+                            </td>
+                        </tr>
+                        <tr>
+                        
+                            <td width="70%">Type of lymph node involvement:</td>
+                            <td>
+                                    <apex:outputField value="{!responseEval.Type_of_lymph_node_involvement__c}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Nodes fixed to chest wall:</td>
+                            <td>
+                                    <apex:outputField value="{!responseEval.Nodes_fixed_to_chest_wall__c}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Matted nodes:</td>
+                            <td>
+                                    <apex:outputField value="{!responseEval.Matted_nodes__c}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Size of largest node:</td>
+                            <td>
+                                    <apex:outputField value="{!responseEval.Size_of_largest_node__c}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Clinically staging period:</td>
+                            <td>
+                                    <apex:outputField value="{!responseEval.Clinically_staging_period_T__c}" />
+                                    <apex:outputField value="{!responseEval.Clinically_staging_period_N__c}" />
+                                    <apex:outputField value="{!responseEval.Clinically_staging_period_M__c}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Breast conservation surgery:</td>
+                            <td>
+                                    <apex:outputField value="{!responseEval.IsCandidateForConservationSurgery__c}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Reason for Non candidates:</td>
+                            <td>
+                                    <apex:outputField value="{!responseEval.ReasonNotConservationSurgeryCandidate__c}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th >Response Status</th>
+                        </tr>
+                        <tr>
+                            <td width="70%">Best response to date:</td>
+                            <td>
+                                    <apex:outputField value="{!responseEval.Best_overall_Response_to_date__c}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th >Sites of new progression</th>
+                        </tr>
+                        <tr>
+                            <td width="70%"><apex:outputPanel rendered="{!if(responseEval.New_local_regional_recurrence__c, true,false)}">Local-Regional:</apex:outputPanel></td>
+                            
+                            <td> <apex:outputPanel rendered="{!if(responseEval.New_local_regional_recurrence__c, true,false)}"><apex:outputField value="{!responseEval.New_local_regional_recurrence__c}" /> </apex:outputPanel></td>
+                                
+                        </tr>  
+                         <tr>
+                            <td width="70%"><apex:outputPanel rendered="{!if(responseEval.New_distant_progression__c, true,false)}">Distant:</apex:outputPanel></td>
+                            
+                            <td> <apex:outputPanel rendered="{!if(responseEval.New_distant_progression__c, true,false)}"><apex:outputField value="{!responseEval.New_distant_progression__c}" /> </apex:outputPanel></td>
+                                 
+                        </tr>                   
+                           
+                    </table>
+                    <br />
+                    <div style="background-color:#97C7EC"><b style="color:white;margin:5px">Response This Period</b> </div> 
+                    <table width="100%" >
+                        <tr>
+                             <td valign="top" align="right">
+                             <apex:outputPanel rendered="{!responseEval.Complete_response_CR__c}">
+                             <b><apex:outputLabel value="Complete Response (CR)" /></b>
+                             </apex:outputPanel>
+                             </td>
+                           
+                             <td valign="top" align="right">
+                             <apex:outputPanel rendered="{!responseEval.Complete_response_CR__c}">
+                             <apex:outputField value="{!responseEval.Complete_response_CR__c}" />
+                             </apex:outputPanel>
+                             
+                             </td>
+                            
+                             <td valign="top" align="right">
+                             <apex:outputPanel rendered="{!responseEval.Complete_response_CR__c}">
+                             <b><apex:outputLabel value="Complete Response Date" /></b>
+                             </apex:outputPanel>
+                             </td>
+                             <td valign="top" align="right">
+                             <apex:outputPanel rendered="{!responseEval.Complete_response_CR__c}">
+                             <apex:outputField value="{!responseEval.Complete_response_CR_Date__c}"/>
+                             </apex:outputPanel>
+                             </td>
+                        </tr> 
+                        
+                        <tr>
+                            <td valign="top" align="right">
+                            <apex:outputPanel rendered="{!responseEval.Partial_response_PR__c}">
+                            <b><apex:outputLabel value="Partial Response (PR)" /></b>
+                            </apex:outputPanel>
+                            </td>
+                            <td valign="top" align="right">
+                            <apex:outputPanel rendered="{!responseEval.Partial_response_PR__c}">
+                            <apex:outputField value="{!responseEval.Partial_response_PR__c}"/>
+                            </apex:outputPanel>
+                            </td>
+                            
+                            <td valign="top" align="right">
+                            <apex:outputPanel rendered="{!responseEval.Partial_response_PR__c}">
+                            <b><apex:outputLabel value="Partial Response Date" /></b>
+                            </apex:outputPanel>
+                            </td>
+                            <td valign="top" align="right">
+                            <apex:outputPanel rendered="{!responseEval.Partial_response_PR__c}">
+                            <apex:outputField value="{!responseEval.Partial_response_PR_Date__c}" />
+                            </apex:outputPanel>
+                            </td>
+                        </tr>    
+                        
+                        <tr>
+                            <td valign="top" align="right">
+                            <apex:outputPanel rendered="{!responseEval.New_local_regional_recurrence__c}">
+                            <b><apex:outputLabel value="New Local - Regional Recurrence" /></b>
+                            </apex:outputPanel>
+                            </td>
+                            <td valign="top" align="right">
+                            <apex:outputPanel rendered="{!responseEval.New_local_regional_recurrence__c}">
+                            <apex:outputField value="{!responseEval.New_local_regional_recurrence__c}"/>
+                            </apex:outputPanel>
+                            </td>
+                            
+                            <td valign="top" align="right"> 
+                            <apex:outputPanel rendered="{!responseEval.New_local_regional_recurrence__c}">
+                            <b><apex:outputLabel value="New Local - Regional Recurrence Date" /></b>
+                            </apex:outputPanel>
+                            </td>
+                            <td valign="top" align="right">
+                            <apex:outputPanel rendered="{!responseEval.New_local_regional_recurrence__c}" >
+                            <apex:outputField value="{!responseEval.New_local_regional_recurrence_Date__c}" />
+                            </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" align="right">
+                            <apex:outputPanel rendered="{!responseEval.New_distant_progression__c}">
+                            <b><apex:outputLabel value="New Distant Progression" /></b>
+                            </apex:outputPanel>
+                            </td>
+                            <td valign="top" align="right">
+                            <apex:outputPanel rendered="{!responseEval.New_distant_progression__c}">
+                            <apex:outputField value="{!responseEval.New_distant_progression__c}"/>
+                            </apex:outputPanel>
+                            </td>
+                           
+                            <td valign="top" align="right">
+                            <apex:outputPanel rendered="{!responseEval.New_distant_progression__c}">
+                            <b><apex:outputLabel value="New Distant Progression Date" /></b>
+                            </apex:outputPanel>
+                            </td>
+                            <td valign="top" align="right">
+                            <apex:outputPanel rendered="{!responseEval.New_distant_progression__c}">
+                            <apex:outputField value="{!responseEval.New_distant_progression_Date__c}"/>
+                            </apex:outputPanel>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                  <!--  <c:CRFAttachmentComponent rId="{!responseEval.Id}" feedCRFName="Response_Evaluation_Form__Feed"/>-->
+       <br/>
+       <br/><br/><br/><br/>
+       <div style="background-color:#97C7EC"><b style="color:white;margin:5px">Sites of new progression</b> </div> 
+       <br/>
+       <table width="100%" >            
+           
+           <tr>
+           <td width="46%" >
+           <div style="background-color:#97C7EC"><b style="color:white;margin:5px">Local Regional</b> </div> 
+           </td>
+           <td>&nbsp;</td>
+           <td width="46%">
+           <div style="background-color:#97C7EC"><b style="color:white;margin:5px">Distant</b> </div> 
+           </td>
+           </tr>
+           
+           <tr>
+           <td valign="top" width="48%">
+           <apex:outputField value="{!responseEval.Local_Regional__c}"/>
+           </td>
+           <td>&nbsp;</td>
+           <td valign="top" width="48%">
+           <apex:outputField value="{!responseEval.Distant__c}"/>
+           <apex:outputField value="{!responseEval.Other__c}"/>
+           </td>
+           </tr>
+           </table>
+       <br/>
+       
+       
+    <!--   <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+   </table>
+                <c:CRFPDFFooter crfFormName="Response Evaluation Form , v1"  />
+           
+</apex:page>-->
+<table   cellpadding="5"> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="CRF Status:" />
+        </td>
+        <td >
+            <apex:outputField value="{!responseEval.Status__c}"/>
+        </td>
+    
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"   value="DCC Action:" />
+        </td>
+        <td >
+            <apex:outputField value="{!responseEval.Status__c}"/>
+        </td>
+    </tr> 
+    </tr> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="DCC Comments:" />
+        </td>
+        <td >
+           <!-- <apex:outputField value="{!}"/>-->
+           <c:CRFEventComponentcomments rId="{!responseEval.Id}" objectNamec="Response_Evaluation_Form__c"  rtId="{!responseEval.Root_CRF_Id__c}"/>
+        </td>
+    </tr> 
+  </table>
+  <br/>
+  <br/>
+  
+  <apex:pageBlock tabStyle="Account">
+<!--  <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(responseEval.Id))}">
+        <c:CRFAttachmentComponent rId="{!responseEval.Id}" feedCRFName="Response_Evaluation_Form__Feed"/>
+  </apex:pageBlockSection> -->
+  <c:CRFAttachmentComponentPdf rId="{!responseEval.Id}" feedCRFNamePdf="Response_Evaluation_Form__Feed"  rtId="{!responseEval.Root_CRF_Id__c}"/>
+  <br/>
+  
+  <div style="background-color:#97C7EC"><b style="margin:10px;color:white">CRF Events</b></div>
+  
+  <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(responseEval.Id))}">
+         <c:CRFEventComponent rId="{!responseEval.Id}" objectName="Response_Evaluation_Form__c" rtId="{!responseEval.Root_CRF_Id__c}"/>
+  </apex:pageBlockSection>
+        
+  </apex:pageBlock>   
+           
+           
+  <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  </apex:form>
+</apex:page>

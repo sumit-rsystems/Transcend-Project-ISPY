@@ -1,0 +1,170 @@
+<apex:page renderAs="pdf" standardController="Menopausal_Status_Detail__c" extensions="MenopausalStatusDetailController"  sidebar="false" id="pageId" tabStyle="Patient_Custom__c">
+  <apex:form >
+   <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : Menopausal Status" initial="" 
+    instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+    <br/>                 
+    <div style="background-color:#97C7EC"><b style="color:white;margin:5px"> Menopausal Status Detail</b></div>
+    
+    <table width="100%" cellpadding="5" >
+    <tr>
+    <td valign="top">
+     <b><apex:outputText style="float:right" value="Patient Age" /></b>
+    </td>
+    <td valign="top">
+    <apex:outputField value="{!msd.Patient_age__c}" id="ageId" />   
+    </td>
+    </tr>
+                        
+        <tr >
+            <td valign="top" width="40%">
+                <b><apex:outputText style="float:right" value="Date of last menstrual period (Enter as much as is known)" /></b>
+            </td> 
+                      
+            <td  valign="top">
+                <table >
+                    <tr>
+                        <td valign="top">
+                            <apex:outputText value="{0, number, 000}" >
+                                <apex:param value="{!msd.Last_Menstrual_Year__c}" />
+                            </apex:outputText>&nbsp; <br/>Year
+                        </td>
+                        <td valign="top">
+                            &nbsp;<apex:outputField value="{!msd.Last_Menstrual_Month__c}" />&nbsp; 
+                            <br/>
+                            Month
+                        </td>
+                        <td valign="top">
+                             <apex:outputField value="{!msd.Last_Menstrual_Day__c}" style="width : 40px;"/>&nbsp; <br/>
+                             Day
+                        </td>
+                        <td valign="top">
+                            
+                            <apex:outputField value="{!msd.Date_of_Last_Menstrual_Period__c}" />
+                        </td>
+                    </tr> 
+                </table>
+            </td>
+            <td valign="top">
+                <table>
+                    <tr>
+                        <td valign="top">
+                            <apex:outputField value="{!msd.Unknown_Date__c}" />
+                            <apex:outputText value="Unknown Date" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <apex:outputField value="{!msd.Unknown_Date_but_12_Months_Ago__c}" />
+                            <apex:outputText value="Unknown Date but >12 Months Ago" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    
+    <tr >
+    <td valign="top" >
+    <b><apex:outputText style="float:right;" value="On estrogen replacement?:" /></b>
+    </td>
+    <td valign="top" colspan="2">
+    <apex:outputField value="{!msd.On_Estrogen_Replacement__c}" /> &nbsp; Duration:
+    <apex:outputField value="{!msd.Enstrogent_Replacement_Duration_Months__c}" style="width : 40px;"/>&nbsp; Months
+    <apex:outputField value="{!msd.Enstrogent_Replacement_Duration_Years__c}" style="width : 40px;"/>&nbsp; Years
+    </td>
+    </tr>
+    
+    <tr>
+    <td valign="top">
+    <b><apex:outputText style="float:right" value="Bilateral oophorectomy?:" /></b>
+    </td>   
+    <td valign="top">
+    <apex:outputField value="{!msd.Bilateral_oophorectomy__c}" /> &nbsp; 
+    Date: &nbsp;<apex:outputField value="{!msd.Bilateral_Oophorectomy_Date__c}" />
+    </td>
+    </tr>
+    
+    <tr>
+    <td valign="top">
+    <b><apex:outputText style="float:right" value="Hysterectomy?:" /></b>
+    </td>
+    <td valign="top">
+    <apex:outputField value="{!msd.Hysterectomy__c}" /> &nbsp;
+    Date: &nbsp;<apex:outputField value="{!msd.Hysterectomy_Date__c}" />
+    </td>
+    </tr>
+    
+    <tr style="height:80px;" >
+    <td valign="top">
+    <b><apex:outputText style="float:right"  value="Menopausal Status:" /></b>
+    </td>
+    <td colspan="2" valign="top">
+    <apex:outputField value="{!msd.Menopausal_Status__c}" />
+    </td>
+    </tr> 
+    
+       <tr>
+    <td valign="top">
+    <b><apex:outputText style="float:right" value="CRF Status:" /></b>
+    </td>   
+    <td  valign="top">
+    <apex:outputField value="{!msd.Status__c}"/>
+    </td>
+    </tr>
+    
+     <tr>
+    <td valign="top">
+    <b><apex:outputText style="float:right" value="DCC Action:" /></b>
+    </td>   
+    <td  valign="top">
+    <apex:outputField value="{!msd.Status__c}"/>
+    </td>
+    </tr>
+    
+    <tr>
+    <td valign="top">
+    <b><apex:outputText style="float:right" value="DCC Comments:" /></b>
+    </td>   
+    <td  valign="top">
+    <!--<apex:outputText value="Menopausal Status Detail is approved"/>-->
+     
+    <c:CRFEventComponentcomments rId="{!msd.Id}" objectNamec="Menopausal_Status_Detail__c" rtId="{!msd.Root_CRF_Id__c}"/>
+    </td>
+    </tr>
+    </table>
+    
+   
+  <br/>
+  <br/>
+  
+  <apex:pageBlock tabStyle="Account">
+  <!--<apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(msd.Id))}">
+       <c:CRFAttachmentComponent rId="{!msd.Id}" feedCRFName="Menopausal_Status_Detail__Feed"/>
+  </apex:pageBlockSection>-->
+  <c:CRFAttachmentComponentPdf rId="{!msd.Id}" feedCRFNamePdf="Menopausal_Status_Detail__Feed" 	rtId="{!msd.Root_CRF_Id__c}"/>
+  <br/>
+  
+  <div style="background-color:#97C7EC"><b style="margin:10px;color:white">CRF Events</b></div>
+  
+  <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(msd.Id))}">
+        <c:CRFEventComponent rId="{!msd.Id}" objectName="Menopausal_Status_Detail__c" rtId="{!msd.Root_CRF_Id__c}"/>
+   </apex:pageBlockSection>
+        
+  </apex:pageBlock>   
+           
+           
+  <table width="100%" cellpadding="5">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  </apex:form>
+</apex:page>

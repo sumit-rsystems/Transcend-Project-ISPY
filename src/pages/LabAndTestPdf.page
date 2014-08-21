@@ -1,0 +1,347 @@
+<apex:page standardController="Lab_and_Test__c" extensions="LabAndTestController" sideBar="false" renderAs="pdf"  id="pageId" tabStyle="Patient_Custom__c">
+  <apex:form >
+  <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : Lab And Test Form" initial="" 
+     instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+   <br/><br/>  
+  
+  <table width="100%"  cellpadding="5"> 
+    <tr>
+        <td width="30%" >
+            <apex:outputLabel style="float:right " value="Collection Date:" />
+        </td>
+        <td >
+            <apex:outputField value="{!latObj.Collection_Date__c}"/>
+        </td>
+    </tr> 
+  </table>  
+  <br/>
+  
+        <div style="background-color:#97C7EC"><b style="margin:10px;color:white">Routine Tests</b></div>
+    
+  
+  <table width="100%" cellpadding="4" cellspacing="0">
+                    <tr style="border-bottom: 1px solid black;">
+                        <th width="40%" style="border-bottom: 1px solid black;">
+                            <apex:outputLabel value="Test Name"/>
+                        </th>
+                        <th width="30%" style="border-bottom: 1px solid black;">
+                            <apex:outputLabel value="Result"/>
+                        </th>
+                        <th width="30%" style="border-bottom: 1px solid black;">
+                            <apex:outputLabel value="Institutional reference range"/>
+                        </th> 
+                    </tr>
+                    
+                    <tr>
+                        <td width="20%">
+                            <apex:outputField value="{!latObj.Leukocytes__c}" id="LeukocytesId1"/>
+                            <apex:outputLabel value="Leukocytes"/>
+                        </td>
+<!--                            <apex:outputPanel id="LeukocytesPanel">-->
+                            <td width="20%">
+                               <!-- {!latObj.Leukocytes_Result__c} &nbsp;&nbsp;-->
+                               
+                               <apex:outputText value="{0,number, 0.0}">
+                               <apex:param value="{!latObj.Leukocytes_Result__c}"/>
+                               </apex:outputText>&nbsp;&nbsp;
+                                <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                            </td>
+                            <td width="20%">
+                                {!latObj.Leukocytes_Institutional_Reference_Range__c} &nbsp;&nbsp;
+                                <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                            </td>
+<!--                            </apex:outputPanel>-->
+                    </tr>
+                    <tr>
+                        <td width="20%">
+                            <apex:outputField value="{!latObj.Absolute_Neutrophil_Count_ANC__c}" />
+                            <apex:outputLabel value="Absolute Neutrophil Count (ANC)"/>
+                        </td>
+<!--                            <apex:outputPanel >-->
+                            <td width="20%">
+                              <!--  {!latObj.Absolute_Neutrophil_Count_ANC_Result__c} &nbsp;&nbsp;-->
+                                 <apex:outputText value="{0,number, 0.0}"  >
+                                <apex:param value="{!latObj.Absolute_Neutrophil_Count_ANC_Result__c}"/>
+                              </apex:outputText>&nbsp;&nbsp;
+                                <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                            </td>
+                            <td width="20%">
+                               {!latObj.ANC_Industrial_Reference_Range__c} &nbsp;&nbsp;
+                              
+                                <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                            </td>
+<!--                            </apex:outputPanel>-->
+                    </tr>
+                    <tr>
+                        <td width="20%">
+                            <apex:outputField value="{!latObj.Platelets__c}" />
+                            <apex:outputLabel value="Platelets"/>
+                        </td>
+<!--                            <apex:outputPanel >-->
+                            <td width="20%">
+                               <!-- {!latObj.Platelets_Result__c} &nbsp;&nbsp;-->
+                               <apex:outputText value="{0,number, 0.0}"  >
+                                <apex:param value="{!latObj.Platelets_Result__c}"/>
+                              </apex:outputText>&nbsp;&nbsp;
+                                <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                            </td>
+                            <td width="20%">
+                                {!latObj.Platelets_Institutional_Reference_Range__c} &nbsp;&nbsp;
+                                <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                            </td>
+<!--                            </apex:outputPanel>-->
+                    </tr>
+                    <tr>
+                        <td width="20%">
+                            <apex:outputField value="{!latObj.Total_Bilirubin__c}" />
+                            <apex:outputLabel value="Total Bilirubin"/>
+                        </td>
+<!--                            <apex:outputPanel >-->
+                            <td width="20%">
+                               <!-- {!latObj.Total_Bilirubin_Result__c} &nbsp;&nbsp;  -->
+                               <apex:outputText value="{0,number, 0.0}"  >
+                                <apex:param value="{!latObj.Total_Bilirubin_Result__c}"/>
+                              </apex:outputText>&nbsp;&nbsp;
+                                <apex:outputLabel >mg/dl</apex:outputLabel>
+                            </td>
+                            <td width="20%">
+                                {!latObj.Total_Bilirubin_Institutional_Reference__c} &nbsp;&nbsp;
+                                <apex:outputLabel >mg/dl</apex:outputLabel>
+                            </td>
+<!--                            </apex:outputPanel>-->
+                    </tr>
+                    <tr>
+                        <td width="20%">
+                            <apex:outputField value="{!latObj.AST__c}" />
+                            <apex:outputLabel value="AST"/>
+                        </td>
+<!--                            <apex:outputPanel >-->
+                            <td width="20%">
+                               <!-- {!latObj.AST_Result__c} &nbsp;&nbsp;-->
+                                <apex:outputText value="{0,number, 0.0}"  >
+                                <apex:param value="{!latObj.AST_Result__c}"/>
+                              </apex:outputText>&nbsp;&nbsp;
+                                <apex:outputLabel >U/L</apex:outputLabel>
+                            </td>
+                            <td width="20%">
+                                {!latObj.AST_Institutional_Reference_Range__c}  &nbsp;&nbsp;
+                                <apex:outputLabel >U/L</apex:outputLabel>
+                            </td>
+<!--                            </apex:outputPanel>-->
+                    </tr>
+                    <tr>
+                        <td width="20%">
+                            <apex:outputField value="{!latObj.ALT__c}" />
+                            <apex:outputLabel value="ALT"/>
+                        </td>
+<!--                            <apex:outputPanel >-->
+                            <td width="20%">
+                               <!-- {!latObj.ALT_Result__c} &nbsp;&nbsp;-->
+                               <apex:outputText value="{0,number, 0.0}"  >
+                                <apex:param value="{!latObj.ALT_Result__c}"/>
+                              </apex:outputText>&nbsp;&nbsp;
+                                <apex:outputLabel >U/L</apex:outputLabel>
+                            </td>
+                            <td width="20%">
+                                {!latObj.ALT_Institutional_Reference_Range__c} &nbsp;&nbsp;
+                                <apex:outputLabel >U/L</apex:outputLabel>
+                            </td>
+<!--                            </apex:outputPanel>-->
+                    </tr>
+                    <tr>
+                        <td width="20%">
+                            <apex:outputField value="{!latObj.Creatinine__c}" />
+                            <apex:outputLabel value="Creatinine"/>
+                        </td>
+<!--                            <apex:outputPanel >-->
+                            <td width="20%">
+                               <!-- {!latObj.Creatinine_Result__c} &nbsp;&nbsp;-->
+                               <apex:outputText value="{0,number, 0.0}"  >
+                                <apex:param value="{!latObj.Creatinine_Result__c}"/>
+                              </apex:outputText>&nbsp;&nbsp;
+                                <apex:outputLabel >mg/dl</apex:outputLabel>
+                            </td>
+                            <td width="20%">
+                                {!latObj.Creatinine_Institutional_Reference_Range__c}
+                                <apex:outputLabel >mg/dl</apex:outputLabel>
+                            </td>
+<!--                            </apex:outputPanel>-->
+                    </tr>
+                </table> 
+                
+                
+                 <table width="100%" cellpadding="4" cellspacing="0">
+                    <tr style="border-bottom: 1px solid black;">
+                        <th width="18%" style="border-bottom: 1px solid black;">
+                            <apex:outputLabel value="Test Name"/>
+                        </th>
+                        <th width="18%" style="border-bottom: 1px solid black;">
+                            <apex:outputLabel value="Date of Procedure"/>
+                        </th> 
+                        <th width="18%" style="border-bottom: 1px solid black;">
+                            <apex:outputLabel value="LVEF%"/>
+                        </th>
+                        <th width="18%" style="border-bottom: 1px solid black;">
+                            <apex:outputLabel value="LVEF% Institutional lower limit of normal"/>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!latObj.MUGA_Scan__c}" />
+                            <apex:outputLabel value="MUGA Scan"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!latObj.MUGA_Scan_Date__c}" /> &nbsp;&nbsp;
+                        </td>
+                        <td>
+                           <!-- {!latObj.MUGA_Scan_LVEF__c} &nbsp;&nbsp;-->
+                            <apex:outputText value="{0,number, 0.0}"  >
+                                <apex:param value="{!latObj.MUGA_Scan_LVEF__c}"/>
+                              </apex:outputText>&nbsp;&nbsp;
+                            <apex:outputLabel value="%"/>
+                        </td>
+                        <td>
+                          <!--  {!latObj.MUGA_Institutional_Lower_Limit_of_Normal__c} &nbsp;&nbsp;-->
+                           <apex:outputText value="{0,number, 0.0}"  >
+                              <apex:param value="{!latObj.MUGA_Institutional_Lower_Limit_of_Normal__c}"/>
+                              </apex:outputText>&nbsp;&nbsp;
+                            <apex:outputLabel value="%"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!latObj.Cardiac_Echo__c}" id="CardiacEchoId1"/>
+                            <apex:outputLabel value="Cardiac Echo"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!latObj.Cardiac_Echo_Date__c}" /> &nbsp;&nbsp;
+                        </td>
+                        <td>
+                           <!-- {!latObj.Cardiac_Echo_LVEF__c}  &nbsp;&nbsp;-->
+                            <apex:outputText value="{0,number, 0.0}"  >
+                              <apex:param value="{!latObj.Cardiac_Echo_LVEF__c}"/>
+                              </apex:outputText>&nbsp;&nbsp;
+                            <apex:outputLabel value="%"/>
+                        </td>
+                        <td>
+                          <!--  {!latObj.Cardiac_Echo_Institutional_Lower_Limit__c} &nbsp;&nbsp; -->
+                           <apex:outputText value="{0,number, 0.0}"  >
+                              <apex:param value="{!latObj.Cardiac_Echo_Institutional_Lower_Limit__c}"/>
+                              </apex:outputText>&nbsp;&nbsp;
+                            <apex:outputLabel value="%"/>
+                        </td>
+                    </tr>   
+                </table>
+                <br/>   
+    
+               <table width="100%"  cellpadding="5"> 
+                      <tr>
+                         <td width="30%" >
+                                         <apex:outputLabel style="float:right " value="Collection Date:" />
+                         </td>
+                         <td >
+                              <apex:outputField value="{!latObj.Collection_Date_for_Investigative_Agent__c}"/>
+                          </td>
+                      </tr> 
+              </table>  
+               
+    
+               <table width="100%"  cellpadding="5"> 
+                      <tr>
+                         <td width="30%" >
+                                         <apex:outputPanel >
+                                          <b><apex:outputLabel value="Treatment Arm:" Style="color : #4A4A56; font-size: 91%;" style="margin-left: 120px;"/></b>
+                                             &nbsp;&nbsp;&nbsp;<apex:outputLabel value="Patient not randomized." rendered="{!patientNotRandomized}"/>
+                                              &nbsp;&nbsp;&nbsp;<apex:outputLabel value="{!armName}" rendered="{!randomizationResult}"/> 
+                                           </apex:outputPanel>
+<!--                            <apex:pageMessage summary="Patient not randomized." severity="info" strength="3" rendered="{!patientNotRandomized}" />-->
+                          </td>
+                      </tr> 
+              </table>  
+              <br/>
+              <br/>
+              <apex:pageBlock tabStyle="Account">
+              <apex:outputPanel rendered="{!randomizationResult}">
+                    <apex:pageBlockSection columns="1" title="" collapsible="false" id="additionalQueSection">
+                    <div style="background-color:#97C7EC"><b style="margin:10px;color:white">Investigational Agent Specific Tests</b></div>
+                        <c:AdditionalQuestionComponentReadOnly type="Test" CRFType="00055" armId="{!armIdSelected}" CRFId="{!latObj.Id}" />
+                    </apex:pageBlockSection> 
+                </apex:outputPanel>
+              </apex:pageBlock>
+              
+              <br/><br/>
+        
+     <!-- <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+   </table>  
+    <c:CRFPDFFooter crfFormName="Tissue Specimen Form , v1"  />-->
+
+<table   cellpadding="5"> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="CRF Status:" />
+        </td>
+        <td >
+            <apex:outputField value="{!latObj.Status__c}"/>
+        </td>
+    
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"   value="DCC Action:" />
+        </td>
+        <td >
+            <apex:outputField value="{!latObj.Status__c}"/>
+        </td>
+    </tr> 
+    </tr> 
+    <tr>
+        <td >
+            <apex:outputLabel style="font-weight:bold;"  value="DCC Comments:" />
+        </td>
+        <td >
+           <!-- <apex:outputField value="{!}"/>--> 
+           <c:CRFEventComponentcomments rId="{!latObj.Id}" objectNamec="Lab_and_Test__c"/>
+        </td>
+    </tr> 
+  </table>
+  <br/>
+  <br/>
+  
+  <apex:pageBlock tabStyle="Account">
+   <!--<apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(latObj.Id))}">
+         <c:CRFAttachmentComponent rId="{!latObj.Id}" feedCRFName="Lab_and_Test__Feed"/>
+   </apex:pageBlockSection> -->
+   <c:CRFAttachmentComponentPdf rId="{!latObj.Id}" feedCRFNamePdf="Lab_and_Test__Feed" />
+  <br/>
+  
+  <div style="background-color:#97C7EC"><b style="margin:10px;color:white">CRF Events</b></div>
+  
+   <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(latObj.Id))}">
+         <c:CRFEventComponent rId="{!latObj.Id}" objectName="Lab_and_Test__c"/>
+   </apex:pageBlockSection>  
+        
+  </apex:pageBlock>     
+           
+           
+  <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  </apex:form>
+</apex:page>

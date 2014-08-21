@@ -1,0 +1,342 @@
+<apex:component controller="AdditionalQuestionController" allowDML="true" id="additionalQueComponent">
+	<apex:attribute name="CRFType" description="This is CRF Type." type="String" required="true" assignTo="{!CRFType}" />
+	<apex:attribute name="armId" description="This is armId."  type="String" required="true" assignTo="{!armId}" />
+	<apex:attribute name="TrialPatientId" description="This is TrialPatientId."  type="String" required="true" assignTo="{!TrialPatientId}" />
+	<apex:attribute name="SectionTitle" description="This is Section Title"  type="String" required="true" />
+	<apex:attribute name="CRFId" description="This is CRFId"  type="String" required="true" assignTo="{!CRFId}"/>
+	<apex:attribute name="isReadOnly" description="This is isReadOnly"  type="Boolean" required="false" assignTo="{!isReadOnly}" />
+	<apex:attribute name="isEdited" description="This is isEdited"  type="Boolean" required="false" />
+	<apex:attribute name="key" description="This is Key"  type="String" required="false"  assignTo="{!Key}" /> 
+    <apex:attribute name="pageController" type="PageControllerBase" assignTo="{!pageController}" required="true" description="The controller for the page." />
+    <apex:attribute name="type" type="String" assignTo="{!Questiontype}" required="false" description="Type of Question" />
+	<!-- <apex:attribute name="isEdited" description="This is isEdited."  type="Boolean" required="true" assignTo="{!isEdited}" />-->
+	<style>
+		.tableClass tr td {
+			padding: 5px;
+		}
+		.tableClass tr td span {
+			padding-bottom: 3px;
+		}
+	</style>
+	 <script>
+	 	/*function saveAdditionalQuestions() {
+	 		saveComponent(); 
+	 	}*/
+	 	//alert("{!isReadOnly}");
+	 	//if("{!isReadOnly}" == "true") {
+	 		
+	 	//}
+	 	
+	 	function selectValuesInTextArea(objID, ele, flag){
+	 		if(flag == "true") {
+	 			//alert(flag);
+	 			ele = ele.substring(1,ele.length - 1);
+	 			var elements = new Array();
+			 	elements = ele.split(", ");
+			 	//alert(elements);
+			 	var selObject = document.getElementById(objID);
+			 	
+			 	for (i=0;i<selObject.options.length;i++){
+			 		for(j=0;j<elements.length;j++) {
+				 		if(elements[j] == selObject.options[i].text) {
+								
+								selObject.options[i].selected=true;
+						}
+					} 
+				}
+			}
+		}
+		
+		function makeReadOnly (flag, isEdited) {
+			if(flag == "true" && isEdited == 'false') {
+				//alert('working');
+				var obj = document.getElementById('compId');
+				//alert('working'+obj);
+				var likeString = obj.getElementsByTagName('input');
+				for(var i=0;i<likeString.length;i++) {
+					likeString[i].disabled = true;
+				}
+			}
+		}
+		function enableFieldsChild(obj) {
+			//alert(obj.checked);
+			trObj = obj.parentNode.parentNode.parentNode;
+			currentTdObj = obj.parentNode.parentNode;
+			var inputList = trObj.getElementsByTagName('input');
+			var tdList = trObj.getElementsByTagName('td');
+			var tdNumber = '';
+			var nextTdObj = '';
+			//alert(obj.id);
+			
+			for(var i = 0; i<tdList.length; i++) {
+				if(currentTdObj == tdList[i]) {
+					//alert("in");
+					tdNumber = i;
+					nextTdObj = tdList[i+1];
+					break;
+				}
+				/*for(var j = 1; j<likeString.length; j++) {
+				//alert("likeString[j].id: "+likeString[j].id+", obj.id: "+obj.id);
+					if(likeString[j].id == obj.id) {
+						alert("in");
+						tdNumber = i;
+						nextTdObj = tdList[i+1];
+						break;
+					}
+				}*/
+			}
+			//alert(tdNumber);
+			var nextTdInputList = nextTdObj.getElementsByTagName('input');
+			
+			for(var i=0; i<nextTdInputList.length; i++) {
+				if(obj.checked) {
+					nextTdInputList[i].disabled = false;
+				} else {
+					nextTdInputList[i].disabled = true;
+				}
+			}
+		}
+		function enableFields(obj) {
+			datafromPreviousCRF = document.getElementById('pageId:formId:InvestigativeAgentBlock:additionalQueSection:additionalQueCallComponent:additionalQueComponent:inputHid').value;
+			
+			if(datafromPreviousCRF == true) {
+				obj.checked = false;
+			}
+			parentObj = obj.parentNode.parentNode.parentNode;
+			var likeString = parentObj.getElementsByTagName('input');
+			for(var i=1;i<likeString.length;i++) {
+				if(obj.checked) {
+					likeString[i].disabled = false;
+				} else {
+					likeString[i].disabled = true;
+					if(datafromPreviousCRF == true) {
+						likeString[i].value = '';
+					}
+				}
+			}
+		}
+		
+		function enableFields1(obj) {
+			
+			parentObj = obj.parentNode.parentNode.parentNode;
+			var likeString = parentObj.getElementsByTagName('input');
+			for(var i=1;i<likeString.length;i++) {
+				if(obj.checked) {
+					likeString[i].disabled = false;
+				} else {
+					likeString[i].disabled = true;
+					likeString[i].value = '';
+				}
+			}
+		}
+		
+		function validateDate(obj) {
+			if(obj.value != null && obj.value != '') {
+				if(new Date(obj.value) > new Date()) {
+					alert('Error : Future Date not allowed.');
+					obj.value = '';
+				}
+			}
+		}
+	</script>
+				  <apex:inputHidden value="{!datafromPreviousCRF}" id="inputHid"/>
+					<table id="mainTableId" width="100%">
+						<tr>
+							<td colspan="3" id="t1">
+								<apex:outputPanel rendered="{!IF(Questiontype = 'Test', true, false)}">
+									<b>Test Name</b>								
+								</apex:outputPanel>
+							</td>
+							<td colspan="2" id="t2">
+								<apex:outputPanel rendered="{!IF(Questiontype = 'Test', true, false)}">
+									<b>Result</b>
+								</apex:outputPanel>
+							</td>
+							<td colspan="2" id="t3">
+								<apex:outputPanel rendered="{!IF(Questiontype = 'Test', true, false)}">
+									<b>Institutional Reference Range</b>
+								</apex:outputPanel>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3" >
+								<apex:outputPanel rendered="{!IF(Questiontype = 'Test', true, false)}"><hr/></apex:outputPanel>
+							</td>
+							<td colspan="2" >
+								<apex:outputPanel rendered="{!IF(Questiontype = 'Test', true, false)}"><hr/></apex:outputPanel>
+							</td>
+							<td colspan="2" >
+								<apex:outputPanel rendered="{!IF(Questiontype = 'Test', true, false)}"><hr/></apex:outputPanel>
+							</td>
+							<td >
+								<apex:outputPanel rendered="{!IF(Questiontype = 'Test', true, false)}"><hr/></apex:outputPanel>
+							</td>
+						</tr>
+						<apex:repeat value="{!lstQuesAnsWrapper}" var="quesAnsWrapper">
+							<tr id="repeat1">
+								<td colspan="3" id="td1">
+									 
+						   			<apex:outputPanel rendered="{!IF((quesAnsWrapper.QuestionAnswer.AnswerType__c='Text'),true,false)}" id="parTxt">
+						   				<apex:outputLabel value="{!quesAnsWrapper.QuestionAnswer.Question__c}" /> <apex:inputText value="{!quesAnsWrapper.textAns}" />
+						   				<script>
+						   					document.getElementById('{!$Component.parTxt}').disabled = {!(IF(isReadOnly = true,true,false))};
+						   				</script>
+						  			</apex:outputPanel>
+						  			
+						 			<apex:outputPanel rendered="{!IF((quesAnsWrapper.QuestionAnswer.AnswerType__c='TextArea'),true,false)}" id="parTxtArea">
+						   				<apex:outputLabel value="{!quesAnsWrapper.QuestionAnswer.Question__c}" /> <apex:inputTextarea rows="4" value="{!quesAnsWrapper.textAreaAns}" />
+						   				<script>
+						   					document.getElementById('{!$Component.parTxt}').disabled = {!(IF(isReadOnly = true,true,false))};
+						   				</script>
+						  			</apex:outputPanel>
+						  			
+						  			<apex:outputPanel rendered="{!IF((quesAnsWrapper.QuestionAnswer.AnswerType__c='Picklist'),true,false)}" id="parPick">
+						   				<apex:outputLabel value="{!quesAnsWrapper.QuestionAnswer.Question__c}" /> 
+						   				<apex:selectList id="picklst" value="{!quesAnsWrapper.picklistAns}" size="1">
+						   					<apex:selectOptions value="{!quesAnsWrapper.lstPicklistAns}" />
+				        				</apex:selectList> 		  			
+						  			</apex:outputPanel>
+						  			
+						  			<apex:outputPanel rendered="{!IF((quesAnsWrapper.QuestionAnswer.AnswerType__c='Picklist (Multi-Select)'),true,false)}" id="parmultiPick">
+						   				<apex:outputLabel value="{!quesAnsWrapper.QuestionAnswer.Question__c}" /> 
+						   				<apex:selectList id="multipicklst" value="{!quesAnsWrapper.multiPicklistAns}" size="4" multiselect="true">
+						   					<apex:selectOptions value="{!quesAnsWrapper.lstMultiPicklistAns}" />
+				        				</apex:selectList> 		  			
+						  			</apex:outputPanel>
+						  			
+						  			<apex:outputPanel rendered="{!IF((quesAnsWrapper.QuestionAnswer.AnswerType__c='Date'),true,false)}" id="parDate">
+						   				<apex:outputLabel value="{!quesAnsWrapper.QuestionAnswer.Question__c}" />&nbsp;
+						   				<apex:inputField value="{!quesAnsWrapper.QuestionAnswer.Date__c}" onChange="validateDate(this);"/>	  			
+						  			</apex:outputPanel>
+						  			
+						  			<apex:outputPanel rendered="{!IF((quesAnsWrapper.QuestionAnswer.AnswerType__c='Boolean'),true,false)}" id="parCheck">
+						   				<apex:inputCheckbox value="{!quesAnsWrapper.booleanAns}" id="CheckBoxId" onChange="enableFields1(this);"/>
+						   				<apex:outputLabel value="{!quesAnsWrapper.QuestionAnswer.Question__c}" /> 	
+						   				<script>
+						   					//alert('{!isReadOnly}');
+						   					document.getElementById('{!$Component.CheckBoxId}').disabled = {!(IF(isReadOnly = true,true,false))};
+						   				</script>
+						  			</apex:outputPanel>
+						  			<script>var i = 2;</script>
+						  			<apex:repeat value="{!quesAnsWrapper.lstAnsOption}" var="ansOpt">
+						  				<td colspan="2" id="td2">
+						  					<apex:outputPanel >
+							  					<apex:inputField value="{!ansOpt.Contextdata__c}" id="contextData"/>
+							  					<apex:outputLabel value="{!ansOpt.ContextDataUnit__c}"/>
+							  						<script>
+							  							//datafromPreviousCRF = document.getElementById('pageId:formId:InvestigativeAgentBlock:additionalQueSection:additionalQueCallComponent:additionalQueComponent:inputHid').value;
+							  							if(i%2 == 0 && "{!datafromPreviousCRF}" == "true") {
+							  								document.getElementById('{!$Component.contextData}').value = '';
+							  								i++;
+							  							}
+									  					enableFields(document.getElementById('{!$Component.CheckBoxId}'));
+														
+													</script>
+							  				</apex:outputPanel>
+						  				</td>
+					  				</apex:repeat>
+					  			</td>
+					  			<script>
+			   						/*function enableFields(obj) {
+			   							
+			   							datafromPreviousCRF = document.getElementById('pageId:formId:InvestigativeAgentBlock:additionalQueSection:additionalQueCallComponent:additionalQueComponent:inputHid').value;
+			   							
+			   							if(datafromPreviousCRF == true) {
+			   								obj.checked = false;
+			   							}
+			   							parentObj = obj.parentNode.parentNode.parentNode;
+										var likeString = parentObj.getElementsByTagName('input');
+										for(var i=1;i<likeString.length;i++) {
+											if(obj.checked) {
+												likeString[i].disabled = false;
+											} else {
+												likeString[i].disabled = true;
+												if(datafromPreviousCRF == true) {
+													likeString[i].value = '';
+												}
+											}
+										}
+			   						}*/
+					   			</script>
+				  			</tr>
+					  		<apex:repeat value="{!quesAnsWrapper.lstQuesAnsWrapperList}" var="ChildQuesAnsWrapperList">
+				  				<tr id="tr2">
+						  				
+				  					<apex:repeat value="{!ChildQuesAnsWrapperList}" var="ChildQuesAnsWrapper">
+				  						<td width="5%">
+						  				</td>
+					  					<td colspan="2" width="20%" td="td3">
+						  					<!------------------------ Child Question answer Section ------------------------------->
+						  					<apex:outputPanel rendered="{!IF((ChildQuesAnsWrapper.QuestionAnswer.AnswerType__c='Text'),true,false)}" id="chtxt">
+								   				<apex:outputLabel value="{!ChildQuesAnsWrapper.QuestionAnswer.Question__c}" /> <apex:inputText value="{!ChildQuesAnsWrapper.textAns}" />
+								  			</apex:outputPanel>
+								  			
+								 			<apex:outputPanel rendered="{!IF((ChildQuesAnsWrapper.QuestionAnswer.AnswerType__c='TextArea'),true,false)}" id="chtxtArea">
+								   				<apex:outputLabel value="{!ChildQuesAnsWrapper.QuestionAnswer.Question__c}" /> <apex:inputTextarea rows="4" value="{!ChildQuesAnsWrapper.textAreaAns}" />
+								  			</apex:outputPanel>
+								  			
+								  			<apex:outputPanel rendered="{!IF((ChildQuesAnsWrapper.QuestionAnswer.AnswerType__c='Picklist'),true,false)}" id="chPicklist">
+								   				<apex:outputLabel value="{!ChildQuesAnsWrapper.QuestionAnswer.Question__c}" /> 
+								   				<apex:selectList id="picklst" value="{!ChildQuesAnsWrapper.picklistAns}" size="1">
+								   					<apex:selectOptions value="{!ChildQuesAnsWrapper.lstPicklistAns}" />
+						        				</apex:selectList> 		  			
+								  			</apex:outputPanel>
+								  			
+								  			<apex:outputPanel rendered="{!IF((ChildQuesAnsWrapper.QuestionAnswer.AnswerType__c='Picklist (Multi-Select)'),true,false)}" id="chMultiPicklist" >
+								   				<apex:outputLabel value="{!ChildQuesAnsWrapper.QuestionAnswer.Question__c}" /> 
+								   				<apex:selectList id="multipicklst" value="{!ChildQuesAnsWrapper.multiPicklistAns}" size="4" multiselect="true">
+								   					<apex:selectOptions value="{!ChildQuesAnsWrapper.lstMultiPicklistAns}" />
+						        				</apex:selectList> 		  			
+								  			</apex:outputPanel>
+								  			
+								  			<apex:outputPanel rendered="{!IF((ChildQuesAnsWrapper.QuestionAnswer.AnswerType__c='Date'),true,false)}" id="chDate">
+								   				<apex:outputLabel value="{!ChildQuesAnsWrapper.QuestionAnswer.Question__c}" />&nbsp;
+								   				<apex:inputField value="{!ChildQuesAnsWrapper.QuestionAnswer.Date__c}" onChange="validateDate(this);" />	  			
+								  			</apex:outputPanel>
+								  			
+								  			<apex:outputPanel rendered="{!IF((ChildQuesAnsWrapper.QuestionAnswer.AnswerType__c='Boolean'),true,false)}" id="chCheck">
+								   				<apex:inputCheckbox value="{!ChildQuesAnsWrapper.booleanAns}" id="CheckBoxId" onChange="enableFieldsChild(this)"/>
+								   				<apex:outputLabel value="{!ChildQuesAnsWrapper.QuestionAnswer.Question__c}" />
+								   				<script>
+								   					document.getElementById('{!$Component.CheckBoxId}').disabled = {!(IF(isReadOnly = true,true,false))};
+								   				</script>
+								  			</apex:outputPanel>
+								  			<!------------------------ Child Question answer Section End------------------------------->
+						  				</td>
+						  				<td width="25%" id="td4">
+							  				<apex:repeat value="{!ChildQuesAnsWrapper.lstAnsOption}" var="childsansOpt">
+							  					<apex:outputPanel id="childop1">
+								  					<apex:inputField value="{!childsansOpt.Contextdata__c}" id="contextData_Child"/>
+								  					<apex:outputLabel value="{!childsansOpt.ContextDataUnit__c}"/>
+								  					<script>
+								  						enableFieldsChild(document.getElementById('{!$Component.CheckBoxId}'));
+													</script>
+								  				</apex:outputPanel>
+								  				<br />
+							  				</apex:repeat>
+						  				</td>
+						  			</apex:repeat>
+						  			<script>
+				   						/*function enableFields(obj) {
+				   							parentObj = obj.parentNode.parentNode.parentNode;
+											var likeString = parentObj.getElementsByTagName('input');
+											for(var i=1;i<likeString.length;i++) {
+												if(obj.checked) {
+													likeString[i].disabled = false;
+												} else {
+													likeString[i].disabled = true;
+												}
+											}
+				   						}*/
+				   						
+					   				</script> 
+					  			</tr>
+					  		</apex:repeat>
+						</apex:repeat>
+					</table>
+					
+		<script>
+			makeReadOnly("{!isReadOnly}","{!isEdited}");
+			//document.getElementById('pageId:formId:InvestigativeAgentBlock:additionalQueSection:additionalQueCallComponent:additionalQueComponent:inputHid').value = false;
+		</script>
+</apex:component>

@@ -1,0 +1,165 @@
+<apex:page sidebar="false" showheader="false">
+	<style>
+		.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px; 
+	}
+	.redColor{
+		color:red;
+	}
+	</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete Post Surgery form?</h2>
+	</apex:outputPanel>
+	<p>The Post Surgery Summary Form is used to collect the necessary information about a patient's surgery and their pathologic response to neoadjuvant chemotherapy.  This CRF is completed after the patient has her surgery (most extensive primary surgery) following neoadjuvant chemotherapy.  The information from this form is used in the adaptive randomization of subsequent patients enrolled in I-SPY 2 and is also the primary end point of the study.</p>
+	<p>The information used to complete this form comes from a patient's surgical pathology report.  Report only the pathology information for the patient's study breast laterality.</p>
+	<p><i>To open the Post Surgery Form, select the patient from the 'Patient' Tab; select 'Trial'; Select ‘Treatment’ tab and select ‘Submit New’ for ‘Post Surgery Form’.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.PostSurgeryFormImages, 'PostImage1.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Select the date of surgery using the blue calendar button to the right of the data field.  You can also manually enter the date in m/d/yyyy format.</li>
+		<li>Select the Surgeon who performed the surgery using the drop down list [custom list per site].</li>
+		<li>Under Surgical Procedures, select 'add a procedure' to open a field that allows for description of the type of surgery performed on just the study breast.</li>
+		<li>Select the surgery procedure done on the study breast using the drop down list and limiting selection to only breast surgical procedures [Partial Mastectomy, Therapeutic Mastectomy, Skin Sparing Mastectomy, Total Skin Sparing Mastectomy, Modified Radical Mastectomy, and Sentinel Lymph Node Dissection].<br /><i style="color:red;">NOTE: if a patient had an axillary dissection, select Sentinel Lymph Node Dissection and under Location, select Axillary (lymph node).</i></li>
+		<li>Select the laterality of the surgery done on the study breast using the drop down list [Left, Right, OR Unknown].</li>
+		<li>If a Partial Mastectomy was done, select the location from which the surgical specimen was taken using the drop down list and limiting selection to only breast locations [Unknown/Not indicated, Upper inner quadrant (breast), Upper outer quadrant (breast), Lower inner quadrant (breast), Lower outer quadrant (breast), Axillary tail of breast, Central (breast), Subareolar region (breast), OR Nipple].</li>
+		<li>If a Sentinel Lymph Node Dissection was done, select the location that lymph nodes were taken using the drop down list [Unknown/Not indicated, Axillary (lymph node), Infraclavicular (lymph node), Internal mammary (lymph node), OR Supraclavicular (lymph node)].<br /><i style="color:red;">NOTE: if a patient only had a Sentinel Lymph Node Dissection, select Axillary (lymph node) as the location.  You'll be able to specify that just a sentinel lymph node was sampled on the Lymph Nodes tab.</i></li>
+		<li>Select <b>'Save'</b> after completing these selections and before moving to the next procedures or tab.</li>
+		<li>Repeat these steps to add another surgical procedure if there was one done.  If you have saved a procedure to the list but need to update it, click the procedure, make the changes and click 'Save.' If you do not want to save the updated data, select 'Cancel' and none of the changes will be saved.</li>
+		<li>If you have saved a procedure to the list but it needs to be removed, click it to select and select 'Remove Procedure' and the procedure will no longer be displayed on the CRF.</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Specimens' tab.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.PostSurgeryFormImages, 'PostImage2.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Select the type of tumor present in the study breast as determined by gross pathology [].</li>
+		<li>If Single discrete mass, Multifocal discrete masses, or Gross stromal alterations/fibrosis are selected, enter the size in 2-dimesions in the text box [0.00-999.99] and select the appropriate units [CM OR MM].</li>
+		<li>Under the selected Breast Procedure, select the type of breast specimen was removed by the surgeon [Main specimen with separately submitted margins OR Single specimen].</li>
+		<li>Select whether the specimen was entirely submitted for histology [Yes, No, OR Not reported].</li>
+		<li>Enter in the size of the gross specimen as measured per plane direction in each respective text box [0.00- 999.99].  If these fields are left blank, a 0 will automatically populate these fields.</li>
+		<li>Enter in the number of total slices that were made to the gross breast specimen in the text box [numerical value].</li>
+		<li>Select the slicing method used for bread-loafing the breast specimen [Anterior/Posterior, Medial/Lateral, OR Superior/Inferior].</li>
+		<li>Enter in the slice number and block number of the most peripheral slices examined by the pathologist in the text boxes [alpha numeric] and select the corresponding plane [Anterior/Posterior, Medial/Lateral, OR Superior/Inferior].</li>
+		<li>Select the performing lab where the specimen was examined using the drop down list [all I-SPY 2 study sites].</li>
+		<li>Uncheck the checkbox if lymph node tissue was not present in the breast surgical specimen, otherwise leave it checked.</li>
+		<li>There is another Procedure box displayed if Sentinel Lymph Node Dissection was selected on the previous tab.  For the lymph node procedure, leave all data fields blank, except for the automatically checked checkbox for 'Lymph node tissue present in sample'.</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Lymph Nodes' tab.</i></p>
+	<ul>
+		<li>If a lymph node procedure was selected on the Procedures tab, the lymph node dissection done question will appear.  If it appears, select the answer to this question [Yes, No, OR Not reported].</li>
+		<li>If a lymph node dissection was done (answered Yes), complete the following steps.</li>
+		<li>Check the checkbox next the type of lymph node(s) that was removed from the patient.</li>
+		<li>If Sentinel Nodes were removed, select the location from which they were taken using the drop down list [Unknown/Not indicated, Axillary, Infraclavicular, Internal mammary, OR Supraclavicular].</li>
+		<li>Enter in the number of positive nodes and examined nodes in the respective text box [integer values].</li>
+		<li>For each type of lymph node selected, select the method of detection using the drop down list [IHC only, IHC + H&amp;E, H&amp;E only, OR Unknown].</li>
+		<li>Select the type of cancer cells present in the lymph node by checking the checkboxes [Single cell(s), Cluster, Focus, Not reported].</li>
+		<li>If there are positive lymph nodes reported, select the size of largest tumor deposit by selecting 'Specify' and entering the size in the text box [0.0-99.99] and the units using the drop down list [MM OR CM].<br /><i style="color:red;">NOTE: Since this data value is used in the calculation of RCB, do NOT use the other selections (&lt;1mm, 1cm, OR Not reported).</i></li>
+		<li>Report if extranodal extension was present in the lymph node sample [Yes, No, OR Not reported].</li>
+	</ul>
+	<p><apex:image url="{!URLFOR($Resource.PostSurgeryFormImages, 'PostImage3.png')}" width="100%" height="100%"/></p>
+	<p><i>Select 'Next' to advance to the 'Histology' tab.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.PostSurgeryFormImages, 'PostImage4.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Answer the question if calcifications are present in the study breast [Yes, No, OR Not reported]. </li>
+		<li>If calcification are present (answered Yes), select the involvement of calcifications [Benign, DCIS, Invasive, Not Reported].</li>
+	</ul>
+	<p><apex:image url="{!URLFOR($Resource.PostSurgeryFormImages, 'PostImage5.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Answer the question if DCIS is present in the study breast [Yes, No, OR Not reported].</li>
+		<li>If DCIS is present (answered Yes), complete the following questions.</li>
+		<li>Report the percentage of DCIS present in the sample [0-100].<br /><i style="color:red;">NOTE: this value is required to be completed as it is used in the RCB calculation and Unknown/Not reported is not an acceptable response.</i></li>
+		<li>Report the total histologic span of DCIS present in the text box [0.0-99.99] and the units using the drop down list [MM OR CM].</li>
+		<li>Report the status of the surgical margins for DCIS [Negative OR Positive].</li>
+		<li>If the surgical margin is negative, report the closest margin [&lt;1mm, &gt;1cm, Not Reported, OR Specify]. If specify is selected, report the closet margin in the text box [0.0-99.99] and the units using the drop down list [MM OR CM].</li>
+		<li>Select the histologic type(s) of DCIS present [Punctate necrosis, Comedonecrosis, Papillary, Micropapillary, Necrosis, Cribiform, Cruciform, Clinging, Solid, Apocrine, Intra-cystic (encysted papillary), Other- specify in text box].</li>
+		<li>Select the highest nuclear grade present in the DCIS [Grade I (low), Grade II (intermediate), Grade III (high), Indeterminate, OR Not reported].</li>
+	</ul>
+	<p><apex:image url="{!URLFOR($Resource.PostSurgeryFormImages, 'PostImage6.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Answer the question if LCIS is present in the study breast [Yes, No, OR Not reported].</li>
+		<li>If LCIS is present (answered Yes), complete the following questions.</li>
+		<li>Report the percentage of LCIS present in the sample [0-100].</li>
+		<li>NOTE: this value is required to be completed as it is used in the RCB calculation and Unknown/Not reported is not an acceptable response.</li>
+		<li>Report the total histologic span of LCIS present in the text box [0.0-99.99] and the units using the drop down list [MM OR CM].</li>
+		<li>Select the histologic type(s) of LCIS present [Classic, Small cell, Large cell, Pleomorphic, OR Unknown].</li>
+	</ul>
+	<p><apex:image url="{!URLFOR($Resource.PostSurgeryFormImages, 'PostImage7.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Answer the question if invasive tumor is present in the study breast [Yes, No, OR Not reported].</li>
+		<li>If invasive cancer is present (answered Yes), complete the following questions.</li>
+		<li>Report the percentage of invasive cancer present in the sample [0-100].<br /><i style="color:red;">NOTE: this value is required to be completed as it is used in the RCB calculation and Unknown/Not reported is not an acceptable response.</i></li>
+		<li>Report the total size of invasive cancer in 2-dimensions in the text box [0.0-99.99] and the units using the drop down list [MM OR CM].<br /><i style="color:red;">NOTE: 2-dimensions are required for the RCB calculation.</i></li>
+		<li>Answer whether the invasive tumor is multi-focal [Yes, No, OR Not reported].</li>
+		<li>Report the status of the surgical margins for invasive cancer [Negative OR Positive].</li>
+		<li>If the surgical margin is negative, report the closest margin [&lt;1mm, &gt;1cm, Not Reported, OR Specify]. If specify is selected, report the closet margin in the text box [0.0-99.99] and the units using the drop down list [MM OR CM].</li>
+		<li>Select the invasive histology present [Invasive ductal carcinoma nos, invasive lobular carcinoma classic type, invasive lobular carcinoma alveolar type, pleomorphic lobular carcinoma, tubulolobular carcinoma, invasive carcinoma mixed ductal and lobular type, tubular carcinoma, mucinous carcinoma, medullary carcinoma, invasive papillary carcinoma, invasive cribiform carcinoma,  Other- specify in text box].</li>
+		<li>Select the Nuclear grade of the invasive disease [Grade I (low), Grade II (intermediate), Grade III (high), Indeterminate, OR Not reported].  If 2 different grades are provided, report the highest grade.</li>
+		<li>Select the Mitotic count of the invasive disease [1pt, 2pt, 3pt, Indeterminate, OR Not reported].</li>
+		<li>Select the Tubule/papilla formation of the invasive disease [1pt, 2pt, 3pt, Indeterminate, OR Not reported].</li>
+		<li>Based on the selected answers for nuclear grade, mitotic count, tubule/papilla formation, the total points will be automatically calculated and the corresponding SBR Grade will automatically be assigned.  If any one of the 3 SBR components is Indeterminate and/or Not reported, the total points and SBR Grade will not be calculated and will be reported as N/A.</li>
+		<li>Select if lymphatic-vascular invasion is present in the invasive disease [Yes, No, OR Not reported].</li>
+		<li>Select if Dermal Involvement is present in the invasive disease [Yes, No, Suspicious, Not reported, OR No skin/nipple present].</li>
+		<li>If dermal involvement is present (answered Yes), select the type of disease present [Paget disease, Ulceration by tumor, Dermal lymphatic vascular invasion].</li>
+		<li>Select if invasive disease has muscle involvement [Yes, No, OR Not reported].</li>
+		<li>Select if there is evidence of therapeutic effects [Yes OR No].</li>
+		<li>If there are therapeutic effects present (answered Yes), select the effects present [Cytoplasmic vacuolation, apocrine/eosinophilic, hystiocytoid, lobular appearance, Other-specify in text box].</li>
+		<li>Select if there are other changes present [Yes OR No].</li>
+		<li>If other changes are present (answered Yes), select the changes present [Papilloma, Radial scar, Sclerosing adenosis, Fibroadenoma, Other-specify in text box].</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Margins' tab.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.PostSurgeryFormImages, 'PostImage8.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Report if there were separately submitted margins [Yes OR No].</li>
+		<li>If separately submitted margins were submitted (answered Yes), answer whether there were invasive cancer and/or in situ disease present in the separate margins [Yes OR No].</li>
+		<li>If invasive cancer or in situ disease is present in the separately submitted margins (answered Yes) answet whether they are at the true margin [Yes OR No].</li>
+		<li>Report if there are other changes present in the separately submitted margins [Yes OR No].</li>
+		<li>If there are other changes present in the separately submitted margins, select the type(s) present [Papilloma, Radial scar, Sclerosing adenosis, Fibroadenoma, Other-specify in text box].</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Receptors' tab.</i></p>
+	<ul>
+		<li>Select the ER status of the study breast [Negative, Positive, Indeterminate, OR Not reported].</li>
+		<li>Select the ER Proportion Score from the drop down list using the Allred Scoring System [ 0, 1 (less than 1%), 2 (1%-10%), 3 (10%-33%), 4 (33%-66%), 5 (66%-100%), OR Not available].</li>
+		<li>Select the ER Intensity Score from the drop down list using the Allred Scoring System [0 (negative), 1 (weak), 2 (intermediate), 3 (strong), OR Not available].</li>
+		<li>The ER Total Score will automatically calculate based upon the selections made and automatically assigned using the Allred Scoring System.  If Not available was chosen for any of the scores, a result of 0 will display.  NOTE: if a sample is scored with 2 different scores, enter the highest score reported.</li>
+		<li>Select the PR status of the study breast [Negative, Positive, Indeterminate, OR Not reported].</li>
+		<li>Select the PR Proportion Score from the drop down list using the Allred Scoring System [ 0, 1 (less than 1%), 2 (1%-10%), 3 (10%-33%), 4 (33%-66%), 5 (66%-100%), OR Not available].</li>
+		<li>Select the PR Intensity Score from the drop down list using the Allred Scoring System [0 (negative), 1 (weak), 2 (intermediate), 3 (strong), OR Not available].</li>
+		<li>The PR Total Score will automatically calculate based upon the selections made and automatically assigned using the Allred Scoring System. If Not available was chosen for any of the scores, a result of 0 will display.<br /><i style="color:red;">NOTE: if a sample is scored with 2 different scores, enter the highest score reported.</i></li>
+		<li>Select the overall HER2/neu status done by IHC and/or FISH on the study breast [Negative, Positive, Indeterminate, OR Not reported].</li>
+		<li>If IHC was not done, check the checkbox to IHC test not done if IHC was not done.</li>
+		<li>If IHC was done, select the type of IHC test that was used by checking the checkbox next to the corresponding test [DAKO Herceptest, Ventana Kit, CB-11, Other-specify in text box].  If IHC was not done, check the checkbox next to IHC test not done.</li>
+		<li>Select the result of the IHC test using the drop down list [0, 1+, 2+, OR 3+] or use the text box to enter the score or result reported.  NOTE: if a sample is scored with 2 different scores, enter the highest score reported.</li>
+		<li>If FISH was not done, check the checkbox next to FISH test not done in the list of FISH tests.</li>
+		<li>If FISH was done, select the type of FISH test that was used by checking the checkbox next to the corresponding test [Ventana Oncorprobe, Other-specify in text box].  If FISH was not done, check the checkbox next to FISH test not done in the list of FISH tests.</li>
+		<li>Select the result of the FISH test using the drop down list [0, 1+, 2+, OR 3+] or use the text box to enter the ratio score reported.</li>
+	</ul>
+	<p><apex:image url="{!URLFOR($Resource.PostSurgeryFormImages, 'PostImage9.png')}" width="100%" height="100%"/></p>
+	<p><i>Select 'Next' to advance to the 'Staging' tab.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.PostSurgeryFormImages, 'PostImage10.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Select the pathologic tumor stage according to AJCC Guidelines [T0, Tis, T1mic, T1a, T1b, T1c, T2, T3,T4a, T4b, T4c, T4d, OR Tx].</li>
+		<li>Select the pathologic node stage according to AJCC Guidelines [N0, N0i+, N0i-, N1mic, N1a, N1b, N2a, N2b, N3a, N3b, N3c, OR NX].</li>
+		<li>Select the metastasis stage [M0, M1, OR MX].</li>
+		<li>Select the staging modifier 'Pathologic staging' and 'y' for all patients having surgery following completion of neoadjuvant chemotherapy. Based on selected answers, the stage will be automatically calculated and reported.  If any of the components is not reported, it will appear blank.</li>
+		<li>If the calculated stage is adjudicated by a clinician or with updated information, select the new stage and identify who adjudicated the stage.</li>
+		<li>If a patient was diagnosed with T4 disease at baseline (beginning of the study), indicate the final status at time of surgery [Skin only, Chest wall, Skin and chest wall, Inflammatory, OR No skin involvement].</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'RCB' tab.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.PostSurgeryFormImages, 'PostImage11.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>If the patient had a pathologic complete response (defined as having no invasive cancer in study breast and lymph nodes on study breast laterality), check the checkbox indicating the patient had a pathologic complete response (pCR).</li>
+		<li>Displayed are the data entered on prior tabs that are used to automatically calculate Residual Cancer Burden (RCB), both RCB index and RCB class.</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Comments &amp; Attachments' tab</i></p>
+	<p>Attach all relevant de-identified pathology reports, clinical notes, laboratory notes, and imaging reports (source documents) that document the data that is listed on this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+	<p>Provide any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+	<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+	<ul>
+		<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the screen to update the incorrect information.</li>
+		<li>When you are ready to send the CRF to the DCC for verification, enter your password and select 'Sign and Submit.'</li>
+	</ul>
+	<p><apex:image url="{!URLFOR($Resource.PostSurgeryFormImages, 'PostImage12.png')}" width="100%" height="100%"/></p>
+	</apex:outputPanel>
+</apex:page>

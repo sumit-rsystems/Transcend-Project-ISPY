@@ -1,0 +1,35 @@
+<apex:page controller="AdverseEventReportController" action="{!prepareLinksToGenerateReport}" sideBar="false" tabStyle="Account">
+	<apex:pageBlock title="Adverse Event Report">
+		<apex:form >
+			<apex:pageBlockSection title="Download Reports">
+				<apex:repeat value="{!lstWeeklyReportDetails}" var="wrd"> 
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel style="font-weight: bold;" value="{!wrd.startDate} To {!wrd.endDate}"/>
+						<apex:outputPanel style="float;">
+							<!--<apex:commandLink value="HTML" action="{!viewHTML}" target="_blank">
+								<apex:param value="{!wrd.startDate}" name="sDate" />
+								<apex:param value="{!wrd.endDate}" name="lDate" />
+							</apex:commandLink>
+							&nbsp;
+							<apex:commandLink value="PDF" action="{!viewPDF}" target="_blank">
+								<apex:param value="{!wrd.startDate}" name="sDate" />
+								<apex:param value="{!wrd.endDate}" name="lDate" />
+							</apex:commandLink>
+							&nbsp;
+							<apex:commandLink value="CSV" action="{!viewCSV}">
+								<apex:param value="{!wrd.startDate}" name="sDate" />
+								<apex:param value="{!wrd.endDate}" name="lDate" />
+							</apex:commandLink> 
+						-->
+						<a href="/apex/AdverseEventReportForHTML?sDate={!wrd.startDate}&lDate={!wrd.endDate}" target="_blank">HTML</a>
+						&nbsp;
+						<a href="/apex/AdverseEventReportForPDF?sDate={!wrd.startDate}&lDate={!wrd.endDate}" target="_blank">PDF</a>
+						&nbsp;
+						<a href="/apex/AdverseEventReportForCSV?sDate={!wrd.startDate}&lDate={!wrd.endDate}">CSV</a>
+						</apex:outputPanel>
+					</apex:pageBlockSectionItem>
+				</apex:repeat>
+			</apex:pageBlockSection>
+		</apex:form>
+	</apex:pageBlock>
+</apex:page>

@@ -1,0 +1,260 @@
+<apex:page standardController="On_Study_Pathology_Form__c" extensions="OnStudyPathology" renderAs="pdf"  sideBar="false"  tabStyle="Patient_Custom__c">
+    
+    
+    <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : On-Study Pathology " initial="" 
+    instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+    <br/>              
+    <apex:form >                  
+    <table width="100%" cellpadding="5" >
+    <tr>
+    <td width="36%" align="right" valign="top">
+    <apex:outputLabel value="Does the patient have bilateral breast cancer?" />
+    </td>
+    <td  valign="top">
+    <apex:outputField value="{!ospObj.Does_the_patient_have_bilateral_breast_c__c}" />              
+    </td>
+    </tr>
+    
+    <tr>
+    <td  align="right" valign="top">
+    <apex:outputLabel value="Tumor laterality (or side with most advanced disease)" for="Tumorlaterality"/>
+    </td>
+    <td  valign="top">
+    <apex:outputField value="{!ospObj.Tumor_laterality__c}" />
+    </td>
+    </tr>
+    </table>
+         
+     <br/>    
+         
+    <font size="3"><b>Positive Breast Biopsies</b></font>
+    <br/><br/>
+    
+    <table width="100%" >
+    
+    <tr>
+    <td>
+    <b>Date</b>
+    </td>
+    <td>
+    <b>Procedure</b>
+    </td>
+    <td>
+    <b>Laterality</b>
+    </td>
+    <td>
+    <b>Location</b>
+    </td>
+    </tr>
+   
+    <apex:repeat value="{!lstPositiveProWrapper}" var="newPro" >
+           
+    <tr>
+    <td>
+    <apex:outputField value="{!newPro.proPositive.Date_Of_Procedure__c}" />
+    </td>
+    
+    <td>
+    <apex:outputField value="{!newPro.proPositive.Procedure_Name__c}" />
+    </td>
+    
+    <td>
+    <apex:outputField value="{!newPro.proPositive.Laterality__c}" />
+    </td>
+    
+    <td>
+    <apex:outputField value="{!newPro.proPositive.Location__c}" />
+    </td>
+    
+    </tr>
+    </apex:repeat>
+    </table>
+    
+    <br/>
+    
+    <font size="3"><b>Lymph Node Biopsies</b></font>
+    <br/><br/>
+    
+    <table width="100%">
+    
+    <tr>
+    <td>
+    <b>Date</b>
+    </td>
+    <td>
+    <b>Procedure</b>
+    </td>
+    <td>
+    <b>Laterality</b>
+    </td>
+    <td>
+    <b>Location</b>
+    </td>
+    <td>
+    <b>Node Result</b>
+    </td>
+    
+    </tr>
+    
+    <apex:repeat value="{!lstLymphProWrapper}" var="newPro" >
+           
+    <tr>
+    <td>
+    <apex:outputField value="{!newPro.proLymph.Date_Of_Procedure__c}" />
+    </td>
+    
+    <td>
+    <apex:outputField value="{!newPro.proLymph.Procedure_Name__c}" />
+    </td>
+    
+    <td>
+    <apex:outputField value="{!newPro.proLymph.Laterality__c}" />
+    </td>
+    
+    <td>
+    <apex:outputField value="{!newPro.proLymph.Location__c}" />
+    </td>
+    
+    <td>
+    <apex:outputField value="{!newPro.proLymph.Node_Result__c}" />
+    </td>
+    
+    </tr>
+    </apex:repeat>
+    </table>
+           
+    <br/>
+    
+    <table  width="50%" cellpadding ="5" style="margin:0px">
+    <tr><td colspan="2"><b>Procedure(s): DCIS Details </b></td></tr>
+    <!--<tr><td >&nbsp;</td><td >&nbsp;</td></tr>-->
+     
+    <tr  >
+    <td align="right">
+    <apex:outputLabel value="Is DCIS present?" />
+    </td >
+    <td >
+    <apex:outputField value="{!ospObj.Is_DCIS_Present__c}" />
+    </td >
+    </tr>   
+    </table>
+    
+    <br/>                   
+    <c:DCISCompleteForPdf pageController="{!ospObj.Id}" keys="dcis" subFormNew="On-Study Pathology Form" />
+      
+    <br/>   
+    <table width="50%" cellpadding ="5" style="margin:0px">
+    <tr><td colspan="2"><b>Procedure(s): LCIS Details</b></td></tr>
+   
+    <tr >
+    <td align="right"  >
+    <apex:outputLabel value="Is LCIS present?" />
+    </td>
+    <td >
+    <apex:outputField value="{!ospObj.Is_LCIS_Present__c}" />
+    </td>
+    </tr>   
+    </table>
+    
+    <br/>                  
+    
+    
+    <c:LCISReadOnly pageController="{!ospObj.Id}" key="lcis" subFormLCIS="On-Study Pathology Form" id="LCISComponent"/>
+        
+    <table width="45%" cellpadding ="5" style="margin:0px">
+    <tr><td colspan="2"></td></tr>
+   
+    <tr>
+    
+    <td align="right">
+    <apex:outputLabel value="Is invasive tumor present?" />
+    </td>
+    <td>
+    <apex:outputField value="{!ospObj.Is_invasive_tumor_present__c}" />
+    </td>
+    </tr>   
+    </table>
+                       
+    <br/>
+    <c:InvasiveTumorReadOnlyForPdf pageController="{!ospObj.Id}" key="ivt" subFormIT="On-Study Pathology Form" />
+    <br/><br/>
+    <c:ReceptersReadOnlyForPdf objIds="{!ospObj.Id}" keys="rcpt" subFormReceptors="On-Study Pathology Form" id="ReceptorsComp" />
+    <!-- <c:CRFAttachmentComponent rId="{!ospObj.Id}" feedCRFName="On_Study_Pathology_Form__Feed"/>
+    <c:CRFEventComponent rId="{!ospObj.Id}" objectName="On_Study_Pathology_Form__c"/>-->
+    
+    </apex:form>       
+    <br/>
+     <!--         <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+   </table>
+    
+    <c:CRFPDFFooter crfFormName="On-Study Pathology Form , v1"  />
+</apex:page> -->
+<table > 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="CRF Status:" />
+        </td>
+        <td >
+            <apex:outputField value="{!ospObj.Status__c}"/>
+        </td>
+    
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"   value="DCC Action:" />
+        </td>
+        <td >
+            <apex:outputField value="{!ospObj.Status__c}"/>
+        </td>
+    </tr> 
+    </tr> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="DCC Comments:" />
+        </td>
+        <td >
+            <c:CRFEventComponentcomments rId="{!ospObj.Id}"  objectNamec="On_Study_Pathology_Form__c" rtId="{!ospObj.Root_CRF_Id__c}"/>
+        </td>
+    </tr> 
+  </table>
+  <br/>
+  <br/>
+  <apex:form >
+  <apex:pageBlock tabStyle="Account">
+ <!--<apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(ospObj.Id))}">
+       <c:CRFAttachmentComponent rId="{!ospObj.Id}" feedCRFName="On_Study_Pathology_Form__Feed"/>
+  </apex:pageBlockSection> -->
+  <c:CRFAttachmentComponentPdf rId="{!ospObj.Id}" feedCRFNamePdf="On_Study_Pathology_Form__Feed" rtId="{!ospObj.Root_CRF_Id__c}"/>
+  <br/>
+  
+  <div style="background-color:#97C7EC"><b style="margin:10px;color:white">CRF Events</b></div>
+  
+  <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(ospObj.Id))}">
+        <c:CRFEventComponent rId="{!ospObj.Id}" objectName="On_Study_Pathology_Form__c" rtId="{!ospObj.Root_CRF_Id__c}"/>
+   </apex:pageBlockSection>
+        
+  </apex:pageBlock>   
+           
+           
+  <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  </apex:form>
+</apex:page>

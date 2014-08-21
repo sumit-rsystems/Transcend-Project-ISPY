@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>ProtocolViolationForm</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>ApprovalURL__c</fullName>
+        <externalId>false</externalId>
+        <label>ApprovalURL</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>CRFId__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CRFId</label>
+        <referenceTo>CRF__c</referenceTo>
+        <relationshipLabel>Protocol Violation Details</relationshipLabel>
+        <relationshipName>Protocol_Violation_Details</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>CompletedDate__c</fullName>
+        <externalId>false</externalId>
+        <label>CompletedDate</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DateOfProtocolViolation__c</fullName>
+        <externalId>false</externalId>
+        <label>Date of Protocol Violation</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Effective_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Effective Time</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Eligibility_criteria_exception__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Eligibility criteria exception</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enrollment_of_ineligeligibleible_patient__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Enrollment of ineligeligibleible patient</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>First_Save_and_Close__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>First Save and Close</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Incorrect_therapy_given_to_patient__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Incorrect therapy given to patient</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Local_IRB_Notified__c</fullName>
+        <description>Was the local IRB notified?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Was the local IRB notified?</inlineHelpText>
+        <label>Local IRB Notified</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NO</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>YES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Medication_non_complicance__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Medication non-compliance</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Narrative_description__c</fullName>
+        <description>Narrative description of potocol violation.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Narrative description of potocol violation.</inlineHelpText>
+        <label>Narrative description</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>On_study_procedure_required_by_protocol__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>On-study procedure required by protocol not completed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>On-study procedure required by protocol not completed.</inlineHelpText>
+        <label>On-study procedure required by protocol</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>OriginalCRF__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>OriginalCRF</label>
+        <referenceTo>ProtocolViolationDetail__c</referenceTo>
+        <relationshipLabel>Protocol Violation Details</relationshipLabel>
+        <relationshipName>Protocol_Violation_Details</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Other_Action_Checkbox__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Other Action Checkbox</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Other_Action__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Action Taken</label>
+        <length>250</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Type_of_Violation__c</fullName>
+        <externalId>false</externalId>
+        <label>Other (Type of Violation)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Violation_Checkbox__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Other_Violation_Checkbox</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Patient_Remains_on_Study__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Patient Remains on Study but data analysis will be modified.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient Remains on Study but data analysis will be modified.</inlineHelpText>
+        <label>Patient Remains on Study</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Patient__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Patient</label>
+        <referenceTo>Patient_Custom__c</referenceTo>
+        <relationshipLabel>Protocol Violation Details</relationshipLabel>
+        <relationshipName>Protocol_Violation_Details</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Patient_became_pregnant_prior_to_surgery__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Patient became pregnant prior to surgery</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Patient_withdrawn__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Patient withdrawn</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Pg_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Pg_Status</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phase__c</fullName>
+        <externalId>false</externalId>
+        <label>Phase</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Root_CRF_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Root CRF Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Screening_and_on_study_test_lab_done__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Screening and on-study test/lab done outside the protocol required time.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Screening and on-study test/lab done outside the protocol required time.</inlineHelpText>
+        <label>Screening and on-study test/lab done</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Screening_procedure_required__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Screening procedure required by protocol not done.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Screening procedure required by protocol not done.</inlineHelpText>
+        <label>Screening procedure required</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Completed</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Submitter__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The user who is sign and submitting the record</description>
+        <externalId>false</externalId>
+        <label>Submitter</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Protocol_Violation_Details</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TrialPatient__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>TrialPatient</label>
+        <referenceTo>TrialPatient__c</referenceTo>
+        <relationshipLabel>Protocol Violation CRF</relationshipLabel>
+        <relationshipName>Protocol_Violation_Details</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Visit_non_complicance__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Visit non-complicance</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>pg_ProtocolViolation_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_ProtocolViolation_Id</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Protocol Violation Detail</label>
+    <nameField>
+        <displayFormat>{00000}</displayFormat>
+        <label>Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Protocol Violation Details</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypes>
+        <fullName>AdHoc</fullName>
+        <active>true</active>
+        <label>AdHoc</label>
+        <picklistValues>
+            <picklist>Local_IRB_Notified__c</picklist>
+            <values>
+                <fullName>NO</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>YES</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Approval_Pending</fullName>
+        <active>true</active>
+        <label>Approval Pending</label>
+        <picklistValues>
+            <picklist>Local_IRB_Notified__c</picklist>
+            <values>
+                <fullName>NO</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>YES</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Live</fullName>
+        <active>true</active>
+        <label>Live</label>
+        <picklistValues>
+            <picklist>Local_IRB_Notified__c</picklist>
+            <values>
+                <fullName>NO</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>YES</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>DateOfProtocolViolation__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Patient__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>DateOfProtocolViolation_date_validation</fullName>
+        <active>true</active>
+        <description>The date field should not be a future date.</description>
+        <errorConditionFormula>DateOfProtocolViolation__c &gt;  TODAY()</errorConditionFormula>
+        <errorDisplayField>DateOfProtocolViolation__c</errorDisplayField>
+        <errorMessage>You have entered a future date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Action_Taken</fullName>
+        <active>false</active>
+        <errorConditionFormula>Patient_Remains_on_Study__c = false &amp;&amp;  Patient_withdrawn__c = false  &amp;&amp;  (ISNULL(Other_Action__c ) ||  ISBLANK(Other_Action__c) )</errorConditionFormula>
+        <errorMessage>Please select at-least one Action taken</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Cancel</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Cancel</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if(confirm(&quot;Completely cancel and remove?&quot;)) {
+window.location.href=&quot;/apex/CustomDelete?objApi=ProtocolViolationDetail__c&amp;id={!ProtocolViolationDetail__c.Id}&amp;triPat={!ProtocolViolationDetail__c.TrialPatientId__c}&quot;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Complete</fullName>
+        <availability>online</availability>
+        <description>Used to convert Adhoc entry to Live</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Complete</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/ChangeAdhocToLive?rid={!ProtocolViolationDetail__c.Id}&amp;type=submit</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Sign_and_Submit</fullName>
+        <availability>online</availability>
+        <description>used to authenticate valid user and submit to approval process.</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Sign and Submit</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/SignAndSubmitPage?id={!ProtocolViolationDetail__c.Id}&amp;form_code=00004</url>
+    </webLinks>
+</CustomObject>

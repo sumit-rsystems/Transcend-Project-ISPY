@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Administered_dose_Units__c</fullName>
+        <externalId>false</externalId>
+        <label>Administered dose Units</label>
+        <picklist>
+            <picklistValues>
+                <fullName>mg</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Agent__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Agent</label>
+        <referenceTo>Agent__c</referenceTo>
+        <relationshipLabel>Chemo Therapy Regimens</relationshipLabel>
+        <relationshipName>Chemo_Therapy_Regimens</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Chemo_Treatment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Chemo Treatment</label>
+        <referenceTo>Chemo_Treatment__c</referenceTo>
+        <relationshipLabel>Chemo Therapy Regimens</relationshipLabel>
+        <relationshipName>Chemo_Therapy_Regimens</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Day__c</fullName>
+        <externalId>false</externalId>
+        <label>Day#</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Did_patient_stop_receiving__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Did patient stop receiving?</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Dose_Delay__c</fullName>
+        <externalId>false</externalId>
+        <label>Dose Delay?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Dose_Mod_Reason_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL( Dose_modification__c , &quot;No dose modification&quot;),0,
+         IF(ISPICKVAL( Dose_modification__c , &quot;Dose held (not given)&quot;),1,
+                IF(ISPICKVAL( Dose_modification__c , &quot;Dose delayed&quot;),2,
+                          IF(ISPICKVAL( Dose_modification__c , &quot;Dose reduced&quot;),3,
+                                      IF(ISPICKVAL( Dose_modification__c , &quot;Dose delayed and reduced&quot;),4,
+                                                IF(ISPICKVAL( Dose_modification__c , &quot;Drug discontinued early&quot;),5,
+                                                          IF(ISPICKVAL( Dose_modification__c , &quot;Dosing error&quot;),6,99
+                                                           )
+                                                )
+                                      )
+                          )
+                )
+         )
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Dose Mod Reason Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Dose_Mod_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Dose Mod Reason</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No dose modification</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dose held (not given)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dose delayed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dose reduced</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dose delayed and reduced</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Drug discontinued early</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dosing error</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Dose_Mod__c</fullName>
+        <externalId>false</externalId>
+        <label>Dose Mod</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Dose_modification__c</fullName>
+        <externalId>false</externalId>
+        <label>Dose modification</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No dose modification</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dose held (not given)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dose delayed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dose reduced</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dose delayed and reduced</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Drug discontinued early</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dosing error</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Effective_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Effective Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Other_Agent__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Agent</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Dose_Mod_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Dose Mod Reason</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Reason_Patient_Stop_Receiving__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Reason Patient Stop Receiving</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Prescribed_Dose__c</fullName>
+        <externalId>false</externalId>
+        <label>Prescribed Dose</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Prescribed_dose_Units__c</fullName>
+        <externalId>false</externalId>
+        <label>Prescribed dose Units</label>
+        <picklist>
+            <picklistValues>
+                <fullName>mg/m2</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>mg/kg</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AUC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason_why_patient_stopped_receiving__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason why patient stopped receiving</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Due to progression</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Due to S/AE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Patient Preference</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Report_Request__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Report Request</label>
+        <referenceTo>Report_Request__c</referenceTo>
+        <relationshipLabel>Chemo Therapy Regimens</relationshipLabel>
+        <relationshipName>Chemo_Therapy_Regimens</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Row_Color__c</fullName>
+        <description>To be used in AE Report only. This report uses this object&apos;s rows in GUI, but we need different color for alternate rows. We can use wrapper, but this is lot of work for small thing. So adding this field here and value will be set in AE report class but never saved.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>To be used in AE Report only. This report uses this object&apos;s rows in GUI, but we need different color for alternate rows. We can use wrapper, but this is lot of work for small thing. So adding this field here and value will be set in AE report class but n</inlineHelpText>
+        <label>Row Color</label>
+        <length>7</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Dose__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Dose Administered</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>pg_ChemotherapyRegimens_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_ChemotherapyRegimens_Id</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Chemo Therapy Regimen</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Chemo Therapy Regims Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Chemo Therapy Regimens</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+</CustomObject>

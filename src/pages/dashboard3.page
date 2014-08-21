@@ -1,0 +1,619 @@
+<apex:page standardController="Dashboard__c" extensions="DashboardController3,ProfilesFilter" sidebar="false">
+
+    <apex:form >
+        <!-- Included js  And CSS Style Sheet  -->
+        <link href="{!URLFOR($Resource.inettutsZip, 'inettuts.css')}" rel="stylesheet" type="text/css" />
+        <apex:stylesheet value="{!URLFOR($Resource.inettutsZip, 'jqueryui/jquery-ui.css')}"  />
+        <apex:includeScript value="{!URLFOR($Resource.inettutsZip, 'jqueryui/jquery-1.9.1.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.inettutsZip, 'jqueryui/jquery-ui.js')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.inettutsZip, 'inettuts.js.css')}"  />
+        <apex:includeScript value="{!URLFOR($Resource.inettutsZip, 'js/script.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.inettutsZip, 'js/DrillDownScript.js')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.inettutsZip, 'style.css')}"  />
+        <apex:stylesheet value="{!URLFOR($Resource.inettutsZip, 'loading.gif')}"  />
+        <apex:stylesheet value="{!URLFOR($Resource.inettutsZip, 'closebox.png')}"  />
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <!-------------------END Included js  And CSS Style Sheet---------------------------->
+       
+        <!-- Loding Image -->
+        <apex:actionStatus id="loading" onstart="loading(true)" onstop="loading(false)" />
+        <div id="contentLoading" style="display:none;">
+            <img id="contentLoading1" src="/img/loading32.gif" alt="Loading graphic" />
+        </div>
+        <script type="text/javascript">
+            function loading(val) {
+                if (val) {
+                    document.getElementById('contentLoading').style.display = 'block';
+                    document.getElementById('contentLoaded').style.display = 'none';
+                }
+                else {
+                    document.getElementById('contentLoading').style.display = 'none';
+                    document.getElementById('contentLoaded').style.display = 'block';
+                }
+            }
+        </script>
+        <style>
+                #contentLoading{
+                    width: 100%;
+                    height: 100%;
+                    top: 0px;
+                    left: 0px;
+                    position: fixed;
+                    display: block;
+                    opacity: 0.7;
+                    background-color: #fff;
+                    z-index: 99;
+                    text-align: center;
+                }
+
+                #contentLoading1{
+                    position: absolute;
+                    top:350px;
+                    z-index: 100;
+                }
+                table{
+                    width:99.99%;
+                    height:100%;
+                }
+            </style>
+        <!--------------End Loading Image --------------------------------->
+       
+        <!---------------------- Google Chart Api Load Function's----------------------->
+        <script type="text/javascript">
+            google.load("visualization", "1", {packages:["corechart"]});
+            google.load('visualization', '1', {packages:['table']});
+        </script>
+        <!--------------------END Google Chart Api Load Function's---------------------->
+       
+        <!--------------------- Widgets  Visual  ------------------>
+        <body>
+            <div style="width:100%;">
+                <center><b>{!Dashboard__c.name}</b></center>
+            </div>
+           
+        <!----------------- Profile Filter Select Option ------------>
+            <div style="  position: fixed; z-index: 1; background-color: rgba(126, 126, 126, 0.82); color: black;font-weight: bold;bottom: 0; margin-bottom: 5px; right:0;margin-right: 10px;width: 65%;text-align: center;border-radius: 10px;height:50px; display: block; -moz-border-radius: 5px 5px 5px 5px; -webkit-border-radius: 10px 10px 10px 10px; box-shadow: 1px 2px 3px #999999; -moz-box-shadow: 1px 2px 3px #999999; -webkit-box-shadow: 1px 2px 30px #999999;">
+                <apex:outputPanel id="profile">
+                    <!---------- Select Institute ---------->
+                    <apex:outputLabel value="Select Institute :" rendered="{!showinstitute}" />
+                    <apex:selectList id="Institute" value="{!instituteId}" size="1" rendered="{!showinstitute}" onchange="setInstitute(''+this.options[this.selectedIndex].value)" style="margin-top: 15px;">
+                        <apex:selectOptions value="{!instituteList}"/>
+                    </apex:selectList>&nbsp;&nbsp;
+                    <!------------ Select Site  ----------->
+                    <apex:outputLabel value="Select Site :" rendered="{!showsite}" />
+                    <apex:selectList id="site" value="{!siteId}" size="1" rendered="{!showsite}" onchange="setSite(''+this.options[this.selectedIndex].value)">
+                        <apex:selectOptions value="{!siteList}"/>
+                    </apex:selectList> &nbsp;&nbsp;
+                    <!----------- Select Trial --------------- -->
+                    <apex:outputLabel value="Select Trial :" rendered="{!showtrial}" />
+                    <apex:selectList id="trial" value="{!trialId}" size="1" rendered="{!showtrial}" onchange="setTrial(''+this.options[this.selectedIndex].value)">
+                        <apex:selectOptions value="{!trialList}"/>
+                    </apex:selectList>
+                </apex:outputPanel>
+                <!---------------- Ajax Call For Institute ,Site, Trial Profile Filter ----------------->
+                <apex:actionRegion >
+                <apex:actionFunction name="setTrial" action="{!setTrial}" status="loading" oncomplete="dataload1();" reRender="op,op1">
+                <apex:param value="" name="F" assignTo="{!trialId}"/>
+                </apex:actionFunction>
+
+                <apex:actionFunction name="setSite" action="{!setSite}" status="loading" oncomplete="dataload1();" reRender="op,op1,trial">
+                <apex:param value="" name="F" assignTo="{!siteId}"/>
+                </apex:actionFunction>
+
+                <apex:actionFunction name="setInstitute" action="{!setInstitute}" status="loading" oncomplete="dataload1();" reRender="op,op1,site,trial">
+                <apex:param value="" name="F" assignTo="{!instituteId}"/>
+                </apex:actionFunction>
+                </apex:actionRegion>
+                <!--- --------------End Ajax Call For Institute ,Site, Trial Profile Filter --------------------->
+            </div>
+           
+            <apex:actionRegion >
+                <!------Ajax Call for Load Widget Data One by One ----->
+                <apex:actionFunction name="loadingdata" action="{!loadData}" status="loading" rerender="op,op1,error" oncomplete="dataload();" >
+                    <apex:param name="node" value="" assignTo="{!widgetId}" />
+                    <apex:param name="node1" value="" assignTo="{!viewName}" />
+                </apex:actionFunction>
+                <!-------- Ajax Call for Zooming Event of Widget -------->
+                <apex:actionFunction name="zoomevent" action="{!loadData}"  status="loading" rerender="op,op1,error" oncomplete="eventload();" >
+                    <apex:param name="node" value="" assignTo="{!widgetId}" />
+                </apex:actionFunction>
+                <!-------- Ajax Call for Tabular View of Widget ---------->
+                <apex:actionFunction name="tabularevent" action="{!loadData}"   status="loading" rerender="op,op1,error" oncomplete="eventload1();" >
+                    <apex:param name="node" value="" assignTo="{!widgetId}" />
+                    <apex:param name="node1" value="" assignTo="{!fortabelview}" />
+                </apex:actionFunction>
+            </apex:actionRegion>
+            <!--------- Load Each Widget data  after Page Load --------->
+            <apex:repeat value="{!dBoardWrapper}" var="dashboard">
+                <apex:repeat value="{!dashboard.ViewWidgets}" var="vWidget" >
+                    <script>
+                        google.setOnLoadCallback(function (){loadingdata( '{!vWidget.viewWidget.Widget__r.Id}','{!vWidget.viewWidget.id}')});
+                    </script>
+                </apex:repeat>
+            </apex:repeat>
+            <!-------- Widget Frame Creation On Page Load ---------->
+            <div id="tabs" style="width: 100%;overflow: hidden; ">
+                <ul>
+                    <apex:repeat value="{!dBoardWrapper}" var="dashboard">
+                        <li><a href="#tabs-{!dashboard.index}">{!dashboard.dashboardView.View__r.Name}</a></li>
+                    </apex:repeat>
+                </ul>
+
+                <apex:repeat value="{!dBoardWrapper}" var="dashboard">
+                    <div id="tabs-{!dashboard.index}">
+                        <div id="columns"  >
+                            <div id="smallwidget-{!dashboard.index}" style="display:none;width: 100%;border-top: solid;border-top-color: rgba(105, 97, 97, 0.07);min-height: 0px;">               
+                                <ul class="column ui-sortable" id="ulsmall1-{!dashboard.index}" style="display:inline-block;"/>
+                                <ul class="column ui-sortable" id="ulsmall2-{!dashboard.index}" style="display:inline-block;"/>
+                                <ul class="column ui-sortable" id="ulsmall3-{!dashboard.index}" style="display:inline-block;"/>
+                                <ul class="column ui-sortable" id="ulsmall4-{!dashboard.index}" style="display:inline-block;"/>
+                            </div>    
+                            <div id="onethirdwidget-{!dashboard.index}" style="display:none;width: 100%;border-top: solid;border-top-color: rgba(105, 97, 97, 0.07);min-height: 0px;">
+                                <ul class="column ui-sortable" id="ulthird1-{!dashboard.index}" style="width:33.3%;height: auto;display:inline-block"/>
+                                <ul class="column ui-sortable" id="ulthird2-{!dashboard.index}" style="width:33.3%;height: auto;display:inline-block;"/>
+                                <ul class="column ui-sortable" id="ulthird3-{!dashboard.index}" style="width:33.3%;height: auto;display:inline-block;"/>
+                            </div>
+                            <div  id="halfwidget-{!dashboard.index}" style="display:none;width: 100%;border-top: solid;border-top-color: rgba(105, 97, 97, 0.07);min-height: 0px;">
+                                <ul class="column ui-sortable" id="ulhalf1-{!dashboard.index}" style="width:50%;height: auto;display:inline-block"/>
+                                <ul class="column ui-sortable" id="ulhalf2-{!dashboard.index}" style="width:50%;height: auto;display:inline-block;"/>
+                            </div>
+                            <div id="treeforthwidget-{!dashboard.index}" style="display:none;width: 100%;border-top: solid;border-top-color: rgba(105, 97, 97, 0.07);min-height: 0px;">
+                                <ul class="column" id="ulthreequarter1-{!dashboard.index}" style="width:78.5%;height: auto;display:inline-block"/>
+                            </div>
+                            <ul class="column" id="ul-{!dashboard.index}" style="display:none;width:1100px;height: auto;display:inline-block;border-top: solid;border-top-color: rgba(105, 97, 97, 0.07);min-height: 0px;">
+                                <apex:variable var="ulvar" value="{!0}"/>
+                                <apex:variable var="small" value="{!0}"/>
+                                <apex:variable var="onethird" value="{!0}"/>
+                                <apex:variable var="onehalf" value="{!0}"/>
+                                <apex:repeat value="{!dashboard.ViewWidgets}" var="vWidget" >
+                                    <li id="{!vWidget.viewWidget.Id}" class="widget color-white" style="display:none;">
+                                        <div id="widgethead" class="widget-head" style="cursor: move;">
+                                            <a title="Zoom" class="zoom topopup" onclick="zoomevent( '{!vWidget.viewWidget.Widget__r.Id}')">Zoom</a>
+                                            <a class="tableview topopup" title="Tabular View" onclick="tabularevent( '{!vWidget.viewWidget.Widget__r.Id}','yes')">View Tabular Data</a>
+                                            <h3 style="font-size: 10px; {!if(vWidget.viewWidget.Widget__r.Size__c == 'A Quarter','width:150px','')}">
+                                                {!vWidget.viewWidget.Widget__r.name}
+                                            </h3>
+                                        </div>
+                                        <div class="widget-content">
+                                            <script type="text/javascript">
+                                                var vai = '{!small}';
+                                                vai = vai%2; 
+                                                google.setOnLoadCallback(drawChart);
+                                                function drawChart() {
+                                                    var chartDiv = document.createElement('div');
+                                                    var li = document.getElementById('{!vWidget.viewWidget.Id}');
+                                                    var width;
+                                                    if('{!vWidget.viewWidget.Widget__r.Size__c}' == 'A Quarter'){
+                                                        width = $(window).width()/4 - 70+'px';
+                                                    }
+                                                    else if('{!vWidget.viewWidget.Widget__r.Size__c}' == 'One Third'){
+                                                        width = $(window).width()/3 - 70 +'px';
+                                                    }
+                                                    else if('{!vWidget.viewWidget.Widget__r.Size__c}' == 'One Half'){
+                                                        width = $(window).width()/2 - 68 +'px';
+                                                    }
+                                                    else if('{!vWidget.viewWidget.Widget__r.Size__c}' == 'Three Quarters'){
+                                                        width = 3*$(window).width()/4 - 70 +'px';
+                                                    }
+                                                    li.style.width=width;
+                                                    var chart;
+                                                    chartDiv.setAttribute('id','chart-{!dashboard.index}');
+                                                    chartDiv.setAttribute('class','chartclass');
+                                                    console.log('********'+{!onethird}+'**************');
+                                                    if(({!small}%4 == 0) && ('{!vWidget.viewWidget.Widget__r.Size__c}' == 'A Quarter') ){
+                                                        document.getElementById('ulsmall1-{!dashboard.index}').appendChild(document.getElementById('{!vWidget.viewWidget.Id}'));
+                                                        document.getElementById('{!vWidget.viewWidget.Id}').appendChild(chartDiv);
+                                                    }
+                                                    else if(({!small}%4 == 1) && ('{!vWidget.viewWidget.Widget__r.Size__c}' == 'A Quarter') ){
+                                                        document.getElementById('ulsmall2-{!dashboard.index}').appendChild(document.getElementById('{!vWidget.viewWidget.Id}'));
+                                                        document.getElementById('{!vWidget.viewWidget.Id}').appendChild(chartDiv);
+                                                    }
+                                                    else if(({!small}%4 == 2) && ('{!vWidget.viewWidget.Widget__r.Size__c}' == 'A Quarter') ){
+                                                        document.getElementById('ulsmall3-{!dashboard.index}').appendChild(document.getElementById('{!vWidget.viewWidget.Id}'));
+                                                        document.getElementById('{!vWidget.viewWidget.Id}').appendChild(chartDiv);
+                                                    }
+                                                    else if(({!small}%4 == 3) && ('{!vWidget.viewWidget.Widget__r.Size__c}' == 'A Quarter') ){
+                                                        document.getElementById('ulsmall4-{!dashboard.index}').appendChild(document.getElementById('{!vWidget.viewWidget.Id}'));
+                                                        document.getElementById('{!vWidget.viewWidget.Id}').appendChild(chartDiv);
+                                                    }
+                                                    else if(({!onethird}%3 == 0) && ('{!vWidget.viewWidget.Widget__r.Size__c}' == 'One Third') ){
+                                                        document.getElementById('ulthird1-{!dashboard.index}').appendChild(document.getElementById('{!vWidget.viewWidget.Id}'));
+                                                        document.getElementById('{!vWidget.viewWidget.Id}').appendChild(chartDiv);
+                                                    }
+                                                    else if(({!onethird}%3 == 1) && ('{!vWidget.viewWidget.Widget__r.Size__c}' == 'One Third') ){
+                                                        document.getElementById('ulthird2-{!dashboard.index}').appendChild(document.getElementById('{!vWidget.viewWidget.Id}'));
+                                                        document.getElementById('{!vWidget.viewWidget.Id}').appendChild(chartDiv);
+                                                    }
+                                                    else if(({!onethird}%3 == 2) && ('{!vWidget.viewWidget.Widget__r.Size__c}' == 'One Third') ){
+                                                        document.getElementById('ulthird3-{!dashboard.index}').appendChild(document.getElementById('{!vWidget.viewWidget.Id}'));
+                                                        document.getElementById('{!vWidget.viewWidget.Id}').appendChild(chartDiv);
+                                                    }
+                                                    else if(({!onehalf}%2 == 0) && ('{!vWidget.viewWidget.Widget__r.Size__c}' == 'One Half') ){
+                                                        document.getElementById('ulhalf1-{!dashboard.index}').appendChild(document.getElementById('{!vWidget.viewWidget.Id}'));
+                                                        document.getElementById('{!vWidget.viewWidget.Id}').appendChild(chartDiv);
+                                                    }
+                                                    else if(({!onehalf}%2 == 1) && ('{!vWidget.viewWidget.Widget__r.Size__c}' == 'One Half') ){
+                                                        document.getElementById('ulhalf2-{!dashboard.index}').appendChild(document.getElementById('{!vWidget.viewWidget.Id}'));
+                                                        document.getElementById('{!vWidget.viewWidget.Id}').appendChild(chartDiv);
+                                                    }
+                                                    else if('{!vWidget.viewWidget.Widget__r.Size__c}' == 'Three Quarters' ){
+                                                        document.getElementById('ulthreequarter1-{!dashboard.index}').appendChild(document.getElementById('{!vWidget.viewWidget.Id}'));
+                                                        document.getElementById('{!vWidget.viewWidget.Id}').appendChild(chartDiv);
+                                                    }
+                                                    else{
+                                                        document.getElementById('{!vWidget.viewWidget.id}').appendChild(chartDiv); 
+                                                    }
+                                                           
+                                                }
+                                                </script>
+                                        </div>
+                                    </li>
+                                  
+                                   
+                                    <apex:outputPanel rendered="{!IF((vWidget.viewWidget.Widget__r.Size__c == 'A Quarter'),'true','false')}">
+                                        <apex:variable var="small" value="{!small+1}"/>
+                                        <script>
+                                            document.getElementById('smallwidget-{!dashboard.index}').style.display = 'inline-block';
+                                        </script>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!IF((vWidget.viewWidget.Widget__r.Size__c == 'One Third'),'true','false')}">
+                                        <apex:variable var="onethird" value="{!onethird+1}"/>
+                                         <script>
+                                            document.getElementById('onethirdwidget-{!dashboard.index}').style.display = 'inline-block';
+                                        </script>
+                                    </apex:outputPanel>
+                                     <apex:outputPanel rendered="{!IF((vWidget.viewWidget.Widget__r.Size__c == 'One Half'),'true','false')}">
+                                        <apex:variable var="onehalf" value="{!onehalf+1}"/>
+                                        <script>
+                                            document.getElementById('halfwidget-{!dashboard.index}').style.display = 'inline-block';
+                                        </script>
+                                    </apex:outputPanel>
+                                     <apex:outputPanel rendered="{!IF(vWidget.viewWidget.Widget__r.Size__c == 'Three Quarters' ,'true','false')}">
+                                        <script>
+                                            document.getElementById('treeforthwidget-{!dashboard.index}').style.display = 'inline-block';
+                                        </script>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!IF(vWidget.viewWidget.Widget__r.Size__c == 'Larg' ,'true','false')}">
+                                        <apex:variable var="ulvar" value="{!ulvar+1}"/>
+                                        
+                                    </apex:outputPanel>
+                                </apex:repeat>
+                            </ul>
+                        </div>
+                    </div>
+                </apex:repeat>
+            </div>
+            <!----- End Widget Frame ----->
+            <!---- Js For Drag & Drop Effect ---->
+            <script type="text/javascript" src="{!URLFOR($Resource.inettutsZip, 'jquery')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.inettutsZip, 'jquerypersonalized')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.inettutsZip, 'inettuts.js')}"></script>
+            <script>
+                var allwidgetid = [];
+                <apex:repeat value="{!dBoardWrapper}" var="dashboard">
+                    <apex:repeat value="{!dashboard.ViewWidgets}" var="vWidget" >
+                        allwidgetid.push('{!vWidget.viewWidget.Widget__r.Id}');
+                    </apex:repeat>
+                </apex:repeat>
+                $.noConflict();
+                $(document).ready(function() {
+                    $( "#tabs" ).tabs();
+                    document.getElementById('toPopup').setAttribute('style', 'width:1190px ;margin-left: -605px;top:10%;');
+                });
+                function collapse(v){
+                    alert(v);
+                }
+                function controller(v){
+                    var arr0 = $('#ulsmall1-'+v+' > li').map(function(){
+                        return this.id+'##1';
+                    }).get();
+                    var arr1 = $('#ulsmall2-'+v+' > li').map(function(){
+                        return this.id+'##2';
+                    }).get(); 
+                    var arr3 = $('#ulsmall3-'+v+' > li').map(function(){
+                        return this.id+'##3';
+                    }).get();
+                    var arr4 = $('#ulsmall4-'+v+' > li').map(function(){    
+                        return this.id+'##4';
+                    }).get();
+                    var arr5 = $('#ulthird1-'+v+' > li').map(function(){
+                        return this.id+'##5';
+                    }).get();
+                    var arr6 = $('#ulthird2-'+v+' > li').map(function(){
+                        return this.id+'##6';
+                    }).get(); 
+                    var arr7 = $('#ulthird3-'+v+' > li').map(function(){
+                        return this.id+'##7';
+                    }).get();
+                     var arr8 = $('#ulhalf1-'+v+' > li').map(function(){
+                        return this.id+'##8';
+                    }).get(); 
+                    var arr9 = $('#ulhalf2-'+v+' > li').map(function(){
+                        return this.id+'##9';
+                    }).get();
+                     var arr10 = $('#ulthreequarter1-'+v+' > li').map(function(){
+                        return this.id+'##A';
+                    }).get();
+
+                    var arr2 = $('#ul-'+v+' > li').map(function(){
+                        return this.id+'##B';
+                    }).get();
+                    console.log('Arrray 0'+arr0);
+                     console.log('Arrray 1'+arr1);
+                      console.log('Arrray 2'+arr2);
+                     console.log('Arrray 3'+arr3);
+                      console.log('Arrray 4'+arr4);
+                     console.log('Arrray 5'+arr5);
+                      console.log('Arrray 6'+arr6);
+                     console.log('Arrray 7'+arr7);
+                      console.log('Arrray 8'+arr8);
+                     console.log('Arrray 9'+arr9);
+                      console.log('Arrray 10'+arr10);
+                    arrmain = arr0+','+arr1+','+arr3+','+arr4+','+arr5+','+arr6+','+arr7+','+arr8+','+arr9+','+arr10+','+arr2;
+                    console.log('Last Array'+arrmain);
+                    <!------ Remote Function Call   -------->
+                    Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.DashboardController3.getUserSetting}',
+                    arr0 ,arr1 ,arrmain,
+                    handleResult
+                    );
+                    <!--- Remote Fun End -------->
+                }
+                function handleResult(result, event) { }
+            </script>
+            <apex:outputPanel id="op1">
+                <script>
+                    function childchartpopup(tabIndex){
+                        var dataChild = google.visualization.arrayToDataTable([
+                            {!ChildChartData}]);
+                            var optionsChild = {
+                            title: '{!ChildChartName}'
+                        };
+                        var chartChild = new google.visualization.Table(document.getElementById('dd1'));
+                        if(chartChild != null){
+                            chartChild.draw(dataChild, optionsChild);
+                        }
+                    }
+
+
+                    function addTable(tabIndex){
+                        <apex:repeat value="{!dBoardWrapper}" var="dashboard" >
+                            <apex:repeat value="{!dashboard.ViewWidgets}" var="vWidget" >
+                                if('{!vWidget.viewWidget.Widget__r.Id}'!=tabIndex){}
+                                else{
+                                    var dataChild = google.visualization.arrayToDataTable([
+                                        {!vWidget.data}]);
+                                        var optionsChild = {
+                                        title: '{!vWidget.viewWidget.Widget__r.name}'
+                                    };
+                                    var chartChild = new google.visualization.Table(document.getElementById('dd'));
+                                    if(chartChild != null){
+                                        chartChild.draw(dataChild, optionsChild);
+                                    }
+                                }   
+                                </apex:repeat>
+                        </apex:repeat>
+                    }
+                    function addChart(tabIndex){
+                        <apex:repeat value="{!dBoardWrapper}" var="dashboard" >
+                            <apex:repeat value="{!dashboard.ViewWidgets}" var="vWidget" >
+                                if('{!vWidget.viewWidget.Widget__r.Id}'!=tabIndex){}
+                                else{
+                                    var dataChild = google.visualization.arrayToDataTable([
+                                        {!vWidget.data}]);
+                                        var optionsChild = {title: '{!vWidget.viewWidget.Widget__r.name}',
+                                        vAxis: {title: '', slantedText:"true", titleTextStyle: {color: 'red'}},
+                                        is3D:{!vWidget.viewWidget.Widget__r.X3D_Chart__c},
+                                        height: 550,width : $(window).width()-160,
+                                        tooltip: { trigger: 'selection' }
+                                    };
+                                    var chartChild;
+                                    if('{!vWidget.viewWidget.Widget__r.Type__c}' != 'Grid'){
+                                        chartChild = new google.visualization.{!vWidget.viewWidget.Widget__r.Type__c}Chart(document.getElementById('dd'));
+                                    }
+                                    else{
+                                        chartChild = new google.visualization.Table(document.getElementById('dialog'));
+                                    }
+                                    if(chartChild != null){
+                                        chartChild.draw(dataChild, optionsChild);
+                                    }
+                                }   
+                            </apex:repeat>
+                        </apex:repeat>
+                    }      
+
+                    function loadData(tabIndex,widgetId){
+                        <apex:repeat value="{!dBoardWrapper}" var="dashboard" >
+                            <apex:repeat value="{!dashboard.ViewWidgets}" var="vWidget" >
+                                document.getElementById('{!vWidget.viewWidget.Id}').style.display = 'inline-block';
+                                if('{!vWidget.viewWidget.Widget__r.Id}'!=widgetId){}
+                                else{
+                                  
+                                    var data = google.visualization.arrayToDataTable([
+                                    {!vWidget.data}]);
+                                    var options;    
+                                    if('{!vWidget.viewWidget.Widget__r.Size__c}' == 'A Quarter'){
+                                        options = {
+                                            title: '',
+                                            vAxis: {title: '',slantedText:"true",  titleTextStyle: {color: 'red'}, textStyle : {color: 'black', fontSize:8 }},
+                                            is3D:{!vWidget.viewWidget.Widget__r.X3D_Chart__c},
+                                            legend: { textStyle: {fontSize: 10}},
+                                            isStacked:{!vWidget.viewWidget.Widget__r.Stacked__c},
+                                            height: 200,width : $(window).width()/4-73,
+                                            hAxis:{slantedText:"true",textStyle : {color: 'black', fontSize:10 }}
+                                        };
+                                        width = $(window).width()/4 - 75+'px';
+                                    }
+                                    else if('{!vWidget.viewWidget.Widget__r.Size__c}' == 'One Third'){
+                                        options = {
+                                            title: '',
+                                            vAxis: {title: '',slantedText:"true",  titleTextStyle: {color: 'red'}, textStyle : {color: 'black', fontSize:10 }},
+                                            is3D:{!vWidget.viewWidget.Widget__r.X3D_Chart__c},
+                                            isStacked:{!vWidget.viewWidget.Widget__r.Stacked__c},
+                                            height: 300,width :  $(window).width()/3-75,
+                                            hAxis:{slantedText:"true", textStyle : {color: 'black', fontSize:10 }}
+                                        };
+                                        width = $(window).width()/3 - 75 +'px';
+                                    }
+                                    else if('{!vWidget.viewWidget.Widget__r.Size__c}' == 'One Half'){
+                                        options = {
+                                            title: '',
+                                            vAxis: {title: '',slantedText:"true",  titleTextStyle: {color: 'red'}, textStyle : {color: 'black', fontSize:10 }},
+                                            is3D:{!vWidget.viewWidget.Widget__r.X3D_Chart__c},
+                                            isStacked:{!vWidget.viewWidget.Widget__r.Stacked__c},
+                                            height: 300,width :  $(window).width()/2-75,
+                                            hAxis:{slantedText:"true", textStyle : {color: 'black', fontSize:10 }}
+                                        };
+                                        width = $(window).width()/2 - 75 +'px';
+                                    }
+                                    else if('{!vWidget.viewWidget.Widget__r.Size__c}' == 'Three Quarters'){
+                                        options = {
+                                            title: '',
+                                            vAxis: {title: '',slantedText:"true",  titleTextStyle: {color: 'red'}, textStyle : {color: 'black', fontSize:10 }},
+                                            is3D:{!vWidget.viewWidget.Widget__r.X3D_Chart__c},
+                                            isStacked:{!vWidget.viewWidget.Widget__r.Stacked__c},
+                                            height: 300,width :  3*($(window).width()/4)-75,
+                                            hAxis:{slantedText:"true", textStyle : {color: 'black', fontSize:10 }}
+                                        };
+                                        width = 3*($(window).width()/4) - 75 +'px';
+                                    }
+                                    else{
+                                        options = {
+                                            title: '',
+                                            vAxis: {title: '',slantedText:"true",  titleTextStyle: {color: 'red'}, textStyle : {color: 'black', fontSize:10 }},
+                                            is3D:{!vWidget.viewWidget.Widget__r.X3D_Chart__c},
+                                            isStacked:{!vWidget.viewWidget.Widget__r.Stacked__c},
+                                            height: 300,width :  $(window).width()-75,
+                                            hAxis:{slantedText:"true", textStyle : {color: 'black', fontSize:10 }}
+                                        };
+                                        width =  $(window).width() - 75 +'px';
+                                    }
+                                    var chart;
+                                    if('{!vWidget.viewWidget.Widget__r.Type__c}' == 'Bar'){
+                                        chart = new google.visualization.BarChart(document.getElementById(tabIndex).childNodes[6]);
+                                    }   
+                                    else if('{!vWidget.viewWidget.Widget__r.Type__c}' == 'Pie'){
+                                        chart = new google.visualization.PieChart(document.getElementById(tabIndex).childNodes[6]);
+                                    }
+                                    else if('{!vWidget.viewWidget.Widget__r.Type__c}' == 'Column'){
+                                        chart = new google.visualization.ColumnChart(document.getElementById(tabIndex).childNodes[6]);
+                                    }
+                                    else if('{!vWidget.viewWidget.Widget__r.Type__c}' == 'Grid'){
+                                        chart = new google.visualization.Table(document.getElementById(tabIndex).childNodes[6]);
+                                    }
+                                   
+                                    if(chart!= null){
+                                        chart.draw(data, options);
+                                        console.log(data);
+                                    }
+                                    if ('{!vWidget.selectEvent}' ==  'true'){
+                                        document.getElementById(tabIndex).childNodes[6].style.cursor='pointer';
+                                        console.log('Pointer:==='+'{!vWidget.selectEvent}');
+                                    }
+                                    google.visualization.events.addListener(chart, 'select', function () {
+                                        var selectedItem = chart.getSelection()[0];
+
+                                        if (selectedItem && '{!vWidget.selectEvent}' ==  'true') {
+                                            console.log('{!vWidget.selectEvent}'+'{!vWidget.viewWidget.Widget__r.Id}');
+                                            var clolumnvalue = "";
+                                            for(v=1;v<data.getNumberOfRows();v++){
+                                                if(v == data.getNumberOfRows())
+                                                clolumnvalue  += data.getValue(v, 0);
+                                                else
+                                                clolumnvalue  += data.getValue(v, 0)+"###";   
+                                            }
+                                            childchart(data.getFormattedValue(selectedItem.row, 1),'{!vWidget.viewWidget.Widget__r.id}','{!dashboard.index}','{!vWidget.viewWidget.Id}',clolumnvalue);
+                                            loadChild();
+                                        }
+                                    });
+
+                                }   
+                            </apex:repeat>
+                        </apex:repeat>
+                    } 
+                </script>
+            </apex:outputPanel>
+           
+            <apex:actionRegion >
+                <!---- Ajax Call For Fetch Child Widget --------->
+                <apex:actionFunction name="fetchChildWidget" action="{!getChildWidget}" status="loading" oncomplete="dataload1();" reRender="op,op1">
+                <apex:param assignTo="{!relatedId}" name="widgetName" value=""/>
+                <apex:param assignTo="{!widgetId}" name="widgetId" value=""/>
+                <apex:param assignTo="{!tabIndex}" name="tabIndex" value=""/>
+                <apex:param name="node1" value="" assignTo="{!viewName}" />
+
+                </apex:actionFunction>
+                <apex:actionFunction name="childchart" action="{!getChildWidget}"   status="loading" rerender="op,op1,error,childselectlist" oncomplete="loadchild();" >
+                <apex:param assignTo="{!relatedId}" name="widgetName" value=""/>
+                <apex:param assignTo="{!widgetId}" name="widgetId" value=""/>
+                <apex:param assignTo="{!tabIndex}" name="tabIndex" value=""/>
+                <apex:param name="node1" value="" assignTo="{!viewName}" />
+                <apex:param name="child" value=""  assignTo="{!parentclolumnvalue}"/> 
+                </apex:actionFunction>
+                <apex:actionFunction name="popupselect" action="{!getChildWidget}"   status="loading" rerender="op,op1,error,childselectlist,dd1" oncomplete="loadchild();" >
+                <apex:param assignTo="{!relatedId}" name="widgetName" value=""/>
+                <apex:param assignTo="{!widgetId}" name="widgetId" value=""/>
+                </apex:actionFunction>
+                <!----  END Ajax Call For Fetch Child Widget --------->            
+            </apex:actionRegion>
+            <!--- Ajax Call Oncomplete mehod ------>
+            <apex:outputPanel id="op">
+                <script>
+                    function dataload() { console.log('{!widgetId}');loadData('{!viewName}','{!widgetId}');}
+                    function eventload() {console.log('{!widgetId}');addChart('{!widgetId}');}
+                    function eventload1() {console.log('{!widgetId}');addTable('{!widgetId}');}
+                    function dataload1() {
+                        <apex:repeat value="{!updatedWidgetsandView}" var="view">
+                            <apex:repeat value="{!updatedWidgetsandView[view]}" var="widgetI">
+                             
+                                console.log('UPdated Widget'+'{!widgetI}');loadData('{!view}','{!widgetI}');
+                            </apex:repeat>
+                        </apex:repeat>
+                    }
+                    function loadchild() {console.log('****{!parentclolumnvalue}');console.log('{!widgetId}');childchartpopup('{!widgetId}');}
+                </script>
+            </apex:outputPanel>
+            <!--- End Ajax Call Oncomplete mehod ------>
+            <!-- Pop-Up for Tabular View and Zoom Effect ---->
+            <a href="#" class="topopup"></a>
+            <div id="dialog" class="remove" title="" style="Display:none;"></div>       
+            <div id="toPopup" >
+            <div class="close"></div>
+            <span class="ecs_tooltip">Press Esc to close <span class="arrow"></span></span>
+                <div id="popup_content" style="max-height: 530px;overflow: auto;"> <!--your content start-->
+                    <div id="contentLoading" style="display:none;">
+                        <img id="contentLoading1" src="/img/loading32.gif" alt="Loading graphic" />
+                    </div>
+                    <p id="dd"> </p>
+                    <p align="center"></p>
+                </div> <!--your content end-->
+            </div> <!--toPopup end-->
+            <div class="loader"></div>
+            <div id="backgroundPopup"></div>
+            <!-- End Pop-Up for Tabular View and Zoom Effect ---->
+           
+            <!-- Pop-Up For Child Chart --->
+            <div id="dialog1" class="remove" title="" style="Display:none;"></div>       
+            <div id="toPopup1" >
+                <div class="close1"></div>
+                <span class="ecs_tooltip1">Press Esc to close <span class="arrow"></span></span>
+                <div id="popup_content1" style="max-height: 530px;overflow: auto;"> <!--your content start-->
+                    <div id="contentLoading1" style="display:none;">
+                        <img id="contentLoading1" src="/img/loading32.gif" alt="Loading graphic" />
+                    </div>
+                    Select :
+                    <apex:selectList id="childselectlist" size="1" value="{!relatedId}" onchange="popupselect(this.value,'{!parentwidgetid}');">
+                    <apex:selectoptions value="{!childpicklist}" ></apex:selectoptions>
+                    </apex:selectList>
+                    <p id="dd1">
+
+                    </p>
+                    <p align="center"></p>
+                </div> <!--your content end-->
+            </div> <!--toPopup end-->
+            <div id="backgroundPopup1"></div>
+            <!-- End Pop-Up For Child Chart --->
+
+        </body>
+    </apex:form>
+</apex:page>

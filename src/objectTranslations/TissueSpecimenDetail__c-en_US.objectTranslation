@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Tissue Specimen Detail</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Tissue Specimen Details</value>
+    </caseValues>
+    <fields>
+        <label><!-- CRFId --></label>
+        <name>CRFId__c</name>
+        <relationshipLabel><!-- Tissue Specimen Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Completed Date --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Save and Close --></label>
+        <name>First_Save_and_Close__c</name>
+    </fields>
+    <fields>
+        <label><!-- Guidance Method(s) --></label>
+        <name>Guidance_Method_s__c</name>
+        <picklistValues>
+            <masterLabel>MRI</masterLabel>
+            <translation><!-- MRI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mammography</masterLabel>
+            <translation><!-- Mammography --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Palpation guided</masterLabel>
+            <translation><!-- Palpation guided --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stereotactic</masterLabel>
+            <translation><!-- Stereotactic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ultrasound</masterLabel>
+            <translation><!-- Ultrasound --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- IsCaTissueDone --></label>
+        <name>IsCaTissueDone__c</name>
+    </fields>
+    <fields>
+        <label><!-- NumberOfSamplesCollected --></label>
+        <name>NumberOfSamplesCollected__c</name>
+    </fields>
+    <fields>
+        <label><!-- OriginalCRF --></label>
+        <name>OriginalCRF__c</name>
+        <relationshipLabel><!-- Tissue Specimen Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Other (Guidance Method) --></label>
+        <name>Other_Guidance_Method__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other (Reason not all samples collected) --></label>
+        <name>Other_Reason_not_all_samples_collected__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient consented to use specimen for research outside of this study. --></help>
+        <label><!-- Patient Consented Outside Study --></label>
+        <name>PatientConsentedOutsideStudy__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient consented to use specimen for this study. --></help>
+        <label><!-- Patient Consented Study --></label>
+        <name>PatientConsentedStudy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Patient --></label>
+        <name>Patient__c</name>
+        <relationshipLabel><!-- Tissue Specimen Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Follow-up</masterLabel>
+            <translation><!-- Follow-up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening</masterLabel>
+            <translation><!-- Screening --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment</masterLabel>
+            <translation><!-- Treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Procedure Date --></label>
+        <name>ProcedureDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reason all samples not collected --></label>
+        <name>Reason_all_samples_not_collected__c</name>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient Refused</masterLabel>
+            <translation><!-- Patient Refused --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Root CRF Id --></label>
+        <name>Root_CRF_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Not Required</masterLabel>
+            <translation><!-- Approval Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Pending</masterLabel>
+            <translation><!-- Approval Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- TestHarnessId --></label>
+        <name>TestHarnessId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Time Point --></label>
+        <name>Time_Point__c</name>
+        <picklistValues>
+            <masterLabel>Early Treatment</masterLabel>
+            <translation><!-- Early Treatment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pre-Surgery</masterLabel>
+            <translation><!-- Pre-Surgery --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pre-Treatment Re-Biopsy</masterLabel>
+            <translation><!-- Pre-Treatment Re-Biopsy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pre-treatment</masterLabel>
+            <translation><!-- Pre-treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- Tissue Specimen CRF --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- pg_Tissuespecimen_Id --></label>
+        <name>pg_Tissuespecimen_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_status --></label>
+        <name>pg_status__c</name>
+    </fields>
+    <layouts>
+        <layout>Adhoc</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Specimen Usage --></label>
+            <section>Specimen Usage</section>
+        </sections>
+        <sections>
+            <label><!-- TissueSpecimenDetail Edit --></label>
+            <section>TissueSpecimenDetail Edit</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Approval Pending</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Specimen Usage --></label>
+            <section>Specimen Usage</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Live</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Specimen Usage --></label>
+            <section>Specimen Usage</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- ADHOC --></label>
+        <name>ADHOC</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Date must be earlier than or equal to the date that the form is being completed. --></errorMessage>
+        <name>ValidateProcedureDate</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Cancel --></label>
+        <name>Cancel</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Sign_and_Submit --></label>
+        <name>Sign_and_Submit</name>
+    </webLinks>
+</CustomObjectTranslation>

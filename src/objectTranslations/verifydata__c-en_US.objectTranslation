@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>verifydata</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>verifydata</value>
+    </caseValues>
+    <fields>
+        <label><!-- SalesforceID --></label>
+        <name>SalesforceID__c</name>
+    </fields>
+    <fields>
+        <label><!-- TolvenReportID --></label>
+        <name>TolvenReportID__c</name>
+    </fields>
+    <fields>
+        <label><!-- objectName --></label>
+        <name>objectName__c</name>
+    </fields>
+    <fields>
+        <label><!-- salesforcestatus --></label>
+        <name>salesforcestatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- subjectID --></label>
+        <name>subjectID__c</name>
+    </fields>
+    <fields>
+        <label><!-- tolvenstatus --></label>
+        <name>tolvenstatus__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

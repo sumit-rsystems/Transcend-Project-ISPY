@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>AdditionalQuestion</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>AdditionalQuestions</value>
+    </caseValues>
+    <fields>
+        <label><!-- Arm Id --></label>
+        <name>ArmId__c</name>
+        <relationshipLabel><!-- AdditionalQuestions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- CRFMaster --></label>
+        <name>CRFMaster__c</name>
+        <relationshipLabel><!-- AdditionalQuestions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- CRF --></label>
+        <name>CRF__c</name>
+        <picklistValues>
+            <masterLabel>Adverse Event Form</masterLabel>
+            <translation><!-- Adverse Event Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Baseline Symptoms Form</masterLabel>
+            <translation><!-- Baseline Symptoms Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Blood Specimen Tracking Form</masterLabel>
+            <translation><!-- Blood Specimen Tracking Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Chemo Summary Form</masterLabel>
+            <translation><!-- Chemo Summary Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Chemo Treatment Form</masterLabel>
+            <translation><!-- Chemo Treatment Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Follow-Up Form</masterLabel>
+            <translation><!-- Follow-Up Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lab and Test Form</masterLabel>
+            <translation><!-- Lab and Test Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lost to Follow-Up Form</masterLabel>
+            <translation><!-- Lost to Follow-Up Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MRI Volume Form</masterLabel>
+            <translation><!-- MRI Volume Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MammaPrint Microarray Form</masterLabel>
+            <translation><!-- MammaPrint Microarray Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Menopausal Status Form</masterLabel>
+            <translation><!-- Menopausal Status Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No Longer Lost to Follow-Up Form</masterLabel>
+            <translation><!-- No Longer Lost to Follow-Up Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Off-Study Form</masterLabel>
+            <translation><!-- Off-Study Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>On-Study Eligibility Form</masterLabel>
+            <translation><!-- On-Study Eligibility Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>On-Study Pathology Form</masterLabel>
+            <translation><!-- On-Study Pathology Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Post Surgery Summary Form</masterLabel>
+            <translation><!-- Post Surgery Summary Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Protocol Violation Form</masterLabel>
+            <translation><!-- Protocol Violation Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Randomization Form</masterLabel>
+            <translation><!-- Randomization Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Response Evaluation Form</masterLabel>
+            <translation><!-- Response Evaluation Form --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tissue Specimen Form</masterLabel>
+            <translation><!-- Tissue Specimen Form --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Question Id --></label>
+        <name>QuestionId__c</name>
+        <relationshipLabel><!-- AdditionalQuestions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Trial Id --></label>
+        <name>TrialId__c</name>
+        <relationshipLabel><!-- AdditionalQuestions --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>AdditionalQuestions Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Name</nameFieldLabel>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

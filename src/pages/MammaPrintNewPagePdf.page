@@ -1,0 +1,101 @@
+<apex:page standardController="MammaPrintDetail__c" renderAs="pdf" extensions="MammaPrintNewController"  sidebar="false" tabStyle="Patient_Custom__c">  
+    
+    <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : MammaPrint Microarray Form" initial="" 
+    instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+    <br/>                 
+
+   <font size="3"><b><apex:outputlabel value="MammaPrint results are not to be used for treatment decisions outside of the I-SPY 2 TRIAL per FDA IND# 105,139" >
+    </apex:outputlabel></b></font> <br /><br />
+    <table width="100%">
+        <tr>
+            <td width="30%"><b>Collection Details</b></td>
+            <td width="70%"></td>
+        </tr>
+        <tr>
+            <td width="30%"> Report Date </td>
+            <td width="70%"><apex:outputField value="{!MammaObj.Report_Date__c}"/> </td>
+        </tr>
+        <tr>
+            <td width="30%"> Specimen used: </td>
+            <td width="70%"> <apex:outputField value="{!MammaObj.Specimen_Used__c}"/></td> 
+        </tr>
+    </table>
+     <table width="100%">
+        <tr>
+            <td width="30%"><b>MammaPrint Risk</b></td>
+            <td width="70%"></td>
+        </tr>
+        <tr>
+            <td width="30%">Risk:</td>
+            <td width="70%"><apex:outputField value="{!MammaObj.MammaPrint_Risk__c}"/> </td> 
+        </tr>
+        <tr>
+            <td width="30%">MammaPrint Index</td>
+            <td width="70%"><apex:outputField value="{!MammaObj.MammaPrint_Index__c}"/> </td>
+        </tr>
+        <tr>
+            <td width="30%">H1 H2 status</td>
+            <td width="70%"><apex:outputField value="{!MammaObj.H1_H2_status__c}"/></td>
+        </tr>
+    </table>
+    <table width="100%">
+        <tr>   
+            <td width="30%"><b>TargetPrint HER 2 index</b></td> 
+            <td width="70%"> </td>
+        </tr>
+        <tr>
+            <td width="30%">TargetPrint HER 2 index:</td>
+            <td width="70%"> <apex:outputField value="{!MammaObj.TargetPrint_Her_2_Index__c}"/> </td>
+        </tr>
+        <tr>
+            <td width="30%">TargetPrint HER 2 Status:</td>    
+            <td width="70%"> <apex:outputField value="{!MammaObj.TargetPrint_Her_2_Status__c}"/> </td>
+        </tr>
+    </table>  
+    <br/><br/>
+    
+    
+  <!--  <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+   </table>
+       
+    <c:CRFPDFFooter crfFormName="MammaPrint Form , v1"  />   
+      
+</apex:page> -->
+<table cellpadding="5"> 
+    <tr>
+        <td width="50%;" >
+            <apex:outputLabel style="font-weight:bold;"  value="CRF Status:" />
+        </td>
+        <td width="43%;">
+            <apex:outputField value="{!MammaObj.Status__c}"/>
+        </td>
+    
+   
+    </tr> 
+      </table>
+      <br/>
+      <br/>
+   <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  
+  
+</apex:page>

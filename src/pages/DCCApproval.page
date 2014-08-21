@@ -1,0 +1,94 @@
+<apex:page controller="DCCApprovalController" tabStyle="Approval_Request__tab" sideBar="false">
+<style>
+	.selectbox{
+            background-color: #2F96E4;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            height: 25px;
+            position: relative;
+            width: 152px;
+            border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+            color:#fff;
+            font-size:12px; font-weight: bold;
+            padding:3px 0 3px 10px;
+    }
+</style>
+<apex:form >
+	<apex:pageBlock title="Approve/Reject Approval Request" id="pageBlock" rendered="{!NOT(OR(isAlreadyApproved, isAlreadyRejected))}">
+		<apex:pageBlockButtons location="top" rendered="{!NOT(OR(isApproved, isRejected, isDeleted))}">
+          	 <!--<apex:commandButton action="{!approve}" value="Approve" Rerender="pageBlock" status="counterStatus" />
+          	  <apex:commandButton action="{!reject}" value="Reject" Rerender="pageBlock" status="counterStatus" />-->
+          	 <apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+<!--	         <apex:actionStatus startText="Processing..." id="counterStatus"/>-->
+	    </apex:pageBlockButtons>
+	    <apex:pageBlockSection title="Decision" rendered="{!NOT(OR(isApproved, isRejected, isDeleted))}" columns="1">
+	    	<apex:pageBlockSectionItem >
+	    		<apex:outputLabel value="" />
+			    <apex:selectRadio value="{!decision}">
+					<apex:selectOption itemValue="approve" itemLabel="Approve"/>
+					<apex:selectOption itemValue="reject" itemLabel="Reject"/>
+				</apex:selectRadio>
+			</apex:pageBlockSectionItem>
+		</apex:pageBlockSection>
+	    <apex:pageBlockSection title="Decision" rendered="{!OR(isApproved, isRejected, isDeleted)}" columns="1">
+	    	<apex:pageMessage summary="Approved" severity="confirm" strength="3" rendered="{!isApproved}"/>
+	    	<apex:pageMessage summary="Rejected" severity="error" strength="3" rendered="{!isRejected}"/>
+	    </apex:pageBlockSection>
+	    <apex:pageBlockSection rendered="{!isError}" columns="1">
+	    	<apex:pageMessage summary="{!errorMsg}" severity="error" strength="3"/>
+	    </apex:pageBlockSection>
+	    <apex:outputPanel rendered="{!NOT(OR(isApproved, isRejected, isDeleted))}">
+		    <apex:pageBlockSection columns="1">
+		    	<apex:pageBlockSectionItem >
+		    		<apex:outputLabel value="Comments" />
+				    <apex:inputTextarea id="newDesc" value="{!decisionComments}" cols="100" rows="5"/>
+		    	</apex:pageBlockSectionItem>
+		    </apex:pageBlockSection>
+		    <apex:pageBlockSection columns="1">
+			    <apex:outputPanel layout="block" style="text-align: center"> 	 
+					<apex:outputPanel id="msgPanelId" layout="block" style="text-align: center;"><font color="{!msgColor}">{!signAndSubmitErrorMsg}&nbsp;</font></apex:outputPanel>
+					<br />
+					<table width="100%" align="center">
+						<tr>
+							<td align="right" width="80%">
+								<apex:outputLabel value="User Id :" style="font-weight: bold;"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+								<apex:outputLabel value="Secure Code: "  style="font-weight: bold;"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}"/>&nbsp;&nbsp;
+								<apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" Rerender="pageBlock" status="counterStatus"/>
+								<apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus"/>
+							</td>
+							<td align="left" style="vertical-align: middle;">
+								<apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/> 
+							</td>
+						</tr>
+					</table>
+				</apex:outputPanel>
+		    </apex:pageBlockSection>
+		    <apex:pageBlockSection columns="3">
+	    		<apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" value="Site: {!approvalReqObj.Site__r.Name}"/>
+	    		<apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" value="Trial: {!approvalReqObj.Study__r.Name}"/>
+	    		<apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" value="Subject Id: {!approvalReqObj.Subject_Id__c}"/>
+		    </apex:pageBlockSection>
+	    </apex:outputPanel>
+	    <apex:outputPanel layout="block" style="margin-top: 7px;">
+		    <apex:iframe src="{!frameURL}" scrolling="true" id="theIframe"/>
+	    </apex:outputPanel>
+	</apex:pageBlock>
+	<apex:pageBlock title="Approve/Reject Approval Request" rendered="{!isAlreadyRejected}">
+		<apex:pageBlockSection columns="1">
+	    	<apex:pageMessage summary="This CRF is already rejected." severity="info" strength="3"/>
+	    </apex:pageBlockSection>
+	    <apex:outputPanel layout="block" style="margin-top: 7px;">
+		    <apex:iframe src="{!frameURL}" scrolling="true" id="theIframe"/>
+	    </apex:outputPanel>
+	</apex:pageBlock>
+	<apex:pageBlock title="Approve/Reject Approval Request" rendered="{!isAlreadyApproved}">
+		<apex:pageBlockSection columns="1">
+	    	<apex:pageMessage summary="This CRF is already approved." severity="info" strength="3"/>
+	    </apex:pageBlockSection>
+	    <apex:outputPanel layout="block" style="margin-top: 7px;">
+		    <apex:iframe src="{!frameURL}" scrolling="true" id="theIframe"/>
+	    </apex:outputPanel>
+	</apex:pageBlock>
+</apex:form>
+</apex:page>

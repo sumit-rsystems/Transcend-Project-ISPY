@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>AE By Partcipant And Arm</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>AE By Partcipant And Arm</value>
+    </caseValues>
+    <fields>
+        <label><!-- Arm --></label>
+        <name>Arm__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attribution --></label>
+        <name>Attribution__c</name>
+    </fields>
+    <fields>
+        <label><!-- Baseline Symptom --></label>
+        <name>Baseline_Symptom__c</name>
+    </fields>
+    <fields>
+        <label><!-- CTC AE --></label>
+        <name>CTC_AE__c</name>
+    </fields>
+    <fields>
+        <label><!-- Event End Date --></label>
+        <name>Event_End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Event Grade --></label>
+        <name>Event_Grade__c</name>
+    </fields>
+    <fields>
+        <label><!-- Event Onset Date --></label>
+        <name>Event_Onset_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Patient Complaint --></label>
+        <name>Patient_Complaint__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Request --></label>
+        <name>Report_Request__c</name>
+        <relationshipLabel><!-- AE By Partcipant And Arm --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Resolved --></label>
+        <name>Resolved__c</name>
+    </fields>
+    <fields>
+        <label><!-- Row Color --></label>
+        <name>Row_Color__c</name>
+    </fields>
+    <fields>
+        <label><!-- SAE --></label>
+        <name>SAE__c</name>
+    </fields>
+    <fields>
+        <label><!-- SubjectId --></label>
+        <name>SubjectId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Visit Date --></label>
+        <name>Visit_Date__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Patient Completed Screening Report</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Patient Completed Screening Reports</value>
+    </caseValues>
+    <fields>
+        <label><!-- Consent Date --></label>
+        <name>Consent_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ethnicity --></label>
+        <name>Ethnicity__c</name>
+    </fields>
+    <fields>
+        <label><!-- Gender --></label>
+        <name>Gender__c</name>
+        <picklistValues>
+            <masterLabel>Female</masterLabel>
+            <translation><!-- Female --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Male</masterLabel>
+            <translation><!-- Male --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- ISPY2ID --></label>
+        <name>ISPY2ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Consent Signed --></label>
+        <name>Is_Consent_Signed__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRI Volume Status --></label>
+        <name>MRI_Volume_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Menopausal Status --></label>
+        <name>Menopausal_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- OSE Status --></label>
+        <name>OSE_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- OSP Status --></label>
+        <name>OSP_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Race --></label>
+        <name>Race__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reg Date --></label>
+        <name>Reg_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Request --></label>
+        <name>Report_Request__c</name>
+        <relationshipLabel><!-- Patient Completed Screening Reports --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Trial Site Name --></label>
+        <name>Trial_Site_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Zip --></label>
+        <name>Zip__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

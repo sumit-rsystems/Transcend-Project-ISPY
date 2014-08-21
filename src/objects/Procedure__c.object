@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Date_Of_Procedure__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Of Procedure</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Effective_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Effective Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Form_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Form Name</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Breast Surgical Procedure Collection</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On-Study Pathology Form(Positive Breast Biopsies)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On-Study Pathology Form(Lymph Node Biopsies)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Post Surgery Summary Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Laterality__c</fullName>
+        <externalId>false</externalId>
+        <label>Laterality</label>
+        <picklist>
+            <controllingField>Procedure_Name__c</controllingField>
+            <picklistValues>
+                <fullName>Left</fullName>
+                <controllingFieldValues>Axillary lymph node dissection</controllingFieldValues>
+                <controllingFieldValues>Breast surgical biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Excisional biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>FNA</controllingFieldValues>
+                <controllingFieldValues>FNA (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Fine needle aspirate (breast)</controllingFieldValues>
+                <controllingFieldValues>Incisional biopsy</controllingFieldValues>
+                <controllingFieldValues>Modified Radical Mastectomy</controllingFieldValues>
+                <controllingFieldValues>Partial mastectomy</controllingFieldValues>
+                <controllingFieldValues>Re-excision</controllingFieldValues>
+                <controllingFieldValues>Sentinel lymph node dissection</controllingFieldValues>
+                <controllingFieldValues>Skin Sparing Mastectomy</controllingFieldValues>
+                <controllingFieldValues>Therapeutic mastectomy</controllingFieldValues>
+                <controllingFieldValues>Total Skin Sparing Mastectomy</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Right</fullName>
+                <controllingFieldValues>Axillary lymph node dissection</controllingFieldValues>
+                <controllingFieldValues>Breast surgical biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Excisional biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>FNA</controllingFieldValues>
+                <controllingFieldValues>FNA (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Fine needle aspirate (breast)</controllingFieldValues>
+                <controllingFieldValues>Incisional biopsy</controllingFieldValues>
+                <controllingFieldValues>Modified Radical Mastectomy</controllingFieldValues>
+                <controllingFieldValues>Partial mastectomy</controllingFieldValues>
+                <controllingFieldValues>Re-excision</controllingFieldValues>
+                <controllingFieldValues>Sentinel lymph node dissection</controllingFieldValues>
+                <controllingFieldValues>Skin Sparing Mastectomy</controllingFieldValues>
+                <controllingFieldValues>Therapeutic mastectomy</controllingFieldValues>
+                <controllingFieldValues>Total Skin Sparing Mastectomy</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unknown</fullName>
+                <controllingFieldValues>Axillary lymph node dissection</controllingFieldValues>
+                <controllingFieldValues>Breast surgical biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Excisional biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>FNA</controllingFieldValues>
+                <controllingFieldValues>FNA (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Fine needle aspirate (breast)</controllingFieldValues>
+                <controllingFieldValues>Incisional biopsy</controllingFieldValues>
+                <controllingFieldValues>Modified Radical Mastectomy</controllingFieldValues>
+                <controllingFieldValues>Partial mastectomy</controllingFieldValues>
+                <controllingFieldValues>Re-excision</controllingFieldValues>
+                <controllingFieldValues>Sentinel lymph node dissection</controllingFieldValues>
+                <controllingFieldValues>Skin Sparing Mastectomy</controllingFieldValues>
+                <controllingFieldValues>Therapeutic mastectomy</controllingFieldValues>
+                <controllingFieldValues>Total Skin Sparing Mastectomy</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <externalId>false</externalId>
+        <label>Location</label>
+        <picklist>
+            <controllingField>Procedure_Name__c</controllingField>
+            <picklistValues>
+                <fullName>Unknown/Not indicated</fullName>
+                <controllingFieldValues>Axillary lymph node dissection</controllingFieldValues>
+                <controllingFieldValues>Breast surgical biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Excisional biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>FNA</controllingFieldValues>
+                <controllingFieldValues>FNA (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Fine needle aspirate (breast)</controllingFieldValues>
+                <controllingFieldValues>Incisional biopsy</controllingFieldValues>
+                <controllingFieldValues>Partial mastectomy</controllingFieldValues>
+                <controllingFieldValues>Re-excision</controllingFieldValues>
+                <controllingFieldValues>Sentinel lymph node dissection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not applicable</fullName>
+                <controllingFieldValues>Breast surgical biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy</controllingFieldValues>
+                <controllingFieldValues>FNA</controllingFieldValues>
+                <controllingFieldValues>Fine needle aspirate (breast)</controllingFieldValues>
+                <controllingFieldValues>Incisional biopsy</controllingFieldValues>
+                <controllingFieldValues>Partial mastectomy</controllingFieldValues>
+                <controllingFieldValues>Re-excision</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Upper inner quadrant</fullName>
+                <controllingFieldValues>Breast surgical biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy</controllingFieldValues>
+                <controllingFieldValues>FNA</controllingFieldValues>
+                <controllingFieldValues>Fine needle aspirate (breast)</controllingFieldValues>
+                <controllingFieldValues>Incisional biopsy</controllingFieldValues>
+                <controllingFieldValues>Partial mastectomy</controllingFieldValues>
+                <controllingFieldValues>Re-excision</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Upper outer quadrant</fullName>
+                <controllingFieldValues>Breast surgical biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy</controllingFieldValues>
+                <controllingFieldValues>FNA</controllingFieldValues>
+                <controllingFieldValues>Fine needle aspirate (breast)</controllingFieldValues>
+                <controllingFieldValues>Incisional biopsy</controllingFieldValues>
+                <controllingFieldValues>Partial mastectomy</controllingFieldValues>
+                <controllingFieldValues>Re-excision</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lower inner quadrant</fullName>
+                <controllingFieldValues>Breast surgical biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy</controllingFieldValues>
+                <controllingFieldValues>FNA</controllingFieldValues>
+                <controllingFieldValues>Fine needle aspirate (breast)</controllingFieldValues>
+                <controllingFieldValues>Incisional biopsy</controllingFieldValues>
+                <controllingFieldValues>Partial mastectomy</controllingFieldValues>
+                <controllingFieldValues>Re-excision</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lower outer quadrant</fullName>
+                <controllingFieldValues>Breast surgical biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy</controllingFieldValues>
+                <controllingFieldValues>FNA</controllingFieldValues>
+                <controllingFieldValues>Fine needle aspirate (breast)</controllingFieldValues>
+                <controllingFieldValues>Incisional biopsy</controllingFieldValues>
+                <controllingFieldValues>Partial mastectomy</controllingFieldValues>
+                <controllingFieldValues>Re-excision</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Axillary tail of breast</fullName>
+                <controllingFieldValues>Breast surgical biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy</controllingFieldValues>
+                <controllingFieldValues>FNA</controllingFieldValues>
+                <controllingFieldValues>Fine needle aspirate (breast)</controllingFieldValues>
+                <controllingFieldValues>Incisional biopsy</controllingFieldValues>
+                <controllingFieldValues>Partial mastectomy</controllingFieldValues>
+                <controllingFieldValues>Re-excision</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Overlapping lesion of breast</fullName>
+                <controllingFieldValues>Breast surgical biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy</controllingFieldValues>
+                <controllingFieldValues>FNA</controllingFieldValues>
+                <controllingFieldValues>Fine needle aspirate (breast)</controllingFieldValues>
+                <controllingFieldValues>Incisional biopsy</controllingFieldValues>
+                <controllingFieldValues>Partial mastectomy</controllingFieldValues>
+                <controllingFieldValues>Re-excision</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Central</fullName>
+                <controllingFieldValues>Breast surgical biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy</controllingFieldValues>
+                <controllingFieldValues>FNA</controllingFieldValues>
+                <controllingFieldValues>Fine needle aspirate (breast)</controllingFieldValues>
+                <controllingFieldValues>Incisional biopsy</controllingFieldValues>
+                <controllingFieldValues>Partial mastectomy</controllingFieldValues>
+                <controllingFieldValues>Re-excision</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subareolar region</fullName>
+                <controllingFieldValues>Breast surgical biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy</controllingFieldValues>
+                <controllingFieldValues>FNA</controllingFieldValues>
+                <controllingFieldValues>Fine needle aspirate (breast)</controllingFieldValues>
+                <controllingFieldValues>Incisional biopsy</controllingFieldValues>
+                <controllingFieldValues>Partial mastectomy</controllingFieldValues>
+                <controllingFieldValues>Re-excision</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nipple</fullName>
+                <controllingFieldValues>Breast surgical biopsy</controllingFieldValues>
+                <controllingFieldValues>Core biopsy</controllingFieldValues>
+                <controllingFieldValues>FNA</controllingFieldValues>
+                <controllingFieldValues>Fine needle aspirate (breast)</controllingFieldValues>
+                <controllingFieldValues>Incisional biopsy</controllingFieldValues>
+                <controllingFieldValues>Partial mastectomy</controllingFieldValues>
+                <controllingFieldValues>Re-excision</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Axillary (lymph node)</fullName>
+                <controllingFieldValues>Axillary lymph node dissection</controllingFieldValues>
+                <controllingFieldValues>Core biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Excisional biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>FNA (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Sentinel lymph node dissection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Infraclavicular (lymph node)</fullName>
+                <controllingFieldValues>Axillary lymph node dissection</controllingFieldValues>
+                <controllingFieldValues>Core biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Excisional biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>FNA (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Sentinel lymph node dissection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internal mammary (lymph node)</fullName>
+                <controllingFieldValues>Axillary lymph node dissection</controllingFieldValues>
+                <controllingFieldValues>Core biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Excisional biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>FNA (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Sentinel lymph node dissection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Supraclavicular (lymph node)</fullName>
+                <controllingFieldValues>Axillary lymph node dissection</controllingFieldValues>
+                <controllingFieldValues>Core biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Excisional biopsy (lymph node)</controllingFieldValues>
+                <controllingFieldValues>FNA (lymph node)</controllingFieldValues>
+                <controllingFieldValues>Sentinel lymph node dissection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MRI__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>MRI</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Mammography__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Mammography</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Node_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Node Result</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Positive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Negative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Node_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Node Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Unknown/Not Indicated</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Axillary (Lymph node)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Infraclavicular (Lymph node)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internal Mammary (Lymph node)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Supraclavicular (Lymph node)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>On_Study_Pathology_Form__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>On-Study Pathology Form</label>
+        <referenceTo>On_Study_Pathology_Form__c</referenceTo>
+        <relationshipLabel>Procedures</relationshipLabel>
+        <relationshipName>Procedures</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Palpation_guided__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Palpation guided</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Post_Surgery_Summary__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Post Surgery Summary</label>
+        <referenceTo>Post_Surgaory_Summary__c</referenceTo>
+        <relationshipLabel>Procedures</relationshipLabel>
+        <relationshipName>Procedures</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Procedure_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Procedure Name</label>
+        <picklist>
+            <controllingField>Form_Name__c</controllingField>
+            <picklistValues>
+                <fullName>Fine needle aspirate (breast)</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Incisional biopsy</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <controllingFieldValues>On-Study Pathology Form(Positive Breast Biopsies)</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Breast surgical biopsy</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Re-excision</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Partial mastectomy</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <controllingFieldValues>Post Surgery Summary Form</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FNA (lymph node)</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <controllingFieldValues>On-Study Pathology Form(Lymph Node Biopsies)</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Excisional biopsy (lymph node)</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sentinel lymph node dissection</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <controllingFieldValues>Post Surgery Summary Form</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Axillary lymph node dissection</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Therapeutic mastectomy</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <controllingFieldValues>Post Surgery Summary Form</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prophylatic mastectomy</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Paracentesis</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thoracentesis</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lung</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Liver</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bone</fullName>
+                <controllingFieldValues>Breast Surgical Procedure Collection</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FNA</fullName>
+                <controllingFieldValues>On-Study Pathology Form(Positive Breast Biopsies)</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Core biopsy</fullName>
+                <controllingFieldValues>On-Study Pathology Form(Positive Breast Biopsies)</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Core biopsy (lymph node)</fullName>
+                <controllingFieldValues>On-Study Pathology Form(Lymph Node Biopsies)</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Skin Sparing Mastectomy</fullName>
+                <controllingFieldValues>Post Surgery Summary Form</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Total Skin Sparing Mastectomy</fullName>
+                <controllingFieldValues>Post Surgery Summary Form</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Modified Radical Mastectomy</fullName>
+                <controllingFieldValues>Post Surgery Summary Form</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Stereotactic__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Stereotactic</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Total_Examined_Nodes__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Examined Nodes</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Positive__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Positive Nodes</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TrialPatient__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>TrialPatient</label>
+        <referenceTo>TrialPatient__c</referenceTo>
+        <relationshipLabel>Procedures</relationshipLabel>
+        <relationshipName>Procedures</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Ultrasound__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Ultrasound</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>pg_procedure_id__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_procedure_id</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Procedure</label>
+    <nameField>
+        <displayFormat>{00000}</displayFormat>
+        <label>Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Procedures</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+</CustomObject>

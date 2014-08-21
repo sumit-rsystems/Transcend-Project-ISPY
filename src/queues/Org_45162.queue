@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Org-45162</name>
+    <queueSobject>
+        <sobjectType>Registration__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>TissueSpecimenDetail__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>MammaPrintDetail__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Menopausal_Status_Detail__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>MRI_Volume__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>ProtocolViolationDetail__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>On_Study_Eligibility_Form__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>On_Study_Pathology_Form__c</sobjectType>
+    </queueSobject>
+</Queue>

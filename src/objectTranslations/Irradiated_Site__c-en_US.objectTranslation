@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Irradiated Site</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Irradiated Sites</value>
+    </caseValues>
+    <fields>
+        <help><!-- Enter Dose per FX( cGY ) --></help>
+        <label><!-- Dose per FX (cGy) --></label>
+        <name>Dose_per_FX_cGy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Followup Form --></label>
+        <name>Followup_Form__c</name>
+        <relationshipLabel><!-- Irradiated Sites --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Laterality --></label>
+        <name>Laterality__c</name>
+        <picklistValues>
+            <masterLabel>Left</masterLabel>
+            <translation><!-- Left --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Right</masterLabel>
+            <translation><!-- Right --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown/not indicated</masterLabel>
+            <translation><!-- Unknown/not indicated --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Site --></label>
+        <name>Site__c</name>
+        <picklistValues>
+            <masterLabel>Axilla</masterLabel>
+            <translation><!-- Axilla --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Boost</masterLabel>
+            <translation><!-- Boost --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Breast</masterLabel>
+            <translation><!-- Breast --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Chest wall</masterLabel>
+            <translation><!-- Chest wall --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal mammary node</masterLabel>
+            <translation><!-- Internal mammary node --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Supraclavicular node</masterLabel>
+            <translation><!-- Supraclavicular node --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- TotalFX --></label>
+        <name>TotalFX__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter Total #FX --></help>
+        <label><!-- Total #FX --></label>
+        <name>Total_FX__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total dose (cGy)  AP --></label>
+        <name>Total_dose_cGy_AP__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_irraditedsite_Id --></label>
+        <name>pg_irraditedsite_Id__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

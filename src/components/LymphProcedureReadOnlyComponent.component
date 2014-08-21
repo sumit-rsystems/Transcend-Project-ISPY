@@ -1,0 +1,71 @@
+<apex:component controller="ProcedureComponentController" allowDML="true" >
+<apex:attribute name="subForm" description="This is the value for on-study pathology" type="String" />
+
+<style>
+.tableDateHead {
+	width: 9%;
+}
+
+.tableProcedureHead {
+	width: 33%;
+}
+
+.tableLateralityHead {
+	width: 9%;
+}
+.tableLocationHead {
+	width: 18%;
+}
+
+.procedureTable thead tr th{
+	border-bottom: 1px solid #000;
+}
+.procedureTableHead {
+	border-bottom: 1px solid #000;
+}
+
+</style>
+	<apex:actionRegion >
+	<apex:dataTable cellpadding="3" cellspacing="1" width="100%" value="{!wrapList}" var="newPro" rowClasses="odd,even" styleclass="procedureTable">
+<!--				==============================make date column=============================    -->
+		    <apex:column width="9%" style="" headerClass="tableHead tableDateHead" rendered="{!IF(AND(NOT(ISNULL(subForm)),subForm!=''), true, false)}">
+		        <apex:facet name="header">Date</apex:facet>
+		        <apex:outputPanel rendered="{!IF(AND(newPro.isEditMode==false, newPro.pro.Form_Name__c=='On-Study Pathology Form(Lymph Node Biopsies)'), true, false)}">
+		        	<apex:outputField value="{!newPro.pro.Date_Of_Procedure__c}"/>
+		        </apex:outputPanel>
+		    </apex:column>
+		    
+<!--				==============================make Procedure column=============================    -->
+		    <apex:column width="33%" style="" headerClass="tableHead tableProcedureHead">
+		        <apex:facet name="header">Procedure</apex:facet>
+		        <apex:outputPanel rendered="{!IF(AND(newPro.isEditMode==false, newPro.pro.Form_Name__c=='On-Study Pathology Form(Lymph Node Biopsies)'), true, false)}">
+		        	<apex:outputField value="{!newPro.pro.Procedure_Name__c}" />
+		        </apex:outputPanel>
+		    </apex:column>
+		    
+<!--				==============================make Laterality column=============================    -->
+		    <apex:column width="8%" style="" headerClass="tableHead tableLateralityHead">
+		        <apex:facet name="header">Laterality</apex:facet>
+		        <apex:outputPanel rendered="{!IF(AND(newPro.isEditMode==false, newPro.pro.Form_Name__c=='On-Study Pathology Form(Lymph Node Biopsies)'), true, false)}">
+		        	<apex:outputField value="{!newPro.pro.Laterality__c}" />
+		        </apex:outputPanel>
+		    </apex:column>
+		    
+<!--				==============================make Location column=============================    -->
+		    <apex:column width="18%" style="" headerClass="tableHead tableLocationHead">
+		        <apex:facet name="header">Location</apex:facet>
+		        <apex:outputPanel rendered="{!IF(AND(newPro.isEditMode==false, newPro.pro.Form_Name__c=='On-Study Pathology Form(Lymph Node Biopsies)'), true, false)}">
+		        	<apex:outputField value="{!newPro.pro.Location__c}" />
+		        </apex:outputPanel>
+		    </apex:column>
+		    
+<!--				==============================make node result column=============================    -->
+		    <apex:column width="10%" style="" headerClass="tableHead tableLateralityHead" rendered="{!IF((subForm=='On-Study Pathology Form(Lymph Node Biopsies)'), true, false)}">
+		        <apex:facet name="header">Node Result</apex:facet>
+		        <apex:outputPanel rendered="{!IF(AND(newPro.isEditMode==false, newPro.pro.Form_Name__c=='On-Study Pathology Form(Lymph Node Biopsies)'), true, false)}">
+		        	<apex:outputField value="{!newPro.pro.Node_Result__c}" />
+		        </apex:outputPanel>
+		    </apex:column>
+	</apex:dataTable>
+	</apex:actionRegion>
+</apex:component>

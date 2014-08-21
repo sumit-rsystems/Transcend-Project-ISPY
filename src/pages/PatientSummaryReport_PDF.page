@@ -1,0 +1,1193 @@
+<!--<apex:page Controller="PatientSummaryReport" action="{!generatePatientSummaryReport}" sideBar="false" showHeader="false" id="pageId" tabStyle="Account">-->
+<apex:page Controller="PatientSummaryReport" action="{!generatePatientSummaryReport}" sideBar="false" showHeader="false" id="pageId" tabStyle="Account" renderAs="pdf">
+	<head>
+			<style>
+				@page {
+				    @top-right {
+				        content: "Page " counter(page) " of " counter(pages);
+				        font-size : 10 px;
+				        color : Black;
+				     }
+				}
+			
+			.pagenumber:before {
+				content: counter(page);
+            }
+			.pagecount:before {
+				content: counter(pages);
+			}
+			
+          </style>
+	</head>
+	 
+	 <table style="background-color: #DEDEDF; border: 2px black solid; height: 110; width: 100%; ">
+        <tr>
+            <td style="width: 150px;">
+                <apex:image id="theImage" value="{!$Resource.Rep_Logo}" width="150" height="100"/> 
+            </td>
+            <td valign="top">
+                <table width="100%" height="108px;">
+                    <tr>
+                        <td style="font-size: 20px; font-family: Arial;">
+                            <center><b>PATIENT SUMMARY REPORT</b></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="bottom">
+                            <table>
+                                <tr>
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">
+                                        <b>Study: </b>
+                                    </td>
+                                    <td style="font-size: 14px; font-family: Arial;" valign="bottom">
+                                        {!studyName}
+                                    </td>
+                                </tr> 
+                                <tr> 
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">    
+                                        <b>As of:</b>
+                                    </td>
+                                    <td valign="bottom">
+                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 14px; font-family: Arial;">
+                                            <apex:param value="{!dateOfReport}" />
+                                        </apex:outputText>&nbsp;
+<!--                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 16px; font-family: Arial;">-->
+<!--                                            <apex:param value="{!dateOfReport.End_Date__c}" />-->
+<!--                                        </apex:outputText> -->
+                                    </td>
+                                </tr> 
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td valign="bottom">
+            	<div>Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+            </td>
+        </tr>
+    </table>
+    <table cellPadding="5" cellSpacing="0" style="page-break-after:always; font-size: 10px; font-family: Arial;border-bottom: 2px solid #000; width: 100%; margin-left: 0px; margin-right: 0px;" >
+        <tr style="background-color: gray;">
+            <td colspan="12" style="font-size: 20px;font-weight: #BABABA;border-bottom:2px solid #000;">
+                Patients Active in Screening (not yet randomized)
+            </td>
+        </tr>
+        <tr style="background-color: #DEDEDF;border-bottom:2px solid #000;border-left:2px solid #000;border-right:2px solid #000;">
+            <td width="5%" ><b>I-SPY 2 ID</b></td>
+            <td width="5%" ><b>Trial Site</b></td>
+            <td width="12%" ><b>Screening Consent Date</b></td>
+            <td width="10%"  ><b>Registration Date</b></td>
+            <td width="5%" ><b>Gender</b></td>
+            <td width="10%"  ><b>Race</b></td>
+            <td width="10%" ><b>Ethnicity</b></td>
+            <td width="10%" ><b>Menopausal Status</b></td>  
+            <td width="12%" ><b>MRI Volume, Pre-tx</b></td>
+            <td width="10%"  ><b>OSE</b></td>
+            <td width="10%" ><b>OSP</b></td>
+            <td width="10%" ><b>Zip</b></td>
+        </tr>
+        <apex:repeat value="{!lstActivePatientSummary}" var="patientSum">
+            <tr>
+                <td valign="top" style="">{!patientSum.ISPY2Id}</td>
+                <td valign="top">{!patientSum.trialSiteName }</td> 
+                <td valign="top">
+                    <apex:outputText value="{0, date, dd/MM/yyyy}">
+                        <apex:param value="{!patientSum.consentDate}" />
+                    </apex:outputText>
+                </td>
+                <td valign="top">
+                    <apex:outputText value="{0, date, dd/MM/yyyy}">
+                        <apex:param value="{!patientSum.regDate}" />
+                    </apex:outputText>
+                </td>
+                <td valign="top">{!patientSum.gender}</td>
+                <td valign="top">{!patientSum.race}</td>
+                <td valign="top">{!patientSum.ethnicity}</td>
+                <td valign="top">{!patientSum.menopausalStatus}</td>
+                <td valign="top">{!patientSum.mriVolumeStatus}</td>
+                <td valign="top">{!patientSum.oseStatus}</td>
+                <td valign="top">{!patientSum.ospStatus}</td>
+                <td valign="top">{!patientSum.zip}</td> 
+            </tr>
+        </apex:repeat>
+    </table>
+    <br />
+    <table style="background-color: #DEDEDF; border: 2px black solid; height: 110; width: 100%; ">
+        <tr>
+            <td style="width: 150px;" >
+                <apex:image value="{!$Resource.Rep_Logo}" width="150" height="100"/> 
+            </td>
+            <td valign="top">
+                <table width="100%" height="108px;">
+                    <tr>
+                        <td style="font-size: 20px; font-family: Arial;">
+                            <center><b>PATIENT SUMMARY REPORT</b></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="bottom">
+                            <table>
+                                <tr>
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">
+                                        <b>Study: </b>
+                                    </td>
+                                    <td style="font-size: 14px; font-family: Arial;" valign="bottom">
+                                        {!studyName}
+                                    </td>
+                                </tr> 
+                                <tr> 
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">    
+                                        <b>As of:</b>
+                                    </td>
+                                    <td valign="bottom">
+                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 14px; font-family: Arial;">
+                                            <apex:param value="{!dateOfReport}" />
+                                        </apex:outputText>&nbsp;
+<!--                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 16px; font-family: Arial;">-->
+<!--                                            <apex:param value="{!dateOfReport.End_Date__c}" />-->
+<!--                                        </apex:outputText> -->
+                                    </td>
+                                </tr> 
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td valign="bottom">
+            	<div>Page <span class="pagenumber"/> of <span class="pagecount"/>&nbsp;&nbsp;&nbsp;</div>
+            </td>
+        </tr>
+    </table>
+    <table cellPadding="5" cellSpacing="0" style="page-break-after:always; font-size: 10px; font-family: Arial;border-bottom: 2px solid #000; width: 100%;" >
+        <tr style="background-color: gray; border-bottom:2px solid #000;border-left:2px solid #000;border-right:2px solid #000;">
+            <td colspan="13" style="font-size: 20px;font-weight: #BABABA;border-bottom:2px solid #000;">
+                Patients Completed Screening(have completed Randomization)
+            </td>
+        </tr>
+        <tr style="background-color: #DEDEDF;border-bottom:2px solid #000;border-left:2px solid #000;border-right:2px solid #000;">
+            <td width="10%" ><b>I-SPY 2 ID</b></td> 
+            <td width="10%" ><b>Trial Site</b></td>
+            <td width="10%" ><b>Screening Consent Date</b></td>
+            <td width="10%" ><b>Registration Date</b></td>
+            <td width="10%" ><b>Gender</b></td>
+            <td width="10%" ><b>Race</b></td> 
+            <td width="10%" ><b>Ethnicity</b></td>
+            <td width="10%" ><b>Menopausal Status</b></td>     
+            <td width="10%" ><b>MRI Volume, Pre-tx</b></td>
+            <td width="10%"  ><b>OSE</b></td>
+            <td width="10%" ><b>OSP</b></td>
+            <td width="10%" ><b>Zip</b></td>
+            <td width="10%" ><b>Randomization consent signed</b></td>
+        </tr>
+        <apex:repeat value="{!lstCompletePatientSummary}" var="patientSum">
+            <tr>
+                <td>{!patientSum.ISPY2Id}</td>
+                <td>{!patientSum.trialSiteName }</td> 
+                <td>
+                    <apex:outputText value="{0, date, dd/MM/yyyy}">
+                        <apex:param value="{!patientSum.consentDate}" />
+                    </apex:outputText>
+                </td>
+                <td>
+                    <apex:outputText value="{0, date, dd/MM/yyyy}">
+                        <apex:param value="{!patientSum.regDate}" />
+                    </apex:outputText>
+                </td>
+                <td>{!patientSum.gender}</td>
+                <td>{!patientSum.race}</td>
+                <td>{!patientSum.ethnicity}</td>
+                <td>{!patientSum.menopausalStatus}</td>
+                <td>{!patientSum.mriVolumeStatus}</td>
+                <td>{!patientSum.oseStatus}</td>
+                <td>{!patientSum.ospStatus}</td>
+                <td>{!patientSum.zip}</td> 
+                <td>{!patientSum.isConsentSigned}</td>
+            </tr>
+        </apex:repeat>
+    </table>
+    <br />
+    <br />
+    <table style="background-color: #DEDEDF; border: 2px black solid; height: 110; width: 100%; ">
+        <tr>
+            <td style="width: 150px;">
+                <apex:image value="{!$Resource.Rep_Logo}" width="150" height="100"/> 
+            </td>
+            <td valign="top">
+                <table width="100%" height="108px;">
+                    <tr>
+                        <td style="font-size: 20px; font-family: Arial;">
+                            <center><b>PATIENT SUMMARY REPORT</b></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="bottom">
+                            <table>
+                                <tr>
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">
+                                        <b>Study: </b>
+                                    </td>
+                                    <td style="font-size: 14px; font-family: Arial;" valign="bottom">
+                                        {!studyName}
+                                    </td>
+                                </tr> 
+                                <tr> 
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">    
+                                        <b>As of:</b>
+                                    </td>
+                                    <td valign="bottom">
+                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 14px; font-family: Arial;">
+                                            <apex:param value="{!dateOfReport}" />
+                                        </apex:outputText>&nbsp;
+<!--                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 16px; font-family: Arial;">-->
+<!--                                            <apex:param value="{!dateOfReport.End_Date__c}" />-->
+<!--                                        </apex:outputText> -->
+                                    </td>
+                                </tr> 
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td valign="bottom">
+            	<div>Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+            </td>
+        </tr>
+    </table>
+    <table cellPadding="5" cellSpacing="0" style="page-break-after:always; font-size: 9px; font-family: Arial;border-bottom: 2px solid #000; width: 100%;" >
+        <tr style="background-color: gray;">
+            <td colspan="14" style="font-size: 20px;font-weight: #BABABA;border-bottom:2px solid #000;">
+                Patient in Treatment Phase
+            </td>
+        </tr>
+        <tr style="background-color: #DEDEDF;border-bottom:2px solid #000;border-left:2px solid #000;border-right:2px solid #000;">
+			<td ><b>I-SPY 2 ID</b></td> 
+			<td ><b>Trial Site</b></td>
+			<td ><b>Treatment Consent Date</b></td>
+			<td ><b>First Paclitaxel Treatment</b></td>
+			<td ><b>Last Paclitaxel Treatment</b></td>
+			<td ><b>Last Paclitaxel Cycle</b></td>
+			<td ><b>First Ac Treatment</b></td>
+			<td ><b>Last Ac Treatment</b></td>  
+			<td ><b>Last Ac Cycle</b></td>
+			<td ><b>Surgery Date</b></td>
+			<td ><b>Most Recent Follow up</b></td>
+			<td ><b>Lost to Follow up</b></td>
+			<td ><b>Off Study</b></td>
+			<td ><b>Off Study Reason</b></td>
+		</tr>
+		<apex:repeat value="{!lstTreatmentPhaseSummary}" var="patWrapper"> 
+			<tr>
+				<td valign="top">{!patWrapper.ISPY2ID}</td>
+				<td valign="top">{!patWrapper.trialSiteName}</td> 
+				<td valign="top">
+                    <apex:outputText value="{0, date, dd/MM/yyyy}">
+                        <apex:param value="{!patWrapper.treatmentConsentDate}" />
+                    </apex:outputText>
+             			</td>
+				<td valign="top">
+                    <apex:outputText value="{0, date, dd/MM/yyyy}">
+                        <apex:param value="{!patWrapper.firstPaclitTreatmentDate}" />
+                    </apex:outputText>
+             			</td>
+             			<td valign="top">
+                    <apex:outputText value="{0, date, dd/MM/yyyy}">
+                        <apex:param value="{!patWrapper.lastPaclitTreatmentDate}" />
+                    </apex:outputText>
+             			</td>
+
+				<td valign="top">{!patWrapper.lastPaclitTreatmentCycle}</td>
+				<td valign="top">
+	                <apex:outputText value="{0, date, dd/MM/yyyy}">
+	                   <apex:param value="{!patWrapper.firstACTreatmentDate}" />  
+	                 </apex:outputText>
+              		</td>
+              		<td valign="top">
+	                <apex:outputText value="{0, date, dd/MM/yyyy}">
+	                   <apex:param value="{!patWrapper.lastACTreatmentDate}" />    
+	                 </apex:outputText>
+              		</td>
+				<td valign="top">{!patWrapper.lastACTreatmentCycle}</td>
+<!--							<td>{!patWrapper.surgeryDateItp}</td>-->
+				<td valign="top">
+	                <apex:outputText value="{0, date, dd/MM/yyyy}">
+	                   <apex:param value="{!patWrapper.surgeryDate}" />  
+	                 </apex:outputText>
+              		</td>
+				<td valign="top">
+				<apex:outputText value="{0, date, dd/MM/yyyy}">
+	                   <apex:param value="{!patWrapper.mostRecentFollowup}" />  
+	                 </apex:outputText>
+	              </td>
+				<td valign="top"><apex:outputText value="{0, date, dd/MM/yyyy}">
+	                   <apex:param value="{!patWrapper.lostToFollowup}" />  
+	                 </apex:outputText></td>
+				<td valign="top">
+					<apex:outputText value="{0, date, dd/MM/yyyy}">
+	               		<apex:param value="{!patWrapper.offStudyDate}" />
+	                </apex:outputText>
+				</td>
+				<td valign="top">{!patWrapper.offStudyReason}</td>
+			</tr> 
+		</apex:repeat>
+   	</table>
+   	<table style="background-color: #DEDEDF; border: 2px black solid; height: 110; width: 100%; ">
+        <tr>
+            <td style="width: 150px;">
+                <apex:image value="{!$Resource.Rep_Logo}" width="150" height="100"/> 
+            </td>
+            <td valign="top">
+                <table width="100%" height="108px;">
+                    <tr>
+                        <td style="font-size: 20px; font-family: Arial;">
+                            <center><b>PATIENT SUMMARY REPORT</b></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="bottom">
+                            <table>
+                                <tr>
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">
+                                        <b>Study: </b>
+                                    </td>
+                                    <td style="font-size: 14px; font-family: Arial;" valign="bottom">
+                                        {!studyName}
+                                    </td>
+                                </tr> 
+                                <tr> 
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">    
+                                        <b>As of:</b>
+                                    </td>
+                                    <td valign="bottom">
+                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 14px; font-family: Arial;">
+                                            <apex:param value="{!dateOfReport}" />
+                                        </apex:outputText>&nbsp;
+<!--                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 16px; font-family: Arial;">-->
+<!--                                            <apex:param value="{!dateOfReport.End_Date__c}" />-->
+<!--                                        </apex:outputText> -->
+                                    </td>
+                                </tr> 
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td valign="bottom">
+            	<div>Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+            </td>
+        </tr>
+    </table>
+   <table cellPadding="5" cellSpacing="0" style="page-break-after:always; font-size: 12px; font-family: Arial;border-bottom: 2px solid #000; width: 100%; margin-left: 0px; margin-right: 0px;" >
+		<tr style="background-color: gray;">
+			<td width="100%" colspan="2"
+				style="font-size: 18px; font-weight: Bold; border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000;">
+			PROTOCOL VIOLATIONS</td>
+		</tr>
+		<tr>
+			<td colspan="2" width="100%"
+				style="font-size: 15px; font-weight: Bold; border-bottom: 1px solid #000; border-left: 1px solid #000; border-right: 1px solid #000;">
+			Protocol Violation by Reason</td>
+		</tr>
+		<tr>
+			<td width="80%" colspan="1"
+				style="font-size: 15px; font-weight: Bold; border-left: 1px solid #000; border-bottom: 1px solid #000;">
+			Reason</td>
+			<td width="20%" colspan="1"
+				style="font-size: 15px; font-weight: Bold; border-right: 1px solid #000; border-bottom: 1px solid #000;">
+			Violation</td>
+		</tr>
+		<tr>
+			<td width="80%" colspan="1"
+				style="font-size: 15px; font-weight: Bold; border-bottom: 1px solid #000; border-left: 1px solid #000;">
+			Total Protocol Violations</td>
+			<td width="20%" colspan="1"
+				style="font-size: 15px; font-weight: Bold; border-bottom: 1px solid #000; border-right: 1px solid #000;">
+			{!protocolViolationWrapper.total}</td>
+		</tr>
+		<tr style="background-color: #DBE4F0;">
+			<td>Medication Non-compliance</td>
+			<td style="padding-left: 100px;">{!protocolViolationWrapper.medicationNonCompliance}</td>
+		</tr>
+		<tr>
+			<td>Visit Non-compliance</td>
+			<td style="padding-left: 100px;">{!protocolViolationWrapper.visitNonCompliance}</td>
+		</tr>
+		<tr style="background-color: #DBE4F0;">
+			<td>On-study procedure required by protocol not completed</td>
+			<td style="padding-left: 100px;">{!protocolViolationWrapper.onStudyProcedure}</td>
+		</tr>
+		<tr>
+			<td>Incorrect therapy given to patient</td>
+			<td style="padding-left: 100px;">{!protocolViolationWrapper.incorrectTherapyGiven}</td>
+		</tr>
+		<tr style="background-color: #DBE4F0;">
+			<td>Screening and on-study test/lab done outside the protocol
+			required time</td>
+			<td style="padding-left: 100px;">{!protocolViolationWrapper.screeningOnStudy}</td>
+		</tr>
+		<tr>
+			<td>Screening procedure required by protocol not done</td>
+			<td style="padding-left: 100px;">{!protocolViolationWrapper.screeningProcedureRequired}</td>
+		</tr>
+		<tr style="background-color: #DBE4F0;">
+			<td>Eligibility criteria exception</td>
+			<td style="padding-left: 100px;">{!protocolViolationWrapper.eligiblityCritertia}</td>
+		</tr>
+		<tr>
+			<td>Enrollment of ineligible patient</td>
+			<td style="padding-left: 100px;">{!protocolViolationWrapper.enrollmentIneligiblePatient}</td>
+
+		</tr>
+		<tr style="background-color: #DBE4F0;">
+			<td>Patient became pregnant prior to surgery</td>
+			<td style="padding-left: 100px;">{!protocolViolationWrapper.patientBecamePregnant}</td>
+		</tr>
+		<tr>
+			<td>Other</td>
+			<td style="padding-left: 100px;">{!protocolViolationWrapper.other}</td>
+		</tr>
+		<apex:repeat value="{!protocolViolationWrapper.lstOtherProtoViolation}" var="otherViolation">
+			<tr bgcolor="{!otherViolation.rowColor}">
+				<td style="padding-left: 25px;">{!otherViolation.otherViolation}</td>
+				<td style="padding-left: 200px;">{!otherViolation.numberOfOtherViolation}</td>
+			</tr>
+		</apex:repeat>
+	</table>
+		<table style="background-color: #DEDEDF; border: 2px black solid; height: 110; width: 100%; ">
+        <tr>
+            <td style="width: 150px;">
+                <apex:image value="{!$Resource.Rep_Logo}" width="150" height="100"/> 
+            </td>
+            <td valign="top">
+                <table width="100%" height="108px;">
+                    <tr>
+                        <td style="font-size: 20px; font-family: Arial;">
+                            <center><b>PATIENT SUMMARY REPORT</b></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="bottom">
+                            <table>
+                                <tr>
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">
+                                        <b>Study: </b>
+                                    </td>
+                                    <td style="font-size: 14px; font-family: Arial;" valign="bottom">
+                                        {!studyName}
+                                    </td>
+                                </tr> 
+                                <tr> 
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">    
+                                        <b>As of:</b>
+                                    </td>
+                                    <td valign="bottom">
+                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 14px; font-family: Arial;">
+                                            <apex:param value="{!dateOfReport}" />
+                                        </apex:outputText>&nbsp;
+<!--                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 16px; font-family: Arial;">-->
+<!--                                            <apex:param value="{!dateOfReport.End_Date__c}" />-->
+<!--                                        </apex:outputText> -->
+                                    </td>
+                                </tr> 
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td valign="bottom">
+            	<div>Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+            </td>
+        </tr>
+    </table>
+   	<table cellPadding="5" cellSpacing="0" style="page-break-after:always; font-size: 12px; font-family: Arial;border-bottom: 2px solid #000; width: 100%; margin-left: 0px; margin-right: 0px;" >
+       <tr style="background-color: gray;">
+           <td colspan="13" style="font-size: 20px;font-weight: #BABABA;border-bottom:2px solid #000;border-left:2px solid #000;border-right:2px solid #000;">
+               Screening CRFs Submitted
+           </td>
+       </tr>
+       <tr style="background-color: #DEDEDF;"> 
+           <td width="16%" Style ="border-left:2px solid #000;border-right:2px solid #000;border-bottom:2px solid #000;"><b>Trial Site</b></td>
+           <td width="16%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;"><b>Tissue -Pre-Tx Submitted</b></td>
+           <td width="16%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;"><b>Blood -Pre-Tx Submitted</b></td>
+           <td width="16%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;"><b>MammaPrint Submitted</b></td>
+           <td width="16%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;">
+           	<table width="100%">
+           			<tr>
+          			 		<td colspan="2"><b>Baseline Symptoms</b> </td>
+          			 	</tr>
+           			 	<tr>
+           			 		<td><b>Submitted</b></td>  
+           			 		<td><b>Approved</b></td>
+           			 </tr>
+          		</table>
+          	</td>	
+          	<td width="16%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;">	
+          		<table width="100%">
+           			<tr>
+          			 		<td colspan="2"><b>Response Eval,Baseline</b> </td>
+          			 	</tr>
+           			 	<tr>
+           			 		<td><b>Submitted</b></td>
+           			 		<td><b>Approved</b></td>
+           			 </tr>
+          		</table>
+          	</td>		 
+<!--	            <td width=16% Style ="border-right:2px solid #000;border-bottom:2px solid #000;"><b>Response Eval,Baseline<br> Submitted Approved</b></td> -->
+       </tr>
+       <apex:repeat value="{!lstSCWrapper}" var="scWrapper">  
+       	<tr style="border-left:2px solid #000;border-right:2px solid #000;"> 
+           	<td>{!scWrapper.trialSiteName}</td>  
+            	<td>{!scWrapper.tissuePreTxSubmitted}</td>
+            	<td>{!scWrapper.bloodPreTxSubmitted}</td>
+            	<td>{!scWrapper.mammaPrintSubmitted}</td>
+            	<td>
+            		<table width="100%">
+           			<tr>
+	           			<td>{!scWrapper.baselineSubmitted}</td>
+	           			<td>{!scWrapper.baselineApproved}</td>
+           		  </tr>
+          			</table>
+          		</td>
+          		<td>
+            		<table width="100%">
+           			<tr>
+	           			<td>{!scWrapper.responseEvalSubmitted}</td>
+	           			<td>{!scWrapper.responseEvalApproved}</td>
+           		  </tr>
+          			</table>
+          		</td>
+       	</tr>
+       </apex:repeat>
+   </table>
+	<table style="background-color: #DEDEDF; border: 2px black solid; height: 110; width: 100%; ">
+        <tr>
+            <td style="width: 150px;">
+                <apex:image value="{!$Resource.Rep_Logo}" width="150" height="100"/> 
+            </td>
+            <td valign="top">
+                <table width="100%" height="108px;">
+                    <tr>
+                        <td style="font-size: 20px; font-family: Arial;">
+                            <center><b>PATIENT SUMMARY REPORT</b></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="bottom">
+                            <table>
+                                <tr>
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">
+                                        <b>Study: </b>
+                                    </td>
+                                    <td style="font-size: 14px; font-family: Arial;" valign="bottom">
+                                        {!studyName}
+                                    </td>
+                                </tr> 
+                                <tr> 
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">    
+                                        <b>As of:</b>
+                                    </td>
+                                    <td valign="bottom">
+                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 14px; font-family: Arial;">
+                                            <apex:param value="{!dateOfReport}" />
+                                        </apex:outputText>&nbsp;
+<!--                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 16px; font-family: Arial;">-->
+<!--                                            <apex:param value="{!dateOfReport.End_Date__c}" />-->
+<!--                                        </apex:outputText> -->
+                                    </td>
+                                </tr> 
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td valign="bottom">
+            	<div>Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+            </td>
+        </tr>
+    </table>
+	<table width="100%" cellPadding="5" cellSpacing="0" style="page-break-after:always; font-size: 9px; font-family: Arial;border-bottom: 2px solid #000;" >
+        <tr style="background-color: gray;">
+            <td colspan="7" style="font-size: 20px;border-bottom:2px solid #000;border-left:2px solid #000;border-right:2px solid #000;">
+                Treatment CRFs Submitted (table 1)
+            </td>
+        </tr>
+        <tr style="background-color: #DEDEDF;"> 
+            <td width="7%" Style ="border-left:2px solid #000;border-right:2px solid #000;border-bottom:2px solid #000;"><b>Trial Site</b></td>
+            
+            <td width="10%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;">
+                <table cellPadding="2" cellSpacing="0" width="100%">
+                        <tr>
+                            <td colspan="2"><b>Chemo Treatment</b> </td>
+                        </tr>
+                            <tr>
+                                <td><b>Submitted</b></td>  
+                                <td><b>Approved</b></td>
+                         </tr>
+                </table>
+            </td>
+            <td width="10%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+                <table cellPadding="2" cellSpacing="0" width="100%">
+                        <tr>
+                            <td colspan="2"><b>MRI -Early Tx</b> </td>
+                        </tr>
+                            <tr>
+                                <td><b>Submitted</b></td>
+                                <td><b>Approved</b></td>
+                         </tr>
+                </table>
+            </td>       
+            <td width="10%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;">
+                <table cellPadding="2" cellSpacing="0" width="100%">
+                        <tr>
+                            <td colspan="2"><b>MRI -Inter Reg </b> </td>
+                        </tr>
+                            <tr>
+                                <td><b>Submitted</b></td>
+                                <td><b>Approved</b></td>
+                         </tr>
+                </table>
+            </td>       
+                <td width="10%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+                <table cellPadding="2" cellSpacing="0" width="100%">
+                        <tr>
+                            <td colspan="2"><b>MRI -Pre Surg</b> </td>
+                        </tr>
+                            <tr>
+                                <td><b>Submitted</b></td>
+                                <td><b>Approved</b></td>
+                         </tr>
+                </table>
+            </td>       
+                <td width="10%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+                <table cellPadding="2" cellSpacing="0" width="100%">
+                        <tr>
+                            <td colspan="2"><b>AE</b> </td>
+                        </tr>
+                            <tr>
+                                <td><b>Submitted</b></td>
+                                <td><b>Approved</b></td>
+                         </tr>
+                </table>
+            </td>       
+                <td width="7%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+                <table cellPadding="2" cellSpacing="0" width="100%">
+                        <tr>
+                            <td colspan="2"><b>Post Surgery</b> </td>
+                        </tr>
+                            <tr>
+                                <td><b>Submitted</b></td>
+                                <td><b>Approved</b></td>
+                         </tr>
+                </table>
+            </td>        
+<!--                <td width=16% Style ="border-right:2px solid #000;border-bottom:2px solid #000;"><b>Response Eval,Baseline<br> Submitted Approved</b></td> -->
+        </tr>
+        <apex:repeat value="{!lstTreatmentCRFReportsWrapper1}" var="scWrapper">  
+            <tr style="border-left:2px solid #000;border-right:2px solid #000;"> 
+                <td>{!scWrapper.trialSiteName}</td>  
+                
+                <td>
+                    <table cellPadding="2" cellSpacing="0" width="100%">
+                        <tr>
+                            <td width="50%">{!scWrapper.chemoTreatmentSubmitted}</td>
+                            <td width="50%">{!scWrapper.chemoTreatmentApproved}</td>
+                      </tr>
+                    </table>
+                </td>
+                <td>
+                    <table cellPadding="2" cellSpacing="0" width="100%">
+                        <tr>
+                            <td>{!scWrapper.mriVolumeEarlySubmitted}</td>
+                            <td>{!scWrapper.mriVolumeEarlyApproved}</td>
+                      </tr>
+                    </table>
+                </td>
+                <td>
+                    <table cellPadding="2" cellSpacing="0" width="100%">
+                        <tr>
+                            <td>{!scWrapper.mriVolumeInterSubmitted }</td>
+                            <td>{!scWrapper.mriVolumeInterApproved}</td>
+                      </tr>
+                    </table>
+                </td>
+                <td>
+                    <table cellPadding="2" cellSpacing="0" width="100%">
+                        <tr>
+                            <td>{!scWrapper.mriVolumePreSurgerySubmitted}</td>
+                            <td>{!scWrapper.mriVolumePreSurgeryApproved}</td>
+                      </tr>
+                    </table>
+                </td>
+                <td>
+                    <table cellPadding="2" cellSpacing="0" width="100%">
+                        <tr>
+                            <td>{!scWrapper.aeSubmitted}</td>
+                            <td>{!scWrapper.aeApproved}</td>
+                      </tr>
+                    </table>
+                </td>
+                <td>
+                    <table cellPadding="2" cellSpacing="0" width="100%">
+                        <tr>
+                            <td>{!scWrapper.postSurgerySubmitted}</td>     
+                            <td>{!scWrapper.postSurgeryApproved}</td>
+                      </tr>
+                    </table>
+                </td>
+			</tr>
+        </apex:repeat>
+    </table>
+    <table style="background-color: #DEDEDF; border: 2px black solid; height: 110; width: 100%; ">
+        <tr>
+            <td style="width: 150px;">
+                <apex:image value="{!$Resource.Rep_Logo}" width="150" height="100"/> 
+            </td>
+            <td valign="top">
+                <table width="100%" height="108px;">
+                    <tr>
+                        <td style="font-size: 20px; font-family: Arial;">
+                            <center><b>PATIENT SUMMARY REPORT</b></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="bottom">
+                            <table>
+                                <tr>
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">
+                                        <b>Study: </b>
+                                    </td>
+                                    <td style="font-size: 14px; font-family: Arial;" valign="bottom">
+                                        {!studyName}
+                                    </td>
+                                </tr> 
+                                <tr> 
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">    
+                                        <b>As of:</b>
+                                    </td>
+                                    <td valign="bottom">
+                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 14px; font-family: Arial;">
+                                            <apex:param value="{!dateOfReport}" />
+                                        </apex:outputText>&nbsp;
+<!--                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 16px; font-family: Arial;">-->
+<!--                                            <apex:param value="{!dateOfReport.End_Date__c}" />-->
+<!--                                        </apex:outputText> -->
+                                    </td>
+                                </tr> 
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td valign="bottom">
+            	<div>Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+            </td>
+        </tr>
+    </table>
+    <table width="100%" cellPadding="5" cellSpacing="0" style="page-break-after:always; font-size: 9.5px; font-family: Arial;border-bottom: 2px solid #000; " >
+        <tr style="background-color: #7C7C72;">
+            <td colspan="13" style="font-size: 20px;font-weight: #BABABA;border-bottom:2px solid #000;border-left:2px solid #000;border-right:2px solid #000;">
+                Treatment CRFs Submitted (table 2)
+            </td>   
+        </tr>
+        <tr style="background-color: #DEDEDF;"> 
+            <td width="14%" Style ="border-left:2px solid #000;border-right:2px solid #000;border-bottom:2px solid #000;"><b>Trial Site</b></td>
+            
+            <td width="14%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;">
+                <table width="100%">
+                        <tr>
+                            <td colspan="2"><b>Chemo Summary</b> </td>
+                        </tr>
+                            <tr>
+                                <td><b>Submitted</b></td>  
+                                <td><b>Approved</b></td>
+                         </tr>
+                </table>
+            </td>
+            <td width="14%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+                <table width="100%">
+                        <tr>
+                            <td colspan="2"><b>Response Eval. -inter Reg</b> </td>
+                        </tr>
+                            <tr>
+                                <td><b>Submitted</b></td>
+                                <td><b>Approved</b></td>
+                         </tr>
+                </table>
+            </td>       
+                <td width="14%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+                <table width="100%">
+                        <tr>
+                            <td colspan="2"><b>Response Eval. -pre Surg </b> </td>
+                        </tr>
+                            <tr>
+                                <td><b>Submitted</b></td>
+                                <td><b>Approved</b></td>
+                         </tr>
+                </table>
+            </td>       
+                <td width="14%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+                <table width="100%">
+                        <tr>
+                            <td colspan="2"><b>Follow -up</b> </td>
+                        </tr>
+                            <tr>
+                                <td><b>Submitted</b></td>
+                                <td><b>Approved</b></td>
+                         </tr>
+                </table>
+            </td>       
+                <td width="14%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+                <table width="100%">
+                        <tr>
+                            <td colspan="2"><b>Lost To Follow-Up</b> </td>
+                        </tr>
+                            <tr>
+                                <td><b>Submitted</b></td>
+                                <td><b>Approved</b></td>
+                         </tr>
+                </table>
+            </td>       
+                <td width="14%" Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+                <table width="100%">
+                        <tr>
+                            <td colspan="2"><b>No Longer Lost F/U</b> </td>
+                        </tr>
+                            <tr>
+                                <td><b>Submitted</b></td>
+                                <td><b>Approved</b></td>
+                         </tr>
+                </table>
+            </td>        
+<!--                <td width=16% Style ="border-right:2px solid #000;border-bottom:2px solid #000;"><b>Response Eval,Baseline<br> Submitted Approved</b></td> -->
+        </tr>
+        <apex:repeat value="{!lstTreatmentCRFReportsWrapper2}" var="scWrapper">  
+            <tr style="border-left:2px solid #000;border-right:2px solid #000;">  
+                <td>{!scWrapper.trialSiteName}</td>  
+                
+                <td>
+                    <table width="100%">
+                        <tr>
+                            <td width="50%">{!scWrapper.chemoSummarySubmitted}</td>
+                            <td width="50%">{!scWrapper.chemoSummaryApproved}</td>
+                      </tr>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%">
+                        <tr>
+                            <td>{!scWrapper.responseEvalInterRegSubmitted}</td>
+                            <td>{!scWrapper.responseEvalInterRegApproved}</td>
+                      </tr>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%">
+                        <tr>
+                            <td>{!scWrapper.responseEvalPreSurgSubmitted }</td>
+                            <td>{!scWrapper.responseEvalPreSurgApproved}</td>
+                      </tr>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%">
+                        <tr>
+                            <td>{!scWrapper.followUpSubmitted}</td>
+                            <td>{!scWrapper.followUpApproved}</td>
+                      </tr>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%">
+                        <tr>
+                            <td>{!scWrapper.losttoFollowUpSubmitted}</td>
+                            <td>{!scWrapper.losttoFollowUpApproved}</td>
+                      </tr>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%">
+                        <tr>
+                            <td>{!scWrapper.noLongerLostFUSubmitted}</td>     
+                            <td>{!scWrapper.noLongerLostFUApproved}</td>
+                      </tr>
+                    </table>
+                </td>
+			</tr>	
+        </apex:repeat>
+    </table>
+    <table style="background-color: #DEDEDF; border: 2px black solid; height: 110; width: 100%; ">
+        <tr>
+            <td style="width: 150px;">
+                <apex:image value="{!$Resource.Rep_Logo}" width="150" height="100"/> 
+            </td>
+            <td valign="top">
+                <table width="100%" height="108px;">
+                    <tr>
+                        <td style="font-size: 20px; font-family: Arial;">
+                            <center><b>PATIENT SUMMARY REPORT</b></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="bottom">
+                            <table>
+                                <tr>
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">
+                                        <b>Study: </b>
+                                    </td>
+                                    <td style="font-size: 14px; font-family: Arial;" valign="bottom">
+                                        {!studyName}
+                                    </td>
+                                </tr> 
+                                <tr> 
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">    
+                                        <b>As of:</b>
+                                    </td>
+                                    <td valign="bottom">
+                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 14px; font-family: Arial;">
+                                            <apex:param value="{!dateOfReport}" />
+                                        </apex:outputText>&nbsp;
+<!--                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 16px; font-family: Arial;">-->
+<!--                                            <apex:param value="{!dateOfReport.End_Date__c}" />-->
+<!--                                        </apex:outputText> -->
+                                    </td>
+                                </tr> 
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td valign="bottom">
+            	<div>Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+            </td>
+        </tr>
+    </table>
+    <table width="100%" cellPadding="5" cellSpacing="0" style="page-break-after:always; font-size: 10px; font-family: Arial;border-bottom: 2px solid #000; margin-left: 0px; margin-right: 0px;" >
+        <tr style="background-color: #7C7C72;">
+            <td colspan="13" style="font-size: 20px;font-weight: #BABABA;border-bottom:2px solid #000;border-left:2px solid #000;border-right:2px solid #000;">
+                Treatment CRFs Submitted (table 3)
+            </td>   
+        </tr>
+        <tr style="background-color: #DEDEDF;"> 
+            <td Style ="border-left:2px solid #000;border-right:2px solid #000;border-bottom:2px solid #000;"><b>Trial Site</b></td>
+            
+            <td Style ="border-right:2px solid #000;border-bottom:2px solid #000;">
+                <table width="100%">
+                        <tr>
+                            <td colspan="2"><b>Off study</b> </td>
+                        </tr>
+                            <tr>
+                                <td><b>Submitted</b></td>  
+                                <td><b>Approved</b></td>
+                         </tr>
+                </table>
+             </td>	   
+             <td Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+               <table width="100%">
+                   <tr>
+                      <td colspan="2"><b>Tissue Early Tx</b> </td>
+                   </tr>
+                    <tr>
+                      <td><b>Submitted</b></td>
+<!--                       <td><b>Approved</b></td>-->
+                    </tr>
+               </table>
+            </td>   
+            <td Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+                <table width="100%">
+                    <tr>
+                       <td colspan="2"><b>Tissue -Inter Reg</b> </td>
+                     </tr>
+                      <tr>
+                        <td><b>Submitted</b></td>
+<!--                      <td><b>Approved</b></td>-->
+                     </tr>
+               </table>
+            </td>       
+                <td Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+                <table width="100%">
+                   <tr>
+                    <td colspan="2"><b>Tissue -Surgery </b> </td>
+                   </tr>
+                   <tr>
+                      <td><b>Submitted</b></td>
+<!--                      <td><b>Approved</b></td>-->
+                   </tr>
+                </table>
+            </td>       
+                <td Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+                <table width="100%">
+                   <tr>
+                     <td colspan="2"><b>Protocol Violation</b> </td>
+                    </tr>
+                   <tr>
+                       <td><b>Submitted</b></td>
+                       <td><b>Approved</b></td>
+                  </tr>
+                </table>
+            </td>       
+<!--                <td width=16% Style ="border-right:2px solid #000;border-bottom:2px solid #000;"><b>Response Eval,Baseline<br> Submitted Approved</b></td> -->
+        </tr>
+        <apex:repeat value="{!lstTreatmentCRFReportsWrapper3}" var="scWrapper">  
+            <tr style="border-left:2px solid #000;border-right:2px solid #000;">  
+                <td>{!scWrapper.trialSiteName}</td>  
+                
+                <td>
+                    <table width="100%">
+                        <tr>
+                            <td width="50%">{!scWrapper.offStudySubmitted}</td> 
+                            <td width="50%">{!scWrapper.offStudyApproved}</td>   
+                      </tr>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%">
+                        <tr>
+                            <td>{!scWrapper.TissueEarlyTxSubmitted}</td>
+<!--                                <td>{!scWrapper.TissueEarlyTxApproved}</td>-->
+                      </tr>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%">
+                        <tr>
+                            <td>{!scWrapper.TissueInterRegSubmitted }</td>
+<!--                                <td>{!scWrapper.TissueInterRegApproved}</td>-->
+                      </tr>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%">
+                        <tr>
+                            <td>{!scWrapper.TissueSurgerySubmitted}</td>
+<!--                                <td>{!scWrapper.TissueSurgeryApproved}</td> -->
+                      </tr>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%">
+                        <tr>
+                            <td>{!scWrapper.ProtocolViolationSubmitted}</td>
+                            <td>{!scWrapper.ProtocolViolationApproved}</td>
+                      </tr>
+                    </table>
+                </td>
+            </tr>
+        </apex:repeat>
+    </table>
+    <table style="background-color: #DEDEDF; border: 2px black solid; height: 110; width: 100%; ">
+        <tr>
+            <td style="width: 150px;">
+                <apex:image value="{!$Resource.Rep_Logo}" width="150" height="100"/> 
+            </td>
+            <td valign="top">
+                <table width="100%" height="108px;">
+                    <tr>
+                        <td style="font-size: 20px; font-family: Arial;">
+                            <center><b>PATIENT SUMMARY REPORT</b></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="bottom">
+                            <table>
+                                <tr>
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">
+                                        <b>Study: </b>
+                                    </td>
+                                    <td style="font-size: 14px; font-family: Arial;" valign="bottom">
+                                        {!studyName}
+                                    </td>
+                                </tr> 
+                                <tr> 
+                                    <td style="font-size: 17px; font-family: Arial;" valign="bottom">    
+                                        <b>As of:</b>
+                                    </td>
+                                    <td valign="bottom">
+                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 14px; font-family: Arial;">
+                                            <apex:param value="{!dateOfReport}" />
+                                        </apex:outputText>&nbsp;
+<!--                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 16px; font-family: Arial;">-->
+<!--                                            <apex:param value="{!dateOfReport.End_Date__c}" />-->
+<!--                                        </apex:outputText> -->
+                                    </td>
+                                </tr> 
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td valign="bottom">
+            	<div>Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+            </td>
+        </tr>
+    </table>
+    <table width="100%" cellPadding="5" cellSpacing="0" style="page-break-after:always; font-size: 10px; font-family: Arial;border-bottom: 2px solid #000; " >
+       <tr style="background-color: #7C7C72;">
+           <td colspan="13" style="font-size: 20px;font-weight: #BABABA;border-bottom:2px solid #000;border-left:2px solid #000;border-right:2px solid #000;">
+               Treatment CRFs Submitted (table 4)
+           </td>   
+       </tr>
+       <tr style="background-color: #DEDEDF;"> 
+           <td Style ="border-left:2px solid #000;border-right:2px solid #000;border-bottom:2px solid #000;"><b>Trial Site</b></td>
+           
+           <td Style ="border-right:2px solid #000;border-bottom:2px solid #000;">
+               <table width="100%">
+                       <tr>
+                           <td colspan="2"><b>Blood- Early Tx</b> </td>
+                       </tr>
+                           <tr>
+                               <td><b>Submitted</b></td>  
+                        </tr>
+               </table>
+          	</td>
+         <td Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+               <table width="100%">
+                       <tr>
+                           <td colspan="2"><b>Blood  -Inter Reg</b> </td>
+                       </tr>
+                           <tr>
+                               <td><b>Submitted</b></td>
+                        </tr>
+               </table>
+           </td>   
+           <td Style ="border-right:2px solid #000;border-bottom:2px solid #000;">   
+               <table width="100%">
+                       <tr>
+                           <td colspan="2"><b>Blood -Pre-Surg</b> </td>
+                       </tr>
+                           <tr>
+                               <td><b>Submitted</b></td>
+                        </tr>
+               </table>
+           </td>       
+              
+<!--                <td width=16% Style ="border-right:2px solid #000;border-bottom:2px solid #000;"><b>Response Eval,Baseline<br> Submitted Approved</b></td> -->
+       </tr>
+       <apex:repeat value="{!lstTreatmentCRFReportsWrapper4}" var="scWrapper">  
+           <tr style="border-left:2px solid #000;border-right:2px solid #000;">  
+               <td>{!scWrapper.trialSiteName}</td>  
+               
+               <td>
+                   <table width="100%">
+                       <tr>
+                           <td width="50%">{!scWrapper.bloodEarlyTxSubmitted}</td> 
+                             
+                     </tr>
+                   </table>
+               </td>
+               <td>
+                   <table width="100%">
+                       <tr>
+                           <td>{!scWrapper.bloodInterTxSubmitted}</td>
+                     </tr>
+                   </table>
+               </td>
+               <td>
+                   <table width="100%">
+                       <tr>
+                           <td>{!scWrapper.bloodSurgerySubmitted }</td>
+                     </tr>
+                   </table>
+               </td>
+           </tr>
+       </apex:repeat>
+   </table>
+</apex:page>

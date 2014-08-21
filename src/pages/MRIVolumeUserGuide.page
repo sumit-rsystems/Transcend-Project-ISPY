@@ -1,0 +1,46 @@
+<apex:page showHeader="false" sidebar="false">
+<style>
+	.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete MRI Volume Form?</h2>
+		</apex:outputPanel>
+		<p>The MRI Volume Form is used to collect the necessary information from a patient's study MRI scan using the I-SPY 2 MRI Protocol.  This CRF is completed at four different time points: 1) Pre-Treatment, 2) Early Treatment, 3) Inter-Regimen, and 4) Pre-Surgery.  This information is used to help determined the patient's response to neoadjuvant chemotherapy and is used to help in the randomization of all subsequent patients enrolled in this trial to a study treatment arm.</p>
+		<p>The information used to complete this form comes from the Sentinelle MRI workstation and corresponding MRI radiology report.</p>
+		<p><i>To open the MRI Volume Form, select the patient from the 'Patient' Tab, select ‘Trial', click 'Submit New' for 'MRI Volume Form.'</i></p>
+		<p><apex:image url="{!URLFOR($Resource.MRIScreenShot, 'mri1.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Answer the question as to whether the MRI was readable [<i>No OR Yes</i>].</li>
+			<li>Select the date the study MRI was done using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+			<li>Select the time point for which the MRI corresponds to from the drop down list [<i>Pre-treatment, Early treatment, Inter-regimen, OR Surgery</i>].</li>
+			<li>If Pre-treatment or Early-treatment is selected, the ACRIN ID and text box will appear.  If a site is participating in the ACRIN 6693 MRS protocol, you will register the patient with ACRIN to that protocol and enter the assigned ACRIN ID in this text box [4-digit numerical value].  If your patient isn't registered prior to the pre-treatment MRI scan but does the MRS scan, you can enter the ACRIN ID on the next MRI CRF (early-treatment).  If your site is not participating in the ACRIN 6693 MRS protocol, leave the text box blank.</li>
+			<li>Enter the MRI Volume calculated of the index lesion in cm3 (is the same as cc) in the text box [<i>numerical values up to 4-decimal places</i>].</li>
+			<li>Select the laterality of the study breast that is being reported from the drop down list [<i>Left OR Right</i>].</li>
+			<li>Do not complete the o'clock location for the index lesion. NOTE: this data field will be removed in the future as this information will eventually be collected on the Aegis report instead.</li>
+			<li>Enter the longest diameter of the index lesion as measured by MRI in cm in the text box [0.0-99.9].  If the longest diameter is more than 1-decimal place, round up if the second-decimal place is 5 or larger.</li>
+			<li>Answer the question whether additional masses or enhancements were reported on this MRI scan [<i>No OR Yes</i>].</li>
+			<li>If there are additional lesions or enhancements (answered Yes), do not complete o'clock position for the additional enhancements or the longest diameter.  NOTE: these data fields will be removed in the future.</li>
+		</ul>
+		
+		<p><i>Select 'Next' to advance to the "Comments &amp; Attachments" tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.MRIScreenShot, 'mri2.png')}" width="100%" height="100%"/></p>
+		<p>Attach all relevant de-identified radiology and Sentinelle reports (source documents) that document the data that was entered for this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+		<p>Provide any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+		
+		<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.MRIScreenShot, 'mri3.png')}" width="100%" height="100%"/></p>
+		<p>Review that the information on the 'Complete' screen is correct. </p>
+		<p>If any of the information is not correct, select 'Previous' to go back to update the incorrect information. </p>
+		<p>Once the MRI Volume Form is completed (Signed and Submitted), the status of the form is available on Patient’s CRF page.</p>
+	</apex:outputPanel>
+</apex:page>

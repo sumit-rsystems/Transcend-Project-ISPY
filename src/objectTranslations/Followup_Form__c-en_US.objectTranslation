@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Followup Form</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Followup Forms</value>
+    </caseValues>
+    <fields>
+        <help><!-- NA --></help>
+        <label><!-- Abv Catg not Aplicable &amp; age &gt; 50 --></label>
+        <name>Abv_Catg_not_Aplicable_age_50__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Alive if Patient is alive. --></help>
+        <label><!-- Alive --></label>
+        <name>Alive__c</name>
+    </fields>
+    <fields>
+        <label><!-- ApprovalURL --></label>
+        <name>ApprovalURL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bilateral oophorectomy Date --></label>
+        <name>Bilateral_oophorectomy_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Yes or NO. --></help>
+        <label><!-- Bilateral  oophorectomy --></label>
+        <name>Bilateral_oophorectomy__c</name>
+    </fields>
+    <fields>
+        <label><!-- CRF --></label>
+        <name>CRF__c</name>
+        <relationshipLabel><!-- Followup Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Select Cause of Death --></help>
+        <label><!-- Cause of Death: --></label>
+        <name>Cause_of_Death__c</name>
+    </fields>
+    <fields>
+        <label><!-- Causeof  Death --></label>
+        <name>Causeof_Death__c</name>
+        <picklistValues>
+            <masterLabel>Due to other causes</masterLabel>
+            <translation><!-- Due to other causes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Due to protocol treatment</masterLabel>
+            <translation><!-- Due to protocol treatment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Due to this disease</masterLabel>
+            <translation><!-- Due to this disease --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown</masterLabel>
+            <translation><!-- Unknown --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Chemotherapy Details --></label>
+        <name>Chemotherapy_Details__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Yes or NO. --></help>
+        <label><!-- Chemotherapy --></label>
+        <name>Chemotherapy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Clinical assessment Date --></label>
+        <name>Clinical_assessment_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter relevant comment for DCC --></help>
+        <label><!-- Comment --></label>
+        <name>Comment__c</name>
+    </fields>
+    <fields>
+        <label><!-- CompletedDate --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Consent for follow-up withdrawn if Patient is Consent for follow-up withdrawn. --></help>
+        <label><!-- Consent for follow-  up withdrawn --></label>
+        <name>Consent_for_follow_up_withdrawn__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter the Date of diagnosis. --></help>
+        <label><!-- Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date of Last  Menstrual period UKData12M --></label>
+        <name>Date_of_Last_Menstrual_period_UKData12M__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date of Last  Menstrual period UKData --></label>
+        <name>Date_of_Last_Menstrual_period_UKData__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select date from the calendar or enter manually. --></help>
+        <label><!-- Date of Last  Menstrual period --></label>
+        <name>Date_of_Last_Menstrual_period__c</name>
+    </fields>
+    <fields>
+        <help><!-- NA --></help>
+        <label><!-- Death Details --></label>
+        <name>Death_Details__c</name>
+    </fields>
+    <fields>
+        <help><!-- NA --></help>
+        <label><!-- Describe Cause of  Death --></label>
+        <name>Describe_Cause_of_Death__c</name>
+    </fields>
+    <fields>
+        <help><!-- Add Description, Do not use any patient identifiable information --></help>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Distant --></label>
+        <name>Distant__c</name>
+        <picklistValues>
+            <masterLabel>Bone</masterLabel>
+            <translation><!-- Bone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bone marrow</masterLabel>
+            <translation><!-- Bone marrow --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Brain/CNS</masterLabel>
+            <translation><!-- Brain/CNS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Contralateral Breast</masterLabel>
+            <translation><!-- Contralateral Breast --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Distant Lymph Nodes</masterLabel>
+            <translation><!-- Distant Lymph Nodes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Distant skin &amp; SubcutaneousTissue</masterLabel>
+            <translation><!-- Distant skin &amp; SubcutaneousTissue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Liver</masterLabel>
+            <translation><!-- Liver --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lung</masterLabel>
+            <translation><!-- Lung --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pleura</masterLabel>
+            <translation><!-- Pleura --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Distant progression Date --></label>
+        <name>Distant_progression_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter Dose per FX( cGY ) --></help>
+        <label><!-- Dose per FX (cGy) --></label>
+        <name>Dose_per_FX_cGy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective_Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enters the end dates from the reporting period. --></help>
+        <label><!-- End Date --></label>
+        <name>End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Save and Close --></label>
+        <name>First_Save_and_Close__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hormone Therapy Details --></label>
+        <name>Hormone_Therapy_Details__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Yes or NO. --></help>
+        <label><!-- Hormone Therapy --></label>
+        <name>Hormone_Therapy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hysterectomy Date --></label>
+        <name>Hysterectomy_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Yes or NO. --></help>
+        <label><!-- Hysterectomy --></label>
+        <name>Hysterectomy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Local --></label>
+        <name>Local__c</name>
+        <picklistValues>
+            <masterLabel>Axillary Nodes</masterLabel>
+            <translation><!-- Axillary Nodes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Chest Wall</masterLabel>
+            <translation><!-- Chest Wall --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Infraclavicular Nodes</masterLabel>
+            <translation><!-- Infraclavicular Nodes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal Mammary Nodes</masterLabel>
+            <translation><!-- Internal Mammary Nodes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ipsilateral Breast</masterLabel>
+            <translation><!-- Ipsilateral Breast --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Local-regionalSkin&amp;SubcutaneousTissue</masterLabel>
+            <translation><!-- Local-regionalSkin&amp;SubcutaneousTissue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Supraclavicular Nodes</masterLabel>
+            <translation><!-- Supraclavicular Nodes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Local progression Date --></label>
+        <name>Local_progression_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Yes or NO. --></help>
+        <label><!-- Long  Term Therapy for primary Trial --></label>
+        <name>Long_Term_Therapy_for_primary_Trial__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Lost to Follow- Up if Patient is Lost to Follow-Up case. --></help>
+        <label><!-- Lost to Follow-Up --></label>
+        <name>Lost_to_Follow_Up__c</name>
+    </fields>
+    <fields>
+        <label><!-- Menopausal status --></label>
+        <name>Menopausal_status__c</name>
+        <picklistValues>
+            <masterLabel>Abv Catg not Aplicable &amp; age &gt; 50</masterLabel>
+            <translation><!-- Abv Catg not Aplicable &amp; age &gt; 50 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Chest Wall</masterLabel>
+            <translation><!-- Chest Wall --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Infraclavicular Nodes</masterLabel>
+            <translation><!-- Infraclavicular Nodes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Local-regional skin and Subcutaneous tissue</masterLabel>
+            <translation><!-- Local-regional skin and Subcutaneous tissue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Perimenopausal(6-12months)</masterLabel>
+            <translation><!-- Perimenopausal(6-12months) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Postmenopausal(&gt;12 months)</masterLabel>
+            <translation><!-- Postmenopausal(&gt;12 months) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Premenopausal(&lt;6 months)</masterLabel>
+            <translation><!-- Premenopausal(&lt;6 months) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>age &lt; 50</masterLabel>
+            <translation><!-- age &lt; 50 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Select Alive if Patient is alive. --></help>
+        <label><!-- New Cancer --></label>
+        <name>New_Cancer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Notice of  Progression --></label>
+        <name>Notice_of_Progression__c</name>
+    </fields>
+    <fields>
+        <label><!-- On Estrogen Replacement Months --></label>
+        <name>On_Estrogen_Replacement_Months__c</name>
+    </fields>
+    <fields>
+        <label><!-- On Estrogen Replacement Years --></label>
+        <name>On_Estrogen_Replacement_Years__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Yes or NO. --></help>
+        <label><!-- On Estrogen  Replacement --></label>
+        <name>On_Estrogen_Replacement__c</name>
+    </fields>
+    <fields>
+        <label><!-- OriginalCRF --></label>
+        <name>OriginalCRF__c</name>
+        <relationshipLabel><!-- Followup Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Add any other reason --></help>
+        <label><!-- Other --></label>
+        <name>Other__c</name>
+    </fields>
+    <fields>
+        <help><!-- NA --></help>
+        <label><!-- Patient Age(AP) --></label>
+        <name>Patient_Age_AP__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Yes or NO. --></help>
+        <label><!-- Patient diagnose with new --></label>
+        <name>Patient_diagnose_with_new__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Yes or NO. --></help>
+        <label><!-- Patient doc clinial assessment --></label>
+        <name>Patient_doc_clinial_assessment__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Yes or NO. --></help>
+        <label><!-- Patient  received adjuvant  therapy --></label>
+        <name>Patient_received_adjuvant_therapy__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select if the condition in braces is matched --></help>
+        <label><!-- Perimenopausal(6-12months) --></label>
+        <name>Perimenopausal_6_12months__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Follow-up</masterLabel>
+            <translation><!-- Follow-up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening</masterLabel>
+            <translation><!-- Screening --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment</masterLabel>
+            <translation><!-- Treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Select if the  condition in braces is matched. --></help>
+        <label><!-- Postmenopausal(&gt;12 months) --></label>
+        <name>Postmenopausal_12_months__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select if the condition in braces is matched. --></help>
+        <label><!-- Premenopausal(&lt;6 months) --></label>
+        <name>Premenopausal_6_months__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check if you want a print of CRF after saving it. --></help>
+        <label><!-- Print CRF Form  after Saving --></label>
+        <name>Print_CRF_Form_after_Saving__c</name>
+    </fields>
+    <fields>
+        <label><!-- Radiation Therapy Details --></label>
+        <name>Radiation_Therapy_Details__c</name>
+    </fields>
+    <fields>
+        <label><!-- Radiation Therapy End Date --></label>
+        <name>Radiation_Therapy_End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Radiation Therapy Start Date --></label>
+        <name>Radiation_Therapy_Start_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Yes or NO. --></help>
+        <label><!-- Radiation Therapy --></label>
+        <name>Radiation_Therapy__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select from the check list. --></help>
+        <label><!-- Recurrence /  progression  information --></label>
+        <name>Recurrence_progression_information__c</name>
+        <picklistValues>
+            <masterLabel>Clinical Exam</masterLabel>
+            <translation><!-- Clinical Exam --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Histologic</masterLabel>
+            <translation><!-- Histologic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient Self Report only</masterLabel>
+            <translation><!-- Patient Self Report only --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Radiographic</masterLabel>
+            <translation><!-- Radiographic --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Root CRF Id --></label>
+        <name>Root_CRF_Id__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter your password in the text field. --></help>
+        <label><!-- Sign &amp; Submit --></label>
+        <name>Sign_Submit__c</name>
+    </fields>
+    <fields>
+        <help><!-- NA --></help>
+        <label><!-- Sites of New  Progression --></label>
+        <name>Sites_of_New_Progression__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter the start date from the reporting period. --></help>
+        <label><!-- Start Date --></label>
+        <name>Start_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Not Required</masterLabel>
+            <translation><!-- Approval Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Pending</masterLabel>
+            <translation><!-- Approval Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cloned</masterLabel>
+            <translation><!-- Cloned --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Submitter --></label>
+        <name>Submitter__c</name>
+        <relationshipLabel><!-- Followup Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Surgery Details --></label>
+        <name>Surgery_Details__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Yes or NO. --></help>
+        <label><!-- Surgery --></label>
+        <name>Surgery__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select the Survival Status. --></help>
+        <label><!-- Survival Status --></label>
+        <name>Survival_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- TestHarnessId --></label>
+        <name>TestHarnessId__c</name>
+    </fields>
+    <fields>
+        <help><!-- NA --></help>
+        <label><!-- Therapies  received --></label>
+        <name>Therapies_received__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter Total #FX --></help>
+        <label><!-- Total #FX --></label>
+        <name>Total_FX__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total dose (cGy)  AP --></label>
+        <name>Total_dose_cGy_AP__c</name>
+    </fields>
+    <fields>
+        <label><!-- Treatment(s) for new --></label>
+        <name>Treatment_s_for_new__c</name>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- Followup Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- NA --></help>
+        <label><!-- age &lt; 50 --></label>
+        <name>age_50__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Yes or NO --></help>
+        <label><!-- patient diagnosed distant progression --></label>
+        <name>patient_diagnosed_distant_progression__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Yes or NO --></help>
+        <label><!-- patient diagnosed  local progression --></label>
+        <name>patient_diagnosed_local_progression__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select Yes or No. --></help>
+        <label><!-- patient have a menstrual period --></label>
+        <name>patient_have_a_menstrual_period__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_Followup_Id --></label>
+        <name>pg_Followup_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- test radio button --></label>
+        <name>test_radio_button_del__c</name>
+    </fields>
+    <layouts>
+        <layout>Followup Form Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- AdHoc --></label>
+        <name>AdHoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Bilateral_oophorectomy_date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Clinical_assessment_date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Date_of_Last_Menstrual_period_date_valid</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Distant_progression_date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>End_Date_date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Hysterectomy_Date_date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Radiation_Therapy_End_date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Radiation_Therapy_Start_date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Start_Date_date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>date_validation_cannot_be_future</name>
+    </validationRules>
+</CustomObjectTranslation>

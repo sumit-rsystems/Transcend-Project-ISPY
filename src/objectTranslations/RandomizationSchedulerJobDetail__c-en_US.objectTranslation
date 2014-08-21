@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>RandomizationSchedulerJobDetail</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>RandomizationSchedulerJobDetails</value>
+    </caseValues>
+    <fields>
+        <label><!-- IsDeleted --></label>
+        <name>IsDeleted__c</name>
+    </fields>
+    <fields>
+        <label><!-- JobId --></label>
+        <name>JobId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Test Harness Type --></label>
+        <name>Test_Harness_Type__c</name>
+        <picklistValues>
+            <masterLabel>Complete</masterLabel>
+            <translation><!-- Complete --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Randomization</masterLabel>
+            <translation><!-- Randomization --></translation>
+        </picklistValues>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

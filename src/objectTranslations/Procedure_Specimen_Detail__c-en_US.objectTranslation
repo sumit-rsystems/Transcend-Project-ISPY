@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Procedure Specimen Detail</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Procedure Specimen Details</value>
+    </caseValues>
+    <fields>
+        <label><!-- Anterior-deep Gross specimen size --></label>
+        <name>Anterior_deep_Gross_specimen_size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Anterior-deep size unit --></label>
+        <name>Anterior_deep_size_unit__c</name>
+        <picklistValues>
+            <masterLabel>CM</masterLabel>
+            <translation><!-- CM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MM</masterLabel>
+            <translation><!-- MM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Block # --></label>
+        <name>Block1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Block # --></label>
+        <name>Block2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Performing Lab --></label>
+        <name>Lab__c</name>
+        <relationshipLabel><!-- Procedure Specimen Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Lymph node tissue present in sample --></label>
+        <name>Lymph_node_tissue_present_in_sample__c</name>
+    </fields>
+    <fields>
+        <help><!-- Main Specimen entirely submitted for histology --></help>
+        <label><!-- Main Specimen submitted for histology --></label>
+        <name>Main_Specimen_submitted_for_histology__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Medial-lateral Gross specimen size --></label>
+        <name>Medial_lateral_Gross_specimen_size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Medial-lateral size unit --></label>
+        <name>Medial_lateral_size_unit__c</name>
+        <picklistValues>
+            <masterLabel>CM</masterLabel>
+            <translation><!-- CM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MM</masterLabel>
+            <translation><!-- MM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Post Surgery Summary --></label>
+        <name>Post_Surgery_Summary__c</name>
+        <relationshipLabel><!-- Procedure Specimen Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Procedure --></label>
+        <name>Procedure__c</name>
+        <relationshipLabel><!-- Procedure Specimen Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Single Speciment entirely submitted for histology --></help>
+        <label><!-- Single Speciment submitted for histology --></label>
+        <name>Single_Speciment_submitted_for_histology__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Slice # --></label>
+        <name>Slice1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Slice # --></label>
+        <name>Slice2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Slice Plane1 --></label>
+        <name>Slice_Plane1__c</name>
+        <picklistValues>
+            <masterLabel>Ant-most</masterLabel>
+            <translation><!-- Ant-most --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Med-most</masterLabel>
+            <translation><!-- Med-most --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sup-most</masterLabel>
+            <translation><!-- Sup-most --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Slice Plane2 --></label>
+        <name>Slice_Plane2__c</name>
+        <picklistValues>
+            <masterLabel>Inf-most</masterLabel>
+            <translation><!-- Inf-most --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lat-most</masterLabel>
+            <translation><!-- Lat-most --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Post-most</masterLabel>
+            <translation><!-- Post-most --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Slicing Method --></label>
+        <name>Slicing_Method__c</name>
+        <picklistValues>
+            <masterLabel>Anterior/Posterior</masterLabel>
+            <translation><!-- Anterior/Posterior --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Medial/Lateral</masterLabel>
+            <translation><!-- Medial/Lateral --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Superior/Inferior</masterLabel>
+            <translation><!-- Superior/Inferior --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Specimen --></label>
+        <name>Specimen__c</name>
+        <picklistValues>
+            <masterLabel>Main specimen with separately submitted margins</masterLabel>
+            <translation><!-- Main specimen with separately submitted margins --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Single Specimen</masterLabel>
+            <translation><!-- Single Specimen --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Superor-inferior Gross specimen size --></label>
+        <name>Superor_inferior_Gross_specimen_size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Superor-inferior size unit --></label>
+        <name>Superor_inferior_size_unit__c</name>
+        <picklistValues>
+            <masterLabel>CM</masterLabel>
+            <translation><!-- CM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MM</masterLabel>
+            <translation><!-- MM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Total Slices --></label>
+        <name>Total_Slices__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_ProcedureSpecimen_Id --></label>
+        <name>pg_ProcedureSpecimen_Id__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

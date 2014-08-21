@@ -1,0 +1,68 @@
+<apex:page standardController="Off_Study_Detail__c" extensions="OffStudyController" id="pageId" tabStyle="Account" sidebar="false" title="Off Study Form" showHeader="false">
+<style>
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+</style>
+    <apex:pageBlock >
+<!--  
+      ================================================================================================================================================
+      =====================================================Off Study Section==============================================================================
+      ======================================================================================================================================================
+--> 
+         <apex:pageBlockSection columns="1" >
+            <apex:outputField value="{!offStudyObj.Date_patient_went_off_study__c}" />
+         </apex:pageBlockSection>
+        
+         <apex:pageBlockSection title="Reason(s) patient is off study" columns="1" >
+            <apex:outputField value="{!offStudyObj.Patient_completed_study_per_protocol__c}" />
+            <apex:outputField value="{!offStudyObj.Patient_did_not_want_to_complete_MRI__c}" label="Patient did not want to complete study MRI scans" />
+            <apex:outputField value="{!offStudyObj.Patient_did_nt_want_to_complete_core_bio__c}" label="Patient did not want to complete study core biopsy"/>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Patient did not continue on treatment arm"/>
+                <apex:outputPanel >
+            <apex:outputField value="{!offStudyObj.Patient_did_nt_continue_on_treatment_arm__c}" />
+            <apex:outputPanel rendered="{!IF((offStudyObj.Why_patient_didnt_continue_treatment_arm__c != 'Other'), true, false)}">
+                ({!offStudyObj.Why_patient_didnt_continue_treatment_arm__c})
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!IF((offStudyObj.Why_patient_didnt_continue_treatment_arm__c != 'Other'), false, true)}">
+                ({!offStudyObj.Why_patient_didnt_continue_treatment_arm__c}:&nbsp; 
+            </apex:outputPanel>
+            <apex:outputText label=" " rendered="{!IF((offStudyObj.Why_patient_didnt_continue_treatment_arm__c != 'Other'), false, true)}">
+                {!offStudyObj.Treatment_arm_other_reason__c})
+            </apex:outputText>
+            </apex:outputPanel>
+          </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Patient did not have surgery"/>
+                <apex:outputPanel >
+            <apex:outputField value="{!offStudyObj.Patient_did_not_have_surgery__c}" />
+            <apex:outputText label="Reason" rendered="{!offStudyObj.Patient_did_not_have_surgery__c}">
+                ({!offStudyObj.Patient_did_not_have_surgery_reason__c})
+            </apex:outputText>
+            </apex:outputPanel>
+             </apex:pageBlockSectionItem>
+            <apex:outputField value="{!offStudyObj.Patient_Died__c}" />
+            <apex:outputText rendered="{!offStudyObj.Patient_Died__c}" value="<strong>If patient was still undergoing neoadjuvant treatment, in addition to AE form, complete the Chemo Summary form</strong>" escape="false" />
+            <apex:outputField value="{!offStudyObj.Did_patient_withdraw_for_survival__c}" label="Did patient withdraw consent to be followed for survival?"/>
+            <apex:outputField value="{!offStudyObj.Patient_withdrew_for_specimens__c}" label="Patient withdrew consent for use of specimens for further research?"/>
+         </apex:pageBlockSection>
+<!--  
+      ================================================================================================================================================
+      =====================================================Feed/ Attachment Section==============================================================================
+      ======================================================================================================================================================
+--> 
+        <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(offStudyObj.Id))}">
+			<c:CRFAttachmentComponent rId="{!offStudyObj.Id}" feedCRFName="Off_Study_Detail__Feed" rtId="{!offStudyObj.Root_CRF_Id__c}"/>
+		</apex:pageBlockSection>
+		
+		<apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(offStudyObj.Id))}">
+	    	<c:CRFEventComponent rId="{!offStudyObj.Id}" objectName="Off_Study_Detail__c" rtId="{!offStudyObj.Root_CRF_Id__c}"/>
+	    </apex:pageBlockSection>
+        
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,76 @@
+<apex:page sidebar="false" showheader="false">
+<style>
+	.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+</style>
+        <apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to Complete Tissue Specimen form?</h2>
+		</apex:outputPanel>
+	<p>The Tissue Specimen Form is completed every time a study tissue collection procedure is done.  This includes study core biopsies done pre-treatment, early treatment, and samples collected at surgery.</p>
+	<p>Completing this form generates specimen IDs that are used to label the samples that are collected.  Once this form is completed, the specimen IDs will appear in caTissue for that particular patient.</p>
+	<p><i><b>Send a copy of this CRF along with the samples to the I-SPY Lab.</b></i></p>
+	<p><i>To open the Tissue Specimen Form, select the patient from the 'Patient' Tab; select 'Trial', click 'Submit New' for 'Tissue Specimen Form.'</i></p>
+	<p><apex:image url="{!URLFOR($Resource.TissueSpecimenFormImages, 'TissueImage1.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Select the date the research core biopsy was done using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.  Future dates are not allowed.</li>
+		<li>Select the guidance method(s) that were used for the research core biopsy by checking the checkbox next to the method(s) used [Ultrasound, Mammography, Stereotactic, Palpation guided, MRI, Other-specify in text box].</li>
+		<li>Select the time point for which the core biopsy corresponds to from the drop down list [Pre-treatment, Early treatment, OR Surgery].</li>
+		<li>For each core biopsy specimen that was collected from the patient, check the corresponding checkboxes to indicate they were collected.  An unchecked box indicates that core was not obtained from the patient.</li>
+		<li>For each core biopsy specimen that was collected (check box is checked), indicate if the sample will be shipped to the I-SPY Lab [Yes OR No].  NOTE: if after collecting the tissue this answer changes, mark it on the paper copy that is sent with the samples to the I-SPY Lab; the I-SPY Lab will make the necessary updates to caTissue.</li>
+		<li>If a sample was not shipped (answered No), select the reason why it wasn't from the drop down list [Spilled on floor, Thawed, OR Other-specify in text box].</li>
+		<li>If not all specimens listed were collected from the patient, select the reason why from the drop down list [Patient refused, OR Other-specify in text box].  NOTE: if after completing this CRF this answer changes, mark it on the paper copy that is sent with the samples to the I-SPY Lab; the I-SPY Lab will make the necessary updates to caTissue.</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Consent' tab.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.TissueSpecimenFormImages, 'TissueImage2.PNG')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Check the checkboxes that correspond to the patient's choice about using their specimens for research as indicated in her consent form. An unchecked checkbox indicates the patient did not give their consent.</li>
+		<li>If a Tissue Specimen or Blood Specimen Tracking Form has already been completed, this will automatically be populated.  If a patient removes either of her consents, indicate this status here by un-checking the checked checkbox.</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Comments &amp; Attachments' tab.</i></p>
+	<p>There is no requirement to attach any source documents to this CRF, but if you feel it necessary to attach anything for your own records, feel free to do so.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+	<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+	<ul>
+		<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to update the incorrect information.</li>
+		<li>When you are ready to finalize the CRF (which then assigns the Specimen IDs to each specimen) enter your password and select 'Sign and Submit.'</li>
+	</ul>
+	<p><apex:image url="{!URLFOR($Resource.TissueSpecimenFormImages, 'TissueImage3.PNG')}" width="100%" height="100%"/></p>
+	<p>To obtain the Tissue Specimen IDs that are generated after this form is completed, re-open the CRF from the patient's list of CRFs, and the IDs will be displayed.</p>
+	<h3><b>REFERENCE TISSUE SPECIMEN IDS:</b></h3>
+	<hr />
+	<p>If you need to label a cryomold the day before the Tissue Specimen Form can be completed, you can do so by using this labeling schema.  NOTE- A copy of the Tissue Specimen Form MUST still be sent to the lab along with the specimens AND the IDs on the cryomold and the Form must match!</p>
+	<table style="border: 1px solid #000; width: 100%;" cellpadding="0" cellspacing="0">
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000; background-color: #DBD9D9;"><b>Collection Time Point</b></td>
+			<td style="border-bottom: 1px solid #000; background-color: #DBD9D9;"><b>Tissue Specimen ID (per cryomold)</b></td>
+		</tr>
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Pre-Treatment, Tissue</td>
+			<td style="border-bottom: 1px solid #000;">I-SPY 2 Patient ID (5-digits)+ 011, 012, 013, 014
+                eg. 12345011, 12345012, 12345013, 12345014
+			</td>
+		</tr>
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Early Treatment, Tissue</td>
+			<td style="border-bottom: 1px solid #000;">I-SPY 2 Patient ID (5-digits)+ 111, 112, 113, 114
+				eg. 12345111, 12345112, 12345113, 12345114
+			</td>
+		</tr>
+		<tr>
+			<td style="border-right: 1px solid #000;">Surgery, Tissue</td>
+			<td>I-SPY 2 Patient ID (5-digits)+ 311, 312
+				eg. 12345311, 12345312
+			</td>
+		</tr>
+	</table>
+	<p style="color:red;"><i>NOTE: If more samples are collected than required per protocol, you must label those additional specimens with the I-SPY 2 Patient ID and date sample was collected prior to sending them to the I-SPY Lab.</i></p>
+</apex:outputPanel>
+</apex:page>

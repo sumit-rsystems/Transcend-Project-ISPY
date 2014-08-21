@@ -1,0 +1,792 @@
+<apex:page StandardController="BaselineSymptomsForm__c" extensions="BaselineSymptomsFormController" sideBar="false" id="pageId" tabStyle="Patient_Custom__c" action="{!saveMainCRF}">
+<script type="text/javascript">
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script>
+
+    <style>
+        .tableHead
+        {
+            background-color: #cf00f8;
+        }
+        .ActionHead 
+        {
+            width: 10%;
+        } 
+        .TypeHead
+        {
+            width: 10%;
+        }
+        .NameHead 
+        {
+            width: 15%;
+        }
+        .ReactionHead 
+        {
+            width: 55%;
+        }
+        .SeverityHead 
+        {
+            width: 6%;
+        }
+        .YearHead 
+        {
+            width: 5%;
+        }
+        
+        .ConTypeHead
+        {
+            width: 10%; 
+        }
+        .NameHead 
+        {
+            width: 15%;
+        }
+        .ReactionHead 
+        {
+            width: 55%;
+        }
+        .SeverityHead 
+        {
+            width: 6%;
+        }
+        .resolveHead 
+        {
+            width: 5%;
+        }
+        .dateHead
+        {
+            width: 20%;
+        }on
+        .mystyle
+        {
+            background-color: #cf00f8;
+        }
+        
+        .activeTab {
+            background: none repeat scroll 0 0 #FFFFFF;
+            border-bottom: 2px solid #FFFFFF;
+            color: #000000;
+            font-weight: 600;
+            width: 180px;
+        }
+        
+        .inactiveTab {
+          cursor: pointer;
+          background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+          color: white; /*#3C3C3C;*/
+          font-weight: bold;
+          font-size: 12px;
+          height: 15px;
+          width: 180px;
+          vertical-align: middle;
+          border: none;
+        }
+         
+        .rich-tab-inactive {
+         background-repeat: repeat-x;
+         border-color: #FFFFFF;
+         border-style: none;
+         border-width: 0;
+         cursor: pointer;
+        }
+        
+        .rich-tabhdr-side-border {
+         background-image:none; 
+         border-radius: 4px 4px 0 0;
+         background-color: none;
+         width: 2px;
+        }
+        
+        .rich-tabhdr-side-cell {
+         box-shadow: 0 -2px 2px #A7A7A8;
+         border-top: 2px solid #056FC1;
+         border-left: 2px solid #056FC1;
+         border-right: 2px solid #056FC1;
+         border-radius: 4px 4px 0 0;
+        }
+        
+        .rich-tabpanel-content {
+         background-color: #fff;
+         border-left: 2px solid #056FC1;
+         border-right: 2px solid #056FC1;
+         border-bottom: 2px solid #056FC1;
+        }
+        
+        .rich-tab-bottom-line {
+         border-bottom: 1px solid #056FC1;
+        }
+        
+        .accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+         background-color: #97C7EC;
+        }
+        
+        body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+         background-color: #fff;
+        }
+        .name {
+        font-size: 1.50em;
+        font-weight: bold;
+        }
+        .selectbox{
+            background-color: #2F96E4;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            height: 25px;
+            position: relative;
+            width: 152px;
+            border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+            color:#fff;
+            font-size:12px; font-weight: bold;
+            padding:3px 0 3px 10px;
+        }
+    </style>
+    <script>
+        function changeType(obj) {
+            //alert(obj.value);
+            parentObj = obj.parentNode.parentNode;
+            var inputTypes = parentObj.getElementsByTagName('input');
+            var objOther = null;
+            var objNotOther = null;
+            for(var i=0;i<inputTypes.length;i++) {
+                if((inputTypes[i].id).indexOf('otherAllergyId') != -1) {
+                    objOther = inputTypes[i];
+                } 
+                if((inputTypes[i].id).indexOf('allergyId') != -1) {
+                    objNotOther = inputTypes[i].parentNode;
+                }
+            }
+            if(obj.value == 'Other') {
+                objOther.style.display = 'block';
+                objNotOther.style.display = 'none';
+            } else {
+                objOther.style.display = 'none';
+                objNotOther.style.display = 'block';
+            }
+        }
+        
+        function cancelConfirm() {
+            if(confirm('Completely Cancel and Remove?')) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        function checkDelete() {
+            if(confirm('Are you sure you want to Delete this form?')) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        function enableDateField(obj) {
+            parentObj = obj.parentNode.parentNode;
+            var likeString = parentObj.getElementsByTagName('input');
+            if(obj.value == 'Yes') {
+                if(likeString.length > 0) {
+                    likeString[likeString.length - 1].disabled = false;
+                    likeString[likeString.length - 2].disabled = false;
+                    likeString[likeString.length - 3].disabled = false;
+                }
+            } else {
+                if(likeString.length > 0) {
+                    likeString[likeString.length - 1].disabled = true;
+                    likeString[likeString.length - 2].disabled = true;
+                    likeString[likeString.length - 3].disabled = true;
+                    likeString[likeString.length - 1].value = '';
+                    likeString[likeString.length - 2].value = '';
+                    likeString[likeString.length - 3].value = '';
+                }
+            }
+        }
+        
+        function enableReactionOtherField(obj) {
+            var selectdValues = document.getElementById(obj.id+'_selected').options;
+            var selectedValueStr = '';
+            for(var i=0;i<selectdValues.length;i++) {
+                selectedValueStr += selectdValues[i].text+';';
+            }
+            
+            parentObj = obj.parentNode;
+            var likeString = parentObj.getElementsByTagName('input');
+            if(likeString.length > 0) {
+                if(selectedValueStr.indexOf('Other') != -1) {
+                    likeString[0].style.display = 'block';
+                } else {
+                    likeString[0].style.display = 'none';
+                }
+            } 
+        }
+        
+        function validateYear(obj) {
+            if(obj.value != null) {
+                if(obj.value.length < 4 && obj.value.length > 0) {
+                    alert('Year should be 4 digit number.');
+                    obj.value='';
+                    obj.focus();
+                } else if(isNaN(obj.value)) {
+                    alert('Year should be Number.');
+                    obj.value='';
+                    obj.focus();
+                }
+            }       
+        }
+        function changeConType(obj) {
+            if(obj.value == 'Condition') {
+                parentObj = obj.parentNode.parentNode;
+                var likeString = parentObj.getElementsByTagName('span');
+                for(var i=0;i<likeString.length;i++) {
+                    if(likeString[i].id.indexOf('conPanel') != -1) {
+                        likeString[i].style.display = 'block';  
+                    }
+                    if(likeString[i].id.indexOf('otherConPanel') != -1) {
+                        likeString[i].style.display = 'none';   
+                    }
+                } 
+            } else {
+                parentObj = obj.parentNode.parentNode;
+                var likeString = parentObj.getElementsByTagName('span');
+                for(var i=0;i<likeString.length;i++) {
+                    if(likeString[i].id.indexOf('conPanel') != -1) {
+                        likeString[i].style.display = 'none';   
+                    }
+                    if(likeString[i].id.indexOf('otherConPanel') != -1) {
+                        likeString[i].style.display = 'block';  
+                    }
+                } 
+            }       
+        } 
+        
+        function startSplash() {
+            var divObj = document.getElementById('splashDiv');
+            var msgSplash =document.getElementById('waitMsg');
+            var browserName = navigator.appName;
+            if(browserName == 'Netscape'){
+                divObj.style.display='table-cell'; 
+            } else {
+                divObj.style.display='table-cell';
+            }
+        }
+        
+        function endSplash() {            
+            document.getElementById('splashDiv').style.display='none';
+        }
+    </script>
+    <div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+        <div style="text-align: center; top: 50%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+    </div> 
+    <span class ="name">Patient's Details</span>
+    <br/>
+        <c:PatientDetailReadOnly patientId="{!trialPatientObj.Patient_Id__c}"/>
+    <br/>
+    <table width="100%">
+        <tr>
+            <td width="40%" align="left">
+                 <span class ="name">Baseline Symptoms</span>
+            </td>
+            <td width="60%" align="left">
+                <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialPatientObj.Trial_Id__r.Name}" />
+            </td>
+        </tr>
+    </table>
+    <apex:form id="formId">
+    <apex:pageBlock id="topPageBlockBtn" helpTitle="Help"  helpUrl="/apex/BaselineSymptomformUserGuide" rendered="{!isComplete}" tabStyle="Account">
+        <apex:pageBlockButtons location="top">
+            <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel" status="splashStatus">
+                <apex:param name="tabNext" value="saveAndClose"/>
+            </apex:commandButton>
+            <apex:commandButton action="{!cancelCRF}" value="Cancel" onclick="return cancelConfirm();" immediate="true"/>
+            <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock> 
+    <apex:pageBlock rendered="{!isDelete}">
+          <apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!cancelCRF}" value="Delete" onClick="return checkDelete();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+               <!-- <apex:commandButton action="{!redirect}" value="Generate Pdf" rendered="{!baselineSymptoms.Status__c =='Accepted'}"/> --> 
+               <apex:commandLink style="text-decoration:none;" value="Generate Pdf" target="_blank" styleClass="btn" action="{!redirect}" rendered="{!baselineSymptoms.Status__c =='Accepted'}"/>
+          </apex:pageBlockButtons>
+    </apex:pageBlock>
+    <apex:actionFunction name="next" action="{!next}"  rerender="theTabPanel" status="splashStatus"/>
+    <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+    <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />    
+     <apex:pageMessages />
+     <apex:outputPanel >
+     <script>
+        function enterToNextTab(val){
+            //alert(val);
+            if('{!isComplete}' != 'false'){
+                document.getElementById('pageId:formId:nextTabNameID').value = val;
+                next();
+            }
+        }
+     </script>
+     </apex:outputPanel>
+    <apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+        <apex:tab label="Allergies & Baseline Conditions" name="AllergyBaselineTab" id="AllergyBaselineTabId" ontabenter="enterToNextTab('AllergyBaselineTab'); "  rendered="{!isComplete}">
+                <apex:pageBlock title="Allergies & Baseline Conditions" id="pageBlockId" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>-->
+                        <apex:commandButton action="{!next}" value="  Next  "  reRender="theTabPanel" status="splashStatus">
+                            <apex:param name="tabNext" value="BaselineSymptomsTab"/>
+                        </apex:commandButton>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>                     
+                    </apex:pageBlockButtons>
+                    <apex:pageBlockSection id="infoSection">
+                        <!--<apex:pageBlockSectionItem id="trialPatientItemId">
+                            <apex:outputLabel value="Trial Patient" />
+                            <apex:outputText value="{!trialPatient}" id="trialPatientId"/>
+                        </apex:pageBlockSectionItem>-->
+                        <apex:pageBlockSectionItem id="visitDateItemId">
+                            <apex:outputLabel value="Visit Date" />
+                            <apex:outputPanel >
+                                <apex:inputField value="{!baselineSymptoms.Visit_Date__c}" id="visitDateId"/>
+                                <script type="text/javascript">
+                                document.getElementById('{!$Component.visitDateId}').onfocus = function onfocus(event) {
+                                DatePicker.pickDate(true, '{!$Component.visitDateId}', false); 
+                                addYearInDateField('past'); 
+                                };
+                            </script>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection title="Allergies" id="allergySection" columns="1">
+                        <apex:pageBlockTable value="{!lstAllergyWrapper}" var="allergyWrapper" id="allergyTableId" width="100%">
+                            <apex:column headerClass="tableHead ActionHead" style="vertical-align: top; padding-top: 15px;">
+                                <apex:facet name="header">Action</apex:facet>
+                                
+                                <apex:outputPanel rendered="{!IF(allergyWrapper.isReadOnly == true, false, true)}">
+                                    <apex:commandLink action="{!cancelAllergy}" value="Cancel" style="color: blue;" reRender="allergySection, infoSection" status="processingStatus">
+                                        <apex:param name="recordId" value="{!allergyWrapper.allergy.Id}"/>
+                                        <apex:param name="cancelIndex" value="{!allergyWrapper.allergyNumber}"/>
+                                    </apex:commandLink>
+                                    <apex:outputPanel rendered="{!allergyWrapper.isUpdateVisible}">&nbsp;|&nbsp;</apex:outputPanel>
+                                    <apex:commandLink action="{!updateAllergy}" value="Update" style="color: blue;" rendered="{!allergyWrapper.isUpdateVisible}" reRender="allergySection, infoSection" status="processingStatus">
+                                        <apex:param name="recordId" value="{!allergyWrapper.allergy.Id}"/> 
+                                    </apex:commandLink>
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!allergyWrapper.isReadOnly}">
+                                    <apex:commandLink action="{!editAllergy}" value="Edit" style="color: blue;" reRender="allergySection, infoSection" status="processingStatus">
+                                        <apex:param name="recordId" value="{!allergyWrapper.allergy.Id}"/>
+                                    </apex:commandLink>
+                                    &nbsp;|&nbsp;
+                                    <apex:commandLink action="{!removeAllergy}" value="Remove" style="color: blue;" reRender="allergySection, infoSection" status="processingStatus">
+                                        <apex:param name="cancelIndex" value="{!allergyWrapper.allergyNumber}"/>
+                                        <apex:param name="recordId" value="{!allergyWrapper.allergy.Id}"/>
+                                    </apex:commandLink>
+                                </apex:outputPanel>
+                            </apex:column>
+                            <apex:column headerClass="tableHead TypeHead" style="vertical-align: top; padding-top: 15px;">
+                                <apex:facet name="header">Allergy Type</apex:facet>
+                                <apex:inputField value="{!allergyWrapper.allergy.Allergy_Type__c}" rendered="{!IF(allergyWrapper.isReadOnly == true, false, true)}" id="aTypeId">
+                                    <apex:actionSupport event="onchange" action="{!changeAllergyType}" reRender="allergySection" status="processingStatus">
+                                        <apex:param value="{!allergyWrapper.allergyNumber}" name="allergyNumber"/>
+                                    </apex:actionSupport>
+                                </apex:inputField>
+                                <apex:outputField value="{!allergyWrapper.allergy.Allergy_Type__c}" rendered="{!allergyWrapper.isReadOnly}"/>
+                            </apex:column>
+                            <apex:column headerClass="tableHead NameHead" style="vertical-align: top; padding-top: 15px;">
+                                <apex:facet name="header">Allergy Name</apex:facet>
+                                <apex:outputPanel id="allergyPanel1" rendered="{!IF(allergyWrapper.isOtherAllergy == false,true,false)}">
+                                    <apex:inputField value="{!allergyWrapper.allergy.Allergies__c}"
+                                        rendered="{!IF(allergyWrapper.isReadOnly == true, false, true)}"
+                                        id="allergyId" />
+                                    <apex:outputField value="{!allergyWrapper.allergy.Allergies__r.Name}"
+                                        rendered="{!allergyWrapper.isReadOnly}" id="readAllergyId" />
+                                </apex:outputPanel>
+                                <apex:outputPanel id="allergyPanel2" rendered="{!allergyWrapper.isOtherAllergy}">
+                                    <apex:inputField value="{!allergyWrapper.allergy.Other_Allergy__c}" rendered="{!IF(allergyWrapper.isReadOnly == true, false, true)}" id="otherAllergyId" />
+                                    <apex:outputField value="{!allergyWrapper.allergy.Other_Allergy__c}" rendered="{!allergyWrapper.isReadOnly}" id="readOtherAllergyId"/>
+                                </apex:outputPanel>
+                                
+                            </apex:column>
+                            <apex:column headerClass="tableHead ReactionHead" style="vertical-align: top;">
+                                <apex:facet name="header">Reaction(s)</apex:facet>
+                                <apex:inputField value="{!allergyWrapper.allergy.Reactions__c}" rendered="{!IF(allergyWrapper.isReadOnly == true, false, true)}" id="reactionId" onchange="enableReactionOtherField(this);"/>
+                                <apex:inputField value="{!allergyWrapper.allergy.Other_Reactions__c}" rendered="{!IF(allergyWrapper.isReadOnly == true, false, true)}" id="otherReactionId" style="display: none;"  />
+                                <apex:outputField value="{!allergyWrapper.allergy.Reactions__c}" rendered="{!allergyWrapper.isReadOnly}"/>
+                                <apex:outputpanel rendered="{!contains(allergyWrapper.allergy.Reactions__c,'Other') && allergyWrapper.allergy.Other_Reactions__c != null}">
+	                                <apex:outputPanel rendered="{!IF(allergyWrapper.allergy.Other_Reactions__c == null,false,true)}">&nbsp;:&nbsp;</apex:outputPanel>
+	             					<apex:outputField value="{!allergyWrapper.allergy.Other_Reactions__c}" rendered="{!allergyWrapper.isReadOnly}"/>
+                            	</apex:outputpanel>
+                            </apex:column>
+                            <apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;">
+                                <apex:facet name="header">Severity</apex:facet>
+                                <apex:inputField value="{!allergyWrapper.allergy.Severity__c}" rendered="{!IF(allergyWrapper.isReadOnly == true, false, true)}"/>
+                                <apex:outputField value="{!allergyWrapper.allergy.Severity__c}" rendered="{!allergyWrapper.isReadOnly}"/>
+                            </apex:column>
+                            <apex:column headerClass="tableHead YearHead" style="vertical-align: top; padding-top: 15px;">
+                                <apex:facet name="header">Year first seen</apex:facet>
+                                <apex:inputField value="{!allergyWrapper.allergy.Year_first_seen__c}" rendered="{!IF(allergyWrapper.isReadOnly == true, false, true)}" style="width: 35px;" onblur="validateYear(this);"/>
+                                <apex:outputField value="{!allergyWrapper.allergy.Year_first_seen__c}" rendered="{!allergyWrapper.isReadOnly}" style="width: 35px;" />
+                            </apex:column>
+                        </apex:pageBlockTable>
+                        <apex:outputPanel >
+                            <apex:commandButton action="{!addAllergy}" value="Add Allergy" reRender="allergySection, infoSection" status="processingStatus"/>
+                            <apex:commandButton action="{!saveAllergy}" value=" Save " reRender="allergySection, infoSection" status="savingStatus" />
+                            <apex:actionStatus startText="Saving...." id="savingStatus" />
+                            <apex:actionStatus startText="Processing...." id="processingStatus" />
+                        </apex:outputPanel>
+                    </apex:pageBlockSection> 
+                    <!----------------------------------------------- Baseline condition section ----------------------------------------------------->
+                    
+                    <apex:pageBlockSection title="Baseline Condition" id="conditionSection" columns="1">
+                        <apex:pageMessage title="{!pageError}" severity="error" rendered="{!isPageError}"/>
+                        <apex:pageBlockTable value="{!lstConditionWrapper}" var="conditionWrapper" id="conditionTableId" width="100%">
+                            <apex:column headerClass="tableHead ActionHead  TypeHead"  style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+                                <apex:facet name="header">Action</apex:facet>           
+                                <apex:outputPanel rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}">
+                                    <apex:commandLink action="{!cancelDiagnosis}" value="Cancel" style="color: blue;" reRender="conditionSection, infoSection" status="processingStatus">
+                                        <apex:param name="recordId" value="{!conditionWrapper.baselineCondition.Id}"/>
+                                        <apex:param name="cancelIndex" value="{!conditionWrapper.conditionNumber}"/>
+                                    </apex:commandLink>
+                                    <apex:outputPanel rendered="{!conditionWrapper.isUpdateVisible}">&nbsp;|&nbsp;</apex:outputPanel>
+                                    <apex:commandLink action="{!updateDiagnosis}" value="Update" style="color: blue;" rendered="{!conditionWrapper.isUpdateVisible}" reRender="conditionSection, infoSection" status="processingStatus">
+                                        <apex:param name="recordId" value="{!conditionWrapper.baselineCondition.Id}"/> 
+                                    </apex:commandLink>
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!conditionWrapper.isReadOnly}">
+                                    <apex:commandLink action="{!editDiagnosis}" value="Edit" style="color: blue;" reRender="conditionSection,infoSection" status="processingStatus">
+                                        <apex:param name="recordId" value="{!conditionWrapper.baselineCondition.Id}"/>
+                                    </apex:commandLink>
+                                    &nbsp;|&nbsp;
+                                    <apex:commandLink action="{!removeDiagnosis}" value="Remove" style="color: blue;" reRender="conditionSection, infoSection" status="processingStatus">
+                                        <apex:param name="cancelIndex" value="{!conditionWrapper.conditionNumber}"/>
+                                        <apex:param name="recordId" value="{!conditionWrapper.baselineCondition.Id}"/>
+                                    </apex:commandLink>
+                                </apex:outputPanel>
+                            </apex:column> 
+                            <apex:column headerClass="tableHead TypeHead "  style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+                                <apex:facet name="header">Type</apex:facet>  
+                                <apex:inputField value="{!conditionWrapper.baselineCondition.DiagnosisType__c}" rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" id="typeId" onChange="changeConType(this);" />
+                                <apex:outputField value="{!conditionWrapper.baselineCondition.DiagnosisType__c}" rendered="{!conditionWrapper.isReadOnly}" id="readTypeId"/>
+                            </apex:column>
+                            <apex:column headerClass="tableHead TypeHead"  style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+                                <apex:facet name="header">Condition</apex:facet> 
+                                <apex:outputPanel id="conPanel" >  
+                                    <apex:inputField value="{!conditionWrapper.baselineCondition.Daignosis__c}" rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" id="conId"/>
+                                    <apex:outputText value="{!conditionWrapper.baselineCondition.Daignosis__r.Name}" rendered="{!conditionWrapper.isReadOnly}" id="readConId"/>
+                                </apex:outputPanel>
+                                <apex:outputPanel id="otherConPanel">
+                                    <apex:inputField value="{!conditionWrapper.baselineCondition.OtherDaignosis__c}" rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" id="OtherConId"/>
+                                    <script>
+                                        changeConType(document.getElementById('{!$Component.typeId}'));
+                                    </script>
+                                    <apex:outputPanel rendered="{!IF(conditionWrapper.baselineCondition.OtherDaignosis__c == null,false,true)}">
+                                        <apex:outputField value="{!conditionWrapper.baselineCondition.OtherDaignosis__c}" rendered="{!conditionWrapper.isReadOnly}" id="readOtherConId"/>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:column>
+                            <apex:column headerClass="tableHead SeverityHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+                                <apex:facet name="header">Severity Grade</apex:facet>
+                                <apex:inputField value="{!conditionWrapper.baselineCondition.Severity_Grade__c}" rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}"/>
+                                <apex:outputField value="{!conditionWrapper.baselineCondition.Severity_Grade__c}" rendered="{!conditionWrapper.isReadOnly}"/>
+                            </apex:column>
+                            <apex:column headerClass="tableHead TypeHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+                                <apex:facet name="header">Attribution</apex:facet>  
+                                <apex:outputField value="{!conditionWrapper.baselineCondition.Attribution__c}" rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}"/>
+                                <apex:outputField value="{!conditionWrapper.baselineCondition.Attribution__c}" rendered="{!conditionWrapper.isReadOnly}"/>
+                            </apex:column>
+                            <apex:column headerClass="tableHead dateHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+                                <apex:facet name="header">Onset Date (MM/DD/YYYY)</apex:facet> 
+                                <apex:inputField style="width: 20px;" value="{!conditionWrapper.baselineCondition.Onset_Month__c}" rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" />
+                                <apex:outputLabel style="width: 20px;" value=" / " rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" />
+                                <apex:inputField style="width: 20px;" value="{!conditionWrapper.baselineCondition.Onset_Day__c}" rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" />
+                                <apex:outputLabel style="width: 20px;" value=" / " rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" />
+                                <apex:inputField style="width: 40px;" value="{!conditionWrapper.baselineCondition.Onset_Year__c}" rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" />                           
+                                <apex:outputField value="{!conditionWrapper.baselineCondition.Onset_Month__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                                <apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+                                <apex:outputField value="{!conditionWrapper.baselineCondition.Onset_Day__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                                <apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+                                <apex:outputField value="{!conditionWrapper.baselineCondition.Onset_Year__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                            </apex:column>
+                            <apex:column headerClass="tableHead resolveHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+                                <apex:facet name="header">Resolved</apex:facet>
+                                <apex:inputField value="{!conditionWrapper.baselineCondition.Resolved__c}" id="resolvedId" rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" onChange="enableDateField(this);" />
+                                <apex:outputField value="{!conditionWrapper.baselineCondition.Resolved__c}" rendered="{!conditionWrapper.isReadOnly}" style="width: 35px;" />
+                            </apex:column> 
+                            <apex:column headerClass="tableHead dateHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+                                <apex:facet name="header">End Date (MM/DD/YYYY)</apex:facet>
+                                <apex:inputField style="width: 20px;" value="{!conditionWrapper.baselineCondition.End_Month__c}" rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" id="endMonthId" />
+                                <apex:outputLabel style="width: 20px;" value=" / " rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" /> 
+                                <apex:inputField style="width: 20px;" value="{!conditionWrapper.baselineCondition.End_Day__c}" rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" id="endDayId" />
+                                <apex:outputLabel style="width: 20px;" value=" / " rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" />
+                                <apex:inputField style="width: 40px;" value="{!conditionWrapper.baselineCondition.End_Year__c}" rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" id="endYearId" />
+                                <apex:outputField value="{!conditionWrapper.baselineCondition.End_Month__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                                <apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+                                <apex:outputField value="{!conditionWrapper.baselineCondition.End_Day__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                                <apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+                                <apex:outputField value="{!conditionWrapper.baselineCondition.End_Year__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                                     
+                            <!--<apex:inputField value="{!conditionWrapper.baselineCondition.End_Date__c}" rendered="{!IF(conditionWrapper.isReadOnly == true, false, true)}" id="endDateId"/>
+                                <script> 
+                                    if(document.getElementById('{!$Component.resolvedId}').value == 'Yes') {
+                                        document.getElementById('{!$Component.endMonthId}').disabled = false;
+                                        document.getElementById('{!$Component.endDayId}').disabled = false;
+                                        document.getElementById('{!$Component.endYearId}').disabled = false;
+                                    } else {
+                                        document.getElementById('{!$Component.endMonthId}').disabled = true;
+                                        document.getElementById('{!$Component.endDayId}').disabled =  true;
+                                        document.getElementById('{!$Component.endYearId}').disabled = true;
+                                    }     
+                                </script>
+                            -->
+                            </apex:column>
+                        </apex:pageBlockTable>
+                        <apex:outputPanel >
+                            <apex:commandButton action="{!addDiagnosis}" value="Add Diagnosis" reRender="conditionSection, infoSection" status="processingStatus"/>
+                            <apex:commandButton action="{!saveDiagnosis}" value=" Save " reRender="conditionSection, infoSection, pageBlockId" status="savingStatus" />
+                            <apex:actionStatus startText="Saving...." id="savingStatus" />
+                            <apex:actionStatus startText="Processing...." id="processingStatus" />
+                        </apex:outputPanel>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+        </apex:tab>
+        
+        <apex:tab label="Baseline Symptoms" name="BaselineSymptomsTab" id="BaselineSymptomsTabId" ontabenter="enterToNextTab('BaselineSymptomsTab'); "  rendered="{!isComplete}">
+                <apex:pageBlock title="Baseline Symptoms" id="pageBlockId1" helpUrl="http://evs.nci.nih.gov/ftp1/CTCAE/CTCAE_4.03_2010-06-14_QuickReference_5x7.pdf" helpTitle="Common Terminology Criteria for Adverse Events v4.0 (CTCAE)" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>-->
+                        <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus"/> 
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus">
+                            <apex:param name="tabNext" value="attachmentTab"/>
+                        </apex:commandButton>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                    </apex:pageBlockButtons>
+                    <apex:pageBlockSection columns="1">
+                        <c:AddToxicityComponent />
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+        </apex:tab>
+        <apex:tab label="Comments & Attachments" name="attachmentTab" id="attachmentTabId" ontabenter="enterToNextTab('attachmentTab'); "  rendered="{!isComplete}">
+                <apex:pageBlock title="Comments & Attachments" id="pageBlockId2" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>-->
+                        <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus"/> 
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="tabChangeStatus">
+                            <apex:param name="tabNext" value="CompleteTab"/> 
+                        </apex:commandButton>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                    </apex:pageBlockButtons>
+                    <apex:pageMessage summary="Please redact all PHI information from attachments." severity="info" strength="3"/>
+                    <apex:pageBlockSection columns="1">
+<!--                        <chatter:feedWithFollowers entityId="{!baselineSymptoms.Id}" />-->
+                        <apex:iframe src="/apex/ChatterPage?recId={!baselineSymptoms.Id}" scrolling="true" id="theIframe"/>
+                        <c:CRFAttachmentComponent rId="{!baselineSymptoms.Id}" feedCRFName="BaselineSymptomsForm__Feed" rtId="{!baselineSymptoms.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+        </apex:tab>
+        <apex:tab label="Complete" name="CompleteTab" id="completeId" ontabenter="enterToNextTab('CompleteTab'); ">
+                <apex:pageBlock title="Baseline Symptoms Form" id="pageBlockId3" tabStyle="Account">
+                <apex:pageBlockButtons location="top" >
+<!--                      <apex:commandButton action="{!cancelCRF}" value="Delete" onClick="return cancelConfirm();" immediate="true" rendered="{!profileName =='System Administrator'}"/>-->
+                    
+                </apex:pageBlockButtons>
+                
+                    <!--<apex:actionFunction name="editCRF" action="{!editCRF}" rerender="theTabPanel" status="processStatus"/>
+                    <apex:outputPanel id="dummayPanel">
+                        <script>
+                            //alert("{!openInEditMode}");
+                            if("{!openInEditMode}" == "true") {
+                                editCRF();
+                            }
+                        </script>
+                    </apex:outputPanel>-->
+                    <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">
+                        <apex:pageBlock tabStyle="Account">
+                        <apex:pageBlockButtons location="top">
+                            <apex:commandButton action="{!editCRF}" value="Edit" reRender="formId" status="processStatus" rendered="{!IF(AND(baselineSymptoms.Status__c == 'Rejected', isShowEditButton),true,false)}"/>
+                            <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus" rendered="{!isComplete}"/>&nbsp;&nbsp; 
+                            <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                            <apex:actionStatus id="processStatus" startText="Processing..." onstop=""/>
+                        </apex:pageBlockButtons>
+                        </apex:pageBlock>
+                    </apex:outputPanel>
+                    <apex:pageBlockSection >
+                        <apex:outputField value="{!baselineSymptoms.Visit_Date__c}" />
+                    </apex:pageBlockSection>
+                    <br />
+                    <apex:outputPanel id="allergyDisplaySecId" >
+                        <b><font size="3">Allergies</font></b>
+                    </apex:outputPanel>
+                    <br />
+                    <br />
+                    <apex:pageBlockTable value="{!lstAllergyDisplayWrapper}" var="adWrapper" id="tableId1">
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">Allergen</apex:facet>
+                            <apex:outputText value="{!adWrapper.Allergen}" />
+                        </apex:column>
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">Reaction(s)</apex:facet>
+                            <apex:outputText value="{!adWrapper.Reaction}" />
+                        </apex:column>
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">Severity</apex:facet>
+                            <apex:outputText value="{!adWrapper.Severity}" />
+                        </apex:column>
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">Year first seen</apex:facet>
+                            <apex:outputText value="{!adWrapper.year}" />
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    <br />
+                    <br />
+                    <apex:outputPanel >
+                        <b><font size="3">Baseline Conditions</font></b>
+                    </apex:outputPanel>
+                    <br />
+                    <apex:messages />
+                    <br />
+                    <apex:pageBlockTable value="{!lstConditionWrapper}" var="conditionWrapper" id="tableId2">
+                    <apex:column headerClass="tableHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+                        <apex:facet name="header">Onset Date (MM/DD/YYYY)</apex:facet> 
+                        <apex:outputField value="{!conditionWrapper.baselineCondition.Onset_Month__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputField value="{!conditionWrapper.baselineCondition.Onset_Day__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputField value="{!conditionWrapper.baselineCondition.Onset_Year__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                    </apex:column>
+                    <apex:column headerClass="tableHead"  style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+                        <apex:facet name="header">Condition</apex:facet> 
+                        <apex:outputPanel id="conPanel" >  
+                            <apex:outputText value="{!conditionWrapper.baselineCondition.Daignosis__r.Name}" rendered="{!conditionWrapper.isReadOnly}" id="readConId"/>
+                        </apex:outputPanel>
+                        <apex:outputPanel id="otherConPanel">
+                            <script>
+                                changeConType(document.getElementById('{!$Component.typeId}'));
+                            </script>
+                            <apex:outputPanel rendered="{!IF(conditionWrapper.baselineCondition.OtherDaignosis__c == null,false,true)}">
+                                <apex:outputField value="{!conditionWrapper.baselineCondition.OtherDaignosis__c}" rendered="{!conditionWrapper.isReadOnly}" id="readOtherConId"/>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerClass="tableHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+                        <apex:facet name="header">Severity Grade</apex:facet>
+                        <apex:outputField value="{!conditionWrapper.baselineCondition.Severity_Grade__c}" rendered="{!conditionWrapper.isReadOnly}"/>
+                    </apex:column>
+                    <apex:column headerClass="tableHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+                        <apex:facet name="header">Attribution</apex:facet>  
+                        <apex:outputField value="{!conditionWrapper.baselineCondition.Attribution__c}" rendered="{!conditionWrapper.isReadOnly}"/>
+                    </apex:column>
+                    <apex:column headerClass="tableHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+                        <apex:facet name="header">Resolved</apex:facet>
+                        <apex:outputField value="{!conditionWrapper.baselineCondition.Resolved__c}" rendered="{!conditionWrapper.isReadOnly}" style="width: 35px;" />
+                    </apex:column> 
+                    <apex:column headerClass="tableHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+                        <apex:facet name="header">End Date (MM/DD/YYYY)</apex:facet>
+                        <apex:outputField value="{!conditionWrapper.baselineCondition.End_Month__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputField value="{!conditionWrapper.baselineCondition.End_Day__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputField value="{!conditionWrapper.baselineCondition.End_Year__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                    </apex:column>
+                    </apex:pageBlockTable>
+                    <br />
+                    <br />
+                    <apex:outputPanel >
+                        <b><font size="3">Baseline Symptoms</font></b>
+                    </apex:outputPanel>
+                    <br />
+                    <br />
+                    <apex:pageBlockTable value="{!toxicityDisplayList}" var="toxicity" id="tableId3">
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">AE ID</apex:facet>
+                            <apex:outputText value="{0, number, 000}"><apex:param value="{!toxicity.AE_ID__c}" /></apex:outputText>
+                        </apex:column>
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">Onset Date</apex:facet>
+                            <apex:outputField value="{!toxicity.Onset_Date__c}" />
+                        </apex:column>
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">Adverse Event</apex:facet>
+                            <apex:outputText value="{!toxicity.Toxicity_Master__r.Toxicity_Name__c}" />
+                            <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.Toxicity_Other__c))}">
+                                &nbsp;(<apex:outputText value="{!toxicity.Toxicity_Other__c}" />)
+                            </apex:outputPanel>
+                        </apex:column>
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">Grade/Revised Grade/Patient complaint</apex:facet>
+                            <apex:outputText value="{!toxicity.Grade__c}" />
+                            <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.Patient_Complaint__c))}">
+                                <br/><br/><apex:outputText value="{!toxicity.Patient_Complaint__c}" />
+                            </apex:outputPanel>
+                        </apex:column>
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">Attribution</apex:facet>
+                            <apex:outputText value="{!toxicity.Attribution__c}" />
+                        </apex:column>
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">Status</apex:facet>
+<!--                            <apex:outputText value="{!toxicity.Toxicity_Status__c}" />-->
+                            <apex:outputText value="{!IF((toxicity.Resolved__c), 'Resolved', IF((LEFT(toxicity.Baseline_Symptoms_Form__c, 15) = LEFT(baselineFormId, 15)), 'New', 'Ongoing'))}" />
+                        </apex:column>
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">End Date</apex:facet>
+                            <apex:outputField value="{!toxicity.AE_End_Date__c}" />
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    <br />
+                    <br />
+                    <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(baselineSymptoms.Id))}">
+                        <c:CRFAttachmentComponent rId="{!baselineSymptoms.Id}" feedCRFName="BaselineSymptomsForm__Feed" rtId="{!baselineSymptoms.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(baselineSymptoms.Id))}">
+                        <c:CRFEventComponent rId="{!baselineSymptoms.Id}" objectName="BaselineSymptomsForm__c" rtId="{!baselineSymptoms.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <apex:outputPanel id="msgPanelId" layout="block" style="width: 100%;">
+                <table width="100%">
+                    <tr>
+                        <td colspan="2" width="100%" align="center">
+                            <br /> 
+                            <font color="{!msgColor}">{!errorMsg}&nbsp;</font>
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">&nbsp;</td>
+                        <td width="70%">
+                            <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!isComplete}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!isComplete}"/>&nbsp;&nbsp;
+                            <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" rendered="{!isComplete}"/>
+                            <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" rendered="{!isComplete}"/>
+                            <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                        </td>
+                    </tr>
+                </table>
+            </apex:outputPanel> 
+        </apex:tab>
+    </apex:tabPanel>
+    </apex:form>
+</apex:page>

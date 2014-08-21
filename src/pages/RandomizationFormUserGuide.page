@@ -1,0 +1,805 @@
+<apex:page sidebar="false" showheader="false">
+	<style>
+		.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+	</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete Randomization form?</h2>
+		</apex:outputPanel>
+		<p>The Randomization Case Report Form is completed after the Menopausal Status, On-Study Eligibility, On-Study Pathology, and MRI Volume (pre-treatment) Forms have both been verified and approved by the Data Coordinating Center (DCC) and the MammaPrint Microarray form is completed by Agendia.</p>
+		<p>The Randomization Form is used to check a patient's eligibility to be randomized to a study treatment arm as well as reporting the treatment arm that an eligible patient has been randomized to for this study. </p>
+		<p style="color:red;"><i><b>NOTE: you randomize your patient at the moment you are first opening the Randomization Form.</b></i></p>
+		<p>This form is completed after a randomized patient has made a decision about participating in the treatment phase of this study, as well as recording patients who are unable to complete the <b>screening</b> phase of this study for various reasons.  NOTE: if a patient stops participating in the screening phase of the study, the Randomization Form is used to reflect this status- NOT the Off-Study CRF.  The Off-Study CRF is only used for patients who sign the Treatment Consent.</p>
+		<p><i>To open the Randomization Form, select the patient from the 'Patient' Tab, select 'Trial;' select 'Submit New' for 'Randomization Form’.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.RandomizationFormImages, 'RandomizationImage1.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>There are certain CRFs that are required to be completed and approved by the DCC and those are listed at the top of the screen shot here [Menopausal Status, MRI Volume (Pre-Treatment), On-Study Pathology, On-Study Eligibility, and MammaPrint Microarray].</li>
+			<li>If a CRF has been completed and submitted to the DCC a yes will appear in the Submitted column, otherwise it will display no.</li>
+			<li>If a CRF that has been submitted to the DCC is approved by the DCC a yes will appear in the Approved column, otherwise it will display No.  NOTE: the MammaPrint Microarray form does not get DCC approval and this field is blank.</li>
+			<li>If the all the criteria for randomization have been completed (all the columns above are answered yes) it will display <b>Patient is eligible to be randomized</b>.  If any one of the criteria for randomization have not been completed (any Form has an answer no) it will display <b>Patient is not eligible to be randomized.</b></li>
+			<li>If your patient is not eligible to be randomized because CRFs listed on the screen need to be submitted and/or approved, you need to <b>Cancel</b> and remove this form and open a <b>new</b> Randomization Form when those outstanding CRFs are submitted and approved.  Re-opening the same form from the Activity list will not update the new statuses of these CRFs and will still display not eligible.</li>
+			<li>If your patient is not eligible to be randomized after all CRFs have been submitted and approved because the patient didn't meet all of the protocol eligibility criteria (both section 4.1.1 and 4.1.2 of the I-SPY 2 Protocol) the form will display <b>Patient is not eligible to be randomized.</b>  You will need to complete the remaining portion of this CRF and indicate the primary reason they were not eligible.</li>
+			<li>If your patient has been randomized to a study treatment arm, it will display the randomization assigned treatment [Paclitaxel, Paclitaxel + Trastuzumab, OR Paclitaxel + Investigational Agent active in study]. NOTE: after a randomization assignment has been made, the <b>Cancel</b> button at the signature line will no longer be available, this will prevent a patient from being re-randomized to a different treatment arm.</li>
+			<li><b>BEFORE</b> you complete the last section of this form, present the treatment consent form to the patient and let her make her decision about continuing on in the treatment phase.  This CRF will be on the Activity List waiting for you to complete it while the patient decides about participating. <i class="redColor"><b>NOTE: once you sign and submit this CRF there is NO way to update and change the answer as to whether they signed the treatment consent after you have signed and submitted this CRF.</b></i></li>
+			<li>Answer the question as to whether the patient signed the treatment consent for their randomized treatment [Yes OR No].</li>
+			<li>If the patient signed the treatment consent (answered yes) select the date the patient signed the consent using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+			<li>If the patient did not sign the treatment consent (answered no) select the best/primary reason the patient declined [Decided not to have neoadjuvant chemotherapy; Decided not to be treated with a novel agent; Patient found to be ineligible for the study; Patient found to be ineligible because they are; MammaPrint Low, ER Positive, HER2 Negative; Patient found to be ineligible because inability to complete MammaPrint Test; Patient found to be ineligible because they did not meet other eligibility criteria; Patient found to be ineligible because patient could not complete MRI; Participant found to be ineligible because patient could not complete core biopsy; OR Other-specify in text box].</li>
+			<li>If your patient withdraws from the screening phase at any point, you need to complete the CRFs up until the point they withdrew.  After the DCC has approved those forms, complete the Randomization form indicating that the patient did NOT sign the treatment consent (answered no) and select the best reason why they withdrew from the screening phase.  NOTE: this would include if a patient could not tolerate the MRI exam or any other study procedure.</li>
+			<li>If your patient is not eligible to be randomized after all CRFs have been submitted and approved because the patient didn't meet all of the protocol eligibility criteria (both section 4.1.1 and 4.1.2 of the I-SPY 2 Protocol), then answer ‘No’ the patient did not sign the treatment consent and choose the primary reason the patient was not eligible for the treatment phase of this trial.</li>
+		</ul>
+		<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.RandomizationFormImages, 'RandomizationImage2.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the screen to update the incorrect information.</li>
+			<li>When you are ready to finalize the CRF (meaning you do NOT need to make any changes to the answers on this form), enter your password and select 'Sign and Submit’.</li>
+		</ul>
+		<!--<p><apex:image url="{!URLFOR($Resource.RandomizationFormImages, 'RandomizationImage3.png')}" width="100%" height="100%"/></p>
+		<p><apex:image url="{!URLFOR($Resource.RandomizationFormImages, 'RandomizationImage4.png')}" width="100%" height="100%"/></p>
+		<p><apex:image url="{!URLFOR($Resource.RandomizationFormImages, 'RandomizationImage5.png')}" width="100%" height="100%"/></p>
+		<p><apex:image url="{!URLFOR($Resource.RandomizationFormImages, 'RandomizationImage6.png')}" width="100%" height="100%"/></p>
+		<p><apex:image url="{!URLFOR($Resource.RandomizationFormImages, 'RandomizationImage7.png')}" width="100%" height="100%"/></p>
+		<table width="100%">
+			<tr>
+				<th width="23%">Treatment</th>
+				<th colspan="7" width="77%">Cycle 1</th>
+			</tr>
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+				<td>Day 1</td>
+				<td>Day 2</td>
+				<td>Day 3</td>
+				<td>Day 4</td>
+				<td>Day 5</td>
+				<td>Day 6</td>
+				<td>Day 7</td>
+			</tr>
+			<tr>
+				<td>Paclitaxel</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Trastuzumab</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (qd)</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q2w)</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q3w)</td>
+				<td>X</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 2</th>
+			</tr>
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+				<td>Day 8</td>
+				<td>Day 9</td>
+				<td>Day 10</td>
+				<td>Day 11</td>
+				<td>Day 12</td>
+				<td>Day 13</td>
+				<td>Day 14</td>
+			</tr>
+			<tr>
+				<td>Paclitaxel</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Trastuzumab</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (qd)</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q2w)</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q3w)</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 3</th>
+			</tr>
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+				<td>Day 15</td>
+				<td>Day 16</td>
+				<td>Day 17</td>
+				<td>Day 18</td>
+				<td>Day 19</td>
+				<td>Day 20</td>
+				<td>Day 21</td>
+			</tr>
+			<tr>
+				<td>Paclitaxel</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Trastuzumab</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (qd)</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q2w)</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q3w)</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 4</th>
+			</tr>
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+				<td>Day 22</td>
+				<td>Day 23</td>
+				<td>Day 24</td>
+				<td>Day 25</td>
+				<td>Day 26</td>
+				<td>Day 27</td>
+				<td>Day 28</td>
+			</tr>
+			<tr>
+				<td>Paclitaxel</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Trastuzumab</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (qd)</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q2w)</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q3w)</td>
+				<td>X</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 5</th>
+			</tr>
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+				<td>Day 29</td>
+				<td>Day 30</td>
+				<td>Day 31</td>
+				<td>Day 32</td>
+				<td>Day 33</td>
+				<td>Day 34</td>
+				<td>Day 35</td>
+			</tr>
+			<tr>
+				<td>Paclitaxel</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Trastuzumab</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (qd)</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q2w)</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q3w)</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 6</th>
+			</tr>
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+				<td>Day 36</td>
+				<td>Day 37</td>
+				<td>Day 38</td>
+				<td>Day 39</td>
+				<td>Day 40</td>
+				<td>Day 41</td>
+				<td>Day 42</td>
+			</tr>
+			<tr>
+				<td>Paclitaxel</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Trastuzumab</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (qd)</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q2w)</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q3w)</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%">Treatment</th>
+				<th colspan="7" width="77%">Cycle 7</th>
+			</tr>
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+				<td>Day 43</td>
+				<td>Day 44</td>
+				<td>Day 45</td>
+				<td>Day 46</td>
+				<td>Day 47</td>
+				<td>Day 48</td>
+				<td>Day 49</td>
+			</tr>
+			<tr>
+				<td>Paclitaxel</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Trastuzumab</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (qd)</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q2w)</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q3w)</td>
+				<td>X</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 8</th>
+			</tr>
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+				<td>Day 50</td>
+				<td>Day 51</td>
+				<td>Day 52</td>
+				<td>Day 53</td>
+				<td>Day 54</td>
+				<td>Day 55</td>
+				<td>Day 56</td>
+			</tr>
+			<tr>
+				<td>Paclitaxel</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Trastuzumab</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (qd)</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q2w)</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q3w)</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 9</th>
+			</tr>
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+				<td>Day 57</td>
+				<td>Day 58</td>
+				<td>Day 59</td>
+				<td>Day 60</td>
+				<td>Day 61</td>
+				<td>Day 62</td>
+				<td>Day 63</td>
+			</tr>
+			<tr>
+				<td>Paclitaxel</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Trastuzumab</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (qd)</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q2w)</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q3w)</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 10</th>
+			</tr>
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+				<td>Day 64</td>
+				<td>Day 65</td>
+				<td>Day 66</td>
+				<td>Day 67</td>
+				<td>Day 68</td>
+				<td>Day 69</td>
+				<td>Day 70</td>
+			</tr>
+			<tr>
+				<td>Paclitaxel</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Trastuzumab</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (qd)</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q2w)</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q3w)</td>
+				<td>X</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 11</th>
+			</tr>
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+				<td>Day 71</td>
+				<td>Day 72</td>
+				<td>Day 73</td>
+				<td>Day 74</td>
+				<td>Day 75</td>
+				<td>Day 76</td>
+				<td>Day 77</td>
+			</tr>
+			<tr>
+				<td>Paclitaxel</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Trastuzumab</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (qd)</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q2w)</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q3w)</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 12</th>
+			</tr>
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+				<td>Day 78</td>
+				<td>Day 79</td>
+				<td>Day 80</td>
+				<td>Day 81</td>
+				<td>Day 82</td>
+				<td>Day 83</td>
+				<td>Day 84</td>
+			</tr>
+			<tr>
+				<td>Paclitaxel</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Trastuzumab</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (qd)</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q2w)</td>
+			</tr>
+			<tr>
+				<td>Inv Agent (q3w)</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%">AC starting:</th>
+				<th colspan="7" width="77%">Cycle 13</th>
+			</tr>
+			<tr>
+				<th>2 weeks after T</th>
+				<td>Day 92</td>
+				<td>Day 93</td>
+				<td>Day 94</td>
+				<td>Day 95</td>
+				<td>Day 96</td>
+				<td>Day 97</td>
+				<td>Day 98</td>
+			</tr>
+			<tr>
+				<td>Doxorubicin</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Cyclophosphamide</td>
+				<td>X</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 14</th>
+			</tr>
+			<tr>
+				<td>AC q2w</td>
+				<td>Day 106/</td>
+				<td>Day 107/</td>
+				<td>Day 108/</td>
+				<td>Day 109/</td>
+				<td>Day 110/</td>
+				<td>Day 111/</td>
+				<td>Day 112/</td>
+			</tr>
+			<tr>
+				<td> AC q3w</td>
+				<td>Day 113</td>
+				<td>Day 114</td>
+				<td>Day 115</td>
+				<td>Day 116</td>
+				<td>Day 117</td>
+				<td>Day 118</td>
+				<td>Day 119</td>
+			</tr>
+		</table><br />	
+		<table width="100%">
+			<tr>
+				<td width="23%">Doxorubicin</td>
+				<td width="77%">X</td>
+			</tr>
+			<tr>
+				<td width="23%">Cyclophosphamide</td>
+				<td width="77%">X</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 15</th>
+			</tr>
+			<tr>
+				<td>AC q2w</td>
+				<td>Day 120/</td>
+				<td>Day 121/</td>
+				<td>Day 122/</td>
+				<td>Day 123/</td>
+				<td>Day 124/</td>
+				<td>Day 125/</td>
+				<td>Day 126/</td>
+			</tr>
+			<tr>
+				<td> AC q3w</td>
+				<td>Day 127</td>
+				<td>Day 128</td>
+				<td>Day 129</td>
+				<td>Day 130</td>
+				<td>Day 131</td>
+				<td>Day 132</td>
+				<td>Day 133</td>
+			</tr>
+		</table><br />	
+		<table width="100%">
+			<tr>
+				<td width="23%">Doxorubicin</td>
+				<td width="77%">X</td>
+			</tr>
+			<tr>
+				<td width="23%">Cyclophosphamide</td>
+				<td width="77%">X</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 16</th>
+			</tr>
+			<tr>
+				<td>AC q2w</td>
+				<td>Day 134/</td>
+				<td>Day 135/</td>
+				<td>Day 136/</td>
+				<td>Day 137/</td>
+				<td>Day 138/</td>
+				<td>Day 139/</td>
+				<td>Day 140/</td>
+			</tr>
+			<tr>
+				<td> AC q3w</td>
+				<td>Day 155</td>
+				<td>Day 156</td>
+				<td>Day 157</td>
+				<td>Day 158</td>
+				<td>Day 159</td>
+				<td>Day 160</td>
+				<td>Day 161</td>
+			</tr>
+		</table><br />	
+		<table width="100%">
+			<tr>
+				<td width="23%">Doxorubicin</td>
+				<td width="77%">X</td>
+			</tr>
+			<tr>
+				<td>Cyclophosphamide</td>
+				<td>X</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%">AC starting:</th>
+				<th colspan="7" width="77%">Cycle 13</th>
+			</tr>
+			<tr>
+				<th>3 weeks after T</th>
+				<td>Day 99</td>
+				<td>Day 100</td>
+				<td>Day 101</td>
+				<td>Day 102</td>
+				<td>Day 103</td>
+				<td>Day 104</td>
+				<td>Day 105</td>
+			</tr>
+			<tr>
+				<td>Doxorubicin</td>
+				<td>X</td>
+			</tr>
+			<tr>
+				<td>Cyclophosphamide</td>
+				<td>X</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 14</th>
+			</tr>
+			<tr>
+				<td>AC q2w</td>
+				<td>Day 113/</td>
+				<td>Day 114/</td>
+				<td>Day 115/</td>
+				<td>Day 116/</td>
+				<td>Day 117/</td>
+				<td>Day 118/</td>
+				<td>Day 119/</td>
+			</tr>
+			<tr>
+				<td> AC q3w</td>
+				<td>Day 120</td>
+				<td>Day 121</td>
+				<td>Day 122</td>
+				<td>Day 123</td>
+				<td>Day 124</td>
+				<td>Day 125</td>
+				<td>Day 126</td>
+			</tr>
+		</table><br />	
+		<table width="100%">
+			<tr>
+				<td width="23%">Doxorubicin</td>
+				<td width="77%">X</td>
+			</tr>
+			<tr>
+				<td width="23%">Cyclophosphamide</td>
+				<td width="77%">X</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 15</th>
+			</tr>
+			<tr>
+				<td>AC q2w</td>
+				<td>Day 127/</td>
+				<td>Day 128/</td>
+				<td>Day 129/</td>
+				<td>Day 130/</td>
+				<td>Day 131/</td>
+				<td>Day 132/</td>
+				<td>Day 123/</td>
+			</tr>
+			<tr>
+				<td> AC q3w</td>
+				<td>Day 127</td>
+				<td>Day 128</td>
+				<td>Day 129</td>
+				<td>Day 130</td>
+				<td>Day 131</td>
+				<td>Day 132</td>
+				<td>Day 133</td>
+			</tr>
+		</table><br />	
+		<table width="100%">
+			<tr>
+				<td width="23%">Doxorubicin</td>
+				<td width="77%">X</td>
+			</tr>
+			<tr>
+				<td width="23%">Cyclophosphamide</td>
+				<td width="77%">X</td>
+			</tr>
+		</table><br />
+		<table width="100%">
+			<tr>
+				<th width="23%"></th>
+				<th colspan="7" width="77%">Cycle 16</th>
+			</tr>
+			<tr>
+				<td>AC q2w</td>
+				<td>Day 141/</td>
+				<td>Day 142/</td>
+				<td>Day 143/</td>
+				<td>Day 144/</td>
+				<td>Day 145/</td>
+				<td>Day 146/</td>
+				<td>Day 147/</td>
+			</tr>
+			<tr>
+				<td> AC q3w</td>
+				<td>Day 162</td>
+				<td>Day 163</td>
+				<td>Day 164</td>
+				<td>Day 165</td>
+				<td>Day 166</td>
+				<td>Day 167</td>
+				<td>Day 168</td>
+			</tr>
+		</table><br />	
+		<table width="100%">
+			<tr>
+				<td width="23%">Doxorubicin</td>
+				<td width="77%">X</td>
+			</tr>
+			<tr>
+				<td width="23%">Cyclophosphamide</td>
+				<td width="77%">X</td>
+			</tr>
+		</table><br />
+	--></apex:outputPanel>
+</apex:page>

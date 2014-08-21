@@ -1,0 +1,252 @@
+<apex:component controller="ProcedureComponentController" allowDML="true" id="ProcedureComponent">
+<!--<apex:includeScript value="{!$Resource.JqueryLib}"/>-->
+<!--<apex:includeScript value="{!$Resource.Popup}"/>-->
+<apex:attribute name="subForm" description="This is the value for on-study pathology" type="String"   assignTo="{!subFormValueOF}"/>
+<script type="text/javascript">
+	function addYearInDateField(relatedYearShow) {
+		//alert(document.getElementById('datePicker').innerHTML);
+		 var currentYear = new Date().getFullYear();
+		 var startYear;
+		 var endYear;
+		 
+		 if(relatedYearShow == 'past'){
+		 	 startYear= 1900;
+		 	 endYear=currentYear;
+		 }else if(relatedYearShow == 'future'){
+		 	startYear= currentYear;
+		 	endYear= currentYear + 30;
+		 }else{
+		 	 startYear= 1950;
+			 endYear=currentYear + 20;
+		 }
+		 
+		 var htmlStr='';
+		 if(startYear<endYear){
+		 	for(i=startYear;i<endYear+1;i++){
+		 		if(i == currentYear) {
+		 			htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+		 		} else {
+			 		htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+		 		}
+		 	}
+		}
+		//alert(htmlStr);
+		document.getElementById('calYearPicker').innerHTML = htmlStr; 
+	}
+</script>
+
+<script>
+var isSubmit = true;
+function getCheckBox(subFormValue, val){
+    //alert(subFormValue);
+    if(subFormValue == 'On-Study Pathology Form(Positive Breast Biopsies)'){
+        //var procedureVal = document.getElementById('pageId:formId:pageBlockId:pageSectionId:pageCompId:ProcedureComponent:showProcedureForm:theTable:0:proVal').value;
+        var procedureVal = val.value;
+        var checkBoxTdSubId = val.id.substring(0, val.id.lastIndexOf(':')+1);
+        //alert(checkBoxTdSubId);
+        //alert(procedureVal);
+        if(procedureVal == 'Core biopsy'){
+            document.getElementById(checkBoxTdSubId+'panelId').style.display='';
+        } else {
+            document.getElementById(checkBoxTdSubId+'panelId').style.display= 'none';
+        }
+    }
+    if(subFormValue == 'On-Study Pathology Form(Lymph Node Biopsies)'){
+        var procedureVal1 = document.getElementById('pageId:formId:pageBlockId1:pageSectionId1:pageCompId1:ProcedureComponent:theTable1:0:proVal').value;
+        //alert('-------->'+procedureVal1);
+        if(procedureVal1 == 'Core biopsy (lymph node)'){
+            //alert('----block---->');
+            document.getElementById('pageId:formId:pageBlockId1:pageSectionId1:pageCompId1:ProcedureComponent:theTable1:0:panelId').style.display='';
+        } else {
+            //alert('----none---->');
+            document.getElementById('pageId:formId:pageBlockId1:pageSectionId1:pageCompId1:ProcedureComponent:theTable1:0:panelId').style.display= 'none';
+        }
+    }
+}
+
+function deleteRecord() {
+    if(confirm("Are you sure?")) {
+        isSubmit = true;
+    } else {
+        isSubmit = false;
+    }
+}
+
+function decideSubmit() {
+    return isSubmit;
+}
+
+function cancelPopup() {
+    disablePopup();
+    return false;
+}
+
+function showLocation(val) {
+    //pageId:pageBlockId:pageSectionId:pageCompId:ProcedureComponent:showProcedureForm:theTable:4:laterality
+    var procedureIndex = val.id.substring(val.id.lastIndexOf("theTable")+9, val.id.lastIndexOf("theTable")+10);
+    var pageHierarchyId = val.id.substring(0, val.id.lastIndexOf("theTable")+9);
+    //alert(procedureIndex);
+    if(val.value == 'Unknown') {
+        document.getElementById(pageHierarchyId+procedureIndex+':location').value = '';
+        document.getElementById(pageHierarchyId+procedureIndex+':location').disabled = true;
+    } else {
+        document.getElementById(pageHierarchyId+procedureIndex+':location').disabled = false;
+    }
+}
+</script>
+
+<style>
+.tableDateHead {
+    /*width: 9%;*/
+    width: 180px;
+}
+.tableProcedureHeadPro {
+    /*width: 31%;*/
+    width: 430px;
+}
+.tableLateralityHead {
+    /*width: 9%;*/
+    width: 135px;
+}
+.tableLocationHead {
+    /*width: 18%;*/
+    width: 240px;
+}
+.tableActionHead {
+    width: 116px;
+}
+
+</style>
+    <apex:actionRegion >
+    <apex:inputHidden id="insertedProcedureIds" value="{!insertedIds}" />
+<!--    <apex:inputHidden id="dateOfProcedure" value="{!dateOfProcedure}" />-->
+<!--    <apex:inputHidden id="surgeonId" value="{!surgeonId}" />-->
+<!--    <apex:inputHidden id="surgeonOtherValue" value="{!surgeonOtherValue}" />-->
+    
+    <apex:outputPanel id="dateErrorMsg"><apex:pageMessage summary="Date shouldn't be in future" rendered="{!isShowDateError}" severity="error" strength="3"/></apex:outputPanel>
+    <apex:dataTable cellpadding="3" cellspacing="1" width="100%" value="{!wrapList}" var="newPro" id="theTable" rowClasses="odd,even">
+        
+<!--                ==============================make date column=============================    -->
+            <apex:column style="" headerClass="tableHead tableDateHead" rendered="{!IF(AND(NOT(ISNULL(subForm)),subForm!=''), true, false)}">
+                <apex:facet name="header">Date</apex:facet>
+                <apex:outputPanel rendered="{!newPro.isEditMode}">
+                    <apex:inputField value="{!newPro.pro.Date_Of_Procedure__c}" required="true" id="dateOfProcdure"/>
+                    <script type="text/javascript">
+						document.getElementById('{!$component.dateOfProcdure}').onfocus = function onfocus(event) {
+							DatePicker.pickDate(true, '{!$component.dateOfProcdure}', false); 
+						    addYearInDateField('past'); 
+						};
+						</script>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!IF(AND(newPro.isEditMode==false, newPro.pro.Form_Name__c!='On-Study Pathology Form(Lymph Node Biopsies)'), true, false)}">
+<!--                    <apex:outputText value="{!newPro.pro.Date_Of_Procedure__c}" />-->
+                    <apex:outputText value="{0,date,MMM'/'dd'/'yyyy}">
+                        <apex:param value="{!newPro.pro.Date_Of_Procedure__c}" /> 
+                    </apex:outputText>
+                </apex:outputPanel>
+                <apex:facet name="footer"><apex:commandButton action="{!saveNewProcedure}" value="Save" reRender="theTable,dateErrorMsg,insertedProcedureIds" rendered="{!IF(AND(NOT(ISNULL(subForm)),subForm!='', isShowSaveButton), true, false)}" status="addProStatus"/></apex:facet>
+            </apex:column>
+            
+<!--                ==============================make Procedure column=============================    -->
+            <apex:column style="" headerClass="tableHead tableProcedureHeadPro" id="tableColumnId">
+                <apex:facet name="header">Procedure</apex:facet>
+                
+                <apex:outputPanel rendered="{!newPro.isEditMode}" id="tablePanelId">
+                    
+                    <apex:inputField value="{!newPro.pro.Form_Name__c}" style="display: none;" id="proFromVal"/>
+                    <table>
+                    <tr>
+                        <td>
+                            <apex:inputField id="proVal" value="{!newPro.pro.Procedure_Name__c}" onchange="getCheckBox('{!subForm}', this)" required="true"/>
+                        </td>
+                        <td>
+                           <apex:outputPanel id="panelId" style="display:none;">
+                                <apex:inputField value="{!newPro.pro.Ultrasound__c}" /><apex:outputlabel value="Ultrasound"/><br/>
+                                <apex:inputField value="{!newPro.pro.Palpation_guided__c}" /><apex:outputlabel value="Palpation guided"/><br/>
+                                <apex:inputField value="{!newPro.pro.Mammography__c}" /><apex:outputlabel value="Mammography"/><br/>
+                                <apex:inputField value="{!newPro.pro.MRI__c}" /><apex:outputlabel value="MRI"/><br/>
+                                <apex:inputField value="{!newPro.pro.Stereotactic__c}" /><apex:outputlabel value="Stereotactic"/><br/>
+                            </apex:outputPanel>
+                         </td>
+                    </tr>
+                </table>
+                <script>getCheckBox('{!subForm}', document.getElementById('{!$Component.proVal}'));</script>
+                </apex:outputPanel>
+                <apex:facet name="footer"><apex:commandButton action="{!saveNewProcedure}" value="Save" reRender="theTable,dateErrorMsg,insertedProcedureIds" rendered="{!IF(AND(OR(ISNULL(subForm), subForm==''), isShowSaveButton), true, false)}" status="addProStatus" /></apex:facet>
+                <apex:outputPanel rendered="{!IF(AND(newPro.isEditMode==false, newPro.pro.Form_Name__c!='On-Study Pathology Form(Lymph Node Biopsies)'), true, false)}">
+                    <apex:outputText value="{!newPro.pro.Procedure_Name__c}" />
+                    <apex:outputPanel rendered="{!IF((newPro.pro.Procedure_Name__c = 'Core biopsy'), true, false)}">
+                        <apex:outputlabel value="{!newPro.proScanCheckString}" rendered="{!NOT(ISBLANK(newPro.proScanCheckString))}"/>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                
+            </apex:column>
+            
+<!--                ==============================make Laterality column=============================    -->
+            <apex:column style="" headerClass="tableHead tableLateralityHead">
+                <apex:facet name="header">Laterality</apex:facet>
+                <apex:outputPanel rendered="{!newPro.isEditMode}">
+                    <apex:inputField value="{!newPro.pro.Laterality__c}" id="laterality" onchange="showLocation(this);" required="true"/>
+                </apex:outputPanel>
+                
+                <apex:outputPanel rendered="{!IF(AND(newPro.isEditMode==false, newPro.pro.Form_Name__c!='On-Study Pathology Form(Lymph Node Biopsies)'), true, false)}">
+                    <apex:outputText value="{!newPro.pro.Laterality__c}" />
+                </apex:outputPanel>
+            </apex:column>
+               
+<!--                ==============================make Location column=============================    -->
+            <apex:column style="" headerClass="tableHead tableLocationHead">
+                <apex:facet name="header">Location</apex:facet>
+                <apex:outputPanel rendered="{!newPro.isEditMode}">
+                    <apex:inputField value="{!newPro.pro.Location__c}" id="location"/>
+                </apex:outputPanel>
+                
+                <apex:outputPanel rendered="{!IF(AND(newPro.isEditMode==false, newPro.pro.Form_Name__c!='On-Study Pathology Form(Lymph Node Biopsies)'), true, false)}">
+                    <apex:outputText value="{!newPro.pro.Location__c}" />
+                </apex:outputPanel>
+            </apex:column>
+            
+<!--                ==============================make node result column=============================    -->
+            <apex:column style="" headerClass="tableHead tableLateralityHead" >
+               
+            </apex:column>
+            
+<!--                ==============================make Action column=============================    -->
+            <apex:column style="" headerClass="tableHead tableActionHead" id="actionColumn">
+                <apex:facet name="header">Action</apex:facet>
+                <apex:commandButton action="{!cancelNewProcedure}" immediate="true" title="Cancel" image="{!URLFOR($Resource.Cancel)}" status="actionStatus" reRender="theTable" rendered="{!IF(AND(newPro.isEditMode, NOT(newPro.isUpdateMode)), true, false)}">
+                    <apex:param value="{!newPro.srno}" name="serial"/>
+                </apex:commandButton>
+                <apex:commandButton action="{!updateProcedure}" title="Update" image="{!URLFOR($Resource.Save)}" status="actionStatus" reRender="theTable,dateErrorMsg" rendered="{!newPro.isUpdateMode}">
+                    <apex:param value="{!newPro.srno}" name="serial"/>
+                    <apex:param value="{!newPro.pro.Id}" name="procedureId"/>
+                </apex:commandButton>
+<!--                <apex:commandButton action="{!updateCancelProcedure}" style="background-image:url({!$Resource.Cancel});" id="updateCancel" status="actionStatus" reRender="theTable"  rendered="{!newPro.isUpdateMode}">-->
+                 <apex:commandButton action="{!updateCancelProcedure}" immediate="true" title="Cancel" image="{!URLFOR($Resource.Cancel)}" id="updateCancel" status="actionStatus" reRender="theTable"  rendered="{!newPro.isUpdateMode}">
+                    <apex:param value="{!newPro.srno}" name="serial"/>
+                    <apex:param value="{!newPro.pro.Id}" name="procedureId"/> 
+                </apex:commandButton>
+                <apex:outputPanel rendered="{!newPro.isShowEditButton}">
+                    <apex:commandButton action="{!editProcedure}" title="Edit" image="{!URLFOR($Resource.Edit)}" id="editBtn" status="editActionStatus" reRender="theTable" rendered="{!IF(AND(newPro.isEditMode==false, newPro.pro.Form_Name__c!='On-Study Pathology Form(Lymph Node Biopsies)'), true, false)}">
+                        <apex:param value="{!newPro.srno}" name="serial"/>
+                        <apex:param value="{!newPro.pro.Id}" name="procedureId"/>
+                    </apex:commandButton>
+                    <apex:commandButton action="{!cancelNewProcedure}" title="Remove" immediate="true" image="{!URLFOR($Resource.Delete)}" status="actionStatus" reRender="theTable,insertedProcedureIds" rendered="{!IF(AND(newPro.isEditMode==false, newPro.pro.Form_Name__c!='On-Study Pathology Form(Lymph Node Biopsies)'), true, false)}" >
+                        <apex:param value="{!newPro.srno}" name="serial"/>
+                        <apex:param value="{!newPro.pro.Id}" name="procedureId"/>
+                    </apex:commandButton>
+                </apex:outputPanel>
+<!--                <apex:actionStatus startText="..." startStyle="font-weight: bold;" id="actionStatus"/>-->
+<!--                <apex:actionStatus startText="..." startStyle="font-weight: bold;" onstop="centerPopup()" id="editActionStatus"/>-->
+                <apex:actionStatus startText="Processing..."  id="actionStatus"/>
+                <apex:actionStatus startText="Processing..."  onstop="centerPopup()" id="editActionStatus"/>
+                <apex:inputHidden value="{!newPro.srno}" />
+            </apex:column>
+    </apex:dataTable>
+        <apex:commandButton action="{!addNewProcedure}" value="Add Procedure" id="AddProcedure" rerender="theTable" status="addProStatus">
+<!--        <apex:param value="{!countProcedure}" assignTo="{!currentCountValue}"/>-->
+        <apex:param value="{!subForm}" name="subForm"/>
+    </apex:commandButton>
+    <apex:actionStatus startText="Processing..." id="addProStatus"/>
+    </apex:actionRegion>
+</apex:component>

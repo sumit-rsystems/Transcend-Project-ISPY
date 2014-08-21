@@ -1,0 +1,95 @@
+<apex:page sidebar="false" showheader="false">
+	<style>
+		.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+	</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete Follow Up form?</h2>
+	</apex:outputPanel>
+	<p>The Follow-Up Form is used to collect information about a patient's status and additional adjuvant therapy a patient may receive after completing protocol neoadjuvant chemotherapy and surgery.  This information will help evaluate the long-term benefit of the patient's study treatment. This CRF is completed multiple times as indicated in Table 12.1 in the protocol.</p>
+	<p>The information used to complete this form comes from clinical notes, radiology reports, radiation reports, and pathology reports.</p>
+	<p><i>To open Follow Up Form, select the patient from the 'Patient' Tab; select 'Trial'; Select ‘Follow Up’ tab and select ‘Submit New’ for ‘Follow Up’.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.FollowUpFormImages, 'followUpFormImage1.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Select the date from last previous contact using the blue calendar button to the right of the data field. You can also manually enter the date in mm/dd/yyyy format. NOTE: If this is the first time you are completing this CRF for a patient, the last date of contact is the date of primary surgery following the patient’s neoadjuvant study treatment.  If this is the second time you are completing this CRF for a patient, the date of last contact will auto-populate from the previous Follow Up CRF that is approved by the DCC.</li>
+		<li>Select the date to last contact (or death) using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.
+				<br /><i style="color:red;">NOTE: the From and To dates define the reporting period for this CRF and for which all the following data entered on this form should cover.</i>
+		</li>
+		<li>Select the survival status that best matches the patient's status <i>[Alive, Dead, Lost to Follow-up, OR Consent for follow-up withdrawn].</i></li>
+		<li>Answer the question about whether the patient has had a documented clinical assessment for this cancer since the last CRF was completed <i>[No OR Yes].</i></li>
+		<li>If the patient has had a documented clinical assessment (answered Yes) select the date of assessment using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+		<li>If the patient's status is alive, answer the question about whether the patient has been diagnosed with a new primary cancer <i>[No OR Yes].</i></li>
+		<li>If the patient has a new primary cancer (answered Yes) select the date of assessment using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+		<li>If the patient has a new primary cancer (answered Yes) select whether the patient has received <i>[No OR Yes]</i> any of the listed treatments <i>[Surgery, Chemotherapy, Radiation therapy, Hormone therapy].</i></li>
+		<li>If the patient has had treatment for their new primary cancer (answered Yes to any of the listed treatments) provide a few details that further describe the treatment.  For example, if the  patient had surgery for the new primary cancer, specify the type of surgery that was done; OR if the patient had chemotherapy for the new primary cancer, specify the regimen they received.</li>
+		<li>If the patient's status is dead, select the cause of death <i>[Due to this disease, Due to protocol treatment, Due to other cause, OR Unknown].</i></li>
+		<li>Describe the cause of death in the text box provided. Also, if the patient has died, complete the Off-study CRF. If the patient withdrew consent for follow-up, attach a signed and dated letter by the patient and/or the patient's study doctor indicating the date when consent was withdrawn and whether consent was withdrawn from clinical follow-up and/or survival follow-up, and if the patient has withdrawn consent to use her specimens for research in this study and/or research outside of this study.</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Notice of Progression' tab.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.FollowUpFormImages, 'followUpFormImage2.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Answer the question about whether the patient has been diagnosed with a first local-regional progression since the last follow-up form was completed <i>[No OR Yes].</i></li>
+		<li>If the patient has had a first local-regional progression (answered Yes) select the date of progression using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+		<li>Answer the question about whether the patient has been diagnosed with first distant progression since the last follow-up form was completed <i>[No OR Yes].</i></li>
+		<li>If the patient has had a first distant progression (answered Yes) select the date of progression using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+		<li>Select the type of information used to answer the recurrence/progression questions above by checking the checkbox next to each provided option [Clinical exam, Radiographic, Histologic, Patient self report only]. NOTE: an unchecked box means that option was not used.</li>
+		<li>If the patient had a first local-regional progression (answered Yes) select the site(s) of progression by checking the checkbox next to each site <i>[Ipsilateral breast, Axillary nodes, Internal mammary nodes, Supraclavicular nodes, Infraclavicular nodes, Check wall, Local-regional skin and subcutaneous tissue].</i></li>
+		<li>If the patient had a first distant progression (answered Yes) select the site(s) of progression by checking the checkbox next to each site <i>[Contralateral breast, Distant lymph nodes, Pleura, Lung, Liver, Distant skin and subcutaneous tissue, Bone, Bone marrow, Brain/CNS, Other-specify in text box].</i></li>
+	</ul>
+	<p><i>Select 'New' to advance to the 'Radiation Therapy' tab.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.FollowUpFormImages, 'followUpFormImage3.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Answer the question about whether the patient has received adjuvant radiation therapy for JUST the primary trial cancer (the original breast cancer that made the patient eligible for I-SPY 2) during this reporting period <i>[No OR Yes].</i></li>
+		<li>If the patient has received radiation therapy for their primary breast cancer (answered Yes) select the start and end date of radiation therapy using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+		<li>If the patient received radiation therapy for their primary breast cancer (answered Yes) select the site(s) that patient received radiation using the drop down list <i>[Breast, Boost, Axilla, Supraclavicular node, Internal mammary node, Chest wall, OR Other-specify in text box].</i></li>
+		<li>For the radiation site selected, select the laterality using the drop down list <i>[Left, Right, OR Unknown/not indicated].</i></li>
+		<li>For the radiation site selected, enter in the dose per fraction in cGy units in the text box <i>[numerical values to 3-decimal places].</i></li>
+		<li>For the radiation site selected, enter in the total number of fractions given in the text box <i>[numerical values to 2-decimal places].</i></li>
+		<li>The total dose in cGy units is automatically calculated from the amount of radiation per dose and the total number of fractions given.</li>
+		<li>Select <b>'Save'</b> to save this radiation site before moving to the next entry or screen. Select 'Cancel' to not save the data to the CRF.</li>
+		<li>If you need to make a change to a radiation site that is already saved to the list, re-open the site by clicking on the name of the site.  You can either change the site of radiation, remove it from the list, or change any of the other details about the radiation site.</li>
+		<li>Select <b>'Save'</b> to these before moving to the next entry or screen. Select 'Cancel' to not save any of the changes just made to the CRF, or select 'Remove site' to remove it completely from the CRF.</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Long Term Therapy' tab.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.FollowUpFormImages, 'followUpFormImage4.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Answer the question about whether the patient has received additional adjuvant therapy for JUST the primary trial cancer (the original breast cancer that made the patient eligible for I-SPY 2) during this reporting period <i>[No OR Yes].</i></li>
+		<li>If the patient received additional adjuvant therapy for their primary breast cancer (answered Yes) select the therapy that patient received using the drop down list <i>[Tamoxifen, Aromatase inhibitor, Ovarian suppression, Ovarian suppression, Non-protocol chemotherapy, Trastuzumab (Herceptin), OR Other non-protocol therapy].</i></li>
+		<li>If the therapy received was an Aromatase Inhibitor, Non-protocol therapy, or Other non-protocol therapy, enter in the name of the specific therapy in the Detail text box provided.</li>
+		<li>For the selected therapy, select the start and end date of this therapy using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.  NOTE: if the patient is currently taking the therapy, leave the end date blank.</li>
+		<li>Select <b>'Save'</b> to save this therapy before moving to the next entry or screen. Select 'Cancel' to not save the data to the CRF.</li>
+		<li>If you need to make a change to a therapy that is already saved to the list, re-open the site by clicking on the name of the site.  You can either change the name of the therapy, remove it from the list, or change any of the other details about the therapy.</li>
+		<li>Select <b>'Save'</b> to these before moving to the next entry or screen. Select 'Cancel' to not save any of the changes just made to the CRF, or select 'Remove site' to remove it completely from the CRF.</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Menopausal Status' tab. (Note: if the patient is postmenopausal then this screen will not display.)</i></p>
+	<p><apex:image url="{!URLFOR($Resource.FollowUpFormImages, 'followUpFormImage5.png')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Date of last menstrual period accepts "fuzzy" dates (e.g. if your source document only has the year of the patients last menstrual period then  input only the year). If you are manually entering in the year ensure all 4 digits are entered (e.g. 2010. Do NOT input only two digits for the year)</li>
+		<li>Answer the question about whether the patient had a menstrual period during this reporting period <i>[No OR Yes].</i></li>
+		<li>NOTE: Patient's age is automatically populated to reflect the patient's age on the date this CRF was first opened and is calculated based on the date of birth entered on the patient's personal eCHR record.</li>
+		<li>Enter in the date of the patient's last menstrual period: year in the year field <i>[4-digit numerical value]</i>, month <i>[2-digit numerical value]</i> in the month field, day <i>[2-digit numerical value]</i> in the day field. If only the month and/or year are known, enter those into their respective fields. If no year or month is known about the last date, check the Unknown date box that best fits the patient's status <i>[Unknown date OR Unknown date, but &gt; 12 months ago].</i></li>
+		<li>Answer whether the patient is currently on estrogen replacement (default is No).  If the answer is yes, complete the duration fields in months <i>[2-digit numerical value]</i> and/or years <i>[4-digit numerical value]</i>. If it is unknown, leave the answer as No.</li>
+		<li>Answer whether the patient has had a bilateral oophorectomy (default is No).  If the answer is yes, enter in the date of the procedure using the blue calendar button to the right of the data field (if an exact date is unknown, uses your best judgment in selecting a date).  You can also manually enter the date in mm/dd/yyyy format.  If it is unknown, leave the answer as No.</li>
+		<li>Answer whether the patient has had a hysterctomy (default is No).  If the answer is yes, enter in the date of the procedure using the blue calendar button to the right of the data field (if an exact date is unknown, uses your best judgment in selecting a date).  You can also manually enter the date in mm/dd/yyyy format.  If it is unknown, leave the answer as No.  If it is unknown, leave the answer as No.</li>
+		<li>Select the patient's menopausal status per definition stated on the form.</li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Comments &amp; Attachments' tab</i></p>
+	<p>Attach all relevant de-identified pathology reports, clinical notes, laboratory notes, and imaging reports (source documents) that document the data that is listed on this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+	<p>Provide any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+	<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+	<ul>
+		<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the screen to update the incorrect information.</li>
+		<li>When you are ready to send the CRF to the DCC for verification, enter your password and select 'Sign and Submit.'</li>
+	</ul>
+	<p><apex:image url="{!URLFOR($Resource.FollowUpFormImages, 'followUpFormImage6.png')}" width="100%" height="100%"/></p>
+	</apex:outputPanel>
+</apex:page>

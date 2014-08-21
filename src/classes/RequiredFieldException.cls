@@ -1,0 +1,1 @@
+public with sharing class RequiredFieldException extends Exception{}

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Widget</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Widgets</value>
+    </caseValues>
+    <fields>
+        <label><!-- Chart Display Fields --></label>
+        <name>Chart_Display_Fields__c</name>
+    </fields>
+    <fields>
+        <label><!-- Chart Fields --></label>
+        <name>Chart_Fields__c</name>
+    </fields>
+    <fields>
+        <label><!-- Data Limit --></label>
+        <name>Data_Limit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Data Source --></label>
+        <name>Data_Source__c</name>
+    </fields>
+    <fields>
+        <label><!-- Drill Down Field --></label>
+        <name>Drill_Down_Field__c</name>
+    </fields>
+    <fields>
+        <label><!-- Institute Filter --></label>
+        <name>Institute_Filter__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parent --></label>
+        <name>Parent__c</name>
+        <relationshipLabel><!-- Widgets --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Query Type --></label>
+        <name>Query_Type__c</name>
+        <picklistValues>
+            <masterLabel>Aggregate</masterLabel>
+            <translation><!-- Aggregate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Normal</masterLabel>
+            <translation><!-- Normal --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Query --></label>
+        <name>Query__c</name>
+    </fields>
+    <fields>
+        <label><!-- Site Filter --></label>
+        <name>Site_Filter__c</name>
+    </fields>
+    <fields>
+        <label><!-- Size --></label>
+        <name>Size__c</name>
+        <picklistValues>
+            <masterLabel>A Quarter</masterLabel>
+            <translation><!-- A Quarter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Large</masterLabel>
+            <translation><!-- Large --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>One Half</masterLabel>
+            <translation><!-- One Half --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>One Third</masterLabel>
+            <translation><!-- One Third --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Three Quarters</masterLabel>
+            <translation><!-- Three Quarters --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Stacked --></label>
+        <name>Stacked__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trial Filter --></label>
+        <name>Trial_Filter__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Bar</masterLabel>
+            <translation><!-- Bar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Column</masterLabel>
+            <translation><!-- Column --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Grid</masterLabel>
+            <translation><!-- Grid --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pie</masterLabel>
+            <translation><!-- Pie --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 3D Chart? --></label>
+        <name>X3D_Chart__c</name>
+    </fields>
+    <fields>
+        <label><!-- X-axis --></label>
+        <name>X_axis__c</name>
+    </fields>
+    <fields>
+        <label><!-- Y - axis --></label>
+        <name>Y_axis__c</name>
+    </fields>
+    <layouts>
+        <layout>Widget Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>ArmId__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Arm Id</label>
+        <referenceTo>Arm__c</referenceTo>
+        <relationshipLabel>AdditionalQuestions</relationshipLabel>
+        <relationshipName>AdditionalQuestions</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRFMaster__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CRFMaster</label>
+        <referenceTo>CRFMaster__c</referenceTo>
+        <relationshipLabel>AdditionalQuestions</relationshipLabel>
+        <relationshipName>AdditionalQuestions</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRF__c</fullName>
+        <externalId>false</externalId>
+        <label>CRF</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Menopausal Status Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On-Study Eligibility Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On-Study Pathology Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Response Evaluation Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tissue Specimen Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Blood Specimen Tracking Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MRI Volume Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Baseline Symptoms Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lab and Test Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MammaPrint Microarray Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Randomization Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Adverse Event Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Chemo Treatment Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Chemo Summary Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Post Surgery Summary Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Follow-Up Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lost to Follow-Up Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No Longer Lost to Follow-Up Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Off-Study Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Protocol Violation Form</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>QuestionId__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Question Id</label>
+        <referenceTo>QuestionAnswer__c</referenceTo>
+        <relationshipLabel>AdditionalQuestions</relationshipLabel>
+        <relationshipName>AdditionalQuestions</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TrialId__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Trial Id</label>
+        <referenceTo>Trial__c</referenceTo>
+        <relationshipLabel>AdditionalQuestions</relationshipLabel>
+        <relationshipName>AdditionalQuestions</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <label>AdditionalQuestion</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>Q-{00000}</displayFormat>
+        <label>Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>AdditionalQuestions</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+</CustomObject>

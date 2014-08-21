@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>RandomizationProperty</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Randomization Properties</value>
+    </caseValues>
+    <fields>
+        <help><!-- If this checkbox is checked, then site users will be able to create randomization form. Otherwise not. --></help>
+        <label><!-- Allow Site Users To Create Randomization --></label>
+        <name>Allow_Site_Users_To_Create_Randomization__c</name>
+    </fields>
+    <fields>
+        <label><!-- CurrentPatientXML --></label>
+        <name>CurrentPatientXML__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Point URL --></label>
+        <name>End_Point_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- PatientId --></label>
+        <name>PatientId__c</name>
+    </fields>
+    <fields>
+        <label><!-- RunCalculationResult --></label>
+        <name>RunCalculationResult__c</name>
+    </fields>
+    <fields>
+        <help><!-- If this checkbox is checked to true, then the patient will be randomized using the code as of 8/1/2013 --></help>
+        <label><!-- Use Old Randomization Flow --></label>
+        <name>Use_Old_Randomization_Flow__c</name>
+    </fields>
+    <fields>
+        <label><!-- nSeed1 --></label>
+        <name>nSeed1__c</name>
+    </fields>
+    <fields>
+        <label><!-- nSeed2 --></label>
+        <name>nSeed2__c</name>
+    </fields>
+    <layouts>
+        <layout>RendomizationProperty Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

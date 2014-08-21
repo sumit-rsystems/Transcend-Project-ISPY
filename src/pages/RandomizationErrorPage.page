@@ -1,0 +1,30 @@
+<apex:page standardController="Randomization_Form__c" extensions="RandomizationFormController" action="{!newRandomizationForm}">
+<style>
+	.tableHead
+	{
+		background-color: #cfeef8;
+	}
+	.mystyle
+	{
+		background-color: #cf00f8;
+	}
+</style>
+	<apex:pageBlock >
+		<apex:pageMessage summary="{!errorMsg}" severity="error" strength="3" /><br />
+		<a href="{!recordURL}">Back to Patient Detail page</a>
+	</apex:pageBlock>
+	<apex:dataTable style="border: 1px solid #d8d8d8;" cellpadding="3" cellspacing="1" value="{!lstCRFStatusWrapper}" var="crfStatus" id="dataTable" width="50%" rowClasses="odd,even" styleClass="tableClass">
+		<apex:column headerClass="tableHead">
+			<apex:facet name="header">CRF</apex:facet>
+			<apex:outputLabel value="{!crfStatus.CRFType}" />
+		</apex:column>
+		<apex:column headerClass="tableHead">
+			<apex:facet name="header">Submitted</apex:facet>
+			<apex:outputLabel value="{!crfStatus.IsSubmitted}" />
+		</apex:column>
+		<apex:column headerClass="tableHead">
+			<apex:facet name="header">Approved</apex:facet>
+			<apex:outputLabel value="{!crfStatus.IsApproved}" />
+		</apex:column>
+	</apex:dataTable>
+</apex:page>

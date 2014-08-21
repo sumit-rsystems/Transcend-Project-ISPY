@@ -1,0 +1,285 @@
+<apex:page Controller="RegistrationXML" id="pageId" tabStyle="Patient_Custom__c" sidebar="false" showHeader="false">
+<style>
+	.activeTab {
+		background: none repeat scroll 0 0 #FFFFFF;
+	    border-bottom: 2px solid #FFFFFF; 
+	    color: #000000;
+	    font-weight: 600;
+	    width: 112px;  
+	}
+	
+	.inactiveTab {
+			cursor: pointer;
+			background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+			color: white; /*#3C3C3C;*/
+			font-weight: bold;
+			font-size: 12px;
+			height: 15px;
+			width: 112px;
+			vertical-align: middle;
+			border: none;
+	}
+		
+	.rich-tab-inactive {
+		background-repeat: repeat-x;
+		border-color: #FFFFFF;
+		border-style: none;
+		border-width: 0;
+		cursor: pointer;
+	}
+	
+	.rich-tabhdr-side-border {
+		background-image:none; 
+		border-radius: 4px 4px 0 0;
+		background-color: none;
+		width: 2px;
+	}
+	
+	.rich-tabhdr-side-cell {
+		box-shadow: 0 -2px 2px #A7A7A8;
+		border-top: 2px solid #056FC1;
+		border-left: 2px solid #056FC1;
+		border-right: 2px solid #056FC1;
+		border-radius: 4px 4px 0 0;
+	}
+	
+	.rich-tabpanel-content {
+		background-color: #fff;
+		border-left: 2px solid #056FC1;
+		border-right: 2px solid #056FC1;
+		border-bottom: 2px solid #056FC1;
+	}
+	
+	.rich-tab-bottom-line {
+		border-bottom: 1px solid #056FC1;
+	}
+	
+	.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+		background-color: #97C7EC;
+	}
+	
+	body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+		background-color: #fff;
+	}
+	.name 
+		{
+		font-size: 1.50em;
+		font-weight: bold;
+		}
+</style>
+
+<script>
+	/*function UncheckAllCheckboxes() {
+	    var div = document.getElementById('pageId:RegistrationFormId:pageblockId');
+	    var chk = div.getElementsByTagName('input');
+	    var len = chk.length;
+	    for (var i = 0; i < len; i++) {
+	        if (chk[i].type === 'checkbox') {
+	       	 chk[i].checked = false;
+	        }
+	    } 
+	}*/
+
+	/*function addFields(obj,val,objectName){
+		//alert('objthis='+obj + 'val ='+val);
+		var str='';
+		if(obj.checked){				
+			if(objectName == 'patient') {
+				document.getElementById('pageId:RegistrationFormId:pageblockId:patientFieldCheckId').value+=val+',';
+				//alert(document.getElementById('pageId:RegistrationFormId:pageblockId:patientFieldCheckId').value);
+			}else if(objectName == 'Registration') {
+				document.getElementById('pageId:RegistrationFormId:pageblockId:RegFieldCheckId').value+=val+',';
+				//alert(document.getElementById('pageId:RegistrationFormId:pageblockId:RegFieldCheckId').value);
+			 }
+		}else{
+			if(objectName == 'patient'){
+				var str=document.getElementById('pageId:RegistrationFormId:pageblockId:patientFieldCheckId').value;
+				var n=str.replace(val,"");
+				document.getElementById('pageId:RegistrationFormId:pageblockId:patientFieldCheckId').value=n;
+				//alert(n);
+			}else if(objectName == 'Registration'){
+				var str=document.getElementById('pageId:RegistrationFormId:pageblockId:RegFieldCheckId').value;
+				var n=str.replace(val,"");
+				document.getElementById('pageId:RegistrationFormId:pageblockId:RegFieldCheckId').value=n;
+				//alert(n);
+			 }
+		}
+	}*/ 
+	
+	function checkCancel() {
+		if(confirm("Completely cancel and remove?")){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function startSplash() {
+		    var divObj = document.getElementById('splashDiv');
+		    var msgSplash =document.getElementById('waitMsg');
+		    var browserName = navigator.appName;
+		    if(browserName == 'Netscape'){
+		       	divObj.style.display='table-cell'; 
+			} else {
+		       	divObj.style.display='table-cell';
+			}
+	}
+	function endSplash() {            
+	   	document.getElementById('splashDiv').style.display='none';
+	}
+</script> 
+<div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+	<div style="text-align: center; top: 40%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+</div>
+	<!--<span class ="name">Patient's Details</span>
+	<br/>
+		<apex:outputPanel id="patCompo"><c:PatientDetailReadOnly /></apex:outputPanel>
+	<br/>
+ --><span class ="name"> Registration XML </span>
+ <apex:form id="RegistrationFormId" >
+  <apex:pageBlock tabStyle="Account" id="pageblockId">
+	<apex:pageBlockButtons >
+		 <apex:commandButton value="Save Configuration" action="{!saveConfiguration}"/>
+	</apex:pageBlockButtons>
+<apex:tabPanel switchType="client"   id="theTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+    <apex:tab label="Registration Xml" name="RegistrationXML" id="RegistrationxmlTabId" >
+    	<apex:pageMessage summary="Configuration saved successfully!" severity="confirm" strength="3" rendered="{!IsConfigSaved}"/>
+<!--    		<apex:inputHidden value="{!PatientFieldCheck}" id="patientFieldCheckId"/>-->
+<!--    		 <apex:inputHidden value="{!RegistrationFieldCheck}" id="RegFieldCheckId"/>-->
+		        	<apex:pageBlockSection title="Patient" columns="2" id="PatientpageBlkSectionId">
+			        	<apex:pageBlockSectionItem id="pageBlkSectionItemId">
+			     			<apex:outputLabel value="Name"/>
+			     			<apex:outputText value=""/>
+			     		</apex:pageBlockSectionItem>
+<!--		     		<apex:inputCheckbox value="{!subjectId}" onchange="addFields(this, 'First_Name__c,Last_Name__c,Initials__c', 'patient');" id="FstnmLstNMIntialId"/>-->
+		     		<apex:inputCheckbox value="{!firstNmLastNmInitl}"  id="FstnmLstNMIntialId"/>
+		     		
+<!--		     		<apex:pageBlockSectionItem >-->
+<!--		     			<apex:outputLabel value="Gender"/>-->
+<!--		     			<apex:outputText value=""/>-->
+<!--		     		</apex:pageBlockSectionItem>-->
+<!--		     		<apex:inputCheckbox value="{!Gender}" onchange="addFields(this,'Gender__c', 'patient');" id="GenderId"/>-->
+<!--		     		<apex:inputCheckbox value="{!Gender}"  id="GenderId"/>-->
+		     		
+		     		<apex:pageBlockSectionItem >
+		     			<apex:outputLabel value="Race / Ethnicity"/>
+		     			<apex:outputText value=""/>
+		     		</apex:pageBlockSectionItem>
+<!--		     		<apex:inputCheckbox value="{!RaceEthnicity}" onchange="addFields(this, 'Race__c,Ethnicity__c', 'patient');" id="EthnicityId"/> -->
+		     		<apex:inputCheckbox value="{!RaceEthnicity}"  id="EthnicityId"/>
+		     		
+<!--		     		<apex:pageBlockSectionItem >-->
+<!--		     			<apex:outputLabel value="Country of birth"/>-->
+<!--		     			<apex:outputText value=""/>-->
+<!--		     		</apex:pageBlockSectionItem>-->
+<!--		     		<apex:inputCheckbox value="{!Countryofbirth}" onchange="addFields(this,'Country_of_Birth__c', 'patient');" id="CountrybrithId"/>-->
+<!--		     		<apex:inputCheckbox value="{!Countryofbirth}"  id="CountrybrithId"/>-->
+		     		
+		     		<apex:pageBlockSectionItem >
+		     			<apex:outputLabel value="SSN (last 4)"/>
+		     			<apex:outputText value=""/>
+		     		</apex:pageBlockSectionItem>
+<!--		     		<apex:inputCheckbox value="{!SSN}" onchange="addFields(this,'SSN__c', 'patient');" id="SSNId"/> -->
+		     		<apex:inputCheckbox value="{!SSN}" id="SSNId"/>
+		     		
+<!--		     		<apex:pageBlockSectionItem >-->
+<!--		     			<apex:outputLabel value="MRN / Institute"/>-->
+<!--		     			<apex:outputText value=""/>-->
+<!--		     		</apex:pageBlockSectionItem>-->
+<!--		     		<apex:inputCheckbox value="{!MRNInstitute}" onchange="addFields(this,'Medical_Record_Number__c,Institute_Text__c', 'patient');" id="MrnInstituteId"/> -->
+<!--		     		<apex:inputCheckbox value="{!MRNInstitute}" id="MrnInstituteId"/>-->
+<!--		     		-->
+<!--		     		<apex:pageBlockSectionItem >-->
+<!--		     			<apex:outputLabel value="Zip"/>-->
+<!--		     			<apex:outputText value=""/>-->
+<!--		     		</apex:pageBlockSectionItem>-->
+<!--		     		<apex:inputCheckbox value="{!Zip}" onchange="addFields(this,'Zip__c', 'patient');" id="ZipId"/>-->
+<!--					<apex:inputCheckbox value="{!Zip}" id="ZipId"/>-->
+					
+		       </apex:pageBlockSection>
+		            <apex:pageBlockSection title="Registration" columns="2" id="RegistrationpageblksectionId">
+<!--			        	<apex:pageBlockSectionItem >-->
+<!--			     			<apex:outputLabel value="Registration Date"/>-->
+<!--			     			<apex:outputText value=""/>-->
+<!--			     		</apex:pageBlockSectionItem>-->
+<!--		     		<apex:inputCheckbox value="{!RegistrationDate}" onchange="addFields(this,'Registration_Date__c','Registration');" id="RegistrationDateId"/> -->
+<!--		     		<apex:inputCheckbox value="{!RegistrationDate}" id="RegistrationDateId"/>-->
+		     		
+<!--		     		<apex:pageBlockSectionItem >-->
+<!--		     			<apex:outputLabel value="Study Coordinator"/>-->
+<!--		     			<apex:outputText value=""/>-->
+<!--		     		</apex:pageBlockSectionItem>-->
+<!--		     		<apex:inputCheckbox value="{!StudyCoordinator}" onchange="addFields(this,'CreatedById','Registration');" id="StudyCordinateId"/> -->
+<!--		     		<apex:inputCheckbox value="{!StudyCoordinator}" id="StudyCordinateId"/>-->
+		     		
+<!--		     		<apex:pageBlockSectionItem >-->
+<!--		     			<apex:outputLabel value="ACRIN 6698 Repeat Scan Consent"/>-->
+<!--		     			<apex:outputText value=""/>-->
+<!--		     		</apex:pageBlockSectionItem>-->
+<!--	     			<apex:inputCheckbox value="{!ACRIN6698RepeatScanConsent}" onchange="addFields(this,'ACRIN_6693_MRS_Participant__c','Registration');" id="ACRIN6698RepeatScanConsentId"/>-->
+<!--		     		<apex:inputCheckbox value="{!ACRIN6698RepeatScanConsent}" id="ACRIN6698RepeatScanConsentId"/>-->
+		     		
+		     		<apex:pageBlockSectionItem >
+		     			<apex:outputLabel value="I-SPY 2 Subject Id"/>
+		     			<apex:outputText value=""/>
+		     		</apex:pageBlockSectionItem>
+<!--		     		<apex:inputCheckbox value="{!ISPY2SubjectId}" onchange="addFields(this,'ISPY2_Subject_Id__c','Registration');" id="ISPY2SubjectId"/>-->
+		     		<apex:inputCheckbox value="{!ISPY2SubjectId}"  id="ISPY2SubjectId"/>
+		     		
+<!--		     		<apex:pageBlockSectionItem >-->
+<!--		     			<apex:outputLabel value="Oncologist"/>-->
+<!--		     			<apex:outputText value=""/>-->
+<!--		     		</apex:pageBlockSectionItem>-->
+<!--		     		<apex:inputCheckbox value="{!Oncologist}" onchange="addFields(this,'Oncologist__c','Registration');" id="OncologistId"/> -->
+<!--		     		<apex:inputCheckbox value="{!Oncologist}" id="OncologistId"/>-->
+<!--		     		-->
+<!--		     		<apex:pageBlockSectionItem >-->
+<!--		     			<apex:outputLabel value="Surgeon"/>-->
+<!--		     			<apex:outputText value=""/>-->
+<!--		     		</apex:pageBlockSectionItem>-->
+<!--		     		<apex:inputCheckbox value="{!Surgeon}" onchange="addFields(this,'Surgeon__c','Registration');" id="SurgeonId"/> -->
+<!--		     		<apex:inputCheckbox value="{!Surgeon}"  id="SurgeonId"/>-->
+<!--		     		-->
+<!--		     		<apex:pageBlockSectionItem >-->
+<!--		     			<apex:outputLabel value="Clinical Coordinator"/>-->
+<!--		     			<apex:outputText value=""/>-->
+<!--		     		</apex:pageBlockSectionItem>-->
+<!--		     		<apex:inputCheckbox value="{!ClinicalCoordinator}" onchange="addFields(this,'Clinical_Coordinator__c','Registration');" id="ClinicalCoordinatorId"/> -->
+<!--		     		<apex:inputCheckbox value="{!ClinicalCoordinator}" id="ClinicalCoordinatorId"/>-->
+<!--		     		-->
+<!--		     		<apex:pageBlockSectionItem >-->
+<!--		     			<apex:outputLabel value="Radiology Coordinator"/>-->
+<!--		     			<apex:outputText value=""/>-->
+<!--		     		</apex:pageBlockSectionItem>-->
+<!--		     		<apex:inputCheckbox value="{!RadiologyCoordinator}" onchange="addFields(this,'Radiology_Coordinator__c','Registration');" id="RadiologyCoordinatorId"/>-->
+<!--		     		<apex:inputCheckbox value="{!RadiologyCoordinator}"  id="RadiologyCoordinatorId"/>-->
+<!--		     		-->
+<!--		     		<apex:pageBlockSectionItem >-->
+<!--		     			<apex:outputLabel value="IRB Approval Date"/>-->
+<!--		     			<apex:outputText value=""/>-->
+<!--		     		</apex:pageBlockSectionItem>-->
+<!--		     		<apex:inputCheckbox value="{!IRBApprovalDate}" onchange="addFields(this,'IRB_Approval_Date__c','Registration','Registration');" id="IRBApprovalDateId"/> -->
+<!--		     		<apex:inputCheckbox value="{!IRBApprovalDate}"  id="IRBApprovalDateId"/>-->
+<!--		     		-->
+<!--		     		<apex:pageBlockSectionItem >-->
+<!--		     			<apex:outputLabel value="Screening Informed Consent Date"/>-->
+<!--		     			<apex:outputText value=""/>-->
+<!--		     		</apex:pageBlockSectionItem>-->
+<!--		     		<apex:inputCheckbox value="{!ScreeningInformedConsentDate}" onchange="addFields(this,'Screening_Informed_Consent_Date__c','Registration');" id="ScreeningInformedConsentDateId"/> -->
+<!--		     		<apex:inputCheckbox value="{!ScreeningInformedConsentDate}" id="ScreeningInformedConsentDateId"/>-->
+<!--		     		-->
+<!--		     		<apex:pageBlockSectionItem >-->
+<!--		     			<apex:outputLabel value="HIPPA Consent Date"/>-->
+<!--		     			<apex:outputText value=""/>-->
+<!--		     		</apex:pageBlockSectionItem>-->
+<!--		     		<apex:inputCheckbox value="{!HIPPAConsentDate}" onchange="addFields(this,'HIPPA_Consent_Date__c','Registration');" id="HIPPAConsentDateId"/> 		     		-->
+<!--		     		<apex:inputCheckbox value="{!HIPPAConsentDate}" id="HIPPAConsentDateId"/>-->
+		     	</apex:pageBlockSection>
+    	</apex:tab>
+   </apex:tabPanel>
+   </apex:pageBlock>
+<!--   <apex:outputPanel rendered="{!IsConfigSaved}">-->
+<!--   		<script>UncheckAllCheckboxes();</script>-->
+<!--   </apex:outputPanel> -->
+  </apex:form>
+</apex:page>

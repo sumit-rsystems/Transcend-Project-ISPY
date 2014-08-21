@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Pre Registration Snomed Codes</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Pre Registration Snomed Codes</value>
+    </caseValues>
+    <fields>
+        <label><!-- CRF --></label>
+        <name>CRF__c</name>
+        <relationshipLabel><!-- Pre Registration Snomed Codes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Code Master --></label>
+        <name>Code_Master__c</name>
+        <relationshipLabel><!-- Pre Registration Snomed Codes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Code System Version --></label>
+        <name>Code_System_Version__c</name>
+    </fields>
+    <fields>
+        <label><!-- Code System --></label>
+        <name>Code_System__c</name>
+    </fields>
+    <fields>
+        <label><!-- Numeric Value --></label>
+        <name>Numeric_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Patient --></label>
+        <name>Patient__c</name>
+        <relationshipLabel><!-- Pre Registration Snomed Codes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Value --></label>
+        <name>Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- caIntegratorValue --></label>
+        <name>caIntegratorValue__c</name>
+    </fields>
+    <fields>
+        <label><!-- snomed Code Name --></label>
+        <name>snomed_Code_Name__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

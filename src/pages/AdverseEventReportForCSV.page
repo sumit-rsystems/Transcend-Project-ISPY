@@ -1,0 +1,27 @@
+<apex:page controller="AdverseEventReportController" sidebar="false" showheader="false" standardStylesheets="false" cache="true" contentType="application/vnd.ms-excel#AdverseEventReport.csv">
+"","","","ADVERSE EVENTS AND CHEMOTHERAPY TREATMENT REPORT","","",""
+"Study:","{!trialName}"
+"Reporting period:","<apex:outputText value="{0,date,dd MMMM yyyy}"><apex:param value="{!startDate}" /></apex:outputText> through <apex:outputText value="{0,date,dd MMMM yyyy}"><apex:param value="{!endDate}" /></apex:outputText>"
+<!------------------------------------ ADVERSE EVENTS ------------------------------------>                           
+"ADVERSE EVENTS"
+<!------------------------------------ TOTAL ADVERSE EVENTS BY PARTICIPANT AND TREATMENT ARM ------------------------------>
+"TOTAL ADVERSE EVENTS BY PARTICIPANT AND TREATMENT ARM"
+"Treatment Arm / I-SPY 2 ID","Total AEs","Possible SAEs","Unresolved AEs","Resolved AEs"
+<apex:repeat value="{!summaryList}" var="summary">
+"{!summary.armOrSubject}","{!summary.totalAEs}","{!summary.possibleSAEs}","{!summary.unresolvedAEs}","{!summary.resolvedAEs}"
+</apex:repeat>
+
+<!------------------------------------ ADVERSE EVENTS BY PARTICIPANT AND TREATMENT ARM ------------------------------------>
+"ADVERSE EVENTS BY PARTICIPANT AND TREATMENT ARM"
+"Treatment Arm","I-SPY 2 ID","CTCAEv4 Term","CTCAE Code","Visit Date","Baseline Symptom","Event Onset Date","Resolved","Event End Date","Event Grade","Attribution","SAE","Patient Complaint"
+<apex:repeat value="{!aeList}" var="ae">
+"{!ae.arm}","{!ae.subjectId}","{!ae.ctcae}","{!ae.ctcaeCode}","<apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!ae.visitDate}" /></apex:outputText>","{!ae.baselineSymptom}","<apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!ae.eventOnsetDate}" /></apex:outputText>","{!ae.resolved}","<apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!ae.eventEndDate}" /></apex:outputText>","{!ae.eventGrade}","{!ae.attribution}","{!ae.sae}","{!ae.patientComplaint}"
+</apex:repeat>
+
+<!------------------------------------ ADVERSE EVENTS AND CHEMOTHERAPY TREATMENT REPORT ------------------------------------>
+"ADVERSE EVENTS AND CHEMOTHERAPY TREATMENT REPORT"
+"I-SPY 2 ID","Date of Therapy","Cycle#","Day","Agent Name","Prescribed Dose","Actual Dose","Dose Delay","Dose Modification %","Dose Modification Reason","Off-Study Treatment Reason"
+<apex:repeat value="{!chemoRegimentList}" var="reg">
+"{!reg.Chemo_Treatment__r.TrialPatient__r.Subject_Id__c}","<apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!reg.Chemo_Treatment__r.Date_of_therapy__c}" /></apex:outputText>","{!reg.Chemo_Treatment__r.Cycle_number__c}","{!reg.Day__c}","{!reg.Agent__r.Name}","{!reg.Prescribed_Dose__c}","{!reg.Total_Dose__c}","{!reg.Dose_Delay__c}","{!reg.Dose_Mod__c}","{!reg.Dose_modification__c}","{!reg.Reason_why_patient_stopped_receiving__c}"
+</apex:repeat>
+</apex:page>

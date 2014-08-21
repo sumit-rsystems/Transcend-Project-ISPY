@@ -1,0 +1,38 @@
+<apex:page showHeader="false" sidebar="false">
+<style>
+	.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv { 
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete Protocol Violation form?</h2>
+		</apex:outputPanel>
+		<p>The Protocol Violation Form is used to report protocol violation that occurs at any time after a patient has signed a screening consent form.</p>
+		<p><i>To open the Protocol Violation Form, select the patient from the 'Patient' tab select ‘Trial' select 'Submit New' for  'Protocol Violation Form’. It is present in both Screening and Treatment tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.ProtocolViolationScreenshot, 'ProtocolViolation1.png')}" width="118%" height="118%"/></p>
+		<ul>
+			<li>Select the date the protocol violation occurred using the blue calendar button to the right of the data field. You can also manually enter the date in mm/dd/yyyy format.</li>
+			<li>Select the type(s) of protocol violation(s) that occurred by checking the checkbox next to the violation.</li>
+			<li>Provide details about what happened and the corrective steps that were taken in relation to the protocol violation in the narrative description text box.</li>
+			<li>Select the action that was taken because of the protocol violation  [<i>Patient remains on study, Patient withdrawn, OR Other-specify in text box</i>].</li>
+			<li>Answer the question as to whether your local IRB was notified of this protocol violation [<i>No OR Yes</i>].</li>		
+		</ul> 
+		<p><i>Select 'Next' to advance to the 'Comments and Attachments' tab</i></p>
+		<p>Attach any relevant de-identified clinical notes or note to file (source documents) that document the data that was entered for this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+		<p>Provide any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+		<p><i>Select 'Next' to advance to the 'Complete' tab</i></p>
+		<p><apex:image url="{!URLFOR($Resource.ProtocolViolationScreenshot, 'ProtocolViolation2.png')}" width="115%" height="115%"/></p>
+		<ul>
+			<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the screen to update the incorrect information.</li>
+			<li>When you are ready to send the CRF to the DCC for verification, enter your password and select 'Sign and Submit.'</li>
+		</ul> 
+	</apex:outputPanel> 
+</apex:page>

@@ -1,0 +1,37 @@
+<apex:page sidebar="false" showheader="false">
+	<style>
+		.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+	</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete Off Study form?</h2>
+	</apex:outputPanel>
+	<p>The Off-Study Form is used to collect the reason why a patient went Off-Study AFTER signing the treatment consent form.  If a patient decided to no longer participate in the study after they signed the Screening Consent Form, complete the Randomization Form instead of the Off-Study Form.  This information is used to identify those patients who have been treated and are no longer being followed per protocol for this study.</p>
+	<p><i>To open the Off Study Form, select the patient from the 'Patient' Tab; select 'Trial'; Select ‘Follow Up/Treatment’ tab and select ‘Submit New’ for ‘Off Study Form’.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.OffStudyformImages, 'offstudy1.PNG')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Select the date the patient went off-study using the blue calendar button to the right of the data field. You can also manually enter the date in mm/dd/yyyy format.</li>
+		<li>Select the reason(s) why the patient is off-study by checking the checkbox next to the reason <i>[Patient completed study per protocol, Patient did not want to complete study MRI scans, Patient did not want to complete study core biopsy, Patient did not continue on treatment arm (select the specific reason why: due to S/AE, Personal preference, OR Other-specify in text box), Patient did not have surgery (specific reason why in text box), OR Patient died].</i></li>
+		<li>Answer the question as to whether the patient withdrew consent to be followed for survival <i>[No OR Yes]</i>. NOTE: The yes answer is only acceptable if the patient completed the follow up period per protocol.  If the patient stopped study treatment and agreed to continue to be followed for survival, do not complete this CRF until after the follow up period per protocol.</li>
+		<li>Answer the question as to whether the patient withdrew consent for use of their specimens for further research <i>[No OR Yes].</i></li>
+	</ul>
+	<p><i>Select 'Next' to advance to the 'Comments &amp; Attachments' tab</i></p>
+	<p>Attach all relevant de-identified pathology reports, clinical notes, laboratory notes, and imaging reports (source documents) that document the data that is listed on this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+	<p>Provide any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+	<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+	<p><apex:image url="{!URLFOR($Resource.OffStudyformImages, 'offstudy2.PNG')}" width="100%" height="100%"/></p>
+	<ul>
+		<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the screen to update the incorrect information.</li>
+		<li>When you are ready to send the CRF to the DCC for verification, enter your password and select 'Sign and Submit.'</li>
+	</ul>
+	</apex:outputPanel>
+	</apex:page>

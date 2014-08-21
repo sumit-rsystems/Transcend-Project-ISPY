@@ -1,0 +1,700 @@
+<apex:page standardController="Menopausal_Status_Detail__c" extensions="MenopausalStatusDetailController" action="{!insertCRF}" sidebar="false" id="pageId" tabStyle="Patient_Custom__c">
+<script type="text/javascript">
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script>
+
+
+<style>
+.tableProcedureHeadPage {
+    width: 22%;
+}
+.tableLateralityHeadPage {
+    width: 6%; 
+}
+.tableLocationHeadPage {
+    width: 18%;
+}
+
+.activeTab {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    color: #000000;
+    font-weight: 600;
+    width: 198px;
+}
+
+.selectbox{
+            background-color: #2F96E4;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            height: 25px;
+            position: relative;
+            width: 152px;
+            border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+            color:#fff;
+            font-size:12px; font-weight: bold;
+            padding:3px 0 3px 10px;
+        }
+
+.inactiveTab {
+        cursor: pointer;
+        /*background-color: #7A9FA0;*/
+        background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+        color: white; /*#3C3C3C;*/
+        font-weight: bold;
+        font-size: 12px;
+        height: 15px; 
+        width: 195px;
+        vertical-align: middle;
+        /*padding-top: 4px;*/
+        border: none;
+}
+    
+.rich-tab-inactive {
+    background-repeat: repeat-x;
+    border-color: #FFFFFF;
+    border-style: none;
+    border-width: 0;
+    cursor: pointer;
+}
+
+.rich-tabhdr-side-border {
+    background-image:none; 
+    border-radius: 4px 4px 0 0;
+    background-color: none;
+    width: 2px;
+}
+
+.rich-tabhdr-side-cell {
+    box-shadow: 0 -2px 2px #A7A7A8;
+    /*border: 2px solid #056FC1;*/
+    border-top: 2px solid #056FC1;
+    border-left: 2px solid #056FC1;
+    border-right: 2px solid #056FC1;
+    border-radius: 4px 4px 0 0;
+}
+
+.rich-tabpanel-content {
+    background-color: #fff;
+    border-left: 2px solid #056FC1;
+    border-right: 2px solid #056FC1;
+    border-bottom: 2px solid #056FC1;
+}
+
+.rich-tab-bottom-line {
+    border-bottom: 1px solid #056FC1;
+}
+
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+.name {
+        font-size: 1.50em;
+        font-weight: bold;
+        }
+</style>
+<script>
+    function checkCancel() {
+        if(confirm("Completely cancel and remove?")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function checkDelete() {
+        if(confirm("Are you sure you want to Delete this form?")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function enableRow(obj) {
+        parentObj = obj.parentNode.parentNode;
+        var inputString = parentObj.getElementsByTagName('input');
+        if(obj.checked) {
+            for(var i=0;i<inputString.length;i++) {
+                inputString[i].disabled = false;
+            }
+        } else {
+            for(var i=0;i<inputString.length;i++) {
+                if(i == 0) continue;
+                inputString[i].value = '';
+                inputString[i].disabled = true;
+            }
+        }
+    } 
+    function BilateralOptions(obj){
+        //pageId:formId:pageBlockId:pageBlockSectionId:j_id108:Date_of_Last_Menstrual_Period
+        changeMenopasualStatus(document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:j_id121:Date_of_Last_Menstrual_Period'));
+        //changeMenopasualStatus1();
+        trObj = obj.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+        var tdList = trObj.getElementsByTagName('td');
+            for(var i = 3; i<tdList.length; i++) {
+                var inputList = tdList[i].getElementsByTagName('input');
+                if(obj.value == 'No') {
+                inputList[0].disabled = true;
+                inputList[0].value = '';
+                } else if(obj.value == 'Yes') {
+                    inputList[0].disabled = false;
+                } 
+            }  
+    } 
+    function HysterectomyOptions(obj){
+        trObj = obj.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+        var tdList = trObj.getElementsByTagName('td');
+            for(var i = 3; i<tdList.length; i++) {
+                var inputList = tdList[i].getElementsByTagName('input');
+                if(obj.value == 'No') {
+                inputList[0].disabled = true;
+                inputList[0].value = '';
+                } else if(obj.value == 'Yes') {
+                    inputList[0].disabled = false;
+                } 
+            }  
+    } 
+    function estrogenOptions(obj){
+        changeMenopasualStatus(document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:j_id121:Date_of_Last_Menstrual_Period'));
+        
+        trObj = obj.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+        var tdList = trObj.getElementsByTagName('td');
+            for(var i = 3; i<tdList.length; i++) {
+                var inputList = tdList[i].getElementsByTagName('input');
+                if(obj.value == 'No') {
+                    inputList[0].disabled = true;
+                    inputList[0].value = '';
+                    
+                } else if(obj.value == 'Yes') {
+                    inputList[0].disabled = false;
+                } 
+            }
+            var tdList1 = trObj.getElementsByTagName('td');
+            for(var i = 3; i<tdList1.length; i++) {
+                var inputList = tdList1[i].getElementsByTagName('input');
+                if(obj.value == 'No') {
+                inputList[1].disabled = true;
+                inputList[1].value = '';
+                } else if(obj.value == 'Yes') {
+                    inputList[1].disabled = false;
+                } 
+            }  
+    } 
+    
+    function changeMenopasualStatus(obj) {
+        var On_estrogen_replacement =  document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:j_id133:j_id136:0');
+        var Bilateral_oophorectomy =  document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:j_id141:j_id144:0');
+        
+        //splits date to arrays to create JS dates
+            var Date_of_Last_Menstrual_Period_Array = obj.value.split("/");
+            var sixMonthsBackDate_Array = document.getElementById('pageId:formId:sixMonthsBackDate').value.split("/");
+            var twelveMonthsBackDate_Array = document.getElementById('pageId:formId:twelveMonthsBackDate').value.split("/");
+            
+        //create JS dates
+            var Date_of_Last_Menstrual_Period_JSDate = new Date(Date_of_Last_Menstrual_Period_Array[2], Date_of_Last_Menstrual_Period_Array[0], Date_of_Last_Menstrual_Period_Array[1]);
+            var sixMonthsBackDate_JSDate = new Date(sixMonthsBackDate_Array[2], sixMonthsBackDate_Array[0], sixMonthsBackDate_Array[1]);
+            var twelveMonthsBackDate_JSDate = new Date(twelveMonthsBackDate_Array[2], twelveMonthsBackDate_Array[0], twelveMonthsBackDate_Array[1]);
+            
+        //calculate menopasual status
+            //alert('Date_of_Last_Menstrual_Period_JSDate: '+Date_of_Last_Menstrual_Period_JSDate+', sixMonthsBackDate_JSDate: '+sixMonthsBackDate_JSDate+', twelveMonthsBackDate_JSDate: '+twelveMonthsBackDate_JSDate);
+            if(Date_of_Last_Menstrual_Period_JSDate.getTime() > sixMonthsBackDate_JSDate.getTime() && !On_estrogen_replacement.checked && !Bilateral_oophorectomy.checked) {
+                document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:Menopausal_StatusItem:Menopausal_Status').selectedIndex = 1;
+            } else if(Date_of_Last_Menstrual_Period_JSDate.getTime() < sixMonthsBackDate_JSDate.getTime() && Date_of_Last_Menstrual_Period_JSDate.getTime() > twelveMonthsBackDate_JSDate.getTime() && !On_estrogen_replacement.checked && !Bilateral_oophorectomy.checked) {
+                document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:Menopausal_StatusItem:Menopausal_Status').selectedIndex = 2;
+            } else if(Date_of_Last_Menstrual_Period_JSDate.getTime() < twelveMonthsBackDate_JSDate.getTime() || Bilateral_oophorectomy.checked) {
+                document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:Menopausal_StatusItem:Menopausal_Status').selectedIndex = 3;
+            } else {
+                document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:Menopausal_StatusItem:Menopausal_Status').selectedIndex = 4;
+            }
+    }
+    
+//function for calculate menopausal status according to seperatly entered year, month and date  
+    function changeMenopausalStatus1() {
+        var Last_Menstrual_YearObj = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:j_id121:Last_Menstrual_Year');
+        if(Last_Menstrual_YearObj.disabled) return;
+        
+        var On_estrogen_replacement =  document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:j_id133:j_id136:0');
+        var Bilateral_oophorectomy =  document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:j_id141:j_id144:0');
+        
+        var Last_Menstrual_Year = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:j_id121:Last_Menstrual_Year').value;
+        Last_Menstrual_Year = Last_Menstrual_Year.replace(",",""); 
+        var Last_Menstrual_Month = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:j_id121:Last_Menstrual_Month').value;
+        var Last_Menstrual_day = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:j_id121:Last_Menstrual_day').value;
+        if(Last_Menstrual_day == '') {
+            Last_Menstrual_day = 1;
+        }
+        if(Last_Menstrual_Year != '' && Last_Menstrual_Month != '') {
+            var sixMonthsBackDate_Array = document.getElementById('pageId:formId:sixMonthsBackDate').value.split("/");
+            var twelveMonthsBackDate_Array = document.getElementById('pageId:formId:twelveMonthsBackDate').value.split("/");
+            
+        //create JS dates
+            var Date_of_Last_Menstrual_Period_JSDate = new Date(Last_Menstrual_Year, Last_Menstrual_Month, Last_Menstrual_day);
+            var sixMonthsBackDate_JSDate = new Date(sixMonthsBackDate_Array[2], sixMonthsBackDate_Array[0], sixMonthsBackDate_Array[1]);
+            var twelveMonthsBackDate_JSDate = new Date(twelveMonthsBackDate_Array[2], twelveMonthsBackDate_Array[0], twelveMonthsBackDate_Array[1]);
+            if(Date_of_Last_Menstrual_Period_JSDate.getTime() > sixMonthsBackDate_JSDate.getTime() && !On_estrogen_replacement.checked && !Bilateral_oophorectomy.checked) {
+                document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:Menopausal_StatusItem:Menopausal_Status').selectedIndex = 1;
+            } else if(Date_of_Last_Menstrual_Period_JSDate.getTime() < sixMonthsBackDate_JSDate.getTime() && Date_of_Last_Menstrual_Period_JSDate.getTime() > twelveMonthsBackDate_JSDate.getTime() && !On_estrogen_replacement.checked && !Bilateral_oophorectomy.checked) {
+                document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:Menopausal_StatusItem:Menopausal_Status').selectedIndex = 2;
+            } else if(Date_of_Last_Menstrual_Period_JSDate.getTime() < twelveMonthsBackDate_JSDate.getTime() || Bilateral_oophorectomy.checked) {
+                document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:Menopausal_StatusItem:Menopausal_Status').selectedIndex = 3;
+            } else {
+                document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:Menopausal_StatusItem:Menopausal_Status').selectedIndex = 4;
+            }
+        } else {
+            document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:Menopausal_StatusItem:Menopausal_Status').selectedIndex = 4;
+        }
+        //alert(document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:Menopausal_StatusItem:Menopausal_Status').selectedIndex);
+    }
+    
+    function enableMenstrualPeriod(obj ,event){
+        //alert(obj.value);
+        
+         if(event!='onLoad'){
+        	changeMenopasualStatus(obj);
+        }
+        trObj = obj.parentNode.parentNode.parentNode;
+        var inputList = trObj.getElementsByTagName('input');
+            for(var i = 0; i<inputList.length; i++) {
+                if(i == 3) continue;
+                if(obj.value != '') {
+                    inputList[i].disabled = true;
+                } else{
+                    inputList[i].disabled = false;
+                }
+        }
+    } 
+    function unknownDate(obj, fieldFlag){
+        trObj = obj.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+        var inputList = trObj.getElementsByTagName('input');
+            for(var i = 0; i<inputList.length; i++) {
+                if(fieldFlag == 1) {
+                    if(i == 5) continue;
+                } else { 
+                    if(i == 4) continue;
+                }
+                if(obj.checked) {
+                	if(inputList[i].type != "checkbox") {
+	                	inputList[i].value = '';
+                	}
+                    inputList[i].disabled = true;
+                } else{
+                    inputList[i].disabled = false;
+                }
+        }
+    }
+    function MenstrualYear(obj){
+        trObj = obj.parentNode.parentNode;
+        var inputList = trObj.getElementsByTagName('input');
+            for(var i = 3; i<inputList.length; i++) {
+                if(obj.value != '') {
+                    inputList[i].disabled = true;
+                } else{
+                    inputList[i].disabled = false;
+                }
+        }
+    } 
+    
+    function startSplash() {
+        var divObj = document.getElementById('splashDiv');
+        var msgSplash =document.getElementById('waitMsg');
+        var browserName = navigator.appName;
+        if(browserName == 'Netscape'){
+            divObj.style.display='table-cell'; 
+        } else {
+            divObj.style.display='table-cell';
+        }
+    }
+    
+    function endSplash() {            
+        document.getElementById('splashDiv').style.display='none';
+    }
+    
+</script>
+<div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+    <div style="text-align: center; top: 40%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+</div>
+<span class ="name">Patient's Details</span>
+    <br/>
+        <c:PatientDetailReadOnly patientId="{!trialPatientObj.Patient_Id__c}"/>
+    <br/>
+<table width="100%">
+        <tr>
+            <td width="40%" align="left">
+                 <span class ="name"> Menopausal Status </span>
+            </td>
+            <td width="60%" align="left">
+                <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialPatientObj.Trial_Id__r.Name}" />
+            </td>
+        </tr>
+    </table>
+    <apex:form id="formId">
+        <apex:pageBlock id="menoPageBlockBtn" helpTitle="Help"  helpUrl="/apex/MenopausalUserGuide" rendered="{!isComplete}" tabStyle="Account">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel" status="splashStatus">
+                    <apex:param name="tabNext" value="saveAndClose"/>
+                </apex:commandButton>
+                <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>
+                <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock> 
+        <apex:actionFunction name="next" action="{!next}"  rerender="theTabPanel" status="splashStatus"/>
+        <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+        <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />
+        <apex:inputHidden value="{!sixMonthsBackDate}" id="sixMonthsBackDate"/>
+        <apex:inputHidden value="{!twelveMonthsBackDate}" id="twelveMonthsBackDate"/>  
+        <apex:outputPanel >
+            <script>
+                function enterToNextTab(val){
+                    //alert(val);
+                    if('{!isComplete}' != 'false'){
+                        document.getElementById('pageId:formId:nextTabNameID').value = val;
+                        next();
+                    }
+                 }
+            </script>
+        </apex:outputPanel>
+        <apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+            <apex:tab label="Menopausal Status" name="MenopausalStatus" id="tabOne" rendered="{!isComplete}" ontabenter="enterToNextTab('MenopausalStatus');">
+                <apex:pageBlock tabStyle="Account" id="pageBlockId">
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();"/>-->
+                        <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel" status="splashStatus">
+                             <apex:param name="tabNext" value="CommentsAndAttachments"/>
+                        </apex:commandButton>
+                        <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                    </apex:pageBlockButtons>
+                    <apex:pageMessage summary="{!errorMsg}" severity="info" strength="3" rendered="{!unknownValid}"/>
+                    <apex:pageBlockSection columns="1" title="Menopausal Status Detail" id="pageBlockSectionId">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText value="Patient Age" />
+                            <apex:outputField value="{!msd.Patient_age__c}" id="ageId" />
+                        </apex:pageBlockSectionItem>  
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText value="Date of last menstrual period (Enter as much as is known)" />
+                            <apex:outputPanel > 
+                                <table width="100%">
+                                    <tr height="30px"> 
+                                        <td height="30px">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <apex:inputField value="{!msd.Last_Menstrual_Year__c}" id="Last_Menstrual_Year" style="width : 40px;" onkeyup="MenstrualYear(this)" onchange="changeMenopausalStatus1();"/>&nbsp; <br/>Year
+                                                    </td>
+                                                    <td>
+                                                        <apex:inputField value="{!msd.Last_Menstrual_Month__c}" id="Last_Menstrual_Month" style="width : 40px;" onchange="changeMenopausalStatus1();"/>&nbsp; <br/>Month
+                                                    </td>
+                                                    <td>
+                                                        <apex:inputField value="{!msd.Last_Menstrual_Day__c}" id="Last_Menstrual_day" style="width : 40px;" onchange="changeMenopausalStatus1();"/>&nbsp; <br/>Day
+                                                    </td>
+                                                    <td>
+                                                        / &nbsp; <apex:inputField value="{!msd.Date_of_Last_Menstrual_Period__c}" id="Date_of_Last_Menstrual_Period" onchange="enableMenstrualPeriod(this,'')"/>
+                                                            <script type="text/javascript">
+                                                            document.getElementById('{!$Component.Date_of_Last_Menstrual_Period}').onfocus = function onfocus(event) {
+                                                                DatePicker.pickDate(true, '{!$Component.Date_of_Last_Menstrual_Period}', false); 
+                                                                addYearInDateField('past'); 
+                                                            };
+                                                            </script>
+                                                    </td>
+                                                    <td>
+                                                        <table>
+                                                            <tr>
+                                                                <td>
+                                                                    <apex:inputField value="{!msd.Unknown_Date__c}" id="Unknown_Date" onchange="unknownDate(this)"/>
+                                                                    <apex:outputText value="Unknown Date" />
+                                                                    <script>
+                                                                        //unknownDate('{!$Component.Unknown_Date}');
+                                                                    </script>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <apex:inputField value="{!msd.Unknown_Date_but_12_Months_Ago__c}" id="Unknown_Date_but_12_Months_Ago" onchange="unknownDate(this ,1)"/>
+                                                                    <apex:outputText value="Unknown Date but >12 Months Ago" />
+                                                                    <script>
+                                                                        //unknownDate('{!$Component.Unknown_Date_but_12_Months_Ago}', 1);
+                                                                    </script>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <script type="text/javascript">
+                                                            //MenstrualYear(document.getElementById('{!$Component.Last_Menstrual_Year}'));
+                                                            //enableMenstrualPeriod(document.getElementById('{!$Component.Date_of_Last_Menstrual_Period}'),'onLoad');
+                                                            unknownDate(document.getElementById('{!$Component.Unknown_Date}'));
+                                                            //unknownDate(document.getElementById('{!$Component.Unknown_Date_but_12_Months_Ago}'), 1);
+                                                        </script>
+                                                    </td>
+                                                </tr> 
+                                            </table>
+                                        </td> 
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText value="On estrogen replacement?:" />
+                            <apex:outputPanel id="estrogenPanel">
+                            <table width="100%">
+                                <tr>
+                                    <td width="20%">
+                                        <apex:selectRadio value="{!SelectedestrogenOptions}" onchange="estrogenOptions(this)" >
+                                            <apex:selectOptions value="{!estrogenOptions}"/>
+                                        </apex:selectRadio>
+                                    </td>
+                                <td width="50%">
+                                    <!-- <apex:inputField value="{!msd.On_Estrogen_Replacement__c}" onclick="enableRow(this);"/> &nbsp;&nbsp;&nbsp;  -->Duration:
+                                        <apex:inputField value="{!msd.Enstrogent_Replacement_Duration_Months__c}" style="width : 45px;" id="EstrogenMonthId"/>&nbsp; Months
+                                        <apex:inputField value="{!msd.Enstrogent_Replacement_Duration_Years__c}" style="width : 45px;" id="EstrogenYearId"/>&nbsp; Years
+                                    <script>
+                                        document.getElementById('{!$Component.EstrogenMonthId}').disabled = {!onEstrogen};
+                                        document.getElementById('{!$Component.EstrogenYearId}').disabled = {!onEstrogen};
+                                </script> 
+                                </td>
+                                </tr>
+                            </table>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText value="Bilateral oophorectomy?:" />
+                            <apex:outputPanel id="BilateralPanel">
+                            <table width="100%">
+                            <tr>
+                                <td width="20%">
+<!--                                <apex:inputField value="{!msd.Bilateral_oophorectomy__c}" onclick="enableRow(this);"/> &nbsp;&nbsp;&nbsp; -->
+                                    <apex:selectRadio value="{!SelectedBilateralOptions}" onchange="BilateralOptions(this)">
+                                    <apex:selectOptions value="{!bilateraloptions}"/>
+                                    </apex:selectRadio>
+                                </td>
+                                <td width="50%">
+                                    Date: &nbsp;<apex:inputField value="{!msd.Bilateral_Oophorectomy_Date__c}" id="BilateralDateId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.BilateralDateId}').disabled = {!onBilateral};
+                                    </script>
+                                    <script type="text/javascript">
+                                            document.getElementById('{!$Component.BilateralDateId}').onfocus = function onfocus(event) {
+                                            DatePicker.pickDate(true, '{!$Component.BilateralDateId}', false); 
+                                            addYearInDateField(''); 
+                                        };
+                                    </script> 
+                                </td>
+                                </tr>
+                            </table>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText value="Hysterectomy?:" />
+                            <apex:outputPanel id="Hysterectomy">
+                                <table width="100%">
+                                <tr>
+                                    <td width="20%">
+    <!--                                <apex:inputField value="{!msd.Hysterectomy__c}" onclick="enableRow(this);"/> &nbsp;&nbsp;&nbsp; -->
+                                        <apex:selectRadio value="{!SelectedHysterectomyOptions}" onchange="HysterectomyOptions(this)">
+                                            <apex:selectOptions value="{!hysterectomyOptions}"/>
+                                        </apex:selectRadio>
+                                    </td>
+                                    <td width="50%">
+                                        Date: &nbsp;<apex:inputField value="{!msd.Hysterectomy_Date__c}" id="HysterectomyDateId"/>
+                                        <script>
+                                            document.getElementById('{!$Component.HysterectomyDateId}').disabled = {!onHysterectomy};
+                                        </script> 
+                                        <script type="text/javascript">
+                                            document.getElementById('{!$Component.HysterectomyDateId}').onfocus = function onfocus(event) {
+                                            DatePicker.pickDate(true, '{!$Component.HysterectomyDateId}', false); 
+                                            addYearInDateField(''); 
+                                            };
+                                        </script>
+                                    </td>
+                                </tr>
+                            </table>
+                            </apex:outputPanel> 
+                        </apex:pageBlockSectionItem>
+                        <apex:inputField value="{!msd.AgeVal__c}" id="ageValId" label="" style="display:none;"/>
+                        <apex:pageBlockSectionItem id="Menopausal_StatusItem">  
+                            <apex:outputText value="Menopausal Status:" />
+                            <apex:inputField value="{!msd.Menopausal_Status__c}" id="Menopausal_Status" required="true"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:tab> 
+            <apex:tab label="Comments And Attachments" name="CommentsAndAttachments" id="tabtwo" rendered="{!isComplete}" ontabenter="enterToNextTab('CommentsAndAttachments');">
+                <apex:pageBlock tabStyle="Account">
+                    <apex:pageBlockButtons location="top" >
+<!--                        <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();"/>-->
+                        <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel" status="splashStatus">
+                            <apex:param name="tabPrevious" value="MenopausalStatus"/>
+                        </apex:commandButton>
+                        <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel" status="splashStatus">
+                                <apex:param name="tabNext" value="Complete"/>
+                        </apex:commandButton>
+                        <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                    </apex:pageBlockButtons>
+                    <apex:pageMessage summary="Please redact all PHI information from attachments." severity="info" strength="3"/>
+                    <apex:pageBlockSection columns="1">
+<!--                        <chatter:feedWithFollowers entityId="{!msd.Id}"></chatter:feedWithFollowers>-->
+                        <apex:iframe src="/apex/ChatterPage?recId={!msd.Id}" scrolling="true" id="theIframe"/>
+                        <c:CRFAttachmentComponent rId="{!msd.Id}" feedCRFName="Menopausal_Status_Detail__Feed" rtId="{!msd.Root_CRF_Id__c}"/> 
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:tab>
+            <apex:tab label="Complete" name="Complete" id="tabthree" ontabenter="enterToNextTab('Complete');">
+                <apex:pageBlock tabStyle="Account" id="pageBlockId1">
+                  <apex:pageBlockButtons location="top" >
+                      <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel" status="splashStatus" rendered="{!isComplete}">
+                          <apex:param name="tabPrevious" value="CommentsAndAttachments"/>
+                      </apex:commandButton> 
+                  <!-----  delete button fuctionlity- start    ----------------------------------> 
+                <apex:commandButton action="{!customCancel}" value="Delete" onclick="return checkDelete();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+                 <!-----  delete button fuctionlity- end   -------------------------------------> 
+                    <apex:commandLink style="text-decoration:none;padding:3.3px;" styleClass="btn" target="_blank" value="Generate Pdf" action="{!redirect}"  rendered="{!msd.Status__c == 'Accepted'}"/>
+                
+                    <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                  </apex:pageBlockButtons>
+                    <!--<apex:actionFunction name="editCRF" action="{!editCRF}" rerender="theTabPanel" status="processStatus"/>
+                    <apex:outputPanel id="dummayPanel">
+                        <script>
+                            //alert("{!openInEditMode}");
+                            if("{!openInEditMode}" == "true") {
+                                editCRF();
+                            }
+                        </script>
+                    </apex:outputPanel>-->
+                    <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">
+                        <apex:pageBlock tabStyle="Account">
+                            <apex:pageBlockButtons location="top">
+                                <apex:commandButton action="{!editCRF}" value="Edit" reRender="formId" status="processStatus" rendered="{!IF(AND(msd.Status__c == 'Rejected', isShowEditButton),true,false)}"/>
+                                <apex:actionStatus id="processStatus" startText="Processing..." onstop=""/>
+                            </apex:pageBlockButtons>
+                         </apex:pageBlock>
+                    </apex:outputPanel>
+                    <apex:pageBlockSection columns="1" title="Menopausal Status Detail" id="pageBlockSectionId">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText value="Patient Age" />
+                            <apex:outputField value="{!msd.Patient_age__c}" id="ageId" />   
+                        </apex:pageBlockSectionItem>  
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText value="Date of last menstrual period (Enter as much as is known)" />
+                            <apex:outputPanel >
+                                <table width="100%">
+                                    <tr height="30px">
+                                        <td height="30px">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <apex:outputText value="{0, number, 000}" style="width : 40px;"><apex:param value="{!msd.Last_Menstrual_Year__c}" /></apex:outputText>&nbsp; <br/>Year
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;&nbsp;&nbsp;<apex:outputField value="{!msd.Last_Menstrual_Month__c}" style="width : 40px;"/>&nbsp; <br/>Month
+                                                    </td>
+                                                    <td>
+                                                        <apex:outputField value="{!msd.Last_Menstrual_Day__c}" style="width : 40px;"/>&nbsp; <br/>Day
+                                                    </td>
+                                                    <td>
+                                                         &nbsp; <apex:outputField value="{!msd.Date_of_Last_Menstrual_Period__c}" />
+                                                    </td>
+                                                </tr> 
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <apex:outputField value="{!msd.Unknown_Date__c}" />
+                                                        <apex:outputText value="Unknown Date" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <apex:outputField value="{!msd.Unknown_Date_but_12_Months_Ago__c}" />
+                                                        <apex:outputText value="Unknown Date but >12 Months Ago" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText value="On estrogen replacement?:" />
+                            <apex:outputPanel >
+                                <apex:outputField value="{!msd.On_Estrogen_Replacement__c}" /> &nbsp;&nbsp;&nbsp; Duration:
+                                <apex:outputField value="{!msd.Enstrogent_Replacement_Duration_Months__c}" style="width : 40px;"/>&nbsp; Months
+                                <apex:outputField value="{!msd.Enstrogent_Replacement_Duration_Years__c}" style="width : 40px;"/>&nbsp; Years
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText value="Bilateral oophorectomy?:" />
+                            <apex:outputPanel >
+                                <apex:outputField value="{!msd.Bilateral_oophorectomy__c}" /> &nbsp;&nbsp;&nbsp; 
+                                Date: &nbsp;<apex:outputField value="{!msd.Bilateral_Oophorectomy_Date__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText value="Hysterectomy?:" />
+                            <apex:outputPanel >
+                                <apex:outputField value="{!msd.Hysterectomy__c}" /> &nbsp;&nbsp;&nbsp; 
+                                Date: &nbsp;<apex:outputField value="{!msd.Hysterectomy_Date__c}" />
+                            </apex:outputPanel> 
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText value="Menopausal Status:" />
+                            <apex:outputField value="{!msd.Menopausal_Status__c}" />
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(msd.Id))}">
+                        <c:CRFAttachmentComponent rId="{!msd.Id}" feedCRFName="Menopausal_Status_Detail__Feed" rtId="{!msd.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(msd.Id))}">
+                        <c:CRFEventComponent rId="{!msd.Id}" objectName="Menopausal_Status_Detail__c" rtId="{!msd.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>  
+                    <div align="center">
+                    <apex:pageBlockButtons location="bottom" >
+                        <br /> 
+                        <apex:outputPanel id="msgPanelId" layout="block" style="text-align: center;"><font color="{!msgColor}">{!errorMsg1}&nbsp;</font></apex:outputPanel>
+                        <br />
+                        <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!isComplete}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!isComplete}"/>&nbsp;&nbsp;
+                        <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" rendered="{!isComplete}"/>
+                        <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" rendered="{!isComplete}"/>
+                        <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/> 
+                    </apex:pageBlockButtons>
+                    </div>
+                </apex:pageBlock>
+            </apex:tab>
+        </apex:tabPanel>
+    </apex:form>
+</apex:page>

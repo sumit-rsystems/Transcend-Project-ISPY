@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Other Protocol Report</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Other Protocol Report</value>
+    </caseValues>
+    <fields>
+        <label><!-- Counter --></label>
+        <name>Counter__c</name>
+    </fields>
+    <fields>
+        <label><!-- Protocol Name --></label>
+        <name>Protocol_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Protocol Violation Report --></label>
+        <name>Protocol_Violation_Report__c</name>
+        <relationshipLabel><!-- Other Protocol Report --></relationshipLabel>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,313 @@
+<apex:page standardController="MRI_Volume__c" extensions="MRIVolumeController" id="pageId" tabStyle="Patient_Custom__c" sidebar="false" title="MRI Volume Form" action="{!saveCrf}">
+<script type="text/javascript">
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script>
+
+<style>
+.activeTab {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    color: #000000;
+    font-weight: 600;
+    width: 150px;
+}
+
+.inactiveTab {
+        cursor: pointer;
+        background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+        color: white; /*#3C3C3C;*/
+        font-weight: bold;
+        font-size: 12px;
+        height: 15px;
+        width: 150px;
+        vertical-align: middle;
+        border: none;
+} 
+    
+.rich-tab-inactive {
+    background-repeat: repeat-x;
+    border-color: #FFFFFF;
+    border-style: none;
+    border-width: 0;
+    cursor: pointer;
+}
+
+.rich-tabhdr-side-border {
+    background-image:none; 
+    border-radius: 4px 4px 0 0;
+    background-color: none;
+    width: 2px;
+}
+
+.rich-tabhdr-side-cell {
+    box-shadow: 0 -2px 2px #A7A7A8;
+    border-top: 2px solid #056FC1;
+    border-left: 2px solid #056FC1;
+    border-right: 2px solid #056FC1;
+    border-radius: 4px 4px 0 0;
+}
+
+.rich-tabpanel-content {
+    background-color: #fff;
+    border-left: 2px solid #056FC1;
+    border-right: 2px solid #056FC1;
+    border-bottom: 2px solid #056FC1;
+}
+
+.rich-tab-bottom-line {
+    border-bottom: 1px solid #056FC1;
+}
+
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+.name {
+        font-size: 1.50em;
+        font-weight: bold;
+}
+.selectbox{
+    background-color: #2F96E4;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    height: 25px;
+    position: relative;
+    width: 152px;
+    border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+    color:#fff;
+    font-size:12px; font-weight: bold;
+    padding:3px 0 3px 10px;
+}
+</style>
+<script>
+     function checkCancel() {
+        if(confirm("Completely cancel and remove?")){
+            return true;
+        } else {
+            return false;
+        }   
+    }
+    
+    function checkDelete() {
+        if(confirm("Are you sure you want to Delete this form?")){
+            return true;
+        } else {
+            return false;
+        }   
+    }
+    
+    function startSplash() {
+        var divObj = document.getElementById('splashDiv');
+        var msgSplash =document.getElementById('waitMsg');
+        var browserName = navigator.appName;
+        if(browserName == 'Netscape'){
+            divObj.style.display='table-cell'; 
+        } else {
+            divObj.style.display='table-cell';
+        }
+    }
+    function endSplash() {            
+        document.getElementById('splashDiv').style.display='none';
+    }
+</script>
+<div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+    <div style="text-align: center; top: 50%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+</div>
+<span class ="name"> Patient's Details </span>
+<br/>
+    <c:PatientDetailReadOnly patientId="{!trialPatientObj.Patient_Id__c}" />
+<br/>
+
+<table width="100%">
+    <tr>
+        <td width="40%" align="left">
+             <span class ="name"> MRI Volume Form  </span>
+        </td>
+        <td width="60%" align="left">
+            <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialPatientObj.Trial_Id__r.Name}" />
+        </td>
+    </tr>
+</table>
+<apex:form id="formId"> 
+    <apex:pageBlock tabStyle="Account" id="mriPageBlockBtn" helpTitle="Help"  helpUrl="/apex/MRIVolumeUserGuide" rendered="{!isComplete}">
+        <apex:pageBlockButtons location="top">
+            <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel" status="splashStatus">
+                <apex:param name="nextTab" value="saveAndClose"/>
+            </apex:commandButton>
+            <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock> 
+    <!-----  delete button fuctionlity- start    ---------------------------------->  
+    <apex:pageBlock rendered="{!isDelete}">
+          <apex:pageBlockButtons location="top" >
+               <apex:commandButton action="{!customCancel}" value="Delete" onclick="return checkDelete();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+                        <apex:commandLink style="text-decoration:none;padding:3.3px;" styleClass="btn" target="_blank" action="{!redirect}" value="Generate Pdf" rendered="{!mriObj.Status__c == 'Accepted'}"/> 
+            
+          </apex:pageBlockButtons>
+    </apex:pageBlock>
+    <!-----  delete button fuctionlity- end   -------------------------------------> 
+        <apex:actionFunction name="next" action="{!next}"  rerender="theTabPanel" status="splashStatus"/>
+        <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+        <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />     
+    <apex:outputPanel >
+    <script>
+        function enterToNextTab(val){
+            //alert(val);
+            if('{!isComplete}' != 'false'){
+                document.getElementById('pageId:formId:nextTabNameID').value = val;
+                next();
+            }
+         }
+    </script>
+    </apex:outputPanel>               
+ <apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+    <apex:tab label="MRI Volume" name="mriTab" id="mriId" ontabenter="enterToNextTab('mriTab');" rendered="{!isComplete}">
+        <apex:pageBlock title="MRI Volume" id="mriPageBlock" tabStyle="Account">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel, chatterSection" status="splashStatus">
+                    <apex:param name="nextTab" value="attachmentTab"/>
+                </apex:commandButton>
+                <!--<apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>  -->
+            </apex:pageBlockButtons> 
+            <apex:pageBlockSection >
+                <apex:inputField value="{!mriObj.Was_MRI_Readable__c}" />
+                <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Date of MRI scan"/>
+                <apex:outputPanel >
+                <apex:inputField value="{!mriObj.MRI_Scan_Date__c}" label="Date of MRI scan" required="true" id="dateOfMRIscam"/>
+                <script type="text/javascript">
+                    document.getElementById('{!$Component.dateOfMRIscam}').onfocus = function onfocus(event) {
+                        DatePicker.pickDate(true, '{!$Component.dateOfMRIscam}', false); 
+                        addYearInDateField('past'); 
+                    };
+                </script>
+                </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!mriObj.Time_Point__c}" required="true"/>
+                <apex:inputField value="{!mriObj.MRI_Volume_in_cm3__c}"/>
+                <apex:inputField value="{!mriObj.Laterality__c}"/>
+                <apex:inputField value="{!mriObj.Longest_Diameter_Of_Index_Lesion_in_cm__c}" required="true"/>
+                <apex:inputField value="{!mriObj.Seprate_masses_or_enhancements_reported__c}" label="Other than the index lesion, Are separate masses or enhancements reported?"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:tab>
+
+    <apex:tab label="Comments & Attachments" name="attachmentTab" id="attachmentTabId" ontabenter="enterToNextTab('attachmentTab');" rendered="{!isComplete}">
+        <apex:pageBlock tabStyle="Account"> 
+            <apex:pageBlockButtons location="top"> 
+                <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel" status="splashStatus">
+                    <apex:param name="prevTab" value="mriTab"/>
+                </apex:commandButton>
+                 
+                <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel" status="splashStatus">
+                    <apex:param name="nextTab" value="CompleteTab"/>
+                </apex:commandButton>
+                <!--<apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>  -->
+                </apex:pageBlockButtons>
+            <apex:pageMessage summary="Please redact all PHI information from attachments." severity="info" strength="3"/>
+            <apex:pageBlockSection id="chatterSection" rendered="{!NOT(ISNULL(mriObj.Id))}" columns="1">
+<!--                <chatter:feedWithFollowers entityId="{!mriObj.Id}" />-->
+                <apex:iframe src="/apex/ChatterPage?recId={!mriObj.Id}" scrolling="true" id="theIframe"/>
+                <c:CRFAttachmentComponent rId="{!mriObj.Id}" feedCRFName="MRI_Volume__Feed" rendered="{!IF(currentTab = 'attachmentTab', true, false)}" rtId="{!mriObj.Root_CRF_Id__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:tab>
+    <apex:tab label="Complete" name="CompleteTab" id="completeId" ontabenter="enterToNextTab('CompleteTab');">
+            
+        <apex:pageBlock title="MRI Volume" id="completePageBlock" tabStyle="Account">
+              <!--  <apex:pageBlockButtons location="top" >
+                      <apex:commandButton action="{!customCancel}" value="Delete" onclick="return checkCancel();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+                </apex:pageBlockButtons> -->    
+                <apex:pageBlockButtons location="top" >
+                    <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel" status="splashStatus" rendered="{!isComplete}">
+                        <apex:param name="prevTab" value="attachmentTab"/>
+                    </apex:commandButton>
+                 </apex:pageBlockButtons> 
+                <!--<apex:actionFunction name="editCRF" action="{!editCRF}" rerender="theTabPanel" status="processStatus"/>
+                <apex:outputPanel id="dummayPanel">
+                    <script> 
+                        //alert("{!openInEditMode}");
+                        if("{!openInEditMode}" == "true") { 
+                            editCRF();
+                        }
+                    </script>
+                </apex:outputPanel>-->
+                <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">
+                    <apex:pageBlock tabStyle="Account">
+                        <center>
+                            <apex:commandButton action="{!editCRF}" value="Edit" reRender="formId" status="processStatus" rendered="{!IF(AND(mriObj.Status__c == 'Rejected', isShowEditButton),true,false)}"/>
+                            <apex:actionStatus id="processStatus" startText="Processing..." onstop=""/>
+                        </center>
+                    </apex:pageBlock>
+                </apex:outputPanel>
+            <apex:pageBlockSection >
+                <apex:outputField value="{!mriObj.Was_MRI_Readable__c}" />
+                <apex:outputField value="{!mriObj.MRI_Scan_Date__c}" label="Date of MRI scan"/>
+                <apex:outputField value="{!mriObj.Time_Point__c}"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="MRI Volume"/>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!mriObj.MRI_Volume_in_cm3__c}" rendered="{!IF(ISNULL(mriObj.MRI_Volume_in_cm3__c), false, true)}"/>
+                        <apex:outputText value="<b>No volume reported</b>" escape="false" rendered="{!IF(ISNULL(mriObj.MRI_Volume_in_cm3__c), true, false)}"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:outputField value="{!mriObj.Laterality__c}"/>
+                <apex:outputField value="{!mriObj.Longest_Diameter_Of_Index_Lesion_in_cm__c}" />
+                <apex:outputField value="{!mriObj.Seprate_masses_or_enhancements_reported__c}" label="Other than the index lesion, Are separate masses or enhancements reported?"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(mriObj.Id))}">
+                <c:CRFAttachmentComponent rId="{!mriObj.Id}" feedCRFName="MRI_Volume__Feed" rtId="{!mriObj.Root_CRF_Id__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(mriObj.Id))}">
+                <!--<apex:outputText value="<b>{!mriObj.CreatedDate}</b>" escape="false"/>
+                <apex:outputField value="{!mriObj.CreatedById}" label="Entered by Study Coordinator"/>-->
+                <c:CRFEventComponent rId="{!mriObj.Id}" objectName="MRI_Volume__c" rtId="{!mriObj.Root_CRF_Id__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <div align="center">     
+            <!--<apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true" rendered="{!isComplete}"/>&nbsp;&nbsp; --> 
+            <apex:outputPanel id="msgPanelId" layout="block" style="text-align: center;"><font color="{!msgColor}">{!errorMsg}&nbsp;</font></apex:outputPanel>
+            <br />
+            <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!isComplete}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!isComplete}"/>&nbsp;&nbsp;
+            <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" rendered="{!isComplete}"/>
+            <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" rendered="{!isComplete}"/>
+            <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/> 
+        </div>
+    </apex:tab>
+</apex:tabPanel>
+</apex:form>
+</apex:page>

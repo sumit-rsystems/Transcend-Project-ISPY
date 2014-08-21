@@ -1,0 +1,88 @@
+<apex:component controller="CRFHeaderController" >
+    
+  <apex:attribute name="crfFormName" type="String" description="Name of crf form"/>
+  <apex:attribute name="subjectId" type="String" description="Subject id" assignTo="{!patientId}"/>
+  <apex:attribute name="initial" type="String" description="Initials of Patient's name "/>
+  <apex:attribute name="instituteName" type="String" description="Name of Institute "/>
+  
+  
+      <head>        
+        <style type="text/css" media="print">           
+            @page {                 
+                @top-center {                   
+                    content: element(header);               
+                }
+                @bottom-left {
+                    content: element(footer);
+                } 
+                
+                          
+            }                       
+ 
+            div.header {                
+                padding: 10px;              
+                position: running(header);           
+            }           
+            div.footer {                
+                display: block;             
+                padding: 5px;               
+                position: running(footer);          
+            }                       
+ 
+            .pagenumber:before {                
+                content: counter(page);             
+            }                       
+            .pagecount:before {             
+                content: counter(pages);            
+            }                   
+        </style>            
+    </head>     
+
+  <div class="header">
+  <table width="100%" border="1px" cellspacing="0" cellpadding="0" >
+        <tr style="background-color:#F2F2F2">
+            <td style="border-style:none;"  >
+                <br/><apex:image url="{!$Resource.Logo}" height="100px" />
+            </td>
+          
+            <td style="border-style:none;width:290px" >
+               <h3> <apex:outputLabel style="vertical-align:center;" value="{!crfFormName}"/> </h3>
+            </td>
+          
+            <td style="border-style:none">
+                 <table width="100%">
+                     <tr>
+                         <td>
+                            <b style="color:#808080"> I-SPY 2 Subject ID:</b>
+                         </td>
+                          <td>
+                             {!patientSubjectId}
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <b style="color:#808080">I-SPY 2 Initials:</b>
+                         </td>
+                         <td>
+                           {!patientInitials}
+                             
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                            <b style="color:#808080"> Institution:</b>
+                         </td>
+                          <td>
+                            <!-- {!patientInstitute}-->
+                            <!--{!shortName}-->
+                             <apex:outputText escape="false" value="{!if(CONTAINS(patientInstitute,'('),shortName,patientInstitute)}"/>
+                             
+                            
+                         </td>
+                     </tr>
+                 </table>
+            </td>
+        </tr>
+    </table>
+    </div>
+</apex:component>

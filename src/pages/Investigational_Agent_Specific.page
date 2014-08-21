@@ -1,0 +1,7 @@
+<apex:page standardController="On_Study_Eligibility_Form__c" extensions="InvestigationalAgentController">
+	<div style="height: 650px; overflow-y: scroll;">
+		<apex:form >
+			<c:AdditionalQuestionComponent isReadOnly="true" pageController="{!this}" CRFType="00009" armId="" TrialPatientId="" CRFId="{!iacId}" SectionTitle="Additional Question Section"/>
+		</apex:form>
+	</div>
+</apex:page>

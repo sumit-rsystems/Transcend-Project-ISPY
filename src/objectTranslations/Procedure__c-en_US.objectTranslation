@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Procedure</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Procedures</value>
+    </caseValues>
+    <fields>
+        <label><!-- Date Of Procedure --></label>
+        <name>Date_Of_Procedure__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Form Name --></label>
+        <name>Form_Name__c</name>
+        <picklistValues>
+            <masterLabel>Breast Surgical Procedure Collection</masterLabel>
+            <translation><!-- Breast Surgical Procedure Collection --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>On-Study Pathology Form(Lymph Node Biopsies)</masterLabel>
+            <translation><!-- On-Study Pathology Form(Lymph Node Biopsies) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>On-Study Pathology Form(Positive Breast Biopsies)</masterLabel>
+            <translation><!-- On-Study Pathology Form(Positive Breast Biopsies) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Post Surgery Summary Form</masterLabel>
+            <translation><!-- Post Surgery Summary Form --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Laterality --></label>
+        <name>Laterality__c</name>
+        <picklistValues>
+            <masterLabel>Left</masterLabel>
+            <translation><!-- Left --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Right</masterLabel>
+            <translation><!-- Right --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown</masterLabel>
+            <translation><!-- Unknown --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Location --></label>
+        <name>Location__c</name>
+        <picklistValues>
+            <masterLabel>Axillary (lymph node)</masterLabel>
+            <translation><!-- Axillary (lymph node) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Axillary tail of breast</masterLabel>
+            <translation><!-- Axillary tail of breast --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Central</masterLabel>
+            <translation><!-- Central --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Infraclavicular (lymph node)</masterLabel>
+            <translation><!-- Infraclavicular (lymph node) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal mammary (lymph node)</masterLabel>
+            <translation><!-- Internal mammary (lymph node) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lower inner quadrant</masterLabel>
+            <translation><!-- Lower inner quadrant --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lower outer quadrant</masterLabel>
+            <translation><!-- Lower outer quadrant --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nipple</masterLabel>
+            <translation><!-- Nipple --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not applicable</masterLabel>
+            <translation><!-- Not applicable --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Overlapping lesion of breast</masterLabel>
+            <translation><!-- Overlapping lesion of breast --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Subareolar region</masterLabel>
+            <translation><!-- Subareolar region --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Supraclavicular (lymph node)</masterLabel>
+            <translation><!-- Supraclavicular (lymph node) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown/Not indicated</masterLabel>
+            <translation><!-- Unknown/Not indicated --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Upper inner quadrant</masterLabel>
+            <translation><!-- Upper inner quadrant --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Upper outer quadrant</masterLabel>
+            <translation><!-- Upper outer quadrant --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- MRI --></label>
+        <name>MRI__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mammography --></label>
+        <name>Mammography__c</name>
+    </fields>
+    <fields>
+        <label><!-- Node Result --></label>
+        <name>Node_Result__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Node Type --></label>
+        <name>Node_Type__c</name>
+        <picklistValues>
+            <masterLabel>Axillary (Lymph node)</masterLabel>
+            <translation><!-- Axillary (Lymph node) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Infraclavicular (Lymph node)</masterLabel>
+            <translation><!-- Infraclavicular (Lymph node) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal Mammary (Lymph node)</masterLabel>
+            <translation><!-- Internal Mammary (Lymph node) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Supraclavicular (Lymph node)</masterLabel>
+            <translation><!-- Supraclavicular (Lymph node) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown/Not Indicated</masterLabel>
+            <translation><!-- Unknown/Not Indicated --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- On-Study Pathology Form --></label>
+        <name>On_Study_Pathology_Form__c</name>
+        <relationshipLabel><!-- Procedures --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Palpation guided --></label>
+        <name>Palpation_guided__c</name>
+    </fields>
+    <fields>
+        <label><!-- Post Surgery Summary --></label>
+        <name>Post_Surgery_Summary__c</name>
+        <relationshipLabel><!-- Procedures --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Procedure Name --></label>
+        <name>Procedure_Name__c</name>
+        <picklistValues>
+            <masterLabel>Axillary lymph node dissection</masterLabel>
+            <translation><!-- Axillary lymph node dissection --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bone</masterLabel>
+            <translation><!-- Bone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Breast surgical biopsy</masterLabel>
+            <translation><!-- Breast surgical biopsy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Core biopsy</masterLabel>
+            <translation><!-- Core biopsy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Core biopsy (lymph node)</masterLabel>
+            <translation><!-- Core biopsy (lymph node) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Excisional biopsy (lymph node)</masterLabel>
+            <translation><!-- Excisional biopsy (lymph node) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FNA</masterLabel>
+            <translation><!-- FNA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FNA (lymph node)</masterLabel>
+            <translation><!-- FNA (lymph node) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fine needle aspirate (breast)</masterLabel>
+            <translation><!-- Fine needle aspirate (breast) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Incisional biopsy</masterLabel>
+            <translation><!-- Incisional biopsy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Liver</masterLabel>
+            <translation><!-- Liver --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lung</masterLabel>
+            <translation><!-- Lung --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Modified Radical Mastectomy</masterLabel>
+            <translation><!-- Modified Radical Mastectomy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Paracentesis</masterLabel>
+            <translation><!-- Paracentesis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Partial mastectomy</masterLabel>
+            <translation><!-- Partial mastectomy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Prophylatic mastectomy</masterLabel>
+            <translation><!-- Prophylatic mastectomy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Re-excision</masterLabel>
+            <translation><!-- Re-excision --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sentinel lymph node dissection</masterLabel>
+            <translation><!-- Sentinel lymph node dissection --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Skin Sparing Mastectomy</masterLabel>
+            <translation><!-- Skin Sparing Mastectomy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Therapeutic mastectomy</masterLabel>
+            <translation><!-- Therapeutic mastectomy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Thoracentesis</masterLabel>
+            <translation><!-- Thoracentesis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Total Skin Sparing Mastectomy</masterLabel>
+            <translation><!-- Total Skin Sparing Mastectomy --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Stereotactic --></label>
+        <name>Stereotactic__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Examined Nodes --></label>
+        <name>Total_Examined_Nodes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Positive Nodes --></label>
+        <name>Total_Positive__c</name>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- Procedures --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Ultrasound --></label>
+        <name>Ultrasound__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_procedure_id --></label>
+        <name>pg_procedure_id__c</name>
+    </fields>
+    <layouts>
+        <layout>Procedure Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

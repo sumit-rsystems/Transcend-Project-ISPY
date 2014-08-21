@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Trial CRF</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Trial CRFs</value>
+    </caseValues>
+    <fields>
+        <label><!-- CRFMaster --></label>
+        <name>CRFMaster__c</name>
+        <relationshipLabel><!-- Trial CRFs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Trial --></label>
+        <name>Trial__c</name>
+        <relationshipLabel><!-- Trial CRFs --></relationshipLabel>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

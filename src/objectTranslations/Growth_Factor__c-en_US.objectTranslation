@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Growth Factor</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Growth Factor</value>
+    </caseValues>
+    <fields>
+        <label><!-- Chemo Treatment --></label>
+        <name>Chemo_Treatment__c</name>
+        <relationshipLabel><!-- Growth Factor --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Dose --></label>
+        <name>Dose__c</name>
+    </fields>
+    <fields>
+        <label><!-- Notes --></label>
+        <name>Notes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Route --></label>
+        <name>Route__c</name>
+        <picklistValues>
+            <masterLabel>IV</masterLabel>
+            <translation><!-- IV --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Injection</masterLabel>
+            <translation><!-- Injection --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Oral</masterLabel>
+            <translation><!-- Oral --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- TotalDose --></label>
+        <name>TotalDose__c</name>
+    </fields>
+    <fields>
+        <label><!-- isReceived --></label>
+        <name>isReceived__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_GrowthFactor_Id --></label>
+        <name>pg_GrowthFactor_Id__c</name>
+    </fields>
+    <layouts>
+        <layout>Growth Factor Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

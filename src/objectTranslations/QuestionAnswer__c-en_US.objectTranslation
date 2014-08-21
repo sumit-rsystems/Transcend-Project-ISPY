@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Flexible Question Scheme</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Flexible Question Scheme</value>
+    </caseValues>
+    <fields>
+        <label><!-- Agent --></label>
+        <name>Agent__c</name>
+        <relationshipLabel><!-- Flexible Question Scheme --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Alignment --></label>
+        <name>Alignment__c</name>
+        <picklistValues>
+            <masterLabel>Horizontal</masterLabel>
+            <translation><!-- Horizontal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vertical</masterLabel>
+            <translation><!-- Vertical --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Please add comma separated values in AnswerOptions, if you are selecting Picklist and  Picklist (Multi-Select). --></help>
+        <label><!-- Answer Type --></label>
+        <name>AnswerType__c</name>
+        <picklistValues>
+            <masterLabel>Boolean</masterLabel>
+            <translation><!-- Boolean --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Date</masterLabel>
+            <translation><!-- Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Picklist</masterLabel>
+            <translation><!-- Picklist --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Picklist (Multi-Select)</masterLabel>
+            <translation><!-- Picklist (Multi-Select) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Text</masterLabel>
+            <translation><!-- Text --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TextArea</masterLabel>
+            <translation><!-- TextArea --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unit</masterLabel>
+            <translation><!-- Unit --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Arm --></label>
+        <name>Arm__c</name>
+        <relationshipLabel><!-- Flexible Question Scheme --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- DeletedDateTime --></label>
+        <name>DeletedDateTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Deleted --></label>
+        <name>Is_Deleted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parent Question Answer --></label>
+        <name>Parent_Question_Answer__c</name>
+        <relationshipLabel><!-- Flexible Question Scheme --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Please enter comma separated pick list values. Ex : 123,abc,xyz --></help>
+        <label><!-- Pick List Values --></label>
+        <name>PickList_Values__c</name>
+    </fields>
+    <fields>
+        <label><!-- Question --></label>
+        <name>Question__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Question</masterLabel>
+            <translation><!-- Question --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Test</masterLabel>
+            <translation><!-- Test --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>QuestionAnswers Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Delete --></label>
+        <name>Delete</name>
+    </webLinks>
+</CustomObjectTranslation>

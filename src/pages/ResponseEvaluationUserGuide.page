@@ -1,0 +1,77 @@
+<apex:page showHeader="false" sidebar="false">
+<style>
+	.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete Response Evaluation form?</h2>
+		</apex:outputPanel>
+		<p>The Response Evaluation Form is used to collect tumor assessment of the study breast by <b>clinical examination ONLY</b>. This CRF is completed three times: 1) prior to starting neoadjuvant chemotherapy, 2) in between the two chemotherapy regimens, and 3) prior to surgery. This information is used to compare the patient's response to neoadjuvant chemotherapy to the response seen on MRI.</p>
+		<p>The information used to complete this Case Report Form can come from either the patient's treating surgeon or oncologist.  It is important to use the same physician's clinical assessment when completing the series of these CRFS at the multiple time points (keeping consistent the person making the evaluation will result in a more effective comparison of the data).</p>
+		<p><i>To open the Response Evaluation Form, select the patient from the 'Patient' Tab; select 'Trial' select 'Submit New' for 'Response Evaluation Form’.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.ResponseEvaluationScreenshot, 'ResponseEvaluation1.png')}" width="115%" height="115%"/></p>
+		<ul>
+			<li>Select the reporting period for which this CRF is being completed [<i>Baseline, Inter-Regimen, OR Pre-surgery.</i>] Baseline is prior to starting neoadjuvant chemotherapy, inter-regimen is the time period between completing the paclitaxel regimen and prior to starting the AC regimen; pre-surgery is the time period of at least 2 weeks after the last AC infusion and prior to surgery.</li>
+			<li>Select the date of clinical assessment using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+			<li>Under Disease Assessment, select 'add lesion' to open a field that allows for description of the masses palpated on physical exam.  If the index lesion is not palpable at baseline, you should still add a lesion to document that it is not palpable</li>
+			<li>The Target Lesion number is automatically assigned in ascending order with the first lesion being numbered 1.  Note: Each target lesion number will be the same throughout the series of CRF (this number should also correspond to the target lesion number on the MRI Volume Form).</li>
+			<li>Select the O'clock position that the lesion is located, from and to [<i>NA, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, OR 12</i>].</li>
+			<li>Enter in the lesion's distance from the nipple in cm in the text box as measured by palpation [<i>0.0-99.9</i>]. If the lesion is at the nipple enter 0cm.  If the distance from the nipple text box is left blank, a 0 will automatically populate the field.</li>
+			<li>Enter in the lesion's longest diameter in cm in the text box as measured by palpation [<i>0.0-99.9</i>].  If the longest diameter text box is left blank, a 0 will automatically populate the field.</li>
+			<li>Answer the question if a clip is placed in this lesion [<i>Yes OR No</i>].  If it is unreported, select No.</li>
+			<li>Select 'Save' after completing these selections and before moving to the next lesion or screen.</li>
+			<li>Repeat these steps to add another lesion if there is one present</li>
+			<li>If a patient has a lesion that disappears during their neoadjuvant chemotherapy, you will enter '0' for the longest diameter on all subsequent forms rather than removing the lesion from the list.</li>
+			<li>If a patient has a new lesion since the last reporting period, this new lesion is added, at the end, to the list for the period in which it appeared.</li>
+			<li>If the list of target lesions has one listed that was added by mistake, highlight the target lesion that needs to be removed, click on it and select 'Remove Lesion.'</li>
+			<li>If you need to change any of the data that was saved for a particular lesion, highlight the target lesion that needs to be updated, click on it, change the data, and select 'Save.' If you do not want to save the updated data, select 'Cancel' and none of the changes will be saved.</li>
+			<li>After all target lesions for the patient have been added and saved, the sum of all of the target lesions' longest diameters is automatically calculated and displayed in cm.</li>
+			<li>Report the disease extent as measured by palpation in cm in the text box [<i>0.0-99.9</i>].  Disease extent is the continuous longest diameter (span) in which all lesions (invasive and in situ disease) are present; this includes normal breast tissue in between multiple lesions, if they exist.  It is possible that the disease extent is the same as the longest diameter if only one target lesion exists.</li>
+			<li>Answer the question if palpable nodes are present [<i>No OR Yes</i>].</li>
+			<li>If palpable nodes are present (answered Yes), 4 additional data elements will made available to answer:</li>
+			<li>Select if palpable nodes are matted [<i>No OR Yes</i>].</li>
+			<li>Select if palpable nodes are fixed to the chest wall [<i>No OR Yes</i>].</li>
+			<li>Select the type of palpable nodes involved [<i>Axillary, Internal mammary, Supraclavicular, Infraclavicular</i>]</li>
+			<li>Enter in the palpable size of the largest lymph node in cm in the text box [<i>0.0-99.9</i>].</li>
+			<li>Answer the question if clinical staging was done during this period [<i>No OR Yes</i>].</li>
+			<li>If clinical staging was done (answered Yes), enter in the primary tumor stage in the T text box, enter in the regional node stage in the N text box, and enter in the distant metastasis stage in the M text box using AJCC cancer staging for breast cancer.</li>
+			<li>If a patient was T4 at baseline, the question about the current T4 status will be made available to answer at subsequent time points.</li>
+			<li>Answer the question if the patient is a candidate for breast conservation surgery now [<i>No, Yes, OR Not reported</i>].</li>
+			<li>If the patient is not a candidate for breast conservation surgery (answered No), select the primary reason why [<i>Multi-centric disease, Inflammatory disease, Diffuse microcalcifications, Patient choice/family history, Institutional norm, Specific anatomy of primary, OR Other-specify in text box</i>].</li>	
+		</ul>
+		
+		<p><i>Select 'Next' to advance to the 'Response Status' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.ResponseEvaluationScreenshot, 'ResponseEvaluation2.png')}" width="115%" height="115%"/></p>
+		<ul>
+			<li>Select the best overall clinical response to date [<i>Complete Response, Partial Response, Stable Disease, Progressive Disease, OR Not adequately assessed</i>].  For the baseline period, 'Not Adequately Assessed' is the response that should be selected.  For all other subsequent reporting periods, select the appropriate clinical response as defined on the CRF (and shown above).</li>
+			<li>To determine how a patient's status is categorized, take the sum of longest diameter at baseline, subtract the sum of longest diameter from the current reporting period, and divide that by the sum of the longest diameter at baseline:</li>
+			<li>Complete Response (CR) is defined as disappearance of all lesions.</li>
+			<li>Partial Response (PR) is defined as a 30% or more reduction in the sum longest diameter from baseline.</li>
+			<li>Stable Disease (SD) is defined as neither a Partial Response nor Progressive Disease.</li>
+			<li>Progressive Disease (PD) is defined as 20% or more increase in the sum of the longest diameter from baseline or if a new lesion appears.</li>
+			<li>Indicate the date of: complete response, partial response, new local-regional recurrence or new distant progression that was observed during the reporting period using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+			<li>If a patient has a new local-regional recurrence or distant progression, select the site(s) where the new cancer(s) occurred from the list on the CRF (and shown above).</li>		
+		</ul>	
+	
+		<p><i>Select 'Next' to advance to the 'Comments and Attachments' tab.</i></p>
+		<p>Attach all relevant de-identified clinical reports (source documents) that document the data that was entered for this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+		<p>Provide any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+		
+		<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.ResponseEvaluationScreenshot, 'ResponseEvaluation3.png')}" width="115%" height="115%"/></p>
+		<ul>
+			<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the previous screen to update the incorrect information.</li>
+			<li>When you are ready to send the CRF to the DCC for verification, enter your password and select 'Sign and Submit’.</li>
+		</ul>
+		
+	</apex:outputPanel>
+</apex:page>

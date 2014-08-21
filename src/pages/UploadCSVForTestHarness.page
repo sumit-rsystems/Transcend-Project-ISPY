@@ -1,0 +1,200 @@
+<apex:page controller="TestHarnessCRFUploadController" id="pageId" sideBar="false">
+    <style>
+        body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+            background-color: #fff;
+        }
+    </style>
+    <script>
+        function changeIFrame(obj) {
+            //alert(obj.value);
+            iframe = document.getElementById("iframeId");
+            testHarnessId1 = document.getElementById("testHarnessId1");
+            
+            inst = document.getElementById("pageId:pageBlockId:formId:instSelectList");
+            site = document.getElementById("pageId:pageBlockId:formId:siteSelectList");
+            trial = document.getElementById("pageId:pageBlockId:formId:trialSelectList");
+            
+            if(obj.value == "Randomization") {
+                iframe.src = "/apex/FileUploaderPage";
+                iframe.style.height = '200px'; 
+                testHarnessId1.style.display = '';
+            }
+            if(obj.value == "Complete") {
+                iframe.src = "/apex/uploadCRFForTestHarness?inst="+inst.value+"&site="+site.value+"&trial="+trial.value+"&nextForm=1";
+                iframe.style.height = '900px';
+                testHarnessId1.style.display = '';
+            }
+            if(obj.value == "") {
+                iframe.src = "";
+                iframe.style.height = '0px'; 
+                testHarnessId1.style.display = 'none';
+            }
+        }
+    </script>
+    <apex:pageBlock id="pageBlockId" title="Test Harness">
+        <apex:form id="formId">
+            <apex:outputPanel id="statusPanelId">
+                <table width="100%">
+                    <tr>
+                        <td width="45%">
+                            <table width="100%" height="" style="background: #fff;padding: 15px; border:1px solid #2E84C5; -moz-border-radius: 10px 10px 10px 10px; -webkit-border-radius: 18px;">
+                                <tr>
+                                    <td colspan="2" align="center" valign="top"><u><b>Randomization Testing Details</b></u></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><b>Submitted By:</b></td>
+                                    <td>
+                                        <apex:outputField value="{!randomizationRunHistory.CreatedBy.Name}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><b>Submitted Date:</b></td>
+                                    <td>
+                                        <apex:outputField value="{!randomizationRunHistory.CreatedDate}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><b>Status:</b></td>
+                                    <td>
+                                        <apex:outputField value="{!randomizationRunHistory.Status__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <a href="/apex/TestHarnessRandomizationResult" style="display: {!IF(randomizationRunHistory.Status__c != 'Completed', 'none', '')};">Display Previously Loaded Randomization Test Harness Result</a>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="55%">
+                            <table width="100%" style="background: #fff;padding: 15px; border:1px solid #2E84C5; -moz-border-radius: 10px 10px 10px 10px; -webkit-border-radius: 18px;">
+                                <tr>
+                                    <td colspan="2" align="center" valign="top"><u><b>Complete Testing Details</b></u></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><b>Submitted By:</b></td>
+                                    <td>
+                                        <apex:outputField value="{!completeRunHistory.CreatedBy.Name}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><b>Submitted Date:</b></td>
+                                    <td>
+                                        <apex:outputField value="{!completeRunHistory.CreatedDate}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><b>Status:</b></td>
+                                    <td>
+                                        <apex:outputField value="{!completeRunHistory.Status__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><b><apex:outputLabel style="display: {!IF(completeRunHistory.Status__c != 'Completed', 'none', '')};">Generate Reports:</apex:outputLabel></b></td>
+                                    <td>
+                                        <a href="/apex/caIntegratorReport" style="display: {!IF(completeRunHistory.Status__c != 'Completed', 'none', '')};">caIntegrator,</a>
+                                        <a href="/apex/patientSummaryReport" style="display: {!IF(completeRunHistory.Status__c != 'Completed', 'none', '')};">Patient Summary Report,</a>
+                                        <a href="/apex/summaryReport" style="display: {!IF(completeRunHistory.Status__c != 'Completed', 'none', '')};">Trial Summary Report,</a>
+                                        <a href="/apex/adverseEventReport" style="display: {!IF(completeRunHistory.Status__c != 'Completed', 'none', '')};">Adverse Event Report</a>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </apex:outputPanel>
+            <br />
+            <br />
+            <font style="size: 10px;"><b>Select institution, site and trial</b></font> 
+            <table id="table1">
+                <tr id="trId1">
+                    <td id="instLabelId" align="center">
+                        Institution
+                    </td>
+                    <td id="siteLabelId" align="center">
+                        Site
+                    </td>
+                    <td id="trialLabelId" align="center">
+                        Trial
+                    </td>
+                </tr>
+                <tr id="trId1">
+                    <td id="instTdId1">
+                        <apex:selectList value="{!institution}" size="1"  id="instSelectList">
+                            <apex:selectOptions value="{!lstInstitution}"/>
+                            <apex:actionSupport event="onchange" action="{!loadSite}" rerender="pageBlockId" status="loadStatus"/>
+                        </apex:selectList>
+                    </td>
+                    
+                    <td id="siteTdId">
+                        <apex:selectList value="{!site}" size="1" id="siteSelectList" >
+                            <apex:selectOptions value="{!lstSite}"/>
+                            <apex:actionSupport event="onchange" action="{!loadTrial}" rerender="pageBlockId" status="loadStatus1"/>
+                        </apex:selectList>
+                    </td>
+                    <td id="trialTdId">
+                        <apex:selectList value="{!trial}" size="1" id="trialSelectList" >
+                            <apex:selectOptions value="{!lstTrial}"/>
+                            <apex:actionSupport event="onchange" action="{!loadTrial}" rerender="pageBlockId" status="loadStatus2"/>
+                        </apex:selectList>
+                    </td>
+                    <td>
+                        <apex:actionStatus id="loadStatus2" startText="Loading..." />
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <apex:actionStatus id="loadStatus" startText="Loading..." />
+                    </td>
+                    <td>
+                        <apex:actionStatus id="loadStatus1" startText="Loading..." />
+                    </td>
+                </tr>
+                <tr style="display: {!IF(associationSelected, '', 'none')}; ">
+                    <td colspan="3">Select Test Harness Type</td>
+                </tr>
+                <tr>
+                    <td colspan="2">   
+                        <apex:SelectList value="{!testHarnessType}" size="1" onChange="changeIFrame(this);" style="display: {!IF(associationSelected, '', 'none')}; ">
+                            <apex:selectOptions value="{!lstTestHarnessType}" />
+                        </apex:SelectList>
+                    </td>
+                    <td>
+                        <div id="testHarnessId1" style="display: none;">
+                            <apex:commandButton action="{!runTestHarness}" value="Run Test Harness" reRender="statusPanelId" status="processStatus2"/>
+                        </div>
+                    </td>
+                    <td>
+                        <apex:actionStatus id="processStatus2" startText="Processing..."/>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <iframe id="iframeId" style="height: 0px; width: 850px; border: 0px; display: {!IF(associationSelected, '', 'none')}; "></iframe>
+        </apex:form>
+        <!--<apex:form id="formId2">   
+            <table>
+                <tr>
+                    <td colspan="4">
+                        <b>Upload CSV file</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" />
+                        <apex:commandButton value="upload" action="{!uploadCSV}" />
+                    </td>
+                </tr>
+            </table>
+        </apex:form>
+        --></apex:pageBlock>
+</apex:page>

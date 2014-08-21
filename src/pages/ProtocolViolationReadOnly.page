@@ -1,0 +1,63 @@
+<apex:page StandardController="ProtocolViolationDetail__c" extensions="ProtocolViolationController" sideBar="false" id="pageId" tabStyle="Account" showHeader="false">
+<style>
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+</style>
+    <apex:pageBlock >
+        <table>
+            <tr>
+                <td>Date of protocol violation:&nbsp;</td>
+                <td>
+                    <apex:outputField value="{!protocolViolation.DateOfProtocolViolation__c}" />
+                </td>
+            </tr>
+            <tr>
+                <td>Type of Protocol Violation:&nbsp;</td>
+                <td>
+                    <apex:outputLabel value="Medication non-complicance" rendered="{!protocolViolation.Medication_non_complicance__c}"/>
+                    <apex:outputLabel value=", Visit non-complicance" rendered="{!protocolViolation.Visit_non_complicance__c}"/>
+                    <apex:outputLabel value=", On-study procedure required by protocol not completed" rendered="{!protocolViolation.On_study_procedure_required_by_protocol__c}"/>
+                    <apex:outputLabel value=", Incorrect therapy given to patient" rendered="{!protocolViolation.Incorrect_therapy_given_to_patient__c}"/>
+                    <apex:outputLabel value=", Screening and on-study test/lab done outside the protocol required time" rendered="{!protocolViolation.Screening_and_on_study_test_lab_done__c}"/>
+                    <apex:outputLabel value=", Screening procedure required by protocol not done" rendered="{!protocolViolation.Screening_procedure_required__c}"/>
+                    <apex:outputLabel value=", Eligibility criteria exception" rendered="{!protocolViolation.Eligibility_criteria_exception__c}"/>
+                    <apex:outputLabel value=", Enrollment of ineligible patient" rendered="{!protocolViolation.Enrollment_of_ineligeligibleible_patient__c}"/>
+                    <apex:outputLabel value=", Patient became pregnant prior to surgery" rendered="{!protocolViolation.Patient_became_pregnant_prior_to_surgery__c}"/>
+                    <apex:outputLabel value=", Other : {!protocolViolation.Other_Type_of_Violation__c}" rendered="{!protocolViolation.Other_Violation_Checkbox__c}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Action taken:&nbsp;</td>
+                <td>
+                    <apex:outputLabel value="Patient remains on study but data analysis will be modified" rendered="{!protocolViolation.Patient_Remains_on_Study__c}"/>
+                    <apex:outputLabel value=", Patient withdrawn" rendered="{!protocolViolation.Patient_withdrawn__c}"/>
+                    <apex:outputLabel value=", {!protocolViolation.Other_Action__c}" rendered="{!protocolViolation.Other_Action_Checkbox__c}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Was the local IRB notified?</td>
+                <td>
+                    <apex:outputField value="{!protocolViolation.Local_IRB_Notified__c}" />
+                </td>
+            </tr>
+        </table>
+       <apex:pageBlockSection columns="1" title="Narrative description of protocol violation:">
+            <apex:pageBlockSectionItem labelStyle="width: 1%;">
+                <apex:outputLabel value=""/>
+                <apex:outputField value="{!protocolViolation.Narrative_description__c}" />
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(protocolViolation.Id))}">
+			<c:CRFAttachmentComponent rId="{!protocolViolation.Id}" feedCRFName="ProtocolViolationDetail__Feed" rtId="{!protocolViolation.Root_CRF_Id__c}"/>
+		</apex:pageBlockSection>
+		
+		<apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(protocolViolation.Id))}">
+	    	<c:CRFEventComponent rId="{!protocolViolation.Id}" objectName="ProtocolViolationDetail__c" rtId="{!protocolViolation.Root_CRF_Id__c}"/>
+	    </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

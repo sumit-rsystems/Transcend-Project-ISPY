@@ -1,0 +1,785 @@
+<apex:page controller="TestHarnessCRFUploadController" sidebar="false" showHeader="false">
+    <style>
+        body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+            background-color: #fff;
+        }
+        
+        #createnew {width:100px; height:20px; float:left; padding:0; margin-top:5px; }
+        #createnew a{ width:100px; height:20px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d; }
+        .styletd { 
+            height:20px;
+            width: 400px;
+            padding:3px 10px 3px 10px;
+            font-weight: bold;
+            padding-left: 10px;
+            font-size: 13px; 
+            border:1px solid #e8edf1;
+            -moz-border-radius: 4px;  
+            -webkit-border-radius:4px; 
+            -khtml-border-radius: 4px; 
+            border-radius:4px; 
+            color:#fff; 
+            background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; 
+            -moz-box-shadow: 0px 0px 21px #4d4d4d; 
+            -webkit-box-shadow: 0px 0px 2px #4d4d4d; 
+            box-shadow: 0px 0px 2px #4d4d4d;
+        }
+        
+        .activeTab {
+            background: none repeat scroll 0 0 #FFFFFF; 
+            border-bottom: 2px solid #FFFFFF; 
+            color: #000000;
+            font-weight: 600;
+            width: 115px; 
+        }
+        
+        .inactiveTab {
+                cursor: pointer;
+                /*background-color: #7A9FA0;*/
+                background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+                color: white; /*#3C3C3C;*/
+                font-weight: bold;
+                font-size: 12px;
+                height: 15px;
+                width: 115px;
+                vertical-align: middle;
+                /*padding-top: 4px;*/
+                border: none;
+        }
+        
+        .rich-tab-inactive {
+            background-repeat: repeat-x;
+            border-color: #FFFFFF;
+            border-style: none;
+            border-width: 0;
+            cursor: pointer;
+        }
+        
+        .rich-tabhdr-side-border {
+            background-image:none; 
+            border-radius: 4px 4px 0 0;
+            background-color: none;
+            width: 2px;
+        }
+        
+        .rich-tabhdr-side-cell {
+            box-shadow: 0 -2px 2px #A7A7A8;
+            /*border: 2px solid #056FC1;*/
+            border-top: 2px solid #056FC1;
+            border-left: 2px solid #056FC1;
+            border-right: 2px solid #056FC1;
+            border-radius: 4px 4px 0 0;
+        }
+        
+        .rich-tabpanel-content {
+            background-color: #fff;
+            border-left: 2px solid #056FC1;
+            border-right: 2px solid #056FC1;
+            border-bottom: 2px solid #056FC1;
+        }
+        
+        .rich-tab-bottom-line {
+            border-bottom: 1px solid #056FC1;
+        }
+    </style>
+    <apex:form >
+        <apex:pageMessage summary="{!patientMsg}" severity="{!severity}" strength="3" rendered="{!showMsg}" escape="false"/>
+        
+        <!--<table id="table1" width="100%" cellPadding="10">
+            <tr id="trId1">
+                <td id="instLabelId">
+                    <b>Institution</b><br />
+                    {!instLbl}
+                </td>
+                <td id="siteLabelId">
+                    <b>Site</b><br />
+                    {!siteLbl}
+                </td>
+                <td id="trialLabelId">
+                    <b>Trial</b><br />
+                    {!trialLbl}
+                </td> 
+                <td id="resCSVId">
+                    &nbsp;<br />
+                    <apex:outputPanel rendered="{!IF(csvResultLink != null,true,false)}">
+                        <a href='{!csvResultLink}'>Download Result CSV</a>
+                    </apex:outputPanel>
+                </td>
+            </tr>
+        </table>-->
+        <apex:tabPanel height="300px" width="100%" switchType="client" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+            <apex:tab label="Screening" name="Screening" id="ScreeningTab">
+                <table  width="100%" style="background: #fff;padding: 15px; border:1px solid #2E84C5; -moz-border-radius: 10px 10px 10px 10px; -webkit-border-radius: 18px;">
+                    <!--<tr>
+                        <td></td>
+                        <td id="resCSVId" align="right">
+                            &nbsp;<br />
+                            <apex:outputPanel rendered="{!NOT(ISNULL(csvResultLink))}">
+                                <a href='{!csvResultLink}'>Download Result CSV</a>
+                            </apex:outputPanel>
+                        </td>
+                    </tr>
+                    --><tr>
+                        <td style="padding-left: 30px"><b>CRF</b></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >Patient</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '1',false,false)}"/>
+                                      <!--  <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '1',false,false)}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                      <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="Patient" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd">PreEligibility Checklists</td>
+                                    <td align="right">     
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '2',false,false)}"/>
+                                        <!--<apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '2',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                        <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="PreEligibilityCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>   
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td  class="styletd" >Patient Registration Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '3',false,false)}"/>
+                                        <!--<apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '3',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                        <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="Registration" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td  class="styletd" >Menopausal Status Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '4',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '4',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="MenopausalStatusCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td  class="styletd" >Tissue Specimen Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '5',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '5',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="TissueSpecimenCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Core biopsy specimen</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '6',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '6',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="CoreBiopsySpecimen" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >Blood Specimen Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '7',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '7',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="BloodSpecimenCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Blood Specimen Samples</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '6',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '6',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="BloodSpecimenSample" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>   
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >MammaPrint Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '7',false,false)}"/>
+                                        <!--<apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '7',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                        <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="MammaPrintCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>   
+                    </tr>
+                    <tr> 
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >MRI Volume Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '8',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '8',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="MRIVolumeCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        
+                    </tr>
+                    <tr> 
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >Response Evaluation Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '8',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '8',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="ResponseEvaluationCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                           <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Disease Assessment</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="DiseaseAssessment" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>   
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                           <td class="styletd" >On Study Eligibility Form</td>
+                                               <td align="right">
+                                                  <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '10',false,false)}"/>
+                                                 <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '10',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                                 <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                                 <apex:param value="OnStudyEligiblityCRF" name="check"/>
+                                                 </apex:commandLink>
+                                               </td>
+                                           </tr>
+                                          </table>
+                                       </td>
+                        
+                                    </tr>
+                                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >On-Study Pathology Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '11',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '11',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="OnStudyPathologyCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Procedure</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '12',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '12',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="Procedure" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DCIS</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '13',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '13',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="DCIS" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LCIS</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '14',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '14',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="LCIS" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Invasive Tumor</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '15',false,false)}"/>
+                                    <!--    <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '15',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                    <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="InvasiveTumor" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Receptor</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '16',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '16',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="Receptor" name="check"/>
+                                      </apex:commandLink>
+                                      
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >Protocol Violation Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '17',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '17',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="ProtocolViolationCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >Randomization Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}"/>
+                                        <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>
+                                      <!-- <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="Randomization" name="check"/>
+                                      </apex:commandLink>  -->
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>  
+                </table>
+            </apex:tab>
+            <apex:tab label="Treatment" name="Treatment" id="TreatmentTab">
+                <table  width="100%" style="background: #fff;padding: 15px; border:1px solid #2E84C5; -moz-border-radius: 10px 10px 10px 10px; -webkit-border-radius: 18px;">
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >AE Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '17',false,false)}"/>
+                                      <!--  <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '17',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/> -->
+                                      <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="AEFormCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Toxicity</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '18',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '18',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="Toxicity" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >Chemo Treatment Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}"/>
+                                        <!--<apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="ChemoTreatmentCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Chemo Therapy Regimen</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '10',false,false)}"/>
+                                      <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '10',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                      <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="ChemoTherapyRegimen" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Growth Factor</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '11',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '11',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="GrowthFactor" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Concomitant Medication</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '12',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '12',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="ConcomitantMedication" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >Lab and Test Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="LabandTestCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >Chemo Summary Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="ChemoSummaryCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Chemo Summary Regimen Detail</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '6',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '6',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="ChemoSummaryRegimen_OSP_CRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>   
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >Post Surgery Summary Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="PostSurgeryCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                        <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Procedure</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '12',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '12',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="Procedures" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Procedure Specimen Detail</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '12',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '12',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="ProcedureSpecimen" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Lymph Node</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '12',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '12',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="LymphNode" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Staging Detail</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '12',false,false)}"/>
+                                        <!--<apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '12',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                        <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="StagingDetail" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DCIS</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '13',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '13',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="DCISs" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LCIS</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '14',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '14',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="LCISs" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Invasive Tumor</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '15',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '15',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="InvasiveTumors" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Receptor</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '16',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '16',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="Receptors" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >Off-Study Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}"/>
+                                        <!--<apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                        <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="OffStudyCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >Baseline Symptoms Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}"/>
+                                      <!--  <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                      <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="BaselineSymptomsCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Allergy</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '10',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '10',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="Allergy" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Baseline Condition</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '11',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '11',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="BaselineCondition" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Toxicity</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '16',false,false)}"/>
+                                      <!--  <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '16',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/> -->
+                                      <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="Toxicities" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>  
+                </table>
+            </apex:tab>
+            <apex:tab label="Follow Up" name="FollowUp" id="FollowUpTab">
+                <table  width="100%" style="background: #fff;padding: 15px; border:1px solid #2E84C5; -moz-border-radius: 10px 10px 10px 10px; -webkit-border-radius: 18px;">
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >Follow Up Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}"/>
+                                     <!--   <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                     <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="FollowupCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Therapy Received</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '10',false,false)}"/>
+                                      <!--  <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '10',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                      <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="TherapyReceived" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="styletd" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Irradiated Site</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '11',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '11',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="IrradiatedSite" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >Lost to Follow Up</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}"/>
+                                    <!--    <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                    <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="LosttoFollowupCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >No Longer Lost to Follow Up</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="NolongLosttoFollowupCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <td colspan="2" style="border: 2px solid #2E84C5;-moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="styletd" >Off-Study Form</td>
+                                    <td align="right">
+                                        <apex:inputFile value="{!fileBody}" filename="{!fileName}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}"/>
+                                       <!-- <apex:commandButton value="Upload" action="{!uploadCSV}" disabled="{!IF($CurrentPage.parameters.nextForm == '9',false,false)}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/>-->
+                                       <apex:commandLink value="Upload" action="{!uploadCSV}"  style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;" styleClass="btn" >
+                                      <apex:param value="OffStudyCRF" name="check"/>
+                                      </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>  
+                </table>
+            </apex:tab>
+        </apex:tabPanel>
+    </apex:form>
+</apex:page>

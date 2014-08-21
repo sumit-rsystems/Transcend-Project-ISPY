@@ -1,0 +1,274 @@
+<apex:component controller="DCISController" id="DCISCompId" allowDML="true">
+  <apex:attribute name="subFormNew" description="This is the value for on-study pathology" type="String" />
+  <!-- the new attribute -->
+  <apex:attribute name="Keys" 
+    type="String" 
+    assignTo="{!Key}" 
+    description="The key given to this component so the page can easily get access to it" />
+
+  <apex:attribute name="pageController" 
+      type="String" 
+      assignTo="{!objId}" 
+      required="true" 
+      description="The controller for the page." />
+    
+            <apex:inputHidden value="{!onStudyPathologyId}" id="dcisId"/>
+            <apex:inputHidden value="{!dcisPostId}" id="dcisPostId"/>
+            <apex:outputPanel rendered="{!IF((subFormNew == 'On-Study Pathology Form'),false,true)}">
+                <table cellpadding="3" cellspacing="1" >
+                    <tr>
+                        <td>
+                            <apex:outputLabel value="DCIS" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputField value="{!dcisObj.DCIS__c}" style="width : 40px;"/>%
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Unknown_Not_Reported__c}"/><apex:outputLabel value="Unknown/Not Reported" />
+                        </td>
+                    </tr>
+                </table>
+            <br/>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!IF((subFormNew == 'Breast Surgical Procedure'),true,false)}">
+                <table cellpadding="3" cellspacing="1" >
+                    <tr>
+                        <td>
+                            <apex:outputLabel value="Tumor Size" /><apex:outputField value="{!dcisObj.Tumor_Size__c}" style="width : 40px;"/>cm
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Present_in_continous_section__c}"/><apex:outputLabel value="Present in continous section spanning" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputField value="{!dcisObj.Spanning__c}" style="width : 40px;"/>cm
+                        </td>
+                    </tr>
+                </table>
+            <br/>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!IF((subFormNew == 'Breast Surgical Procedure'),true,false)}">
+                <table cellpadding="3" cellspacing="1" >
+                    <tr>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Present_as_scattered_microscopic_foci__c}"/><apex:outputLabel value="Present as scattered microscopic foci up" />&nbsp;&nbsp;&nbsp;<apex:outputField value="{!dcisObj.Microscopic_foci_upto__c}" style="width : 40px;"/>&nbsp;cm<apex:outputLabel value="each, involving" /><apex:outputField value="{!dcisObj.From_Slide__c}" style="width : 40px;"/>&nbsp;of&nbsp;<apex:outputField value="{!dcisObj.To_Slide__c}" style="width : 40px;" />
+                        </td>
+                    </tr>
+                </table>
+            <br/>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!IF((subFormNew == 'Post Surgery Summary'),true,false)}">
+                <table cellpadding="3" cellspacing="1" >
+                    <tr>
+                        <td>
+                            <apex:outputLabel value="Total histologic span of In Site disease:" />&nbsp;&nbsp;&nbsp;<apex:outputField value="{!dcisObj.Total_Histological_Span__c}" style="width : 40px;"/>&nbsp;&nbsp;&nbsp;<apex:outputField value="{!dcisObj.Total_Histological_Span_Measurement_Unit__c}"/>
+                        </td>
+                    </tr>
+                </table>
+            <br/>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!IF((subFormNew == 'Post Surgery Summary'),true,false)}">
+                <table cellpadding="3" cellspacing="1" >
+                    <tr>
+                        <td>
+                            <b>Margins:</b>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Margin__c}"/>
+                        </td>
+                    </tr>
+                </table>
+            <br/>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!IF((subFormNew == 'Post Surgery Summary'),true,false)}">
+                <table cellpadding="3" cellspacing="1" >
+                    <tr>
+                        <td>
+                            <b>Closest margin:</b>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Closest_Margin__c}" />&nbsp;&nbsp;&nbsp;<apex:outputField value="{!dcisObj.Specific_Closest_Margin__c}" id="theText" style="width : 40px; display : none;"/>&nbsp;&nbsp;&nbsp;<apex:outputField value="{!dcisObj.Specific_Closest_Margin_Measurement_Unit__c}" id="Specific_Closest_Margin_Measurement_Unit"/>
+                        </td>
+                    </tr>
+                </table>
+            <br/>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!IF((subFormNew == 'Breast Surgical Procedure'),true,false)}">
+                <table width="32%" cellpadding="3" cellspacing="1" >
+                    <tr>
+                        <td width="5%">
+                            <b>Margins</b>
+                        </td>
+                        <td width="2%">
+                        </td>
+                        <td width="2%">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputLabel value="Deep Margin" />
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Deep_Margin__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Deep_Margin_Size__c}" style="width : 40px;"/>mm
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputLabel value="Medical" />
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Medical__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Medical_Size__c}" style="width : 40px;"/>mm
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputLabel value="Lateral" />
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Lateral__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Lateral_Size__c}" style="width : 40px;"/>mm
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputLabel value="Anterior/Superior" />
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Anterior_Superior__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Anterior_Superior_Size__c}" style="width : 40px;" />mm
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputLabel value="Anterior/Inferior" />
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Anterior_Inferior__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Anterior_Inferior_Size__c}" style="width : 40px;"/>mm
+                        </td>
+                    </tr>
+                </table>
+            <br/>
+            </apex:outputPanel>
+            
+            <apex:outputPanel >
+                <table cellpadding="3" cellspacing="1" >
+                    <tr>
+                        <td>
+                            <b>Histology type:</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Punctate_necrosis__c}" id="pnctEle"/><apex:outputLabel value="Punctate necrosis" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Comedonecrosis__c}"/><apex:outputLabel value="Comedonecrosis" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Papillary__c}"/><apex:outputLabel value="Papillary" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Micropapillary__c}"/><apex:outputLabel value="Micropapillary" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Necrosis__c}"/><apex:outputLabel value="Necrosis" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Cribiform__c}"/><apex:outputLabel value="Cribiform" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Cruciform__c}"/><apex:outputLabel value="Cruciform" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Clinging__c}"/><apex:outputLabel value="Clinging" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Solid__c}"/><apex:outputLabel value="Solid" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Apocrine__c}"/><apex:outputLabel value="Apocrine" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Intra_cystic_encysted_papillary__c}"/><apex:outputLabel value="Intra-cystic (encysted papillary)" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Other__c}" /><apex:outputLabel value="Other" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Other_if_other_mention_type_in_textb__c}" id="textId" style="display: none;"/>
+                        </td>
+                    </tr>
+                </table>
+            <br/>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!IF((subFormNew == 'Post Surgery Summary'),false,true)}">
+                <table cellpadding="3" cellspacing="1" >
+                    <tr>
+                        <td> 
+                            <b>Calcifications</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Calcifications__c}"/>
+                        </td>
+                    </tr>
+                </table>
+            <br/>
+            </apex:outputPanel>
+            
+            <apex:outputPanel >
+                <table cellpadding="3" cellspacing="1" >
+                    <tr>
+                        <td>
+                            <b>Nuclear grade: (highest grade)</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!dcisObj.Nuclear_Grade__c}"/>
+                        </td>
+                    </tr>
+                </table>
+            </apex:outputPanel>
+</apex:component>

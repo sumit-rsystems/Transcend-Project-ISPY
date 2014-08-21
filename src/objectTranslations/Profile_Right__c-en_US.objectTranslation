@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Profile Right</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Profile Rights</value>
+    </caseValues>
+    <fields>
+        <label><!-- Profile Id --></label>
+        <name>Profile_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Related Widget --></label>
+        <name>Related_Widget__c</name>
+        <relationshipLabel><!-- Profile Rights (Related Widget) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Widget --></label>
+        <name>Widget__c</name>
+        <relationshipLabel><!-- Profile Rights --></relationshipLabel>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

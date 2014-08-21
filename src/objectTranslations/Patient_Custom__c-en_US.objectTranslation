@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Patient</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Patients</value>
+    </caseValues>
+    <fields>
+        <label><!-- Address Line 1 --></label>
+        <name>Address_Line_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Address Line 2 --></label>
+        <name>Address_Line_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Age Group --></label>
+        <name>Age_Group__c</name>
+        <picklistValues>
+            <masterLabel>20-30</masterLabel>
+            <translation><!-- 20-30 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>30-40</masterLabel>
+            <translation><!-- 30-40 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>40-50</masterLabel>
+            <translation><!-- 40-50 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>50-60</masterLabel>
+            <translation><!-- 50-60 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>60-70</masterLabel>
+            <translation><!-- 60-70 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>70-80</masterLabel>
+            <translation><!-- 70-80 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>80-90</masterLabel>
+            <translation><!-- 80-90 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>over 90</masterLabel>
+            <translation><!-- over 90 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>under 20</masterLabel>
+            <translation><!-- under 20 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Age Snomed --></label>
+        <name>Age_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Age --></label>
+        <name>Age__c</name>
+    </fields>
+    <fields>
+        <label><!-- Birthdate --></label>
+        <name>Birthdate__c</name>
+    </fields>
+    <fields>
+        <label><!-- City --></label>
+        <name>City__c</name>
+    </fields>
+    <fields>
+        <label><!-- CompletedDate --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Country --></label>
+        <name>Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Country of Birth --></label>
+        <name>Country_of_Birth__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email --></label>
+        <name>Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ethnicity Snomed --></label>
+        <name>Ethnicity_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ethnicity --></label>
+        <name>Ethnicity__c</name>
+        <picklistValues>
+            <masterLabel>Hispanic or Latino</masterLabel>
+            <translation><!-- Hispanic or Latino --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Hispanic or Latino</masterLabel>
+            <translation><!-- Not Hispanic or Latino --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Ethnicity value Snomed --></label>
+        <name>Ethnicity_value_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Name --></label>
+        <name>First_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Gender --></label>
+        <name>Gender__c</name>
+        <picklistValues>
+            <masterLabel>Female</masterLabel>
+            <translation><!-- Female --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Male</masterLabel>
+            <translation><!-- Male --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Home Phone --></label>
+        <name>Home_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Initials --></label>
+        <name>Initials__c</name>
+    </fields>
+    <fields>
+        <label><!-- Institute --></label>
+        <name>Institute_Text__c</name>
+    </fields>
+    <fields>
+        <label><!-- Institution --></label>
+        <name>Institution__c</name>
+        <relationshipLabel><!-- Patients --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- IsTestHarnessPatient --></label>
+        <name>IsTestHarnessPatient__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Name --></label>
+        <name>Last_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Medical Record Number --></label>
+        <name>Medical_Record_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Middle Name --></label>
+        <name>Middle_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Surgeon --></label>
+        <name>Other_Surgeon__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other primary MD --></label>
+        <name>Other_primary_MD__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phase Master --></label>
+        <name>Phase_Master__c</name>
+        <relationshipLabel><!-- Patients --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- If you don&apos;t find Surgeon in lookup list then click on &quot;New&quot; button in lookup. --></help>
+        <label><!-- Primary MD --></label>
+        <name>Primary_MD__c</name>
+        <relationshipLabel><!-- Patients --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Race African American Snomed --></label>
+        <name>Race_African_American_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Race Asian Snomed --></label>
+        <name>Race_Asian_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Race Snomed --></label>
+        <name>Race_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Race --></label>
+        <name>Race__c</name>
+        <picklistValues>
+            <masterLabel>American Indian or Alaska Native</masterLabel>
+            <translation><!-- American Indian or Alaska Native --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Asian</masterLabel>
+            <translation><!-- Asian --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Black or African American</masterLabel>
+            <translation><!-- Black or African American --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Native Hawaiian or Pacific Islander</masterLabel>
+            <translation><!-- Native Hawaiian or Pacific Islander --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>White</masterLabel>
+            <translation><!-- White --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- SSN --></label>
+        <name>SSN__c</name>
+    </fields>
+    <fields>
+        <label><!-- Screen Failure Number --></label>
+        <name>Screen_Failure_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Signed Screening Consent Form --></label>
+        <name>Signed_Screening__c</name>
+    </fields>
+    <fields>
+        <label><!-- State --></label>
+        <name>State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Approval Not Required</masterLabel>
+            <translation><!-- Approval Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Eligibility Check Failed</masterLabel>
+            <translation><!-- Eligibility Check Failed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Eligibility Check Passed</masterLabel>
+            <translation><!-- Eligibility Check Passed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Registered</masterLabel>
+            <translation><!-- Registered --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Study Registration Eligibility --></label>
+        <name>Study_Registration_Eligibility__c</name>
+    </fields>
+    <fields>
+        <label><!-- Suffix --></label>
+        <name>Suffix__c</name>
+    </fields>
+    <fields>
+        <help><!-- If you don&apos;t find Surgeon in lookup list then click on &quot;New&quot; button in lookup. --></help>
+        <label><!-- Surgeon --></label>
+        <name>Surgeon__c</name>
+        <relationshipLabel><!-- Patients (Surgeon) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- TestHarnessId --></label>
+        <name>TestHarnessId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unsigned Patient First Name --></label>
+        <name>Unsigned_Patient_First_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unsigned Patient Last Name --></label>
+        <name>Unsigned_Patient_Last_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- VIP --></label>
+        <name>VIP__c</name>
+        <picklistValues>
+            <masterLabel>Board Member</masterLabel>
+            <translation><!-- Board Member --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Financial Donor</masterLabel>
+            <translation><!-- Financial Donor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Foreign Dignitary</masterLabel>
+            <translation><!-- Foreign Dignitary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Government Dignitary</masterLabel>
+            <translation><!-- Government Dignitary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Normal</masterLabel>
+            <translation><!-- Normal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Physician Family Member</masterLabel>
+            <translation><!-- Physician Family Member --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Staff Family Member</masterLabel>
+            <translation><!-- Staff Family Member --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Staff Member</masterLabel>
+            <translation><!-- Staff Member --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Staff Physician</masterLabel>
+            <translation><!-- Staff Physician --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Very Important Person</masterLabel>
+            <translation><!-- Very Important Person --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Zip --></label>
+        <name>Zip__c</name>
+    </fields>
+    <fields>
+        <label><!-- isPortalEnable --></label>
+        <name>isPortalEnable__c</name>
+    </fields>
+    <fields>
+        <label><!-- isUserDeActive --></label>
+        <name>isUserDeActive__c</name>
+    </fields>
+    <fields>
+        <label><!-- isUserStatus --></label>
+        <name>isUserStatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- mrn --></label>
+        <name>mrn__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_patient_id --></label>
+        <name>pg_patient_id__c</name>
+    </fields>
+    <layouts>
+        <layout>Adhoc</layout>
+        <sections>
+            <label><!-- Additional details --></label>
+            <section>Additional details</section>
+        </sections>
+        <sections>
+            <label><!-- Address --></label>
+            <section>Address</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Patient Identifier --></label>
+            <section>Patient Identifier</section>
+        </sections>
+        <sections>
+            <label><!-- Physicians --></label>
+            <section>Physicians</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Approval Pending</layout>
+        <sections>
+            <label><!-- Additional details --></label>
+            <section>Additional details</section>
+        </sections>
+        <sections>
+            <label><!-- Address --></label>
+            <section>Address</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Patient Identifier --></label>
+            <section>Patient Identifier</section>
+        </sections>
+        <sections>
+            <label><!-- Physicians --></label>
+            <section>Physicians</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>DCC</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Live</layout>
+        <sections>
+            <label><!-- Additional details --></label>
+            <section>Additional details</section>
+        </sections>
+        <sections>
+            <label><!-- Address --></label>
+            <section>Address</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Patient Identifier --></label>
+            <section>Patient Identifier</section>
+        </sections>
+        <sections>
+            <label><!-- Physicians --></label>
+            <section>Physicians</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- AdHoc --></label>
+        <name>AdHoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Please Enter Institution. --></errorMessage>
+        <name>Institution_Required</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Adhoc_Cancel_Button --></label>
+        <name>Adhoc_Cancel_Button</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Adhoc_Submit_button --></label>
+        <name>Adhoc_Submit_button</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Register --></label>
+        <name>Register</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Sign_Submit --></label>
+        <name>Sign_Submit</name>
+    </webLinks>
+</CustomObjectTranslation>

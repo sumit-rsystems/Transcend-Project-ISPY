@@ -1,0 +1,859 @@
+<apex:page standardController="Lab_and_Test__c" extensions="LabAndTestController" sideBar="false" action="{!insertCRF}" id="pageId" tabStyle="Patient_Custom__c">
+<script type="text/javascript">
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script>
+
+    <script>
+        function enableRow(obj) {
+        
+            parentObj = obj.parentNode.parentNode;
+            var inputString = parentObj.getElementsByTagName('input');
+            if(obj.checked) {
+                for(var i=0;i<inputString.length;i++) {
+                    inputString[i].disabled = false;
+                }
+            } else {
+                for(var i=0;i<inputString.length;i++) {
+                    if(i == 0) continue;
+                    inputString[i].value = '';
+                    inputString[i].disabled = true;
+                }
+            }
+        }
+        
+        function checkCancel() {
+            if(confirm("Completely cancel and remove?")){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        function checkDelete() {
+            if(confirm("Are you sure you want to Delete this form?")){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        function startSplash() {
+            var divObj = document.getElementById('splashDiv');
+            var msgSplash =document.getElementById('waitMsg');
+            var browserName = navigator.appName;
+            if(browserName == 'Netscape'){
+                divObj.style.display='table-cell'; 
+            } else {
+                divObj.style.display='table-cell';
+            }
+        }
+        function endSplash() {            
+            document.getElementById('splashDiv').style.display='none';
+        }
+    </script>
+<style>
+.tableProcedureHeadPage {
+    width: 22%;
+}
+.tableLateralityHeadPage {
+    width: 6%;
+}
+.tableLocationHeadPage {
+    width: 18%;
+}
+
+.activeTab {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    color: #000000;
+    font-weight: 600;
+    width: 198px;
+}
+
+.inactiveTab {
+        cursor: pointer;
+        /*background-color: #7A9FA0;*/
+        background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+        color: white; /*#3C3C3C;*/
+        font-weight: bold;
+        font-size: 12px;
+        height: 15px; 
+        width: 195px;
+        vertical-align: middle;
+        /*padding-top: 4px;*/
+        border: none;
+}
+    
+.rich-tab-inactive {
+    background-repeat: repeat-x;
+    border-color: #FFFFFF;
+    border-style: none;
+    border-width: 0;
+    cursor: pointer;
+}
+
+.rich-tabhdr-side-border {
+    background-image:none; 
+    border-radius: 4px 4px 0 0;
+    background-color: none;
+    width: 2px;
+}
+
+.rich-tabhdr-side-cell {
+    box-shadow: 0 -2px 2px #A7A7A8;
+    /*border: 2px solid #056FC1;*/
+    border-top: 2px solid #056FC1;
+    border-left: 2px solid #056FC1;
+    border-right: 2px solid #056FC1;
+    border-radius: 4px 4px 0 0;
+}
+
+.rich-tabpanel-content {
+    background-color: #fff;
+    border-left: 2px solid #056FC1;
+    border-right: 2px solid #056FC1;
+    border-bottom: 2px solid #056FC1;
+}
+
+.rich-tab-bottom-line {
+    border-bottom: 1px solid #056FC1;
+}
+
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+.name {
+        font-size: 1.50em;
+        font-weight: bold;
+}
+body .bPageBlock .pbBody .data2Col {
+    padding-left: 0px;
+}
+.bPageBlock .detailList td.last,.bPageBlock .detailList td.first  {
+    padding-left: 0px;
+}
+.selectbox{
+    background-color: #2F96E4;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    height: 25px;
+    position: relative;
+    width: 152px;
+    border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+    color:#fff;
+    font-size:12px; font-weight: bold;
+    padding:3px 0 3px 10px;
+}
+/*.data2Col .first .last{
+    padding-left: 0px;
+}*/
+</style>
+<div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+    <div style="text-align: center; top: 50%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+</div>
+<span class ="name">Patient's Details</span>
+    <br/>
+        <c:PatientDetailReadOnly patientId="{!trialPatientObj.Patient_Id__c}"/> 
+    <br/>
+<table width="100%">
+    <tr>
+        <td width="40%" align="left">
+             <span class ="name"> Lab And Test Form  </span>
+        </td>
+        <td width="60%" align="left">
+            <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialPatientObj.Trial_Id__r.Name}" />
+        </td>
+    </tr>
+</table>
+<apex:form id="formId">
+<apex:pageMessages ></apex:pageMessages>
+ <apex:pageBlock tabStyle="Account" helpTitle="Help"  helpUrl="/apex/LabAndTestUserGuide" rendered="{!isComplete}">
+    <apex:pageBlockButtons location="top" >
+        <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel" status="splashStatus">
+                <apex:param name="tabNext" value="saveAndClose"/>
+        </apex:commandButton>
+        <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();"/>
+    </apex:pageBlockButtons>
+ </apex:pageBlock>
+ <apex:pageBlock rendered="{!isDelete}">
+          <apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!customCancel}" value="Delete" onclick="return checkDelete();"  rendered="{!profileName =='System Administrator'}"/>
+               <!-- <apex:commandButton value="Generate Pdf" action="{!redirect}" rendered="{!latObj.Status__c == 'Accepted'}"/> -->
+               <apex:commandLink style="text-decoration:none;" value="Generate Pdf" target="_blank" styleClass="btn" action="{!redirect}" rendered="{!latObj.Status__c == 'Accepted'}"/>
+          </apex:pageBlockButtons>
+    </apex:pageBlock>
+    <apex:actionFunction name="next" action="{!next}"  rerender="theTabPanel,errMsg" status="splashStatus"/>
+        <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+    <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />
+    <apex:pageMessages id="errMsg"/>
+    <apex:outputPanel >
+    <script>
+        function enterToNextTab(val){
+            //alert(val);
+            if('{!isComplete}' != 'false'){
+                document.getElementById('pageId:formId:nextTabNameID').value = val;
+                next();
+            }
+        }
+    </script>
+    </apex:outputPanel>
+    <apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+        <apex:tab label="Lab Tests" name="LabTests" id="tabOne" ontabenter="enterToNextTab('LabTests');" rendered="{!isComplete}">
+                <apex:pageBlock tabStyle="Account" rendered="{!currentTab = 'LabTests'}">
+                    <apex:pageBlockButtons location="top">      
+                        <!--<apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();"/>  -->
+                        <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel,errMsg" status="splashStatus">
+                             <apex:param name="tabNext" value="CardiacFunctionTest"/>
+                        </apex:commandButton>
+                    </apex:pageBlockButtons>
+                    <!--<apex:pageMessage summary="Collection Date should not be greater than current date." severity="error" strength="3" rendered="{!isCollectionDate}"/>
+                    --><apex:pageBlockSection columns="1">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Collection Date:"/>
+                            <apex:outputPanel >
+                                <apex:inputField value="{!latObj.Collection_Date__c}" id="collectionDateId"/>
+                                <script type="text/javascript">
+                                document.getElementById('{!$Component.collectionDateId}').onfocus = function onfocus(event) {
+                                    DatePicker.pickDate(true, '{!$Component.collectionDateId}', false); 
+                                    addYearInDateField('past'); 
+                                };
+                                </script>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" title="Routine Tests"/>
+                    <table width="100%" cellpadding="4" cellspacing="0">
+                        <tr style="border-bottom: 1px solid black;">
+                            <th width="20%" style="border-bottom: 1px solid black;">
+                                <apex:outputLabel value="Test Name"/>
+                            </th>
+                            <th width="20%" style="border-bottom: 1px solid black;">
+                                <apex:outputLabel value="Result"/>
+                            </th>
+                            <th width="20%" style="border-bottom: 1px solid black;">
+                                <apex:outputLabel value="Institutional reference range"/>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td width="20%">
+                                <apex:inputField value="{!latObj.Leukocytes__c}" onclick="enableRow(this);" id="LeukocytesId"/>
+                                <apex:outputLabel value="Leukocytes"/>
+                            </td>
+<!--                            <apex:outputPanel id="LeukocytesPanel">-->
+                                <td width="20%">
+                                    <apex:inputField value="{!latObj.Leukocytes_Result__c}" style="width : 40px" id="LeukocytesResultId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.LeukocytesResultId}').disabled = {!IF(latObj.Leukocytes__c, false, true)};
+                                    </script>
+                                    <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                                </td>
+                                <td width="20%">
+                                    <apex:inputField value="{!latObj.Leukocytes_Institutional_Reference_Range__c}" id="LeukocytesRangeId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.LeukocytesRangeId}').disabled = {!IF(latObj.Leukocytes__c, false, true)};
+                                        //enableRow(document.getElementById('{!$Component.LeukocytesId}'));
+                                    </script>
+                                    <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                                </td>
+<!--                            </apex:outputPanel>-->
+                        </tr>
+                        <tr>
+                            <td width="20%">
+                                <apex:inputField value="{!latObj.Absolute_Neutrophil_Count_ANC__c}" onclick="enableRow(this);" id="absNeduANCId"/>
+                                <apex:outputLabel value="Absolute Neutrophil Count (ANC)"/>
+                            </td>
+<!--                            <apex:outputPanel >-->
+                                <td width="20%">
+                                    <apex:inputField value="{!latObj.Absolute_Neutrophil_Count_ANC_Result__c}" style="width : 40px" id="ANCResultId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.ANCResultId}').disabled = {!IF(latObj.Absolute_Neutrophil_Count_ANC__c, false, true)};
+                                    </script>
+                                    <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                                </td>
+                                <td width="20%">
+                                    <apex:inputField value="{!latObj.ANC_Industrial_Reference_Range__c}" id="ANCRangeId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.ANCRangeId}').disabled = {!IF(latObj.Absolute_Neutrophil_Count_ANC__c, false, true)};
+                                        //enableRow(document.getElementById('{!$Component.absNeduANCId}'));
+                                    </script>
+                                    <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                                </td>
+<!--                            </apex:outputPanel>-->
+                        </tr>
+                        <tr>
+                            <td width="20%">
+                                <apex:inputField value="{!latObj.Platelets__c}" onclick="enableRow(this);" id="plateletsId"/>
+                                <apex:outputLabel value="Platelets"/>
+                            </td>
+<!--                            <apex:outputPanel >-->
+                                <td width="20%">
+                                    <apex:inputField value="{!latObj.Platelets_Result__c}" style="width : 40px" id="PlateletsResultId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.PlateletsResultId}').disabled = {!IF(latObj.Platelets__c, false, true)};
+                                    </script>
+                                    <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                                </td>
+                                <td width="20%">
+                                    <apex:inputField value="{!latObj.Platelets_Institutional_Reference_Range__c}" id="PlateletsRangeId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.PlateletsRangeId}').disabled = {!IF(latObj.Platelets__c, false, true)};
+                                        //enableRow(document.getElementById('{!$Component.plateletsId}'));
+                                    </script>
+                                    <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                                </td>
+<!--                            </apex:outputPanel>-->
+                        </tr>
+                        <tr>
+                            <td width="20%">
+                                <apex:inputField value="{!latObj.Total_Bilirubin__c}" onclick="enableRow(this);" id="totalBilId"/>
+                                <apex:outputLabel value="Total Bilirubin"/>
+                            </td>
+<!--                            <apex:outputPanel >-->
+                                <td width="20%"> 
+                                    <apex:inputField value="{!latObj.Total_Bilirubin_Result__c}" style="width : 40px" id="TBResultId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.TBResultId}').disabled = {!IF(latObj.Total_Bilirubin__c, false, true)};
+                                    </script>
+                                    <apex:outputLabel >mg/dl</apex:outputLabel>
+                                </td>
+                                <td width="20%">
+                                    <apex:inputField value="{!latObj.Total_Bilirubin_Institutional_Reference__c}" id="TBRangeId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.TBRangeId}').disabled = {!IF(latObj.Total_Bilirubin__c, false, true)};
+                                        //enableRow(document.getElementById('{!$Component.totalBilId}'));
+                                    </script>
+                                    <apex:outputLabel >mg/dl</apex:outputLabel>
+                                </td>
+<!--                            </apex:outputPanel>-->
+                        </tr>
+                        <tr>
+                            <td width="20%">
+                                <apex:inputField value="{!latObj.AST__c}" onclick="enableRow(this);" id="astId"/>
+                                <apex:outputLabel value="AST"/>
+                            </td>
+<!--                            <apex:outputPanel >-->
+                                <td width="20%">
+                                    <apex:inputField value="{!latObj.AST_Result__c}" style="width : 40px" id="ASTResultId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.ASTResultId}').disabled = {!IF(latObj.AST__c, false, true)};
+                                    </script>
+                                    <apex:outputLabel >U/L</apex:outputLabel>
+                                </td>
+                                <td width="20%">
+                                    <apex:inputField value="{!latObj.AST_Institutional_Reference_Range__c}" id="ASTRangeId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.ASTRangeId}').disabled = {!IF(latObj.AST__c, false, true)};
+                                        //enableRow(document.getElementById('{!$Component.astId}'));
+                                    </script>
+                                    <apex:outputLabel >U/L</apex:outputLabel>
+                                </td>
+<!--                            </apex:outputPanel>-->
+                        </tr>
+                        <tr>
+                            <td width="20%">
+                                <apex:inputField value="{!latObj.ALT__c}" onclick="enableRow(this);" id="altId"/>
+                                <apex:outputLabel value="ALT"/>
+                            </td>
+<!--                            <apex:outputPanel >-->
+                                <td width="20%">
+                                    <apex:inputField value="{!latObj.ALT_Result__c}" style="width : 40px" id="ALTResultId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.ALTResultId}').disabled = {!IF(latObj.ALT__c, false, true)};
+                                    </script>
+                                    <apex:outputLabel >U/L</apex:outputLabel>
+                                </td>
+                                <td width="20%">
+                                    <apex:inputField value="{!latObj.ALT_Institutional_Reference_Range__c}" id="ALTRangeId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.ALTRangeId}').disabled = {!IF(latObj.ALT__c, false, true)};
+                                        //enableRow(document.getElementById('{!$Component.altId}'));
+                                    </script>
+                                    <apex:outputLabel >U/L</apex:outputLabel>
+                                </td>
+<!--                            </apex:outputPanel>-->
+                        </tr>
+                        <tr>
+                            <td width="20%">
+                                <apex:inputField value="{!latObj.Creatinine__c}" onclick="enableRow(this);" id="creatinId"/>
+                                <apex:outputLabel value="Creatinine"/>
+                            </td>
+<!--                            <apex:outputPanel >-->
+                                <td width="20%">
+                                    <apex:inputField value="{!latObj.Creatinine_Result__c}" style="width : 40px" id="CreatinineResultId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.CreatinineResultId}').disabled = {!IF(latObj.Creatinine__c, false, true)};
+                                    </script>
+                                    <apex:outputLabel >mg/dl</apex:outputLabel>
+                                </td>
+                                <td width="20%">
+                                    <apex:inputField value="{!latObj.Creatinine_Institutional_Reference_Range__c}" id="CreatinineRangeId"/>
+                                    <script>
+                                        document.getElementById('{!$Component.CreatinineRangeId}').disabled = {!IF(latObj.Creatinine__c, false, true)};
+                                        //enableRow(document.getElementById('{!$Component.creatinId}'));
+                                    </script>
+                                    <apex:outputLabel >mg/dl</apex:outputLabel>
+                                </td>
+<!--                            </apex:outputPanel>-->
+                        </tr>
+                    </table>
+                </apex:pageBlock>   
+        </apex:tab>
+        
+        <apex:tab label="Cardiac Function Test" name="CardiacFunctionTest" id="tabTwo" ontabenter="enterToNextTab('CardiacFunctionTest');" rendered="{!isComplete}">
+                <apex:pageBlock tabStyle="Account" rendered="{!currentTab = 'CardiacFunctionTest'}">
+                
+                    <apex:pageBlockButtons location="top">   
+                        <!--<apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();"/> -->
+                        <apex:commandButton action="{!next}" value="Previous" reRender="theTabPanel,errMsg" status="splashStatus">
+                            <apex:param name="tabNext" value="LabTests"/>
+                        </apex:commandButton>
+                        <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel,errMsg" status="splashStatus">
+                             <apex:param name="tabNext" value="InvestigativeAgentSpecificTests"/>
+                        </apex:commandButton>
+                    </apex:pageBlockButtons>
+                    <!--<apex:pageMessage summary="Date of Procedure should not be greater than current date." severity="error" strength="3" rendered="{!dateofProcedure}"/>
+                    --><apex:pageBlockSection columns="1" title="Routine Tests"/>
+                    <table width="100%" cellpadding="4" cellspacing="0">
+                        <tr style="border-bottom: 1px solid black;">
+                            <th width="18%" style="border-bottom: 1px solid black;">  
+                                <apex:outputLabel value="Test Name"/>
+                            </th>
+                            <th width="18%" style="border-bottom: 1px solid black;"> 
+                                <apex:outputLabel value="Date of Procedure"/>
+                            </th> 
+                            <th width="18%" style="border-bottom: 1px solid black;">
+                                <apex:outputLabel value="LVEF%"/>
+                            </th>
+                            <th width="18%" style="border-bottom: 1px solid black;">
+                                <apex:outputLabel value="LVEF% Institutional lower limit of normal"/>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <apex:inputField value="{!latObj.MUGA_Scan__c}" onclick="enableRow(this);" id="MUGAScanId"/>
+                                <apex:outputLabel value="MUGA Scan"/>
+                            </td>
+                            <td>
+                                <apex:inputField value="{!latObj.MUGA_Scan_Date__c}" id="MUGAScanDateId"/>
+                                <script type="text/javascript">
+                                document.getElementById('{!$Component.MUGAScanDateId}').onfocus = function onfocus(event) {
+                                    DatePicker.pickDate(true, '{!$Component.MUGAScanDateId}', false); 
+                                    addYearInDateField(''); 
+                                };
+                                </script>
+                                <script>
+                                    document.getElementById('{!$Component.MUGAScanDateId}').disabled = {!IF(latObj.MUGA_Scan__c, false, true)};
+                                    /*if(document.getElementById('{!$Component.MUGAScanDateId}').value != null && document.getElementById('{!$Component.MUGAScanDateId}').value != '') {
+                                        document.getElementById('{!$Component.MUGAScanDateId}').disabled = false; 
+                                    } */
+                                </script>
+                            </td>
+                            <td>
+                                <apex:inputField value="{!latObj.MUGA_Scan_LVEF__c}" style="width : 40px"  id="MUGAScanLVEFId"/>
+                                <script>
+                                    document.getElementById('{!$Component.MUGAScanLVEFId}').disabled = {!IF(latObj.MUGA_Scan__c, false, true)};
+                                </script>
+                                <apex:outputLabel value="%"/> 
+                            </td>
+                            <td>
+                                <apex:inputField value="{!latObj.MUGA_Institutional_Lower_Limit_of_Normal__c}" style="width : 40px"  id="MUGAScanInstId"/>
+                                <script>
+                                    document.getElementById('{!$Component.MUGAScanInstId}').disabled = {!IF(latObj.MUGA_Scan__c, false, true)};
+                                    //enableRow(document.getElementById('{!$Component.MUGAScanId}'));
+                                </script>
+                                <apex:outputLabel value="%"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <apex:inputField value="{!latObj.Cardiac_Echo__c}" onclick="enableRow(this);" id="CardiacEchoId"/>
+                                <apex:outputLabel value="Cardiac Echo"/>
+                            </td>
+                            <td>
+                                <apex:inputField value="{!latObj.Cardiac_Echo_Date__c}" id="CardiacEchoDateId"/>
+                                <script type="text/javascript">
+                                document.getElementById('{!$Component.CardiacEchoDateId}').onfocus = function onfocus(event) {
+                                    DatePicker.pickDate(true, '{!$Component.CardiacEchoDateId}', false); 
+                                    addYearInDateField(''); 
+                                };
+                                </script>
+                                <script>
+                                    document.getElementById('{!$Component.CardiacEchoDateId}').disabled = {!IF(latObj.Cardiac_Echo__c, false, true)};
+                                    //alert({!cardiacEcho});
+                                    /*if(document.getElementById('{!$Component.CardiacEchoDateId}').value != null && document.getElementById('{!$Component.CardiacEchoDateId}').value !='' {
+                                        document.getElementById('{!$Component.CardiacEchoDateId}').disabled = false;
+                                    }*/
+                                </script>
+                            </td>
+                            <td>
+                                <apex:inputField value="{!latObj.Cardiac_Echo_LVEF__c}" style="width : 40px"  id="CardiacEchoLVEFId"/>
+                                <script>
+                                    document.getElementById('{!$Component.CardiacEchoLVEFId}').disabled = {!IF(latObj.Cardiac_Echo__c, false, true)};
+                                </script>
+                                <apex:outputLabel value="%"/>
+                            </td>
+                            <td>
+                                <apex:inputField value="{!latObj.Cardiac_Echo_Institutional_Lower_Limit__c}" style="width : 40px"  id="CardiacEchoInstId"/>
+                                <script>
+                                    document.getElementById('{!$Component.CardiacEchoInstId}').disabled = {!IF(latObj.Cardiac_Echo__c, false, true)};
+                                    //enableRow(document.getElementById('{!$Component.CardiacEchoId}'));
+                                </script>
+                                <apex:outputLabel value="%"/>
+                            </td>
+                        </tr>   
+                    </table>
+                </apex:pageBlock>
+        </apex:tab> 
+        <apex:tab label="Investigative Agent Specific Tests" name="InvestigativeAgentSpecificTests" id="tabThree" ontabenter="enterToNextTab('InvestigativeAgentSpecificTests');" rendered="{!isComplete}">
+                <apex:pageBlock tabStyle="Account" id="InvestigativeAgentBlock" rendered="{!currentTab = 'InvestigativeAgentSpecificTests'}">
+                    <apex:pageBlockButtons location="top" >
+                        <!--<apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();"/>  -->
+                        <apex:commandButton action="{!next}" value="Previous" reRender="theTabPanel,errMsg" status="splashStatus">
+                            <apex:param name="tabNext" value="CardiacFunctionTest"/>
+                        </apex:commandButton>
+                        <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel,errMsg" status="splashStatus">
+                             <apex:param name="tabNext" value="CommentsandAttachments"/>
+                        </apex:commandButton>
+                        <!--<apex:commandButton action="{!submit}" value="Submit" reRender="theTabPanel" status="counterStatus" />
+                        <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/> -->
+                    </apex:pageBlockButtons>        
+                <!--<apex:pageMessage summary="Collection Date should not be greater than current date." severity="error" strength="3" rendered="{!isCollectionDate1}"/>
+                    --><apex:pageBlockSection columns="1" id="InvestigativeAgentSection">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Collection Date:"/>
+                            <apex:inputField value="{!latObj.Collection_Date_for_Investigative_Agent__c}"/> 
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputPanel >
+                                <b><apex:outputLabel value="Treatment Arm:" Style="color : #4A4A56; font-size: 91%;" style="margin-left: 120px;"/></b>
+                                &nbsp;&nbsp;&nbsp;<apex:outputLabel value="Patient not randomized." rendered="{!patientNotRandomized}"/>
+                                &nbsp;&nbsp;&nbsp;<apex:outputLabel value="{!armName}" rendered="{!randomizationResult}"/> 
+                            </apex:outputPanel>
+<!--                            <apex:pageMessage summary="Patient not randomized." severity="info" strength="3" rendered="{!patientNotRandomized}" />-->
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection> 
+                <!-- rendered="{!randomizationResult}" -->
+                <apex:outputPanel rendered="{!randomizationResult}">
+                    <apex:pageBlockSection columns="1" title="Investigational Agent Specific Tests" collapsible="false" id="additionalQueSection">
+                        <c:AdditionalQuestionComponent isEdited="false" pageController="{!this}" key="addQues" isReadOnly="false" type="Test" CRFType="00055" armId="{!armIdSelected}" TrialPatientId="{!trialPat}" CRFId="{!latObj.Id}" SectionTitle="Additional Question Section" id="additionalQueCallComponent"/>
+<!--                        <script>document.getElementById('{!$Component.additionalQueCallComponent}').parentNode.style.paddingLeft="0px";</script>-->
+                    </apex:pageBlockSection> 
+                </apex:outputPanel>
+            </apex:pageBlock>
+        </apex:tab>
+        <apex:tab label="Comments and Attachments" name="CommentsandAttachments" id="tabFour" ontabenter="enterToNextTab('CommentsandAttachments');" rendered="{!isComplete}">
+            <apex:pageBlock tabStyle="Account">
+                <apex:pageBlockButtons location="top" >
+                    <!--<apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();"/> -->
+                    <apex:commandButton action="{!next}" value="Previous" reRender="theTabPanel,errMsg" status="splashStatus">
+                        <apex:param name="tabNext" value="InvestigativeAgentSpecificTests"/>
+                    </apex:commandButton>
+                    <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel,errMsg" status="splashStatus">
+                         <apex:param name="tabNext" value="Complete"/>
+                    </apex:commandButton>
+                    <!--<apex:commandButton action="{!submit}" value="Submit" reRender="theTabPanel" status="counterStatus" />
+                    <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/> -->
+                </apex:pageBlockButtons>        
+            <apex:pageMessage summary="Please redact all PHI information from attachments." severity="info" strength="3"/>
+                <apex:pageBlockSection columns="1">
+<!--                    <chatter:feedWithFollowers entityId="{!latObj.Id}"></chatter:feedWithFollowers>-->
+                    <apex:iframe src="/apex/ChatterPage?recId={!latObj.Id}" scrolling="true" id="theIframe"/>
+                    <c:CRFAttachmentComponent rId="{!latObj.Id}" feedCRFName="Lab_and_Test__Feed" rtId="{!latObj.Root_CRF_Id__c}"/>
+                </apex:pageBlockSection>  
+            </apex:pageBlock> 
+        </apex:tab>
+        <apex:tab label="Complete" name="Complete" id="tabFive" ontabenter="enterToNextTab('Complete');" >
+            <apex:pageBlock tabStyle="Account" rendered="{!currentTab = 'Complete'}"> 
+               <!-- <apex:pageBlockButtons location="top" >
+                      <apex:commandButton action="{!customCancel}" value="Delete" onClick="return cancelConfirm();"  rendered="{!profileName =='System Administrator'}"/>
+                </apex:pageBlockButtons> -->
+                <!--<apex:actionFunction name="editCRF" action="{!editCRF}" rerender="theTabPanel" status="processStatus"/> 
+                <apex:outputPanel id="dummayPanel">
+                    <script>
+                        //alert("{!openInEditMode}");
+                        if("{!openInEditMode}" == "true") {
+                            editCRF();
+                        }
+                    </script>
+                </apex:outputPanel>-->
+                <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">
+                    <apex:pageBlock tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+                        <apex:commandButton action="{!editCRF}" rendered="{!IF(AND(latObj.Status__c == 'Rejected', isShowEditButton),true,false)}" value="Edit" reRender="formId" status="processStatus" />
+                        <apex:actionStatus id="processStatus" startText="Processing..."/><!--
+                        <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" rendered="{!isComplete}"/>  -->
+                        <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel,errMsg" status="splashStatus" rendered="{!isComplete}">
+                            <apex:param name="tabPrevious" value="CommentsandAttachments"/>
+                        </apex:commandButton>
+                    </apex:pageBlockButtons>
+                    </apex:pageBlock>
+                </apex:outputPanel>
+            <apex:pageBlockSection columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Collection Date:"/>
+                        <apex:outputField value="{!latObj.Collection_Date__c}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection columns="1" title="Routine Tests"/>
+                <table width="100%" cellpadding="4" cellspacing="0">
+                    <tr style="border-bottom: 1px solid black;">
+                        <th width="20%" style="border-bottom: 1px solid black;">
+                            <apex:outputLabel value="Test Name"/>
+                        </th>
+                        <th width="20%" style="border-bottom: 1px solid black;">
+                            <apex:outputLabel value="Result"/>
+                        </th>
+                        <th width="20%" style="border-bottom: 1px solid black;">
+                            <apex:outputLabel value="Institutional reference range"/>
+                        </th> 
+                    </tr>
+                    
+                    <tr>
+                        <td width="20%">
+                            <apex:outputField value="{!latObj.Leukocytes__c}" id="LeukocytesId1"/>
+                            <apex:outputLabel value="Leukocytes"/>
+                        </td>
+<!--                            <apex:outputPanel id="LeukocytesPanel">-->
+                            <td width="20%">
+                                {!latObj.Leukocytes_Result__c} &nbsp;&nbsp;
+                                <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                            </td>
+                            <td width="20%">
+                                {!latObj.Leukocytes_Institutional_Reference_Range__c} &nbsp;&nbsp;
+                                <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                            </td>
+<!--                            </apex:outputPanel>-->
+                    </tr>
+                    <tr>
+                        <td width="20%">
+                            <apex:outputField value="{!latObj.Absolute_Neutrophil_Count_ANC__c}" />
+                            <apex:outputLabel value="Absolute Neutrophil Count (ANC)"/>
+                        </td>
+<!--                            <apex:outputPanel >-->
+                            <td width="20%">
+                                {!latObj.Absolute_Neutrophil_Count_ANC_Result__c} &nbsp;&nbsp;
+                                <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                            </td>
+                            <td width="20%">
+                                {!latObj.ANC_Industrial_Reference_Range__c} &nbsp;&nbsp;
+                                <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                            </td>
+<!--                            </apex:outputPanel>-->
+                    </tr>
+                    <tr>
+                        <td width="20%">
+                            <apex:outputField value="{!latObj.Platelets__c}" />
+                            <apex:outputLabel value="Platelets"/>
+                        </td>
+<!--                            <apex:outputPanel >-->
+                            <td width="20%">
+                                {!latObj.Platelets_Result__c} &nbsp;&nbsp;
+                                <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                            </td>
+                            <td width="20%">
+                                {!latObj.Platelets_Institutional_Reference_Range__c} &nbsp;&nbsp;
+                                <apex:outputLabel >x10<sup>9</sup>/L</apex:outputLabel>
+                            </td>
+<!--                            </apex:outputPanel>-->
+                    </tr>
+                    <tr>
+                        <td width="20%">
+                            <apex:outputField value="{!latObj.Total_Bilirubin__c}" />
+                            <apex:outputLabel value="Total Bilirubin"/>
+                        </td>
+<!--                            <apex:outputPanel >-->
+                            <td width="20%">
+                                {!latObj.Total_Bilirubin_Result__c} &nbsp;&nbsp;
+                                <apex:outputLabel >mg/dl</apex:outputLabel>
+                            </td>
+                            <td width="20%">
+                                {!latObj.Total_Bilirubin_Institutional_Reference__c} &nbsp;&nbsp;
+                                <apex:outputLabel >mg/dl</apex:outputLabel>
+                            </td>
+<!--                            </apex:outputPanel>-->
+                    </tr>
+                    <tr>
+                        <td width="20%">
+                            <apex:outputField value="{!latObj.AST__c}" />
+                            <apex:outputLabel value="AST"/>
+                        </td>
+<!--                            <apex:outputPanel >-->
+                            <td width="20%">
+                                {!latObj.AST_Result__c} &nbsp;&nbsp;
+                                <apex:outputLabel >U/L</apex:outputLabel>
+                            </td>
+                            <td width="20%">
+                                {!latObj.AST_Institutional_Reference_Range__c}  &nbsp;&nbsp;
+                                <apex:outputLabel >U/L</apex:outputLabel>
+                            </td>
+<!--                            </apex:outputPanel>-->
+                    </tr>
+                    <tr>
+                        <td width="20%">
+                            <apex:outputField value="{!latObj.ALT__c}" />
+                            <apex:outputLabel value="ALT"/>
+                        </td>
+<!--                            <apex:outputPanel >-->
+                            <td width="20%">
+                                {!latObj.ALT_Result__c} &nbsp;&nbsp;
+                                <apex:outputLabel >U/L</apex:outputLabel>
+                            </td>
+                            <td width="20%">
+                                {!latObj.ALT_Institutional_Reference_Range__c} &nbsp;&nbsp;
+                                <apex:outputLabel >U/L</apex:outputLabel>
+                            </td>
+<!--                            </apex:outputPanel>-->
+                    </tr>
+                    <tr>
+                        <td width="20%">
+                            <apex:outputField value="{!latObj.Creatinine__c}" />
+                            <apex:outputLabel value="Creatinine"/>
+                        </td>
+<!--                            <apex:outputPanel >-->
+                            <td width="20%">
+                                {!latObj.Creatinine_Result__c} &nbsp;&nbsp;
+                                <apex:outputLabel >mg/dl</apex:outputLabel>
+                            </td>
+                            <td width="20%">
+                                {!latObj.Creatinine_Institutional_Reference_Range__c}
+                                <apex:outputLabel >mg/dl</apex:outputLabel>
+                            </td>
+<!--                            </apex:outputPanel>-->
+                    </tr>
+                </table>
+                <table width="100%" cellpadding="4" cellspacing="0">
+                    <tr style="border-bottom: 1px solid black;">
+                        <th width="18%" style="border-bottom: 1px solid black;">
+                            <apex:outputLabel value="Test Name"/>
+                        </th>
+                        <th width="18%" style="border-bottom: 1px solid black;">
+                            <apex:outputLabel value="Date of Procedure"/>
+                        </th> 
+                        <th width="18%" style="border-bottom: 1px solid black;">
+                            <apex:outputLabel value="LVEF%"/>
+                        </th>
+                        <th width="18%" style="border-bottom: 1px solid black;">
+                            <apex:outputLabel value="LVEF% Institutional lower limit of normal"/>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!latObj.MUGA_Scan__c}" />
+                            <apex:outputLabel value="MUGA Scan"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!latObj.MUGA_Scan_Date__c}" /> &nbsp;&nbsp;
+                        </td>
+                        <td>
+                            {!latObj.MUGA_Scan_LVEF__c} &nbsp;&nbsp;
+                            <apex:outputLabel value="%"/>
+                        </td>
+                        <td>
+                            {!latObj.MUGA_Institutional_Lower_Limit_of_Normal__c} &nbsp;&nbsp;
+                            <apex:outputLabel value="%"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!latObj.Cardiac_Echo__c}" id="CardiacEchoId1"/>
+                            <apex:outputLabel value="Cardiac Echo"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!latObj.Cardiac_Echo_Date__c}" /> &nbsp;&nbsp;
+                        </td>
+                        <td>
+                            {!latObj.Cardiac_Echo_LVEF__c}  &nbsp;&nbsp;
+                            <apex:outputLabel value="%"/>
+                        </td>
+                        <td>
+                            {!latObj.Cardiac_Echo_Institutional_Lower_Limit__c} &nbsp;&nbsp;
+                            <apex:outputLabel value="%"/>
+                        </td>
+                    </tr>   
+                </table>
+                <apex:pageBlockSection columns="1" id="InvestigativeAgentSection">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Collection Date:"/>
+                        <apex:outputField value="{!latObj.Collection_Date_for_Investigative_Agent__c}"/> 
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputPanel >
+                            <b><apex:outputLabel value="Treatment Arm:" Style="color : #4A4A56; font-size: 91%;" style="margin-left: 120px;"/></b>
+                            &nbsp;&nbsp;&nbsp;<apex:outputLabel value="Patient not randomized." rendered="{!patientNotRandomized}"/>
+                            &nbsp;&nbsp;&nbsp;<apex:outputLabel value="{!armName}" rendered="{!randomizationResult}"/> 
+                        </apex:outputPanel>
+<!--                            <apex:pageMessage summary="Patient not randomized." severity="info" strength="3" rendered="{!patientNotRandomized}" />-->
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:outputPanel rendered="{!randomizationResult}">  
+                    <apex:pageBlockSection columns="1" title="Investigational Agent Specific Tests" collapsible="false" id="additionalQueSection">
+                        <c:AdditionalQuestionComponentReadOnly type="Test" CRFType="00055" armId="{!armIdSelected}" CRFId="{!latObj.Id}" />
+                    </apex:pageBlockSection> 
+                </apex:outputPanel>
+                <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(latObj.Id))}">
+                    <c:CRFAttachmentComponent rId="{!latObj.Id}" feedCRFName="Lab_and_Test__Feed" rtId="{!latObj.Root_CRF_Id__c}" />
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(latObj.Id))}">
+                    <c:CRFEventComponent rId="{!latObj.Id}" objectName="Lab_and_Test__c" rtId="{!latObj.Root_CRF_Id__c}" />
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            <apex:outputPanel id="msgPanelId" layout="block" style="width: 100%;" rendered="{!isComplete}">
+                <table width="100%">
+                    <tr>
+                        <td colspan="2" width="100%" align="center">
+                            <br /> 
+                            <font color="{!msgColor}">{!errorMsg}&nbsp;</font>
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">&nbsp;</td>
+                        <td width="70%">
+                            <apex:outputLabel value="User Id :" style="font-weight: bold;" />&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+                            <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" />&nbsp;&nbsp;<apex:inputSecret value="{!password}" />&nbsp;&nbsp;
+                            <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" />
+                            <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus"/>
+                            <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                        </td>
+                    </tr>
+                </table>
+            </apex:outputPanel> 
+        </apex:tab>
+    </apex:tabPanel>
+</apex:form>
+</apex:page>

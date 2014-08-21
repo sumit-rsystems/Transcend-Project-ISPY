@@ -1,0 +1,720 @@
+<apex:page StandardController="TissueSpecimenDetail__c" action="{!saveMainCRF}" extensions="TissueSpecimenFormController" sideBar="false" id="pageId" tabStyle="Patient_Custom__c">
+<script type="text/javascript">
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script>
+
+    <style>  
+        .activeTab {
+            background: none repeat scroll 0 0 #FFFFFF;
+            border-bottom: 2px solid #FFFFFF;
+            color: #000000;
+            font-weight: 600;
+            width: 130px;
+        }  
+         
+        .inactiveTab {
+          cursor: pointer;
+          background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+          color: white; /*#3C3C3C;*/
+          font-weight: bold;
+          font-size: 12px;
+          height: 15px;
+          width: 130px;
+          vertical-align: middle;
+          border: none;
+        }
+         
+        .rich-tab-inactive {
+         background-repeat: repeat-x;
+         border-color: #FFFFFF;
+         border-style: none;
+         border-width: 0;
+         cursor: pointer;
+        }
+        
+        .rich-tabhdr-side-border {
+         background-image:none; 
+         border-radius: 4px 4px 0 0;
+         background-color: none;
+         width: 2px;
+        }
+        
+        .rich-tabhdr-side-cell {
+         box-shadow: 0 -2px 2px #A7A7A8;
+         border-top: 2px solid #056FC1;
+         border-left: 2px solid #056FC1;
+         border-right: 2px solid #056FC1;
+         border-radius: 4px 4px 0 0;
+        }
+        
+        .rich-tabpanel-content {
+         background-color: #fff;
+         border-left: 2px solid #056FC1;
+         border-right: 2px solid #056FC1;
+         border-bottom: 2px solid #056FC1;
+        }
+        
+        .rich-tab-bottom-line {
+         border-bottom: 1px solid #056FC1;
+        }
+        
+        .accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+         background-color: #97C7EC;
+        }
+        
+        body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+         background-color: #fff;
+        }
+        .name 
+        {
+            font-size: 1.50em;
+            font-weight: bold;
+        }
+        .selectbox{
+            background-color: #2F96E4;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            height: 25px;
+            position: relative;
+            width: 152px;
+            border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+            color:#fff;
+            font-size:12px; font-weight: bold;
+            padding:3px 0 3px 10px;
+        }
+    </style>
+    <script>
+    	window.onload=function(){
+        	var Guidance11=document.getElementById('pageId:formId:CoreBiopsyId:coreBiopsySecId:guidMethodItemId:guidMethodId');
+	        var otherGuidance11=document.getElementById('pageId:formId:CoreBiopsyId:coreBiopsySecId:otherGuidMethodItemId:otherGuidMethodId');
+	        if(Guidance11.value==''){
+	        	otherGuidance11.value='';
+	        	otherGuidance11.disabled=true;
+	        }
+        }
+        var formEvent = '';
+        function setEvent(event) {
+            formEvent = event;
+            if(confirm('Completely Cancel and Remove?')) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function validateFields() {
+            if(formEvent != 'Cancel') {
+                var proDate = document.getElementById('pageId:formId:pageBlockId:coreBiopsySecId:proDateItemId:proDateId');
+                if(proDate.value == '') {
+                    //document.getElementById('errorlblId').innerHTML = 'Please provide Procedure Date.';
+                    //return false;
+                } else {
+                    //var selDate = proDate.value.split('/');
+                    //var today = new Date();
+                    //var date=new Date();
+                    //date.setFullYear(selDate[2],selDate[0],(parseInt(selDate[1]) - 1));
+                    //alert(selDate[2]+'/'+selDate[0]+'/'+(parseInt(selDate[1]) - 1));
+                    //alert(date +' '+ today);
+                    //alert(date > today);
+                    //return false;
+                }
+                
+                var timePoint = document.getElementById('pageId:formId:pageBlockId:coreBiopsySecId:timePointItemId:timePointId');
+                if(timePoint.value == '') {
+                    //document.getElementById('tpErrorlblId').innerHTML = 'Please Select Time Point.';
+                    //return false;
+                }
+            }
+            document.getElementById('errorlblId').innerHTML = '';
+            document.getElementById('tpErrorlblId').innerHTML = '';
+            return true;
+        }
+        
+        function enableRow(obj) {
+            //alert("enableRow");
+            parentObj = obj.parentNode.parentNode;
+            var likeString = parentObj.getElementsByTagName('select');
+            var inputString = parentObj.getElementsByTagName('input');
+            if(obj.checked) {
+                for(var i=0;i<likeString.length;i++) {
+                    likeString[i].disabled = false;
+                    likeString[0].value="Yes";
+                    break;
+                }
+                return false;
+            } else {
+                for(var i=0;i<likeString.length;i++) {
+                    likeString[i].value = '';
+                    likeString[i].disabled = true;
+                    inputString[1].value = '';
+                    inputString[1].disabled = true;
+                }
+                return false;
+            }
+        }
+        
+        function enableOther(obj) {
+        
+            parentObj = obj.parentNode.parentNode.parentNode;
+            var likeString = parentObj.getElementsByTagName('input');
+            if((obj.id).indexOf(':shippedId') != -1) {
+                if(obj.value == 'No') {
+                //alert(document.getElementById('pageId:formId:ProcedureIds').value);
+                    //document.getElementById('pageId:formId:pageBlockId:reasonSecId:reasonItemId:reasonId').disabled = false;
+                    document.getElementById('pageId:formId:CoreBiopsyId:reasonSecId:reasonItemId:reasonId').disabled = false;
+                    //alert("enable otherbefore ");
+                } else {
+                    var flag = false;
+                    //var tId = document.getElementById('pageId:formId:pageBlockId:coreBiopsySpecimenTableId:tb');
+                    var tId = document.getElementById('pageId:formId:CoreBiopsyId:coreBiopsySpecimenTableId');
+                    var picklst = tId.getElementsByTagName('select');
+                    //alert(picklst.length);
+                    for(var i=0;i<picklst.length;i++) {
+                        if(i==0 || (i%2==0)) {
+                            if(picklst[i].value == 'No') {  
+                                flag = true;
+                                //alert("flagTrue");
+                            }
+                        } 
+                    }
+                    if(flag) {
+                    //alert("flag");
+                        //document.getElementById('pageId:formId:pageBlockId:reasonSecId:reasonItemId:reasonId').disabled = false;
+                        document.getElementById('pageId:formId:CoreBiopsyId:reasonSecId:reasonItemId:reasonId').disabled = false;
+                    } else {
+                        //document.getElementById('pageId:formId:pageBlockId:reasonSecId:reasonItemId:reasonId').disabled = true;
+                        document.getElementById('pageId:formId:CoreBiopsyId:reasonSecId:reasonItemId:reasonId').disabled = true;
+                    }
+                    
+                }
+            }
+            if(obj.value == 'Other') {
+                //alert(likeString.length);
+                if(likeString.length > 1) {
+                    likeString[1].disabled = false;
+                    return false;
+                }
+            } else {
+            //alert("enable other else");
+                if(likeString.length > 1) {
+                    likeString[1].disabled = true;
+                    likeString[1].value = '';
+                    return false;
+                }
+            }
+        }
+        
+        function disableTable () {
+            var obj = document.getElementById('pageId:formId:pageBlockId:coreBiopsySpecimenTableId');
+            var likeString = obj.getElementsByTagName('select');
+            for(var i=0;i<likeString.length;i++) {
+                likeString[i].disabled = true;
+            }
+        }
+        
+        function enableGuidMethodField() {
+            //alert(distantList.length);
+            var other = document.getElementById('pageId:formId:CoreBiopsyId:coreBiopsySecId:otherGuidMethodItemId:otherGuidMethodId');
+            var lst = document.getElementById('pageId:formId:CoreBiopsyId:coreBiopsySecId:guidMethodItemId:guidMethodId_selected');
+            //pageId:formId:CoreBiopsyId:coreBiopsySecId:otherGuidMethodItemId:otherGuidMethodId
+            for (var i = 0; i <lst.length; i++) 
+            {
+            
+                if(lst.options[i].text == 'Other') {
+                    other.disabled = false;
+                    break;
+                } else {
+                    other.disabled = true;
+                }
+            }
+            if(lst.length <= 0) {
+                other.disabled = true;
+            }
+        }
+        function enableOtherReasonField() {
+            var other = document.getElementById('pageId:formId:CoreBiopsyId:reasonSecId:otherReasonItemId:otherReasonId');
+            var reasonField = document.getElementById('pageId:formId:CoreBiopsyId:reasonSecId:reasonItemId:reasonId');
+            //pageId:formId:CoreBiopsyId:coreBiopsySpecimenTableId:0:rsId
+            if(reasonField.value == 'Other') {
+                other.disabled = false;
+            } else {
+                other.disabled = true;
+                other.value = '';
+            } 
+        }
+        
+        function validateSpecimenUsed(val) {
+            if(val == '0') {
+                if(document.getElementById('pageId:formId:consentTabBlock:specimenUsedSecId:specimenUsedItemId2:specimenUsedId2').checked) {
+                    alert('"Patient consented to use specimen for research outside of this study" is already selected. Warning : You can select only one study for which the specimen is used.');
+                    document.getElementById('pageId:formId:consentTabBlock:specimenUsedSecId:specimenUsedItemId1:specimenUsedId1').checked = false;
+                }
+                
+            } else {
+                if(document.getElementById('pageId:formId:consentTabBlock:specimenUsedSecId:specimenUsedItemId1:specimenUsedId1').checked) {
+                    alert('"Patient consented to use specimen for this study" is already selected. Warning : You can select only one study for which the specimen is used.');
+                    document.getElementById('pageId:formId:consentTabBlock:specimenUsedSecId:specimenUsedItemId2:specimenUsedId2').checked = false;
+                }
+                                
+            }
+            /*if(document.getElementById('pageId:formId:pageBlockId:specimenUsedSecId:specimenUsedItemId1:specimenUsedId1').checked) {
+                document.getElementById('pageId:formId:pageBlockId:specimenUsedSecId:specimenUsedItemId2:specimenUsedId2').checked = false;
+            } else if(document.getElementById('pageId:formId:pageBlockId:specimenUsedSecId:specimenUsedItemId2:specimenUsedId2').checked) {
+                document.getElementById('pageId:formId:pageBlockId:specimenUsedSecId:specimenUsedItemId1:specimenUsedId1').checked = false;
+            }*/
+        }
+        
+        function actionOnDateEnter(obj) {
+            document.getElementById('pageId:formId:pageBlockId:coreBiopsySecId:timePointItemId:timePointId').value = '';
+        }
+        
+        function checkCancel() {
+            if(confirm("Completely cancel and remove?")){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        function checkDelete() {
+            if(confirm("Are you sure you want to Delete this form?")){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function enterToNextTab(val){
+            //alert(val);
+            if('{!isComplete}' != 'false'){
+                document.getElementById('pageId:formId:nextTabNameID').value = val;
+                next();
+            }
+        }
+        function startSplash() {
+            var divObj = document.getElementById('splashDiv');
+            var msgSplash =document.getElementById('waitMsg');
+            var browserName = navigator.appName;
+            if(browserName == 'Netscape'){
+                divObj.style.display='table-cell'; 
+            } else {
+                divObj.style.display='table-cell';
+            }
+    	}
+        function endSplash() {            
+            document.getElementById('splashDiv').style.display='none';
+        }
+        
+        //Disable or Enable Field=Other (Guidance Method)
+        
+        function enableGuidMethodField(){
+	        var Guidance=document.getElementById('pageId:formId:CoreBiopsyId:coreBiopsySecId:guidMethodItemId:guidMethodId');
+	        var otherGuidance=document.getElementById('pageId:formId:CoreBiopsyId:coreBiopsySecId:otherGuidMethodItemId:otherGuidMethodId');
+	        //alert(Guidance.value);
+	        if(Guidance.value!=='Other'|| Guidance.value==''){
+	        	otherGuidance.value='';
+	        	otherGuidance.disabled=true;
+	        } 
+	        else{
+	        	otherGuidance.disabled=false;
+	        }
+        }
+    </script> 
+    <div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+        <div style="text-align: center; top: 50%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+    </div> 
+    <span class ="name">Patient's Details</span>
+    <br/>
+        <c:PatientDetailReadOnly patientId="{!trialPatientObj.Patient_Id__c}"/>
+    <br/>
+    <table width="100%">
+        <tr>
+            <td width="40%" align="left">
+                 <span class ="name"> Tissue Specimen Form </span>
+            </td>
+            <td width="60%" align="left">
+                <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialPatientObj.Trial_Id__r.Name}" />
+            </td>
+        </tr>
+    </table>
+    <apex:form id="formId">
+        <apex:pageBlock tabStyle="Account" helpTitle="Help"  helpUrl="/apex/TissueSpecimenFormUserGuide" rendered="{!isComplete}">
+            <apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel,JSPanel,errMsg" status="splashStatus">
+                    <apex:param name="nextTab" value="saveAndClose"/>
+                </apex:commandButton>
+                <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>
+          
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        
+        <!--added by Amit -->
+        <apex:outputPanel id="showXMLInPopupId">
+        <script>
+            var myWindow;
+            function showXMLInPopup() {
+                var LeftPosition = (screen.width) ? (screen.width-500)/2 : 0;
+                var TopPosition = (screen.height) ? (screen.height-300)/2 : 0;
+                if(myWindow && !myWindow.closed) {  //checks to see if window is open
+                    myWindow.close();
+                    myWindow=window.open('/apex/TissueSpecimen_XML_Page?trialPat='+'{!$CurrentPage.parameters.trialPat}'+'&tsId='+'{!$CurrentPage.parameters.tsId}'+'&isxmlpage=true','','width=500,height=300, left='+LeftPosition+',top='+TopPosition+',resizable=yes,scrollbars=yes,menubar=yes');
+                    myWindow.focus();
+                    return;
+                } 
+                else { 
+                    myWindow=window.open('/apex/TissueSpecimen_XML_Page?trialPat='+'{!$CurrentPage.parameters.trialPat}'+'&tsId='+'{!$CurrentPage.parameters.tsId}'+'&isxmlpage=true','','width=500,height=300, left='+LeftPosition+',top='+TopPosition+',resizable=yes,scrollbars=yes,menubar=yes');
+                    myWindow.focus();
+                }
+            }
+        </script>
+    </apex:outputPanel>
+    
+        <apex:outputPanel rendered="{!IF($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator', true, false)}"> 
+         <apex:pageBlock id="viewXmlPageBlock" rendered="{!IF(tissueSpecimenForm.Status__c == 'Approval Not Required',true,false)}" tabStyle="Account">
+             <apex:pageMessages id="errorMessage" />  
+                            <apex:pageBlockButtons location="top" id="pbbId">
+                        <div align="center">
+                            <table width="100%" align="center">
+                                <tr>
+                                    <td width="10%" align="left">
+                                        <apex:commandButton value="View XML " onclick="genCompleteTabXML();" reRender="errorMessage" status="tabChangeStatus"/>
+                                    </td>
+                                    <td width="20%">
+                                        <apex:selectRadio value="{!radioValue}">
+                                            <apex:selectOption itemValue="CDA" itemLabel="CDA"/>
+                                            <apex:selectOption itemValue="CCD" itemLabel="CCD"/>
+                                            <apex:selectOption itemValue="HL7" itemLabel="HL7"/>
+                                        </apex:selectRadio>
+                                    </td>
+                                    <td width="70%" align="left">
+                                  
+                                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </apex:pageBlockButtons>
+        </apex:pageBlock>
+        </apex:outputPanel>
+        <apex:actionFunction name="genCompleteTabXML" action="{!viewXML}"  reRender="showXMLInPopupId,errorMessage" status="tabChangeStatus" onComplete="showXMLInPopup();"/> 
+        <!--end added by Amit -->
+        
+          
+        <apex:actionFunction name="next" action="{!next}"  rerender="theTabPanel,JSPanel,errMsg" status="splashStatus"/>
+            <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/> 
+        <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " /> 
+    <apex:pageMessage summary="{!errorMsg}" severity="error" strength="3" id="errorPageMsg" rendered="{!isErrorMsg}"/>
+    <apex:pageMessages id="errMsg"/>
+    <apex:tabPanel switchType="client" value="{!currentTab}"  id="theTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+    <!--        ========coreBiopsy  =============   -->
+        <apex:tab label="Core Biopsy" name="Core BiopsyTab" id="CoreBiopsyIdtab" ontabenter="enterToNextTab('Core BiopsyTab');" rendered="{!isComplete}">
+            <apex:pageBlock title="Core Biopsy" id="CoreBiopsyId" tabStyle="Account">
+            <apex:pageBlockButtons location="top">
+               <!--<apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/> -->
+               <apex:commandButton action="{!next}" value="Next" Rerender="theTabPanel,errMsg" status="splashStatus">
+                    <apex:param name="nextTab" value="ConsentTab"/>
+               </apex:commandButton>
+            </apex:pageBlockButtons>
+                 <apex:pageBlockSection id="coreBiopsySecId" columns="1">
+                        <apex:pageBlockSectionItem id="proDateItemId">
+                            <apex:outputLabel value="Procedure Date" />
+                            <apex:outputPanel id="proDatepanel">
+                                <apex:inputField value="{!tissueSpecimenForm.ProcedureDate__c}" id="proDateId" /><label id="errorlblId" style="color: red;"></label>
+                                <script type="text/javascript">
+                                    document.getElementById('{!$component.proDateId}').onfocus = function onfocus(event) {
+                                    DatePicker.pickDate(true, '{!$component.proDateId}', false); 
+                                    addYearInDateField('past'); 
+                                };
+                                </script>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="guidMethodItemId">
+                            <apex:outputLabel value="Guidance Method (s)" />
+                            <apex:inputField value="{!tissueSpecimenForm.Guidance_Method_s__c}" id="guidMethodId" onchange="enableGuidMethodField();"/>
+                        </apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem id="otherGuidMethodItemId">
+                            <apex:outputLabel value="Other (Guidance Method)" />
+                            <apex:inputField value="{!tissueSpecimenForm.Other_Guidance_Method__c}" id="otherGuidMethodId" />
+                        </apex:pageBlockSectionItem>
+                        <script>
+				        	var Guidance1=document.getElementById('{!$Component.guidMethodId}');
+					        var otherGuidance1=document.getElementById('{!$Component.otherGuidMethodId}');
+					        if(Guidance1.value==''||Guidance1.value=='Ultrasound'){
+					        	otherGuidance1.value='';
+					        	otherGuidance1.disabled=true;
+					        }
+						</script> 
+                        <apex:pageBlockSectionItem id="timePointItemId">
+                            <apex:outputLabel value="Time Point" />
+                            <apex:outputPanel >
+                                <apex:inputField value="{!tissueSpecimenForm.Time_Point__c}" id="timePointId">
+                                    <apex:actionSupport event="onchange" action="{!addSpecimen}" reRender="coreBiopsySpecimenTableId, coreBiopsySecId, pageBlockId" status="addingStatus"/>
+                                </apex:inputField>
+                                <label id="tpErrorlblId" style="color: red;"></label>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+            <!--===================coreBiopsySpecimen==========-->
+            <apex:pageBlockSection title="Core Biopsy Specimens" id="coreBiopsySpecimenSecId" />
+            <apex:pageBlockTable value="{!lstCoreBiopsyWrapper}" var="cbWrapper" id="coreBiopsySpecimenTableId">
+                <apex:column headerClass="tableHead" width="7%" >
+                    <apex:facet name="header">#</apex:facet>
+                    <apex:inputCheckbox value="{!cbWrapper.isCollected}" onChange="enableRow(this);" /><apex:outputText value="{!cbWrapper.coreBiopsyNumber}" />
+                </apex:column>
+                <apex:column headerClass="tableHead" width="7%" >
+                    <apex:facet name="header">Shipped?</apex:facet>
+                    <apex:outputPanel id="shippedPanelId">
+                        <apex:inputField value="{!cbWrapper.coreBiopsySpecimen.Shipped__c}" id="shippedId" onChange="enableOther(this);" />
+                        <script>
+                            //alert('{!cbWrapper.isShippedDisabled}');
+                            document.getElementById('{!$Component.shippedId}').disabled = {!cbWrapper.isShippedDisabled};
+                            if("{!cbWrapper.coreBiopsySpecimen.Shipped__c}" == "Yes" || "!cbWrapper.coreBiopsySpecimen.Shipped__c}" == "No"  ) {
+                                document.getElementById('{!$Component.shippedId}').disabled = false;
+                            } 
+                            
+                        </script>
+                    </apex:outputPanel> 
+                </apex:column>
+                <apex:column headerClass="tableHead" width="7%" >
+                    <apex:facet name="header">Reason sample not shipped?</apex:facet>
+                    <apex:inputField value="{!cbWrapper.coreBiopsySpecimen.Reason_samples_not_shipped__c}" id="rsId" onChange="enableOther(this);" />
+                    <script>
+                        document.getElementById('{!$Component.rsId}').disabled = {!cbWrapper.isReasonDisabled};
+                        //alert('{!cbWrapper.coreBiopsySpecimen.Reason_samples_not_shipped__c}');
+                            if("{!cbWrapper.coreBiopsySpecimen.Reason_samples_not_shipped__c}" == '' && "{!cbWrapper.coreBiopsySpecimen.Shipped__c}" == "No" ){
+                                document.getElementById('{!$Component.shippedId}').disabled = false;
+                            } 
+                            
+                    </script>
+                </apex:column>
+                <apex:column headerClass="tableHead" width="7%" >
+                    <apex:facet name="header">Other</apex:facet>
+                    <apex:outputPanel id="otherPanel">
+                        <apex:inputField value="{!cbWrapper.coreBiopsySpecimen.Other_Reason_samples_not_shipped__c}" id="otherRId"/>
+                        <script>
+                            document.getElementById('{!$Component.otherRId}').disabled = {!cbWrapper.isOtherDisabled};
+                        </script>
+                    </apex:outputPanel>
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:outputPanel id="cbOutputPanelId">
+                <apex:commandLink action="{!addSpecimen}" value="Add More Specimen" reRender="coreBiopsySpecimenTableId, coreBiopsySecId" status="addingStatus">
+                    <apex:param name="row" value="1"/>
+                </apex:commandLink> 
+                <apex:actionStatus id="addingStatus" startText="Processing..." onstop="enableGuidMethodField()"/>
+            </apex:outputPanel>
+
+            <apex:pageBlockSection id="reasonSecId" title="Reason Section"> 
+                <apex:pageBlockSectionItem id="reasonItemId">
+                    <apex:outputLabel value="Reason all Sample not Collected" />
+                    <apex:outputPanel id="reasonPanel">
+                        <apex:inputField value="{!tissueSpecimenForm.Reason_all_samples_not_collected__c}" id="reasonId" onchange="enableOtherReasonField();"/>
+                        <script>document.getElementById('{!$Component.reasonId}').disabled = {!showReasonSec}; </script>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="otherReasonItemId">
+                    <apex:outputLabel value="Other" />
+                    <apex:inputField value="{!tissueSpecimenForm.Other_Reason_not_all_samples_collected__c}" id="otherReasonId"/>
+                </apex:pageBlockSectionItem>
+                <script>enableOtherReasonField();</script>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <script>
+           // enableGuidMethodField(); 
+        </script>
+        </apex:tab>
+    <!--    =====================consent tab=================       -->
+        <apex:tab label="Consent" name="ConsentTab" id="ConsentId" ontabenter="enterToNextTab('ConsentTab');" rendered="{!isComplete}">
+            <apex:pageBlock id="consentTabBlock" tabStyle="Account">
+                <apex:pageBlockButtons location="top">
+                    <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel,errMsg" status="splashStatus">
+                        <apex:param name="prevTab" value="Core BiopsyTab"/>
+                    </apex:commandButton>
+                    <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel,errMsg" status="splashStatus">
+                        <apex:param name="nextTab" value="AttachmentsTab"/>
+                    </apex:commandButton>
+                    <!--<apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>
+                    <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/> -->
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection id="specimenUsedSecId" title="Specimen Used" columns="1"> 
+                    <apex:pageBlockSectionItem id="specimenUsedItemId1">
+                        <apex:inputField value="{!tissueSpecimenForm.PatientConsentedStudy__c}" id="specimenUsedId1" />
+                        <apex:outputLabel value="Patient consented to use specimen for this study" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="specimenUsedItemId2">
+                        <apex:inputField value="{!tissueSpecimenForm.PatientConsentedOutsideStudy__c}" id="specimenUsedId2" onchange="" />
+                        <apex:outputLabel value="Patient consented to use specimen for research outside of this study" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:tab>
+    <!--=============================   AttachmentsTab========================  -->
+        <apex:tab label="Attachments" name="AttachmentsTab" id="AttachmentsId" ontabenter="enterToNextTab('AttachmentsTab');" rendered="{!isComplete}">
+            <apex:pageBlock tabStyle="Account">
+                <apex:pageBlockButtons location="top">
+                    <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel,errMsg" status="splashStatus">
+                        <apex:param name="prevTab" value="ConsentTab"/>
+                    </apex:commandButton>
+                    <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel,errMsg,errorPageMsg" status="splashStatus">
+                        <apex:param name="nextTab" value="CompleteTab"/>
+                    </apex:commandButton>
+                    <!--<apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>
+                    <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/> -->
+                </apex:pageBlockButtons>
+                <apex:pageMessage summary="Please redact all PHI information from attachments." severity="info" strength="3"/>
+                <apex:pageBlockSection id="chatterSection" rendered="{!NOT(ISNULL(tissueSpecimenForm.Id))}" columns="1">
+<!--                    <chatter:feedWithFollowers entityId="{!tissueSpecimenForm.Id}" /> -->
+                    <apex:iframe src="/apex/ChatterPage?recId={!tissueSpecimenForm.Id}" scrolling="true" id="theIframe"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock> 
+        </apex:tab>
+    <!--=============================   CompleteTab======================== -->
+        <apex:tab label="Complete" name="CompleteTab" id="CompleteId" ontabenter="enterToNextTab('CompleteTab');">
+            <apex:pageBlock title="Tissue Specimen Tracking Summary" tabStyle="Account"> 
+             <apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel,errMsg" status="splashStatus" rendered="{!isComplete}">
+                       <apex:param name="prevTab" value="AttachmentsTab"/>
+                </apex:commandButton>
+             <!-----  delete button fuctionlity- start    ----------------------------------> 
+                   <apex:commandButton action="{!customCancel}" value="Delete" onclick="return checkDelete();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+                   <!-----  delete button fuctionlity- end----------------------------------> 
+                   <apex:commandLink style="text-decoration:none;" styleClass="btn" target="_blank" value="Generate Pdf" action="{!redirect}" rendered="{!tissueSpecimenForm.Status__c =='Approval Not Required'}"/>
+             </apex:pageBlockButtons>
+             <apex:pageBlockSection title="Core Biopsy" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Procedure Date"/>
+                        <apex:outputPanel >
+                            <apex:outputField value="{!tissueSpecimenForm.ProcedureDate__c}"  /><label  style="color: red;"></label>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Guidance Method (s)"/>
+                        <apex:outputField value="{!tissueSpecimenForm.Guidance_Method_s__c}"/>
+                    </apex:pageBlockSectionItem> 
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Other (Guidance Method)" />
+                        <apex:outputField value="{!tissueSpecimenForm.Other_Guidance_Method__c}"/>
+                    </apex:pageBlockSectionItem>  
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Time Point"/>
+                        <apex:outputPanel >
+                            <apex:outputField value="{!tissueSpecimenForm.Time_Point__c}">
+                            <!-- <apex:actionSupport event="onchange" action="{!addSpecimen}" reRender="coreBiopsySpecimenTableId, coreBiopsySecId, pageBlockId" status="addingStatus"/>-->
+                            </apex:outputField>
+                            <label id="tpErrorlblId" style="color: red;"></label>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            <!--===================coreBiopsySpecimen==========-->
+                <apex:pageBlockSection title="Core Biopsy Specimens" columns="1">
+                <apex:pageBlockTable value="{!lstCoreBiopsyWrapper}" var="cbWrapper">
+                    <apex:column headerClass="tableHead" width="7%" >
+                        <apex:facet name="header">#</apex:facet>
+    <!--                    <apex:inputCheckbox value="{!cbWrapper.isCollected}"/>-->
+                        <apex:outputPanel rendered="{!cbWrapper.isCollected}">
+                            <img src="/img/checkbox_checked.gif" alt="Checked" width="21" height="16" class="checkImg" title="Checked" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!NOT(cbWrapper.isCollected)}">
+                            <img src="/img/checkbox_unchecked.gif" alt="Unchecked" width="21" height="16" class="checkImg" title="Unchecked" />
+                        </apex:outputPanel>
+                        <apex:outputText value="{!cbWrapper.coreBiopsyNumber}"/>
+                    </apex:column> 
+<!--  ========================================Specimen ID===========================================================    -->
+                    <apex:column headerClass="tableHead" width="7%">
+                        <apex:facet name="header">Specimen ID</apex:facet>
+                        <apex:outputPanel >
+                            <apex:outputField value="{!cbWrapper.coreBiopsySpecimen.SpecimenID__c}"/>
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerClass="tableHead" width="7%">
+                        <apex:facet name="header">Shipped?</apex:facet>
+                        <apex:outputPanel >
+                            <apex:outputField value="{!cbWrapper.coreBiopsySpecimen.Shipped__c}"/>
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerClass="tableHead" width="7%">
+                        <apex:facet name="header">Reason sample not shipped?</apex:facet>
+                        <apex:outputField value="{!cbWrapper.coreBiopsySpecimen.Reason_samples_not_shipped__c}"/>
+                    </apex:column>
+                    <apex:column headerClass="tableHead" width="7%">
+                        <apex:facet name="header">Other</apex:facet>
+                        <apex:outputPanel >
+                            <apex:outputField value="{!cbWrapper.coreBiopsySpecimen.Other_Reason_samples_not_shipped__c}"/>
+                        </apex:outputPanel>
+                    </apex:column>
+                </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                    <apex:pageBlockSection title="Reason Section"> 
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Reason all Sample not Collected"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!tissueSpecimenForm.Reason_all_samples_not_collected__c}"/>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Other"/>
+                            <apex:outputField value="{!tissueSpecimenForm.Other_Reason_not_all_samples_collected__c}"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection title="Specimen Used" columns="1"> 
+                        <apex:pageBlockSectionItem >
+                            <apex:outputField value="{!tissueSpecimenForm.PatientConsentedStudy__c}"/>
+                            <apex:outputLabel value="Patient consented to use specimen for this study"/> 
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputField value="{!tissueSpecimenForm.PatientConsentedOutsideStudy__c}" id="specimenUsedId2" />
+                            <apex:outputLabel value="Patient consented to use specimen for research outside of this study"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(tissueSpecimenForm.Id))}">
+                        <c:CRFAttachmentComponent rId="{!tissueSpecimenForm.Id}" feedCRFName="TissueSpecimenDetail__Feed" rtId="{!tissueSpecimenForm.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(tissueSpecimenForm.Id))}">
+                        <c:CRFEventComponent rId="{!tissueSpecimenForm.Id}" objectName="TissueSpecimenDetail__c" rtId="{!tissueSpecimenForm.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <div align="center">
+                    <!-- <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true" rendered="{!isComplete}"/>&nbsp;&nbsp; 
+                    <apex:actionStatus id="tabChangeStatus" startText="Processing..."/> -->  
+                    <br /> 
+                    <apex:outputPanel id="msgPanelId" layout="block" style="text-align: center;"><font color="{!msgColor}">{!errorMsg}&nbsp;</font></apex:outputPanel>
+                    <br />
+                    <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!isComplete}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!isComplete}"/>&nbsp;&nbsp;
+                    <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" rendered="{!isComplete}"/>
+                    <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="splashStatus" rendered="{!isComplete}"/>
+                    <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/> 
+                </div>
+            </apex:tab>
+        </apex:tabPanel> 
+    </apex:form>
+</apex:page>

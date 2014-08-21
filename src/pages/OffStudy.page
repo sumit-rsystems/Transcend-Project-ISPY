@@ -1,0 +1,492 @@
+<apex:page standardController="Off_Study_Detail__c" extensions="OffStudyController" id="pageId" sidebar="false" title="Off Study Form" action="{!saveCrf}" tabStyle="Patient_Custom__c">
+<script type="text/javascript">
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script>
+
+<style>
+.activeTab {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    color: #000000;
+    font-weight: 600;
+    width: 155px;
+}
+
+.inactiveTab {
+        cursor: pointer;
+        background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+        color: white; /*#3C3C3C;*/
+        font-weight: bold;
+        font-size: 12px;
+        height: 15px;
+        width: 155px;
+        vertical-align: middle;
+        border: none;
+}
+    
+.rich-tab-inactive {
+    background-repeat: repeat-x;
+    border-color: #FFFFFF;
+    border-style: none;
+    border-width: 0;
+    cursor: pointer;
+}
+
+.rich-tabhdr-side-border {
+    background-image:none; 
+    border-radius: 4px 4px 0 0;
+    background-color: none;
+    width: 2px;
+}
+
+.rich-tabhdr-side-cell {
+    box-shadow: 0 -2px 2px #A7A7A8;
+    border-top: 2px solid #056FC1;
+    border-left: 2px solid #056FC1;
+    border-right: 2px solid #056FC1;
+    border-radius: 4px 4px 0 0;
+}
+
+.rich-tabpanel-content {
+    background-color: #fff;
+    border-left: 2px solid #056FC1;
+    border-right: 2px solid #056FC1;
+    border-bottom: 2px solid #056FC1;
+}
+
+.rich-tab-bottom-line {
+    border-bottom: 1px solid #056FC1;
+}
+
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+
+.actionLink {
+    text-decoration: none;
+    padding-right: 3px;
+}
+
+.actionHead {
+    width: 150px;
+}
+
+.endDateHead {
+    width: 200px;
+}
+
+.attributHead {
+    width: 157px;
+}
+
+.gradeHead {
+    width: 295px;
+}
+
+.eventHead {
+    width: 250px;
+}
+.name {
+    font-size: 1.50em;
+    font-weight: bold;
+}
+.selectbox{
+    background-color: #2F96E4;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    height: 25px;
+    position: relative;
+    width: 152px;
+    border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+    color:#fff;
+    font-size:12px; font-weight: bold;
+    padding:3px 0 3px 10px;
+}
+</style>
+<script>
+    function checkCancel() {
+        if(confirm("Completely cancel and remove?")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function checkDelete() {
+        if(confirm("Are you sure you want to Delete this form?")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function enableBelowCheckbox(Obj) {
+        if(Obj.checked) {
+    //=============================for disable below check boxes==========================================================================
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_not_want_to_complete_MRI').disabled = true;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_nt_want_to_complete_core_bio').disabled = true;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_nt_continue_on_treatment_arm').disabled = true;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_not_have_surgery').disabled = true;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_Died').disabled = true;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Why_patient_didnt_continue_treatment_arm').disabled = true;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Treatment_arm_other_reason').style.display = 'none';
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_not_have_surgery_reason').disabled = true;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_Died_message').style.display = 'none';
+            
+    //============================for uncheck check box====================================================================================
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_not_want_to_complete_MRI').checked = false;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_nt_want_to_complete_core_bio').checked = false;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_nt_continue_on_treatment_arm').checked = false;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_not_have_surgery').checked = false;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_Died').checked = false;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Why_patient_didnt_continue_treatment_arm').value = '';
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Treatment_arm_other_reason').value = '';
+        } else {
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_not_want_to_complete_MRI').disabled = false;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_nt_want_to_complete_core_bio').disabled = false;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_nt_continue_on_treatment_arm').disabled = false;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_not_have_surgery').disabled = false;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_Died').disabled = false;
+        }
+    }
+    
+    function enableArmReason(obj) {
+        if(obj.checked) {
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Why_patient_didnt_continue_treatment_arm').disabled = false;
+        } else {
+            //alert(obj.checked);
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Why_patient_didnt_continue_treatment_arm').value = '';
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Why_patient_didnt_continue_treatment_arm').disabled = true;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Treatment_arm_other_reason').style.display = 'none';
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Treatment_arm_other_reason').value = '';
+        }
+    }
+    
+    function showReasonOther(obj) {
+        if(obj.value == 'Other') {
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Treatment_arm_other_reason').style.display = '';
+        } else {
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Treatment_arm_other_reason').style.display = 'none';
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Treatment_arm_other_reason').value = '';
+        }
+    }
+    
+    function enableSurgeryReason(obj) {
+        if(obj.checked) {
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_not_have_surgery_reason').disabled = false;
+        } else {
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_not_have_surgery_reason').disabled = true;
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_not_have_surgery_reason').value = '';
+        }
+    }
+    
+    function showMessage(obj) {
+        if(obj.checked) {
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_Died_message').style.display = '';
+        } else {
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_Died_message').style.display = 'none';
+        }
+    }
+    
+    function disableAboveCheckbox(obj) {
+        var MRI_CheckBox = document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_not_want_to_complete_MRI');
+        var core_biopsy_CheckBox = document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_nt_want_to_complete_core_bio');
+        var arm_CheckBox = document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_nt_continue_on_treatment_arm');
+        var surgery_CheckBox = document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_did_not_have_surgery');
+        var Died_CheckBox = document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_Died');
+        
+        if(MRI_CheckBox.checked || core_biopsy_CheckBox.checked || arm_CheckBox.checked || surgery_CheckBox.checked || Died_CheckBox.checked) {
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_completed_study_per_protocol').disabled = true;
+        } else {
+            document.getElementById('pageId:formId:offStudyBlock:reasonSection:Patient_completed_study_per_protocol').disabled = false;
+        }
+    }
+    
+    function startSplash() {
+        var divObj = document.getElementById('splashDiv');
+        var msgSplash =document.getElementById('waitMsg');
+        var browserName = navigator.appName;
+        if(browserName == 'Netscape'){
+            divObj.style.display='table-cell'; 
+        } else {
+            divObj.style.display='table-cell';
+        }
+    }
+    
+    function endSplash() {            
+        document.getElementById('splashDiv').style.display='none';
+    }
+</script>
+<div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+    <div style="text-align: center; top: 40%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+</div>
+<span class ="name">Patient's Details</span>
+    <br/>
+        <c:PatientDetailReadOnly patientId="{!trialPatientObj.Patient_Id__c}"/>
+    <br/>
+    <table width="100%">
+        <tr>
+            <td width="40%" align="left">
+                <span class ="name"> Off Study Form </span>
+            </td>
+            <td width="60%" align="left">
+                <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialPatientObj.Trial_Id__r.Name}" />
+            </td>
+        </tr>
+    </table>
+<apex:form id="formId">
+    <apex:pageMessages ></apex:pageMessages>
+    <apex:pageBlock id="menoPageBlockBtn" helpTitle="Help"  helpUrl="/apex/OffStudyformUserGuide" rendered="{!isComplete}" tabStyle="Account">
+        <apex:pageBlockButtons location="top">
+            <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel" status="splashStatus">
+                <apex:param name="nextTab" value="saveAndClose"/>
+            </apex:commandButton>
+            <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>
+            <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+    <apex:pageBlock rendered="{!isDelete}">
+          <apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!customCancel}" value="Delete" onclick="return checkDelete();" immediate="true" rendered="{!profileName =='System Administrator'}" />
+               <!-- <apex:commandButton value="Generate Pdf" action="{!redirect}" rendered="{!offStudyObj.Status__c == 'Accepted'}"/> -->
+               <apex:commandLink style="text-decoration:none;" value="Generate Pdf" target="_blank" styleClass="btn" action="{!redirect}" rendered="{!offStudyObj.Status__c == 'Accepted'}"/>
+          </apex:pageBlockButtons>
+    </apex:pageBlock>
+    <apex:actionFunction name="next" action="{!next}"  rerender="theTabPanel" status="splashStatus"/>
+    <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+    <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />
+    <apex:outputPanel >
+    <script>
+        function enterToNextTab(val){
+            //alert(val);
+            if('{!isComplete}' != 'false'){
+                document.getElementById('pageId:formId:nextTabNameID').value = val;
+                next();
+            }
+        }
+    </script>
+    </apex:outputPanel>
+<apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+    <apex:tab label="Off Study" name="offStudyTab" id="offStudyId" rendered="{!isComplete}" ontabenter="enterToNextTab('offStudyTab');">
+            <apex:pageBlock id="offStudyBlock" tabStyle="Account">
+                <apex:pageBlockButtons location="top">
+                    <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel" status="splashStatus">
+                        <apex:param name="nextTab" value="attachmentTab"/>
+                    </apex:commandButton>
+<!--                    <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>-->
+                    <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                </apex:pageBlockButtons>
+                
+                <apex:pageBlockSection columns="1" id="studyDateSection">
+                    <apex:inputField value="{!offStudyObj.Date_patient_went_off_study__c}" id="Date_patient_went_off_study"/>
+                    <script type="text/javascript">
+                        document.getElementById('{!$Component.Date_patient_went_off_study}').onfocus = function onfocus(event) {
+                        DatePicker.pickDate(true, '{!$Component.Date_patient_went_off_study}', false); 
+                        addYearInDateField('past'); 
+                        };
+                </script>
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="Reason(s) patient is off study" columns="1" id="reasonSection">
+                    <apex:inputField value="{!offStudyObj.Patient_completed_study_per_protocol__c}" id="Patient_completed_study_per_protocol" onchange="enableBelowCheckbox(this);"/>
+                    <apex:inputField value="{!offStudyObj.Patient_did_not_want_to_complete_MRI__c}" id="Patient_did_not_want_to_complete_MRI" label="Patient did not want to complete study MRI scans" onchange="disableAboveCheckbox(this);"/>
+                    <apex:inputField value="{!offStudyObj.Patient_did_nt_want_to_complete_core_bio__c}" id="Patient_did_nt_want_to_complete_core_bio" label="Patient did not want to complete study core biopsy" onchange="disableAboveCheckbox(this);"/>
+                    <apex:inputField value="{!offStudyObj.Patient_did_nt_continue_on_treatment_arm__c}" id="Patient_did_nt_continue_on_treatment_arm" label="Patient did not continue on treatment arm" onchange="enableArmReason(this);disableAboveCheckbox(this);"/>
+                    <apex:inputField value="{!offStudyObj.Why_patient_didnt_continue_treatment_arm__c}" id="Why_patient_didnt_continue_treatment_arm" label=" " onchange="showReasonOther(this);"/>
+                    <apex:inputField value="{!offStudyObj.Treatment_arm_other_reason__c}" id="Treatment_arm_other_reason" label=" " style="display: none;"/>
+                    <apex:inputField value="{!offStudyObj.Patient_did_not_have_surgery__c}" id="Patient_did_not_have_surgery" onchange="enableSurgeryReason(this);disableAboveCheckbox(this);"/>
+                    <apex:inputField value="{!offStudyObj.Patient_did_not_have_surgery_reason__c}" id="Patient_did_not_have_surgery_reason" label="Reason"/>
+                    <apex:inputField value="{!offStudyObj.Patient_Died__c}" id="Patient_Died" onchange="showMessage(this);disableAboveCheckbox(this);"/>
+                    <apex:outputText style="display:none;" id="Patient_Died_message" value="<strong>If patient was still undergoing neoadjuvant treatment, in addition to AE form, complete the Chemo Summary form</strong>" escape="false" />
+                    <apex:inputField value="{!offStudyObj.Did_patient_withdraw_for_survival__c}" id="Did_patient_withdraw_for_survival" label="Did patient withdraw consent to be followed for survival?"/>
+                    <apex:inputField value="{!offStudyObj.Patient_withdrew_for_specimens__c}" id="Patient_withdrew_for_specimens" label="Patient withdrew consent for use of specimens for further research?"/>
+                    <script>
+                        enableBelowCheckbox(document.getElementById('{!$Component.Patient_completed_study_per_protocol}'));
+                        enableArmReason(document.getElementById('{!$Component.Patient_did_nt_continue_on_treatment_arm}'));
+                        showReasonOther(document.getElementById('{!$Component.Why_patient_didnt_continue_treatment_arm}'));
+                        enableSurgeryReason(document.getElementById('{!$Component.Patient_did_not_have_surgery}'));
+                        showMessage(document.getElementById('{!$Component.Patient_Died}'));
+                    </script>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+    </apex:tab>
+    
+    <apex:tab label="Comments & Attachments" name="attachmentTab" id="attachmentTabId" rendered="{!isComplete}" ontabenter="enterToNextTab('attachmentTab');">
+        <apex:pageBlock title="Comments & Attachments" id="attachmentBlockId" tabStyle="Account">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel" status="splashStatus">
+                    <apex:param name="prevTab" value="offStudyTab"/>
+                </apex:commandButton> 
+                <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel" status="splashStatus">
+                    <apex:param name="nextTab" value="CompleteTab"/>
+                </apex:commandButton>
+<!--                <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>-->
+                <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+            </apex:pageBlockButtons>
+            <apex:pageMessage summary="Please redact all PHI information from attachments." severity="info" strength="3"/>
+            <apex:pageBlockSection columns="1">
+                <apex:actionRegion >
+<!--                    <chatter:feedWithFollowers entityId="{!offStudyObj.Id}" />-->
+                    <apex:iframe src="/apex/ChatterPage?recId={!offStudyObj.Id}" scrolling="true" id="theIframe"/>
+                    <c:CRFAttachmentComponent rId="{!offStudyObj.Id}" feedCRFName="Off_Study_Detail__Feed" rtId="{!offStudyObj.Root_CRF_Id__c}"/>
+                </apex:actionRegion>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:tab>
+    
+    <apex:tab label="Complete" name="CompleteTab" id="completeId" ontabenter="enterToNextTab('CompleteTab');">
+        <apex:pageBlock tabStyle="Account">
+          <!--  <apex:pageBlockButtons location="top" >
+          <apex:commandButton action="{!customCancel}" value="Delete" onclick="return checkCancel();" immediate="true" rendered="{!profileName =='System Administrator'}" />
+          </apex:pageBlockButtons> -->
+<!--  
+      ================================================================================================================================================
+      =====================================================Off Study Section==============================================================================
+      ======================================================================================================================================================
+--> 
+            <!--<apex:actionFunction name="editCRF" action="{!editCRF}" rerender="theTabPanel" status="processStatus"/>
+            <apex:outputPanel id="dummayPanel">
+                <script>
+                    //alert("{!openInEditMode}");
+                    if("{!openInEditMode}" == "true") {
+                        editCRF();
+                    }
+                </script>
+            </apex:outputPanel>-->
+            <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">
+                <apex:pageBlock tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+                         <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel" status="splashStatus" rendered="{!isComplete}">
+                           <apex:param name="prevTab" value="attachmentTab"/>
+                       </apex:commandButton>
+                        <apex:commandButton action="{!editCRF}" value=" Edit " reRender="formId" status="processStatus" rendered="{!IF(AND(offStudyObj.Status__c == 'Rejected', isShowEditButton),true,false)}"/>
+                        <apex:actionStatus id="processStatus" startText="Processing..." onstop=""/>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:outputPanel>
+            
+            <apex:pageBlockSection columns="1" >
+                <apex:outputField value="{!offStudyObj.Date_patient_went_off_study__c}" />
+            </apex:pageBlockSection>
+           
+            <apex:pageBlockSection title="Reason(s) patient is off study" columns="1" >
+                <apex:outputField value="{!offStudyObj.Patient_completed_study_per_protocol__c}" />
+                <apex:outputField value="{!offStudyObj.Patient_did_not_want_to_complete_MRI__c}" label="Patient did not want to complete study MRI scans" />
+                <apex:outputField value="{!offStudyObj.Patient_did_nt_want_to_complete_core_bio__c}" label="Patient did not want to complete study core biopsy"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Patient did not continue on treatment arm"/>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!offStudyObj.Patient_did_nt_continue_on_treatment_arm__c}" />
+                        <apex:outputPanel rendered="{!IF((offStudyObj.Why_patient_didnt_continue_treatment_arm__c != 'Other'), true, false)}">
+                            ({!offStudyObj.Why_patient_didnt_continue_treatment_arm__c})
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF((offStudyObj.Why_patient_didnt_continue_treatment_arm__c != 'Other'), false, true)}">
+                            ({!offStudyObj.Why_patient_didnt_continue_treatment_arm__c}:&nbsp; 
+                        </apex:outputPanel>
+                        <apex:outputText label=" " rendered="{!IF((offStudyObj.Why_patient_didnt_continue_treatment_arm__c != 'Other'), false, true)}">
+                            {!offStudyObj.Treatment_arm_other_reason__c})
+                        </apex:outputText>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Patient did not have surgery"/>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!offStudyObj.Patient_did_not_have_surgery__c}" />
+                        <apex:outputText label="Reason" rendered="{!offStudyObj.Patient_did_not_have_surgery__c}">
+                            ({!offStudyObj.Patient_did_not_have_surgery_reason__c})
+                        </apex:outputText>
+                    </apex:outputPanel>
+                 </apex:pageBlockSectionItem>
+                <apex:outputField value="{!offStudyObj.Patient_Died__c}" />
+                <apex:outputText rendered="{!offStudyObj.Patient_Died__c}" value="<strong>If patient was still undergoing neoadjuvant treatment, in addition to AE form, complete the Chemo Summary form</strong>" escape="false" />
+                <apex:outputField value="{!offStudyObj.Did_patient_withdraw_for_survival__c}" label="Did patient withdraw consent to be followed for survival?"/>
+                <apex:outputField value="{!offStudyObj.Patient_withdrew_for_specimens__c}" label="Patient withdrew consent for use of specimens for further research?"/>
+            </apex:pageBlockSection>
+<!--  
+      ================================================================================================================================================
+      =====================================================Feed/ Attachment Section==============================================================================
+      ======================================================================================================================================================
+--> 
+            <!--<apex:pageBlockSection columns="1">
+            <apex:pageBlockTable value="{!lstFeeds}" var="feed" id="tableId4">
+                <apex:column headerClass="tableHead" width="7%" >
+                    <apex:facet name="header">Content</apex:facet>
+                    <a href="{!feed.LinkUrl}"><apex:outputText value="{!feed.ContentFileName}" /></a>
+                </apex:column>
+                <apex:column headerClass="tableHead" width="7%" >
+                    <apex:facet name="header">Description</apex:facet>
+                    <apex:outputText value="{!feed.Body}" rendered="{!IF(feed.ContentFileName == '',false,true)}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+            </apex:pageBlockSection>-->
+            
+            <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(offStudyObj.Id))}">
+                <c:CRFAttachmentComponent rId="{!offStudyObj.Id}" feedCRFName="Off_Study_Detail__Feed" rtId="{!offStudyObj.Root_CRF_Id__c}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(offStudyObj.Id))}">
+                <!--<apex:outputText value="<b>{!offStudyObj.CreatedDate}</b>" escape="false"/>
+                <apex:outputField value="{!offStudyObj.CreatedById}" label="Entered by Study Coordinator"/>-->
+                <c:CRFEventComponent rId="{!offStudyObj.Id}" objectName="Off_Study_Detail__c" rtId="{!offStudyObj.Root_CRF_Id__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:outputPanel id="msgPanelId" layout="block" style="width: 100%;">
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" width="100%" align="center">
+                                    <br /> 
+                                    <font color="{!msgColor}">{!errorMsg}&nbsp;</font>
+                                    <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%">&nbsp;</td>
+                                <td width="70%">
+                                    <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!isComplete}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!isComplete}"/>&nbsp;&nbsp;
+                                    <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" rendered="{!isComplete}"/>
+                                    <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" rendered="{!isComplete}"/>
+                                    <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                                </td>
+                            </tr>
+                        </table>
+                </apex:outputPanel> 
+    </apex:tab>
+</apex:tabPanel>
+</apex:form>
+</apex:page>

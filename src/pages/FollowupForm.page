@@ -1,0 +1,1465 @@
+<apex:page StandardController="Followup_Form__c" extensions="FollowupFormController" sideBar="false" id="pageId" tabStyle="Patient_Custom__c" action="{!saveMainCRF}" >
+<script type="text/javascript">
+        function unknownDate(chkBox){
+        //alert('test--');
+                var chkObj1 = document.getElementById('pageId:formId:MPStatusId:Unknown_Date');
+        var chkObj2 = document.getElementById('pageId:formId:MPStatusId:Unknown_Date_but_12_Months_Ago');
+        //alert('1---'+chkObj1.checked);
+        if(chkBox == '1' && chkObj1.checked){
+                        chkObj2.checked = false;
+                }
+                if(chkBox == '2' && chkObj2.checked){
+                        chkObj1.checked = false;
+                }
+                
+                if(chkObj1.checked || chkObj2.checked) {
+                        document.getElementById('pageId:formId:MPStatusId:DatelmpId').disabled = true;
+                }else{
+                        document.getElementById('pageId:formId:MPStatusId:DatelmpId').disabled = false;
+                }
+                
+        }
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script>
+
+    <style>
+        .mystyle{
+            background-color: #cf00f8; 
+        }
+        
+        .activeTab {
+            background: none repeat scroll 0 0 #FFFFFF;
+            border-bottom: 2px solid #FFFFFF;
+            color: #000000;
+            font-weight: 600;
+            width: 180px;
+        }
+        
+        .inactiveTab {
+            cursor: pointer;
+            background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+            color: white; 
+            font-weight: bold;
+            font-size: 12px;
+            height: 15px;
+            width: 180px;
+            vertical-align: middle;
+            border: none;
+        }
+         
+        .rich-tab-inactive {
+            background-repeat: repeat-x;
+            border-color: #FFFFFF;
+            border-style: none;
+            border-width: 0;
+            cursor: pointer;
+        }
+        
+        .rich-tabhdr-side-border {
+            background-image:none; 
+            border-radius: 4px 4px 0 0;
+            background-color: none;
+            width: 2px;
+        }
+        
+        .rich-tabhdr-side-cell {
+            box-shadow: 0 -2px 2px #A7A7A8;
+            border-top: 2px solid #056FC1;
+            border-left: 2px solid #056FC1;
+            border-right: 2px solid #056FC1;
+            border-radius: 4px 4px 0 0;
+        }
+        
+        .rich-tabpanel-content {
+            background-color: #fff;
+            border-left: 2px solid #056FC1;
+            border-right: 2px solid #056FC1;
+            border-bottom: 2px solid #056FC1;
+        }
+        
+        .rich-tab-bottom-line {
+            border-bottom: 1px solid #056FC1;
+        }
+        
+        .accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+            background-color: #97C7EC;
+        }
+        
+        body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+            background-color: #fff;
+        }
+        .name {
+            font-size: 1.50em;
+            font-weight: bold;
+        }
+        .selectbox{
+            background-color: #2F96E4;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            height: 25px;
+            position: relative;
+            width: 152px;
+            border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+            color:#fff;
+            font-size:12px; font-weight: bold;
+            padding:3px 0 3px 10px;
+        }
+    </style>
+    <script>
+        
+        function cancelConfirm() {
+            if(confirm('Completely Cancel and Remove?')) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        function checkDelete() {
+            if(confirm('Are you sure you want to Delete this form?')) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        function checkLocal(obj){
+            var localValue=obj.value;
+            if(localValue=='true'){
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:0').disabled = false;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:1').disabled = false;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:2').disabled = false;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:3').disabled = false;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:4').disabled = false;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:5').disabled = false;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:6').disabled = false;
+            }
+            else if(localValue=='false'){
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:0').disabled = true;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:0').checked = null;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:1').disabled = true;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:1').checked = null;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:2').disabled = true;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:2').checked = null;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:3').disabled = true;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:3').checked = null;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:4').disabled = true;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:4').checked = null;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:5').disabled = true;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:5').checked = null;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:6').disabled = true;
+                document.getElementById('pageId:formId:noticeProgId:localchoiceId:6').checked = null;
+            }
+        }
+        
+        
+        function changePanel(obj) {
+            //alert('obj.value : '+obj.value);
+            var sstatus = obj.value;
+            if(sstatus == 'Alive') {       
+                document.getElementById('pageId:formId:SurviStId:aPanel').style.display = 'block';
+                document.getElementById('pageId:formId:SurviStId:dPanel').style.display = 'none';
+                
+            }
+            else if(sstatus == 'Dead') {
+                document.getElementById('pageId:formId:SurviStId:dPanel').style.display = 'block';
+                document.getElementById('pageId:formId:SurviStId:aPanel').style.display = 'none';
+            }
+            else {
+                document.getElementById('pageId:formId:SurviStId:dPanel').style.display = 'none';
+                document.getElementById('pageId:formId:SurviStId:aPanel').style.display = 'none';
+            }
+            
+        }
+        
+        function changePanelMP(obj){
+            var mstatus = obj.value;
+            if(mstatus=='true') 
+                document.getElementById('pageId:formId:MPStatusId:mPanel').style.display = 'block';
+            else if(mstatus=='false') {
+                document.getElementById('pageId:formId:MPStatusId:mPanel').style.display = 'none';
+                document.getElementById('pageId:formId:MPStatusId:msmnthId').value = '';
+                document.getElementById('pageId:formId:MPStatusId:msyearId').value = '';
+                document.getElementById('pageId:formId:MPStatusId:msbodateId').value = '';
+                document.getElementById('pageId:formId:MPStatusId:mshydateId').value = '';
+                document.getElementById('pageId:formId:MPStatusId:DatelmpId').value = '';
+            }
+        }
+        
+        function changePanelNC(obj){
+            var ncstatus = obj.value;
+            if(ncstatus=='true')
+                document.getElementById('pageId:formId:SurviStId:ncPanel').style.display = 'block';
+            else if(ncstatus=='false')
+                document.getElementById('pageId:formId:SurviStId:ncPanel').style.display = 'none';
+        }
+        
+        function showOtherField(obj) {
+            var elemName = obj.getAttribute('name');
+            var elemValue = obj.value;
+            if(elemValue == 'true'){
+                //  alert(elemName + ' ' + elemValue);
+                if(elemName == 'pageId:formId:SurviStId:surgId')  document.getElementById('pageId:formId:SurviStId:sdetId').disabled = false;
+                else if(elemName == 'pageId:formId:SurviStId:chemoId')  document.getElementById('pageId:formId:SurviStId:cdetId').disabled = false;
+                else if(elemName == 'pageId:formId:SurviStId:radioId')  document.getElementById('pageId:formId:SurviStId:rdetId').disabled = false;         
+                else if(elemName == 'pageId:formId:SurviStId:harId')  document.getElementById('pageId:formId:SurviStId:hdetId').disabled = false;
+            }
+            else if ( elemValue == 'false') {
+                //alert(elemName + ' f' + elemValue);
+                if(elemName == 'pageId:formId:SurviStId:surgId') { 
+                    document.getElementById('pageId:formId:SurviStId:sdetId').disabled = true;
+                    document.getElementById('pageId:formId:SurviStId:sdetId').value = '';
+                }
+                else if(elemName == 'pageId:formId:SurviStId:chemoId') { 
+                    document.getElementById('pageId:formId:SurviStId:cdetId').disabled = true;
+                    document.getElementById('pageId:formId:SurviStId:cdetId').value = '';
+                }
+                else if(elemName == 'pageId:formId:SurviStId:radioId') { 
+                    document.getElementById('pageId:formId:SurviStId:rdetId').disabled = true;
+                    document.getElementById('pageId:formId:SurviStId:rdetId').value = '';
+                }           
+                else if(elemName == 'pageId:formId:SurviStId:harId') { 
+                    document.getElementById('pageId:formId:SurviStId:hdetId').disabled = true;
+                    document.getElementById('pageId:formId:SurviStId:hdetId').value = '';
+                }   
+            }
+            //alert(elemName + ' c' + elemValue);
+        }
+        
+        function showDateField(obj) {
+            var elemName = obj.getAttribute('name');
+            var elemValue = obj.value;
+            var other = document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:9');
+            if ( elemValue == 'true'){
+                //alert(elemName + ' t ' + elemValue);
+                if(elemName == 'pageId:formId:SurviStId:clinicassesId')  document.getElementById('pageId:formId:SurviStId:ssdateId').disabled = false;
+                else if(elemName == 'pageId:formId:SurviStId:diagnosId')  document.getElementById('pageId:formId:SurviStId:ssncdateId').disabled = false;
+                else if(elemName == 'pageId:formId:noticeProgId:localprogId') document.getElementById('pageId:formId:noticeProgId:nplrdateId').disabled = false;
+                else if(elemName == 'pageId:formId:noticeProgId:distprogId'){
+                    document.getElementById('pageId:formId:noticeProgId:npdpdateId').disabled = false;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:0').disabled = false;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:1').disabled = false;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:2').disabled = false;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:3').disabled = false;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:4').disabled = false;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:5').disabled = false;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:6').disabled = false;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:7').disabled = false;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:8').disabled = false;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:9').disabled = false;
+                }
+                else if(elemName == 'pageId:formId:radiTherapyId:radiotheId') { 
+                    document.getElementById('pageId:formId:radiTherapyId:rtstartId').disabled = false;
+                    document.getElementById('pageId:formId:radiTherapyId:rtendId').disabled = false;
+                }
+                else if(elemName == 'pageId:formId:MPStatusId:lmperiodId'){
+                    document.getElementById('pageId:formId:MPStatusId:DatelmpId').disabled = false;
+                    
+                }   
+                else if(elemName == 'pageId:formId:MPStatusId:EstRepId') { 
+                    document.getElementById('pageId:formId:MPStatusId:msmnthId').disabled = false;
+                    document.getElementById('pageId:formId:MPStatusId:msyearId').disabled = false;
+                }
+                
+                else if(elemName == 'pageId:formId:MPStatusId:BioophId')  document.getElementById('pageId:formId:MPStatusId:msbodateId').disabled = false;
+                else if(elemName == 'pageId:formId:MPStatusId:hystrecId')  document.getElementById('pageId:formId:MPStatusId:mshydateId').disabled = false;
+            }
+            else if(elemValue == 'false') {
+                //alert(elemName + ' f' + elemValue);
+                if(elemName == 'pageId:formId:SurviStId:clinicassesId'){
+                    document.getElementById('pageId:formId:SurviStId:ssdateId').disabled = true;
+                    document.getElementById('pageId:formId:SurviStId:ssdateId').value='';
+                }
+                else if(elemName == 'pageId:formId:SurviStId:diagnosId'){
+                    document.getElementById('pageId:formId:SurviStId:ssncdateId').disabled = true;
+                    document.getElementById('pageId:formId:SurviStId:ssncdateId').value='';
+                }
+                else if(elemName == 'pageId:formId:noticeProgId:localprogId'){
+                    document.getElementById('pageId:formId:noticeProgId:nplrdateId').disabled = true;
+                    document.getElementById('pageId:formId:noticeProgId:nplrdateId').value='';
+                }           
+                else if(elemName == 'pageId:formId:noticeProgId:distprogId'){
+                    document.getElementById('pageId:formId:noticeProgId:npdpdateId').disabled = true;
+                    document.getElementById('pageId:formId:noticeProgId:npdpdateId').value='';
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:0').disabled = true;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:0').checked = null;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:1').disabled = true;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:1').checked = null;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:2').disabled = true;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:2').checked = null;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:3').disabled = true;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:3').checked = null;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:4').disabled = true;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:4').checked = null;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:5').disabled = true;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:5').checked = null;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:6').disabled = true;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:6').checked = null;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:7').disabled = true;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:7').checked = null;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:8').disabled = true;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:8').checked = null;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:9').disabled = true;
+                    document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:9').checked = null;
+                    document.getElementById('pageId:formId:noticeProgId:DisOthId').disabled = true;
+                    document.getElementById('pageId:formId:noticeProgId:DisOthId').value = '';
+                }
+                else if(elemName == 'pageId:formId:radiTherapyId:radiotheId'){  
+                    document.getElementById('pageId:formId:radiTherapyId:rtstartId').disabled = true;
+                    document.getElementById('pageId:formId:radiTherapyId:rtstartId').value = '';
+                    document.getElementById('pageId:formId:radiTherapyId:rtendId').disabled = true;
+                    document.getElementById('pageId:formId:radiTherapyId:rtendId').value = '';
+                }
+                else if(elemName == 'pageId:formId:MPStatusId:EstRepId') {
+                    document.getElementById('pageId:formId:MPStatusId:msmnthId').disabled = true;
+                    document.getElementById('pageId:formId:MPStatusId:msmnthId').value = '';
+                    document.getElementById('pageId:formId:MPStatusId:msyearId').disabled = true;
+                    document.getElementById('pageId:formId:MPStatusId:msyearId').value = '';
+                }                                                                           
+                else if(elemName == 'pageId:formId:MPStatusId:BioophId'){  
+                    document.getElementById('pageId:formId:MPStatusId:msbodateId').disabled = true;
+                    document.getElementById('pageId:formId:MPStatusId:msbodateId').value = '';
+                }
+                else if(elemName == 'pageId:formId:MPStatusId:hystrecId'){  
+                    document.getElementById('pageId:formId:MPStatusId:mshydateId').disabled = true;
+                    document.getElementById('pageId:formId:MPStatusId:mshydateId').value = '';
+                }
+                else if(elemName == 'pageId:formId:MPStatusId:lmperiodId'){  
+                    document.getElementById('pageId:formId:MPStatusId:DatelmpId').disabled = true;
+                    document.getElementById('pageId:formId:MPStatusId:DatelmpId').value = '';
+                }
+            }
+            //alert(elemName + ' c' + elemValue);
+        }
+        
+        function checkOther(obj){
+            var elemId = obj.id;
+            var elemValue = obj.value;
+            var elemChkd = obj.checked;
+            if ( elemId == 'pageId:formId:noticeProgId:DistantChoiceId:9'){
+                //alert(elemId + '  other ' + elemChkd);
+                if (elemChkd == true) document.getElementById('pageId:formId:noticeProgId:DisOthId').disabled = false;  
+                else if(elemChkd == false) { 
+                    document.getElementById('pageId:formId:noticeProgId:DisOthId').disabled = true;
+                    document.getElementById('pageId:formId:noticeProgId:DisOthId').value = '';
+                }
+            } 
+        }
+        
+        function startSplash() {
+            var divObj = document.getElementById('splashDiv');
+            var msgSplash =document.getElementById('waitMsg');
+            var browserName = navigator.appName;
+            if(browserName == 'Netscape'){
+                divObj.style.display='table-cell'; 
+            } else {
+                divObj.style.display='table-cell';
+            }
+        }
+        
+        function endSplash() {            
+            document.getElementById('splashDiv').style.display='none';
+        }
+    </script>
+    <div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+        <div style="text-align: center; top: 40%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+    </div>
+    <span class ="name">Patient's Details</span>
+    <br/>
+        <c:PatientDetailReadOnly patientId="{!trialPatientObj.Patient_Id__c}"/>
+    <br/>
+    <table width="100%">
+        <tr>
+            <td width="40%" align="left">
+                 <span class ="name">FollowUp Form</span>
+            </td>
+            <td width="60%" align="left">
+                <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialPatientObj.Trial_Id__r.Name}" />
+            </td>
+        </tr>
+    </table>
+    <apex:form id="formId">
+        <apex:pageMessages ></apex:pageMessages>
+        <apex:pageBlock id="menoPageBlockBtn" helpTitle="Help"  helpUrl="/apex/FollowUpformUserGuide" rendered="{!isComplete}" tabStyle="Account">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel" status="splashStatus">
+                    <apex:param name="nextTab" value="saveAndClose"/>
+                </apex:commandButton>
+                <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>
+                <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock> 
+        <apex:pageBlock rendered="{!isDelete}">
+          <apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!cancelCRF}" value="Delete" onClick="return checkDelete();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+                <!-- <apex:commandButton value="Generate Pdf" action="{!redirect}" rendered="{!FF.Status__c == 'Accepted'}"/> -->
+                <apex:commandLink style="text-decoration:none;" value="Generate Pdf" target="_blank" styleClass="btn" action="{!redirect}" rendered="{!FF.Status__c == 'Accepted'}"/>
+          </apex:pageBlockButtons>
+    </apex:pageBlock>
+        <apex:actionFunction name="next" action="{!next}"  rerender="theTabPanel,nextTabNameID" status="splashStatus"/>
+        <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+        <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />
+        <apex:outputPanel >
+        <script>
+            function enterToNextTab(val){
+                //alert(val);
+                if('{!isComplete}' != 'false'){
+                    document.getElementById('pageId:formId:nextTabNameID').value = val;
+                    next();
+                }
+            }
+        </script>
+        </apex:outputPanel>
+        <apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+<!--  
+      ======================================================================================================================================================
+      =====================================================Survival Status Tab =============================================================================
+      ======================================================================================================================================================
+-->      
+
+            <apex:tab label="Survival Status" name="survstatTab" id="survstatTabId" rendered="{!isComplete}" ontabenter="enterToNextTab('survstatTab');">
+                <!-- <apex:pageMessages /> -->
+                <apex:pageBlock id="SurviStId" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!cancelCRF}" value="Cancel" onClick="return cancelConfirm();" immediate="true" / >-->
+                        <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel" status="splashStatus"/>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..." / >
+                    </apex:pageBlockButtons>
+                    <br></br >
+                    <table>
+                        <tr>
+                            <td><b> Reporting Period </b></td>
+                            <td></td>
+                            <td></td>
+                            <td></td> 
+                        </tr>
+                        <tr>
+                            <td>From (last previous contact) &nbsp;&nbsp; <apex:inputField value="{!FF.Start_Date__c}" id="startDateId"/>
+                                <script type="text/javascript">
+                                    document.getElementById('{!$component.startDateId}').onfocus = function onfocus(event) {
+                                    DatePicker.pickDate(true, '{!$component.startDateId}', false); 
+                                    addYearInDateField(''); 
+                                    };
+                                </script>
+                            </td>
+                            <td></td>
+                            <td> To ( last contact or death)</td> <td><apex:inputField value="{!FF.End_Date__c}" id="ffEndDate"/>
+                                <script type="text/javascript">
+                                    document.getElementById('{!$component.ffEndDate}').onfocus = function onfocus(event) {
+                                    DatePicker.pickDate(true, '{!$component.ffEndDate}', false); 
+                                    addYearInDateField(''); 
+                                    };
+                                </script>
+                            </td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><b>Survival Status</b></td>
+                            <td></td>
+                            <td></td>
+                            <td></td> 
+                        </tr>
+                        <tr>
+                            <td>
+                                <apex:selectRadio id="survstatusId" value="{!FF.Survival_Status__c}" onChange="changePanel(this);" >
+                                    <apex:selectOptions value="{!survivalStatusOptions}" /> 
+                                </apex:selectRadio>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr height="3px"></tr>
+                        <tr>
+                            <td>
+                                Has the patient had a documented clinical assessment for this 
+                                <br></br>
+                                cancer since submission of the previous follow-up form? 
+                            </td>
+                            <td><apex:selectRadio id="clinicassesId" value="{!FF.Patient_doc_clinial_assessment__c}" onClick="showDateField(this);" >
+                                        <apex:selectOption itemValue="false" itemLabel="No"  />                     
+                                        <apex:selectOption itemValue="true" itemLabel="Yes"  />                     
+                                </apex:selectRadio>                                                                 
+                            </td>                                                                                   
+                            <td align="right">Date</td>                                                             
+                            <td><apex:inputField id="ssdateId" value="{!FF.Clinical_assessment_Date__c}" />
+                            <script type="text/javascript">
+                                    document.getElementById('{!$Component.ssdateId}').onfocus = function onfocus(event) {
+                                    DatePicker.pickDate(true, '{!$Component.ssdateId}', false); 
+                                    addYearInDateField(''); 
+                                    };
+                                </script>
+                            </td>    
+                        </tr>                                                                                       
+                    </table>                                                                                        
+                    <script>                                                                                        
+                        if('{!FF.Patient_doc_clinial_assessment__c}' == 'false')document.getElementById('{!$Component.ssdateId}').disabled = true;
+                    </script>                                                                                       
+                    <apex:outputPanel id="aPanel"  style="display:none" ><br></br>                                  
+                        <table width="865px">                                                                       
+                            <tr>                                                                                    
+                                <td><b> New Cancer </b></td>                                                        
+                                <td></td>                                                                           
+                                <td></td>                                                                           
+                                <td></td>                                                                             
+                            </tr>                                                                                   
+                            <tr>
+                                <td width="575px">Has the patient been diagnosed with a new primary cancer?</td>
+                                <td width="140px" align="left">
+                                    <apex:selectRadio id="diagnosId" value="{!FF.Patient_diagnose_with_new__c}" onClick="showDateField(this);changePanelNC(this);" >
+                                           <apex:selectOption itemValue="false" itemLabel="No"  />
+                                           <apex:selectOption itemValue="true" itemLabel="Yes"  />
+                                    </apex:selectRadio>
+                                </td>
+                                <td width="145px" align="right">Date</td>
+                                <td><apex:inputField id="ssncdateId" value="{!FF.Date__c}" /></td> 
+                            </tr>
+                        </table>
+                        <apex:outputPanel id="ncPanel"  style="display:none" >
+                        <table width="900px" style="margin-left: 15px">
+                            <tr>
+                                <td><b> Treatment(s) for this new primary cancer </b></td>
+                                <td></td>
+                                <td></td>
+                                <td></td> 
+                            </tr>
+                            <tr>
+                                <td>Surgery</td>
+                                <td><apex:selectRadio id="surgId" value="{!FF.Surgery__c}" onClick="showOtherField(this);" >
+                                        <apex:selectOption itemValue="false" itemLabel="No"  />
+                                        <apex:selectOption itemValue="true" itemLabel="Yes"  />
+                                    </apex:selectRadio></td>
+                            
+                                <td>Details</td>
+                                <td><apex:inputField id="sdetId" value="{!FF.Surgery_Details__c}" /></td> 
+                            </tr>
+                            <tr>
+                                <td>Chemotherapy</td>
+                                <td><apex:selectRadio id="chemoId" value="{!FF.Chemotherapy__c}" onClick="showOtherField(this);" >
+                                        <apex:selectOption itemValue="false" itemLabel="No"  />
+                                        <apex:selectOption itemValue="true" itemLabel="Yes"  />
+                                    </apex:selectRadio></td>
+                                <td>Details</td>
+                                <td><apex:inputField id="cdetId" value="{!FF.Chemotherapy_Details__c}" />  </td> 
+                            </tr>
+                            <tr>
+                                <td>Radiation therapy</td>
+                                <td><apex:selectRadio id="radioId" value="{!FF.Radiation_Therapy__c}" onClick="showOtherField(this);" >
+                                       <apex:selectOption itemValue="false" itemLabel="No"  />
+                                       <apex:selectOption itemValue="true" itemLabel="Yes"  />
+                                    </apex:selectRadio></td>
+                                <td>Details</td>
+                                <td><apex:inputField id="rdetId" value="{!FF.Radiation_Therapy_Details__c}" />
+                                    <script type="text/javascript">
+                                        document.getElementById('{!$Component.rdetId}').onfocus = function onfocus(event) {
+                                        DatePicker.pickDate(true, '{!$Component.rdetId}', false); 
+                                        addYearInDateField('past'); 
+                                        };
+                                    </script> 
+                                 </td> 
+                            </tr>
+                            <tr>
+                                <td>Harmone therapy</td>
+                                <td><apex:selectRadio id="harId" value="{!FF.Hormone_Therapy__c}" onClick="showOtherField(this);" >
+                                        <apex:selectOption itemValue="false" itemLabel="No"  />
+                                        <apex:selectOption itemValue="true" itemLabel="Yes"  />
+                                    </apex:selectRadio></td>
+                                <td>Details</td>
+                                <td><apex:inputField id="hdetId" value="{!FF.Hormone_Therapy_Details__c}" />
+                                    <script type="text/javascript">
+                                        document.getElementById('{!$Component.hdetId}').onfocus = function onfocus(event) {
+                                        DatePicker.pickDate(true, '{!$Component.hdetId}', false); 
+                                        addYearInDateField('past'); 
+                                        };
+                                    </script>  
+                                 </td> 
+                            </tr>
+                        </table>
+                        <script>                                
+                            if('{!FF.Surgery__c}' == 'false')document.getElementById('{!$Component.sdetId}').disabled = true;
+                            if('{!FF.Chemotherapy__c}' == 'false')document.getElementById('{!$Component.cdetId}').disabled = true;
+                            if('{!FF.Radiation_Therapy__c}' == 'false')document.getElementById('{!$Component.rdetId}').disabled = true;
+                            if('{!FF.Hormone_Therapy__c}' == 'false')document.getElementById('{!$Component.hdetId}').disabled = true;
+                            if('{!FF.Patient_diagnose_with_new__c}' == 'false'){
+                                document.getElementById('{!$Component.ssncdateId}').disabled = true;
+                                document.getElementById('{!$Component.ncPanel}').style.display = 'none';
+                            }
+                            if('{!FF.Patient_diagnose_with_new__c}' == 'true') document.getElementById('{!$Component.ncPanel}').style.display = 'block';
+                        </script>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="dPanel"  style="display:none" ><br></br>
+                        <fieldset style="border:1px solid grey;height:150px;width:500px">
+                            <legend style="margin-left:10px"><b>Death Details</b></legend>
+                                <table style="margin-left:10px;width:500px">
+                                    <tr>
+                                        <td>Cause of Death </td>
+                                        <td>Details</td>
+                                    </tr>
+                                    <tr>
+                                        <td><apex:selectRadio id="codId" value="{!FF.Causeof_Death__c}" onClick="" layout="pageDirection">
+                                                <apex:selectOption itemValue="Due to this disease" itemLabel="Due to this disease"  />
+                                                <apex:selectOption itemValue="Due to protocol treatment" itemLabel="Due to protocol treatment"  />
+                                                <apex:selectOption itemValue="Due to other causes" itemLabel="Due to other cause"  />
+                                                <apex:selectOption itemValue="Unknown" itemLabel="Unknown"  />
+                                            </apex:selectRadio>
+                                        </td>
+                                        <td><apex:inputTextArea id="coddetId" value="{!FF.Describe_Cause_of_Death__c}" cols="40" rows="6"/></td> 
+                                    </tr>
+                                </table>
+                        </fieldset>
+                    </apex:outputPanel>
+                    <script>
+                        if('{!FF.Survival_Status__c}' == 'Alive') {
+                            document.getElementById('{!$Component.aPanel}').style.display = 'block';
+                            document.getElementById('{!$Component.dPanel}').style.display = 'none';
+                        } 
+                        else if('{!FF.Survival_Status__c}' == 'Dead'){
+                            document.getElementById('{!$Component.aPanel}').style.display = 'none';
+                            document.getElementById('{!$Component.dPanel}').style.display = 'block';
+                        }
+                    </script>
+                </apex:pageBlock>
+            </apex:tab>
+                
+<!--  
+      ======================================================================================================================================================
+      =====================================================Notice of progression Tab========================================================================
+      ======================================================================================================================================================
+-->         
+
+            <apex:tab label="Notice of progression " name="noticeProgTab" id="noticeProgTabId" ontabenter="enterToNextTab('noticeProgTab');" rendered="{!AND(displayProgTab, isComplete)}">
+                <apex:pageBlock id="noticeProgId" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>-->
+                        <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus"  />
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus"/>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                    </apex:pageBlockButtons>
+                    <div><b>Notice of Progression</b></div><br></br>
+                    <script>
+                    
+                    </script>
+                    
+                    
+                    <table width="900px">
+                        <tr>
+                            <td> <apex:outputPanel rendered="{!qlocprog}">Has the patient been diagnosed with first local-regional
+                                <br></br>
+                                progression since submission of last follow-up form? </apex:outputPanel>
+                            </td>
+                            <td> <apex:outputPanel rendered="{!qlocprog}"><apex:selectRadio id="localprogId" value="{!FF.patient_diagnosed_local_progression__c}" onClick="showDateField(this),checkLocal(this);" >
+                                        <apex:selectOption itemValue="false" itemLabel="No"  />
+                                        <apex:selectOption itemValue="true" itemLabel="Yes"  />
+                                </apex:selectRadio></apex:outputPanel>
+                            </td>
+                            <td align="right"><apex:outputPanel rendered="{!qlocprog}">Date</apex:outputPanel></td> 
+                            <td><apex:outputPanel rendered="{!qlocprog}"><apex:inputField id="nplrdateId" value="{!FF.Local_progression_Date__c}" />
+                                <script type="text/javascript">
+                                    document.getElementById('{!$Component.nplrdateId}').onfocus = function onfocus(event) {
+                                    DatePicker.pickDate(true, '{!$Component.nplrdateId}', false); 
+                                    addYearInDateField('past'); 
+                                    };
+                                </script>
+                            </apex:outputPanel></td>
+                        </tr>
+                        <tr>
+                            <td><apex:outputPanel rendered="{!qdistprog}">Has the patient been diagnosed with first distant
+                                <br></br>
+                                progression since submission of last follow-up form? </apex:outputPanel>
+                            </td>
+                            <td><apex:outputPanel rendered="{!qdistprog}"><apex:selectRadio id="distprogId" value="{!FF.patient_diagnosed_distant_progression__c}" onClick="showDateField(this);">
+                                    <apex:selectOption itemValue="false" itemLabel="No"  />
+                                    <apex:selectOption itemValue="true" itemLabel="Yes"  />
+                                </apex:selectRadio></apex:outputPanel>
+                            </td>
+                            <td align="right"><apex:outputPanel rendered="{!qdistprog}">Date</apex:outputPanel></td> 
+                            <td><apex:outputPanel rendered="{!qdistprog}">
+                                <apex:inputField id="npdpdateId" value="{!FF.Distant_progression_Date__c}" />
+                                    <script type="text/javascript">
+                                        document.getElementById('{!$Component.npdpdateId}').onfocus = function onfocus(event) {
+                                        DatePicker.pickDate(true, '{!$Component.npdpdateId}', false); 
+                                        addYearInDateField('past'); 
+                                        };
+                                    </script>
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                    </table>
+                    <br></br>
+                    <br></br>
+                    <table width="800px">
+                        <tr>
+                            <td><b>How was recurrence / progression information obtained ? </b></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>    
+                                <apex:selectCheckboxes value="{!recurrenceProgressChoice}" layout="pageDirection">
+                                    <apex:selectOptions value="{!recurrenceProgressOptions}" /> 
+                                </apex:selectCheckboxes>
+                            </td>
+                        </tr>
+                        <tr height="3px"></tr>
+                        <tr>
+                            <td><b>Sites of new progression </b></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><b>Local </b><hr/></td>
+                            <td><b>Distant</b><hr/></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td valign="baseline">
+                                <apex:selectCheckboxes id="localchoiceId" value="{!progressionLocalChoice}" layout="pageDirection">
+                                    <apex:selectOptions id="locOptionId" value="{!progressionLocalOptions}" /> 
+                                </apex:selectCheckboxes><br/>
+                            </td>
+                            <td><apex:selectCheckboxes id="DistantChoiceId" value="{!progressionDistantChoice}" layout="pageDirection" onChange="checkOther(this)">
+                                    <apex:selectOptions id="disOptionId" value="{!progressionDistantOptions}" /> 
+                                </apex:selectCheckboxes><br/>
+                                <apex:inputField id="DisOthId" value="{!FF.Other__c}" />    
+                            </td>           
+                            <td></td>
+                        </tr>
+                    </table>
+                    <script>
+                        if('{!FF.patient_diagnosed_local_progression__c}' == 'false'){
+                            document.getElementById('{!$Component.nplrdateId}').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:localchoiceId:0').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:localchoiceId:1').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:localchoiceId:2').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:localchoiceId:3').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:localchoiceId:4').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:localchoiceId:5').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:localchoiceId:6').disabled = true;
+                        }
+                        if('{!FF.patient_diagnosed_distant_progression__c}' == 'false'){
+                            document.getElementById('{!$Component.npdpdateId}').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:0').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:1').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:2').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:3').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:4').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:5').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:6').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:7').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:8').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:DistantChoiceId:9').disabled = true;
+                            document.getElementById('pageId:formId:noticeProgId:DisOthId').disabled = true;
+                        }
+                    </script>
+                </apex:pageBlock>
+            </apex:tab>
+            
+<!--  
+      ======================================================================================================================================================
+      =====================================================Radiation Therapy Tab============================================================================
+      ======================================================================================================================================================
+-->         
+
+            <apex:tab label="Radiation Therapy " name="radiTherapyTab" id="radiTherapyTabId" ontabenter="enterToNextTab('radiTherapyTab');" rendered="{!AND(displayRadiTab, isComplete)}" >
+                <apex:pageBlock id="radiTherapyId" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>-->
+                        <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus"/>
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus"/>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                    </apex:pageBlockButtons><br></br>
+                    <table>
+                        <tr>
+                            <td><b>Radiation Therapy </b></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td width="400px">Has the patient received adjuvant radiation therapy for the <br />
+                                primary trial cancer (prior to treatment failure or second<br />
+                                primary cancer) during this reporting period ?
+                            </td>
+                            <td width="200px"> 
+                                <apex:selectRadio id="radiotheId" value="{!FF.Patient_received_adjuvant_therapy__c }" onClick="showDateField(this);" >
+                                    <apex:selectOption itemValue="false" itemLabel="No"  />
+                                    <apex:selectOption itemValue="true" itemLabel="Yes"  />
+                                </apex:selectRadio>
+                            </td>
+                            <td></td>
+                            <td width="350px">Start Date <apex:inputField id="rtstartId" value="{!FF.Radiation_Therapy_Start_Date__c}" /><br />
+                                End Date&nbsp;<apex:inputField id="rtendId" value="{!FF.Radiation_Therapy_End_Date__c}" /><br />
+                            </td> 
+                        </tr>
+                        <tr height="3px"></tr>
+                    </table><br></br>
+                    <script>
+                        if('{!FF.Patient_received_adjuvant_therapy__c }' == 'false') {
+                            document.getElementById('{!$Component.rtstartId}').disabled = true;
+                            document.getElementById('{!$Component.rtendId}').disabled = true;
+                        }
+                    </script>
+                    <apex:pageBlockSection title="Sites Irradidated" id="SitesIrradSection" columns="1">
+                        <apex:actionRegion >
+                            <apex:pageBlockTable value="{!IRSWrapperList}" var="IRSWrapper" id="SitesIrradTableId" columnsWidth="150px,250px, 250px, 150px, 150px,200px">
+                                <apex:column headerClass="tableHead ActionHead" style="vertical-align: top; padding-top: 15px;">
+                                    <apex:facet name="header">Action</apex:facet>
+                                    <apex:outputPanel rendered="{!IF(IRSWrapper.isReadOnly == true, false, true)}">
+                                        <apex:commandLink action="{!cancelIrradiatedSite}" value="Cancel" style="color: blue;" reRender="SitesIrradSection" status="processingStatus">
+                                            <apex:param name="recordId" value="{!IRSWrapper.IRDSite.Id}"/>
+                                            <apex:param name="cancelIndex" value="{!IRSWrapper.sno}"/>
+                                        </apex:commandLink>
+                                        <apex:outputPanel rendered="{!IRSWrapper.isUpdateVisible}">&nbsp;|&nbsp;</apex:outputPanel>
+                                            <apex:commandLink action="{!updateIrradiatedSite}" value="Update" style="color: blue;" rendered="{!IRSWrapper.isUpdateVisible}" reRender="SitesIrradSection, cconMedTabId" status="processingStatus">
+                                                <apex:param name="recordId" value="{!IRSWrapper.IRDSite.Id}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IRSWrapper.isReadOnly}">
+                                            <apex:commandLink action="{!editIrradiatedSite}" value="Edit" style="color: blue;" reRender="SitesIrradSection" status="processingStatus">
+                                                <apex:param name="recordId" value="{!IRSWrapper.IRDSite.Id}"/>
+                                            </apex:commandLink>
+                                            &nbsp;|&nbsp;
+                                            <apex:commandLink action="{!removeIrradiatedSite}" value="Remove" style="color: blue;" reRender="SitesIrradSection" status="processingStatus">
+                                                <apex:param name="cancelIndex" value="{!IRSWrapper.sno}"/>
+                                                <apex:param name="recordId" value="{!IRSWrapper.IRDSite.Id}"/>
+                                            </apex:commandLink>
+                                    </apex:outputPanel>
+                                </apex:column>
+                                <apex:column headerClass="tableHead TypeHead" style="vertical-align: top; padding-top: 15px;width:10%;">
+                                    <apex:facet name="header">Site</apex:facet>
+                                    <apex:inputField value="{!IRSWrapper.IRDSite.Site__c}" rendered="{!IF(IRSWrapper.isReadOnly == true, false, true)}" id="typeId" onChange="changeMedType(this);"/>
+                                    <apex:outputField value="{!IRSWrapper.IRDSite.Site__c}" rendered="{!IRSWrapper.isReadOnly}"/>
+                                </apex:column>
+                                <apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;width:35%;">
+                                    <apex:facet name="header">Laterality</apex:facet> 
+                                    <apex:inputField value="{!IRSWrapper.IRDSite.Laterality__c}" rendered="{!IF(IRSWrapper.isReadOnly == true, false, true)}"/>
+                                    <apex:outputField value="{!IRSWrapper.IRDSite.Laterality__c}" rendered="{!IRSWrapper.isReadOnly}"/>
+                                </apex:column>
+                                <apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;">
+                                    <apex:facet name="header">Dose per FX cGy</apex:facet> 
+                                    <apex:inputField value="{!IRSWrapper.IRDSite.Dose_per_FX_cGy__c}" rendered="{!IF(IRSWrapper.isReadOnly == true, false, true)}"/>
+                                    <apex:outputField value="{!IRSWrapper.IRDSite.Dose_per_FX_cGy__c}" rendered="{!IRSWrapper.isReadOnly}"/>
+                                </apex:column>
+                                <apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;">
+                                    <apex:facet name="header">Total FX</apex:facet> 
+                                    <apex:inputField value="{!IRSWrapper.IRDSite.Total_FX__c}" rendered="{!IF(IRSWrapper.isReadOnly == true, false, true)}"/>
+                                    <apex:outputField value="{!IRSWrapper.IRDSite.Total_FX__c}" rendered="{!IRSWrapper.isReadOnly}"/>
+                                </apex:column>
+                                <apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;">
+                                    <apex:facet name="header">Total dose cG AP</apex:facet> 
+                                    <apex:outputField value="{!IRSWrapper.IRDSite.Total_dose_cGy_AP__c}" rendered="{!IF(IRSWrapper.isReadOnly == true, false, true)}" />
+                                    <apex:outputText value="{!IRSWrapper.IRDSite.Total_dose_cGy_AP__c}" rendered="{!IRSWrapper.isReadOnly}" />
+                                </apex:column>
+                            </apex:pageBlockTable>
+                            <apex:outputPanel >
+                                <apex:commandButton action="{!addIrradiatedSite}" value="Add Site" reRender="SitesIrradSection" status="processingStatus"/>
+                                <apex:commandButton action="{!saveIrradiatedSite}" value=" Save " reRender="SitesIrradSection" status="savingStatus" />
+                                <apex:actionStatus startText="Saving...." id="savingStatus" />
+                                <apex:actionStatus startText="Processing...." id="processingStatus" />
+                            </apex:outputPanel>
+                        </apex:actionRegion>
+                    </apex:pageBlockSection> 
+                </apex:pageBlock>
+                
+            </apex:tab>
+            
+<!--  
+      ======================================================================================================================================================
+      =====================================================Long Term Therapy Tab===============================================================================
+      ======================================================================================================================================================
+-->
+
+            <apex:tab label="Long Term Therapy " name="ltTherapyTab" id="ltTherapyTabId" ontabenter="enterToNextTab('ltTherapyTab');" rendered="{!AND(displayLongTab, isComplete)}" >
+                <apex:pageBlock id="ltTherapyId" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>-->
+                        <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus"/>
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus"/>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                    </apex:pageBlockButtons>
+                    <br></br>
+                    <table>
+                        <tr>
+                            <td><b>Long Term Therapy </b></td>
+                            <td> </td>
+                            <td></td>
+                            <td>  </td> 
+                        </tr>
+                        <tr>
+                            <td width="400px">Did the patient receive any long term  therapy for the primary trial <br />
+                             cancer, after protocol therapy during this reporting period ?</td>
+                            <td width="200px"> <apex:selectRadio id="radiotheId" value="{!FF.Long_Term_Therapy_for_primary_Trial__c}"  >
+                                        <apex:selectOption itemValue="false" itemLabel="No"  />
+                                        <apex:selectOption itemValue="true" itemLabel="Yes"  />
+                                </apex:selectRadio>
+                            </td>
+                            <td></td>
+                            <td></td> 
+                </tr>
+                        <tr height="3px"></tr>
+                        <tr>
+                            <td><b>Therapies received</b> </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                       </tr>
+                    </table>
+                    
+                    <apex:pageBlockSection title="Therapies received" id="TherapyRecvdSection" columns="1">
+                        <apex:actionRegion >
+                            <apex:pageBlockTable value="{!THRWrapperList}" var="THRWrapper" id="therapiesTableId" columnsWidth="100px, 300px, 300px, 150px,150px">
+                                <apex:column headerClass="tableHead ActionHead" style="vertical-align: top; padding-top: 15px;">
+                                    <apex:facet name="header">Action</apex:facet>
+                                    <apex:outputPanel rendered="{!IF(THRWrapper.isReadOnly == true, false, true)}">
+                                        <apex:commandLink action="{!cancelTherapyReceived}" value="Cancel" style="color: blue;" reRender="TherapyRecvdSection" status="processingStatus">
+                                            <apex:param name="recordId" value="{!THRWrapper.THRecvd.Id}"/>
+                                            <apex:param name="cancelIndex" value="{!THRWrapper.sno}"/>
+                                        </apex:commandLink>
+                                        <apex:outputPanel rendered="{!THRWrapper.isUpdateVisible}">&nbsp;|&nbsp;</apex:outputPanel>
+                                            <apex:commandLink action="{!updateTherapyReceived}" value="Update" style="color: blue;" rendered="{!THRWrapper.isUpdateVisible}" reRender="TherapyRecvdSection, cconMedTabId" status="processingStatus">
+                                                <apex:param name="recordId" value="{!THRWrapper.THRecvd.Id}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!THRWrapper.isReadOnly}">
+                                            <apex:commandLink action="{!editTherapyReceived}" value="Edit" style="color: blue;" reRender="TherapyRecvdSection" status="processingStatus">
+                                                <apex:param name="recordId" value="{!THRWrapper.THRecvd.Id}"/>
+                                            </apex:commandLink>
+                                            &nbsp;|&nbsp;
+                                            <apex:commandLink action="{!removeTherapyReceived}" value="Remove" style="color: blue;" reRender="TherapyRecvdSection" status="processingStatus">
+                                                <apex:param name="cancelIndex" value="{!THRWrapper.sno}"/>
+                                                <apex:param name="recordId" value="{!THRWrapper.THRecvd.Id}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                </apex:column>
+                                <apex:column headerClass="tableHead TypeHead" style="vertical-align: top; padding-top: 15px;width:10%;">
+                                    <apex:facet name="header">Therapy</apex:facet>
+                                    <apex:inputField value="{!THRWrapper.THRecvd.Therapy__c}" rendered="{!IF(THRWrapper.isReadOnly == true, false, true)}" id="typeId" onChange="changeMedType(this);"/>
+                                    <apex:outputField value="{!THRWrapper.THRecvd.Therapy__c}" rendered="{!THRWrapper.isReadOnly}"/>
+                                </apex:column>
+                                <apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;width:35%;">
+                                    <apex:facet name="header">Detail</apex:facet> 
+                                    <apex:inputField value="{!THRWrapper.THRecvd.Detail__c}" rendered="{!IF(THRWrapper.isReadOnly == true, false, true)}"/>
+                                    <apex:outputField value="{!THRWrapper.THRecvd.Detail__c}" rendered="{!THRWrapper.isReadOnly}"/>
+                                </apex:column>
+                                <apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;">
+                                    <apex:facet name="header">Start Date</apex:facet> 
+                                    <apex:inputField id="threcvedStartDate" value="{!THRWrapper.THRecvd.Start_Date_Date_Performed__c}" rendered="{!IF(THRWrapper.isReadOnly == true, false, true)}"/>
+                                    <script type="text/javascript">
+                                        document.getElementById('{!$Component.threcvedStartDate}').onfocus = function onfocus(event) {
+                                        DatePicker.pickDate(true, '{!$Component.threcvedStartDate}', false); 
+                                        addYearInDateField(''); 
+                                        };
+                                    </script>
+                                    <apex:outputField value="{!THRWrapper.THRecvd.Start_Date_Date_Performed__c}" rendered="{!THRWrapper.isReadOnly}"/>
+                                </apex:column>
+                                <apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;">
+                                    <apex:facet name="header">End Date</apex:facet> 
+                                    <apex:inputField id="therecvdEndDate" value="{!THRWrapper.THRecvd.End_Date__c}" rendered="{!IF(THRWrapper.isReadOnly == true, false, true)}"/>
+                                    <script type="text/javascript">
+                                        document.getElementById('{!$Component.therecvdEndDate}').onfocus = function onfocus(event) {
+                                        DatePicker.pickDate(true, '{!$Component.therecvdEndDate}', false); 
+                                        addYearInDateField(''); 
+                                        };
+                                    </script>
+                                    <apex:outputField value="{!THRWrapper.THRecvd.End_Date__c}" rendered="{!THRWrapper.isReadOnly}"/>
+                                </apex:column>
+                            </apex:pageBlockTable>
+                            <apex:outputPanel >
+                                <apex:commandButton action="{!addTherapyReceived}" value="Add Therapy" reRender="TherapyRecvdSection" status="processingStatus"/>
+                                <apex:commandButton action="{!saveTherapyReceived}" value=" Save " reRender="TherapyRecvdSection" status="savingStatus" />
+                                <apex:actionStatus startText="Saving...." id="savingStatus" />
+                                <apex:actionStatus startText="Processing...." id="processingStatus" />
+                            </apex:outputPanel>
+                        </apex:actionRegion>
+                    </apex:pageBlockSection> 
+                </apex:pageBlock>
+            </apex:tab>
+            
+<!--  
+      ======================================================================================================================================================
+      =====================================================Menopausal Status Tab===============================================================================
+      ======================================================================================================================================================
+-->
+     
+         <apex:tab label="Menopausal Status" name="MPStatusTab" id="ltMPStatusTabId" ontabenter="enterToNextTab('MPStatusTab');" rendered="{!isComplete}">
+                <apex:pageBlock id="MPStatusId" tabStyle="Account"><br></br>
+                    <table>
+                        <tr>
+                            <td style="width:396px">Did the patient have a menstrual period during this reporting period?</td>
+                            <td align="center">
+                                <apex:selectRadio id="mperiodId" value="{!FF.patient_have_a_menstrual_period__c}" onChange="changePanelMP(this);" >
+                                    <apex:selectOption itemValue="false" itemLabel="No"  />
+                                    <apex:selectOption itemValue="true" itemLabel="Yes"  />
+                                </apex:selectRadio>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <apex:outputPanel id="mPanel"  style="display:none" >
+                    <table style="width:1000px" >
+                        <tr>
+                            <td>Patient Age</td>
+                            <td>&nbsp;<apex:outputText value="{!Age}"> </apex:outputText></td>
+                            <td></td>
+                            <td></td> 
+                        </tr>
+                        <tr>
+                            <td>Date of Last  Menstrual period   &nbsp;&nbsp;&nbsp;</td>
+                            <td style="width:90px"><apex:inputField id="DatelmpId" value="{!FF.Date_of_Last_Menstrual_period__c}" />
+                                <script type="text/javascript">
+                                    document.getElementById('{!$Component.DatelmpId}').onfocus = function onfocus(event) {
+                                    DatePicker.pickDate(true, '{!$Component.DatelmpId}', false); 
+                                    addYearInDateField(''); 
+                                    };
+                                </script>
+                            </td>
+                            <!--<td><apex:selectRadio id="lmperiodId" value="{!FF.Date_of_Last_Menstrual_period_UKData__c}" layout="pageDirection" onClick="showDateField(this);" >
+                                    <apex:selectOption itemValue="false" itemLabel="Unknown Date"  />
+                                    <apex:selectOption itemValue="true" itemLabel="Unknown Date, but > 12 months ago"  />
+                                </apex:selectRadio> </td> 
+                            <td></td>
+                        -->
+                                <td>
+                                <apex:inputField value="{!FF.Date_of_Last_Menstrual_period_UKData__c}" id="Unknown_Date" onchange="unknownDate('1')"/>
+                                <apex:outputText value="Unknown Date" /><br/>
+                                <apex:inputField value="{!FF.Date_of_Last_Menstrual_period_UKData__c}" id="Unknown_Date_but_12_Months_Ago" onchange="unknownDate('2')"/>
+                                <apex:outputText value="Unknown Date but >12 Months Ago" />    
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>On Estrogen Replacement ?</td>
+                            <td style="width:150px"> 
+                                <apex:selectRadio id="EstRepId" value="{!FF.On_Estrogen_Replacement__c}" onClick="showDateField(this);">
+                                    <apex:selectOption itemValue="false" itemLabel="No"  />
+                                    <apex:selectOption itemValue="true" itemLabel="Yes"  />
+                                </apex:selectRadio>&nbsp;&nbsp;
+                            </td>
+                            <td colspan="2">Duration&nbsp;
+                                <apex:inputField style="width:50px" id="msmnthId" value="{!FF.On_Estrogen_Replacement_Months__c}" />Months &nbsp; 
+                                <apex:inputField style="width:50px" id="msyearId" value="{!FF.On_Estrogen_Replacement_Years__c}" /> Years
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td>Bilateral oophorectomy ?</td>
+                            <td><apex:selectRadio id="BioophId" value="{!FF.Bilateral_oophorectomy__c}" onClick="showDateField(this);" >
+                                    <apex:selectOption itemValue="false" itemLabel="No"  />
+                                    <apex:selectOption itemValue="true" itemLabel="Yes"  />
+                                </apex:selectRadio>
+                            </td>
+                            <td>Date   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField id="msbodateId" value="{!FF.Bilateral_oophorectomy_Date__c}" />
+                            <script type="text/javascript">
+                                document.getElementById('{!$component.msbodateId}').onfocus = function onfocus(event) {
+                                DatePicker.pickDate(true, '{!$component.msbodateId}', false); 
+                                addYearInDateField(''); 
+                                };
+                            </script> 
+                            </td>
+                            <td></td> 
+                        </tr>
+                        <tr>
+                            <td>Hysterectomy   ?</td>
+                            <td> <apex:selectRadio id="hystrecId" value="{!FF.Hysterectomy__c}" onClick="showDateField(this);" >
+                                    <apex:selectOption itemValue="false" itemLabel="No"  />
+                                    <apex:selectOption itemValue="true" itemLabel="Yes"  />
+                                </apex:selectRadio>
+                                
+                            </td>
+                            <td>Date   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField id="mshydateId" value="{!FF.Hysterectomy_Date__c}" />
+                                <script type="text/javascript">
+                                    document.getElementById('{!$component.mshydateId}').onfocus = function onfocus(event) {
+                                    DatePicker.pickDate(true, '{!$component.mshydateId}', false); 
+                                    addYearInDateField(''); 
+                                    };
+                            </script>
+                            </td>
+                            <td></td> 
+                        </tr>
+                        <tr height="3px"></tr>  
+                        
+                        <tr>
+                            <td valign="baseline"><b>Menopausal status </b></td>
+                            <td colspan="3">
+                                <apex:selectCheckboxes id="menopausalChoiceId" value="{!menopausalStatusChoice}" layout="pageDirection">
+                                    <apex:selectOptions value="{!menopausalStatusOptions}" />
+                                </apex:selectCheckboxes>
+                            </td>
+                            <td></td>
+                            <td></td> 
+                        </tr>
+                    </table>
+                    <script>
+                        if('{!FF.On_Estrogen_Replacement__c}' == 'false') { 
+                            document.getElementById('{!$Component.msmnthId}').disabled = true;
+                            document.getElementById('{!$Component.msyearId}').disabled = true;
+                        }
+                        if('{!FF.Bilateral_oophorectomy__c}' == 'false')document.getElementById('{!$Component.msbodateId}').disabled = true;
+                        if('{!FF.Hysterectomy__c}' == 'false')document.getElementById('{!$Component.mshydateId}').disabled = true;
+                        
+                        if('{!FF.patient_have_a_menstrual_period__c}' == 'true'){
+                            document.getElementById('{!$Component.mPanel}').style.display = 'block';
+                        }
+                        else if('{!FF.patient_have_a_menstrual_period__c}' == 'false') document.getElementById('{!$Component.mPanel}').style.display = 'none';
+                        if('{!FF.Date_of_Last_Menstrual_period_UKData__c}' == 'false') { 
+                            document.getElementById('{!$Component.DatelmpId}').disabled = true;
+                        }
+                    </script>
+                    </apex:outputPanel>
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>-->
+                        <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus"/>
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus"/>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                    </apex:pageBlockButtons><br></br>
+                </apex:pageBlock>
+            
+            </apex:tab> 
+        
+<!--  
+      ======================================================================================================================================================
+      =====================================================Comments & Attachments Tab===============================================================================
+      ======================================================================================================================================================
+-->     
+
+            <apex:tab label="Comments & Attachments" name="attachmentTab" id="attachmentTabId" ontabenter="enterToNextTab('attachmentTab');" rendered="{!isComplete}">
+                <apex:pageBlock title="Comments & Attachments" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>-->
+                        <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus"/> 
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus"/>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                    </apex:pageBlockButtons>
+                    <apex:pageMessage summary="Please redact all PHI information from attachments." severity="info" strength="3"/>
+                    <apex:pageBlockSection columns="1">
+<!--                        <chatter:feedWithFollowers entityId="{!FF.Id}" />-->
+                        <apex:iframe src="/apex/ChatterPage?recId={!FF.Id}" scrolling="true" id="theIframe"/>
+                        <c:CRFAttachmentComponent rId="{!FF.Id}" feedCRFName="Followup_Form__Feed" rtId="{!FF.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:tab>
+
+<!--  
+      ======================================================================================================================================================
+      =====================================================Complete Tab=====================================================================================
+      ======================================================================================================================================================
+--> 
+        
+            <apex:tab label="Complete" name="completeTab" id="completeTabId" ontabenter="enterToNextTab('completeTab');">
+            <apex:pageBlock title="Complete" tabStyle="Account">
+               <!-- <apex:pageBlockButtons location="top" >
+                      <apex:commandButton action="{!cancelCRF}" value="Delete" onClick="return cancelConfirm();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+                </apex:pageBlockButtons> -->
+                <!--<apex:actionFunction name="editCRF" action="{!editCRF}" rerender="theTabPanel" status="processStatus"/> 
+                <apex:outputPanel id="dummayPanel">
+                    <script>
+                        //alert("{!openInEditMode}");
+                        if("{!openInEditMode}" == "true") {
+                            editCRF();
+                        }
+                    </script>
+                </apex:outputPanel>-->
+                <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">
+                    <apex:pageBlock tabStyle="Account">
+                        <apex:pageBlockButtons location="top">
+                            <apex:commandButton action="{!editCRF}" rendered="{!IF(AND(FF.Status__c == 'Rejected', isShowEditButton),true,false)}" value="Edit" reRender="formId" status="processStatus" />
+                            <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel, pageBlockId, pageBlockId1, pageBlockId2, pageBlockId3" status="splashStatus" rendered="{!isComplete}"/>&nbsp;&nbsp; 
+                                <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                            <apex:actionStatus id="processStatus" startText="Processing..."/>
+                        </apex:pageBlockButtons>
+                    </apex:pageBlock>
+                </apex:outputPanel>
+                <table width="1000px">
+                    <col width="75px"/>
+                    <col width="75px"/>
+                    <col width="850px"/>
+                    <tr>
+                        <td style="width:400px"><b>Followup Form</b></td>
+                        <td style="width:400px">&nbsp;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+<!--                         <apex:commandLink value="Attach Pdf" action="{!attachPdf}"></apex:commandLink>-->
+                        </td>
+                        <td></td>                       
+                    </tr>
+                    <tr>
+                        <td><b>Survival Status</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Reporting period:</td>
+                        <td>
+                            <apex:outputField value="{!FF.Start_Date__c}"> 
+                            </apex:outputField>&nbsp;to&nbsp;<apex:outputField value="{!FF.End_Date__c}"> </apex:outputField>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Survival Status:</td>
+                        <td>
+                            <apex:outputField value="{!FF.Survival_Status__c}"></apex:outputField> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>New Cancer:</td>
+                        <td>
+                            <apex:outputText value="{!FF.Patient_diagnose_with_new__c}" ></apex:outputText>&nbsp;:&nbsp;
+                            <apex:outputField value="{!FF.Date__c}"></apex:outputField> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td valign="baseline">Treatment(s) for new cancer:</td>
+                        <td><apex:outputText value="{!FF.Surgery__c}" rendered="{!FF.Surgery__c}"> </apex:outputText>&nbsp;&nbsp;
+                            <apex:outputField value="{!FF.Surgery_Details__c}" /><br></br>
+                            <apex:outputText value="{!FF.Chemotherapy__c}" rendered="{!FF.Chemotherapy__c}"> </apex:outputText>&nbsp;&nbsp;
+                            <apex:outputField value="{!FF.Chemotherapy_Details__c}" /><br></br>
+                            <apex:outputText value="{!FF.Radiation_Therapy__c}" rendered="{!FF.Radiation_Therapy__c}"> </apex:outputText>&nbsp;&nbsp;
+                            <apex:outputField value="{!FF.Radiation_Therapy_Details__c}" /><br></br>
+                            <apex:outputText value="{!FF.Hormone_Therapy__c}" rendered="{!FF.Hormone_Therapy__c}"> </apex:outputText>&nbsp;&nbsp;
+                            <apex:outputField value="{!FF.Hormone_Therapy_Details__c}"  /><br></br>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td>Cause of death:</td>
+                        <td>
+                            <apex:outputField value="{!FF.Causeof_Death__c}"></apex:outputField> 
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Cause of death description:</td>
+                        <td>
+                            <apex:outputField value="{!FF.Describe_Cause_of_Death__c}"  ></apex:outputField> 
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td></td>
+                        <td>Documented assessment:</td>
+                        <td>
+                            <apex:outputText value="{!FF.Patient_doc_clinial_assessment__c}" ></apex:outputText>&nbsp;:&nbsp;
+                            <apex:outputField value="{!FF.Clinical_assessment_Date__c}"></apex:outputField> 
+                        </td>
+                    </tr>
+                    <tr height="2px"></tr>
+                    <tr>
+                        <td><b>Notice of Progression</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Local/regional progression:</td>
+                        <td>
+                            <apex:outputText value="{!FF.patient_diagnosed_local_progression__c}" ></apex:outputText>&nbsp;:&nbsp;
+                            <apex:outputField value="{!FF.Local_progression_Date__c}"></apex:outputField> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Sites:</td>
+                        <td>
+                            <apex:outputField value="{!FF.Local__c}" ></apex:outputField> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Distant progression:</td>
+                        <td>
+                            <apex:outputText value="{!FF.patient_diagnosed_distant_progression__c}" ></apex:outputText>&nbsp;:&nbsp;
+                            <apex:outputField value="{!FF.Distant_progression_Date__c}"></apex:outputField> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Sites:</td>
+                        <td>
+                            <apex:outputField value="{!FF.Distant__c}" ></apex:outputField>&nbsp;:&nbsp;
+                            <apex:outputField value="{!FF.Other__c}" ></apex:outputField>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Information Obtained:</td>
+                        <td> 
+                            <apex:outputField value="{!FF.Recurrence_progression_information__c}" ></apex:outputField> 
+                        </td>
+                    </tr>
+                    <tr height="2px"></tr>
+                    <tr>
+                        <td><b>Radiation Therapy</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Adjuvant Radiation therapy</td>
+                        <td>
+                            <apex:outputText value="{!FF.Patient_received_adjuvant_therapy__c}" ></apex:outputText>&nbsp;:&nbsp;
+                            <apex:outputField value="{!FF.Radiation_Therapy_Start_Date__c}"></apex:outputField>&nbsp;to&nbsp;
+                            <apex:outputField value="{!FF.Radiation_Therapy_End_Date__c}"></apex:outputField>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td valign="baseline">Sites Irradiated</td>
+                        <td><apex:repeat value="{!IRSWrapperList}" var="IRSWrapper" id="IRSRepeat">
+                                <apex:outputField value="{!IRSWrapper .IRDSite.Site__c}" id="IRSsite"/>(
+                                <apex:outputField value="{!IRSWrapper .IRDSite.Laterality__c}" id="IRSlaterality"/>)&nbsp;:&nbsp;
+                                <apex:outputField value="{!IRSWrapper .IRDSite.Dose_per_FX_cGy__c}" id="IRSdose"/> cGy/FX&nbsp;* &nbsp; 
+                                <apex:outputField value="{!IRSWrapper .IRDSite.Total_FX__c}" id="IRStotalFX"/>FX&nbsp;(Total dose=
+                                <apex:outputField value="{!IRSWrapper .IRDSite.Total_dose_cGy_AP__c}" id="IRStotaldose"/>cGy)<br/>
+                            </apex:repeat>
+                        </td>
+                    </tr>
+                    <tr height="2px"></tr>
+                    <tr>
+                        <td><b>Long term Therapy</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Long term Therapy</td>
+                        <td>
+                            <apex:outputText value="{!FF.Long_Term_Therapy_for_primary_Trial__c }" ></apex:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Therapy:</td>
+                        <td><apex:repeat value="{!THRWrapperList}" var="THRWrapper" id="THRRepeat">
+                                <apex:outputField value="{!THRWrapper.THRecvd.Therapy__c}" id="THRecvdTherapy"/>&nbsp;:&nbsp;
+                                <apex:outputField value="{!THRWrapper.THRecvd.Start_Date_Date_Performed__c}" id="THRecvdStartDate"/>&nbsp;to&nbsp;  
+                                <apex:outputField value="{!THRWrapper.THRecvd.End_Date__c}" id="THRecvdEndDate"/><br/> 
+                            </apex:repeat>
+                        </td>
+                    </tr>
+                    <tr height="2px"></tr>
+                  <tr>
+                        <td><b>Menopausal Status</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Patient age:</td>
+                        <td><apex:outputText value="{!Age}"></apex:outputText></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Date of LMP:</td>
+                        <td>
+                            <apex:outputField value="{!FF.Date_of_Last_Menstrual_period__c}"></apex:outputField>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Estrogen Replacement</td>
+                        <td>
+                            <apex:outputText value="{!FF.On_Estrogen_Replacement__c}"></apex:outputText>&nbsp;:&nbsp;
+                            <apex:outputField value="{!FF.On_Estrogen_Replacement_Months__c}"></apex:outputField>&nbsp;months&nbsp;
+                            <apex:outputField value="{!FF.On_Estrogen_Replacement_Years__c}"></apex:outputField>&nbsp;years
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Bilateral oophorectomy:</td>
+                        <td>
+                            <apex:outputText value="{!FF.Bilateral_oophorectomy__c}"> </apex:outputText>&nbsp;:&nbsp;
+                            <apex:outputField value="{!FF.Bilateral_oophorectomy_Date__c}"> </apex:outputField>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Hysterectomy:</td>
+                        <td>
+                            <apex:outputText value="{!FF.Hysterectomy__c}"> </apex:outputText>&nbsp;:&nbsp;
+                            <apex:outputField value="{!FF.Hysterectomy_Date__c}"> </apex:outputField>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Menopausal_status:</td>
+                        <td>
+                            <apex:outputField value="{!FF.Menopausal_status__c}"> </apex:outputField>
+                        </td>
+                    </tr> 
+                </table>
+                    <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(FF.Id))}">
+                    <c:CRFAttachmentComponent rId="{!FF.Id}" feedCRFName="Followup_Form__Feed" rtId="{!FF.Root_CRF_Id__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(FF.Id))}">
+                    <c:CRFEventComponent rId="{!FF.Id}" objectName="Followup_Form__c" rtId="{!FF.Root_CRF_Id__c}"/>
+                </apex:pageBlockSection>
+                </apex:pageBlock>
+                <apex:outputPanel id="msgPanelId" layout="block" style="width: 100%;">
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" width="100%" align="center">
+                                    <br /> 
+                                    <font color="{!msgColor}">{!errorMsg}&nbsp;</font>
+                                    <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%">&nbsp;</td>
+                                <td width="70%">
+                                    <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!isComplete}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!isComplete}"/>&nbsp;&nbsp;
+                                    <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" rendered="{!isComplete}"/>
+                                    <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" rendered="{!isComplete}"/>
+                                    <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                                </td>
+                            </tr>
+                        </table>
+                </apex:outputPanel>
+            </apex:tab>
+        </apex:tabPanel>
+    </apex:form>
+    <script>
+    
+    </script>
+    
+    
+    
+</apex:page>

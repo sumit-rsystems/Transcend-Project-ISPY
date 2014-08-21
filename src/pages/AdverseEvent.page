@@ -1,0 +1,950 @@
+<apex:page standardController="AE_Detail__c" extensions="AdverseEventController" id="pageId" sidebar="false" action="{!saveCrf}" tabStyle="Patient_Custom__c">
+<script type="text/javascript">
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script>
+<style>
+.activeTab {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    color: #000000;
+    font-weight: 600;
+    width: 150px;
+}
+
+.inactiveTab {
+        cursor: pointer;
+        background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+        color: white; /*#3C3C3C;*/
+        font-weight: bold;
+        font-size: 12px;
+        height: 15px;
+        width: 150px;
+        vertical-align: middle;
+        border: none;
+}
+    
+.rich-tab-inactive {
+    background-repeat: repeat-x;
+    border-color: #FFFFFF;
+    border-style: none;
+    border-width: 0;
+    cursor: pointer;
+}
+
+.rich-tabhdr-side-border {
+    background-image:none; 
+    border-radius: 4px 4px 0 0;
+    background-color: none;
+    width: 2px;
+}
+
+.rich-tabhdr-side-cell {
+    box-shadow: 0 -2px 2px #A7A7A8;
+    border-top: 2px solid #056FC1;
+    border-left: 2px solid #056FC1;
+    border-right: 2px solid #056FC1;
+    border-radius: 4px 4px 0 0;
+}
+
+.rich-tabpanel-content {
+    background-color: #fff;
+    border-left: 2px solid #056FC1;
+    border-right: 2px solid #056FC1;
+    border-bottom: 2px solid #056FC1;
+}
+
+.rich-tab-bottom-line {
+    border-bottom: 1px solid #056FC1;
+}
+
+.rich-tabpanel-content-position {
+
+}
+
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+
+.actionLink {
+    text-decoration: none;
+    padding-right: 3px;
+}
+
+.actionHead {
+    width: 150px;
+}
+
+.endDateHead {
+    width: 200px;
+}
+
+.attributHead {
+    width: 157px;
+}
+
+.gradeHead {
+    width: 295px;
+}
+
+.eventHead {
+    width: 250px;
+}
+.name {
+    font-size: 1.50em;
+    font-weight: bold;
+}
+.selectbox{
+    background-color: #2F96E4;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    height: 25px;
+    position: relative;
+    width: 152px;
+    border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+    color:#fff;
+    font-size:12px; font-weight: bold;
+    padding:3px 0 3px 10px;
+}
+
+.selectbox{
+    background-color: #2F96E4;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    height: 25px;
+    position: relative;
+    width: 152px;
+    border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+    color:#fff;
+    font-size:12px; font-weight: bold;
+    padding:3px 0 3px 10px;
+}
+</style>
+<script>
+        function enableEndDate(val, formType) {
+        
+            var tableId = '';
+            var endDateId = '';
+            var resolvedIndex = '';
+            
+            if(formType == 'condition') {
+                tableId = 'pageId:formId:overviewBlock:conditionSection:conditionTable';
+                endDateId = 'End_Date';
+                resolvedIndex = val.id.substring(val.id.lastIndexOf("conditionTable")+15, val.id.lastIndexOf("conditionTable")+16);
+            } else if(formType == 'symptom') {
+                tableId = 'pageId:formId:overviewBlock:symptomSection:toxicityTable';
+                endDateId = 'symptom_End_Date';
+                resolvedIndex = val.id.substring(val.id.lastIndexOf("toxicityTable")+14, val.id.lastIndexOf("toxicityTable")+15);
+            } else if(formType == 'AE') {
+                tableId = 'pageId:formId:overviewBlock:priorAESection:AEtoxicityTable';
+                endDateId = 'AE_End_Date';
+                resolvedIndex = val.id.substring(val.id.lastIndexOf("AEtoxicityTable")+16, val.id.lastIndexOf("AEtoxicityTable")+17);
+            }
+            
+            //alert('formType: '+formType+', tableId: '+tableId+', endDateId: '+endDateId+', resolvedIndex: '+resolvedIndex);
+            //alert(val.value);
+            if(val.checked) {
+                document.getElementById(tableId+':'+resolvedIndex+':'+endDateId).disabled = false;
+            } else {
+                document.getElementById(tableId+':'+resolvedIndex+':'+endDateId).value = '';
+                document.getElementById(tableId+':'+resolvedIndex+':'+endDateId).disabled = true;
+            }
+        }
+        
+        function checkCancel() {
+            if(confirm("Completely cancel and remove?")){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        function checkDelete() {
+            if(confirm("Are you sure you want to Delete this form?")){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        function startSplash() {
+            var divObj = document.getElementById('splashDiv');
+            var msgSplash =document.getElementById('waitMsg');
+            var browserName = navigator.appName;
+            if(browserName == 'Netscape'){
+                divObj.style.display='table-cell'; 
+            } else {
+                divObj.style.display='table-cell';
+            }
+        }
+        
+        function endSplash() {            
+            document.getElementById('splashDiv').style.display='none';
+        }
+        
+        function hideDwnXML(val) {
+        //alert(val);
+            if(val) {
+                document.getElementById('pageId:formId:menoPageBlockBtn1:pbbId:dwnLinkId').style.display='none';
+            } else {
+                document.getElementById('pageId:formId:menoPageBlockBtn1:pbbId:dwnLinkId').style.display='';
+            }
+        }
+</script>
+    
+<div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+    <div style="text-align: center; top: 40%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+</div>
+<span class ="name">Patient's Details</span>
+<br/>
+    <c:PatientDetailReadOnly patientId="{!trialPatientObj.Patient_Id__c}"/>
+<br/>
+<table width="100%">
+    <tr>
+        <td width="40%" align="left">
+             <span class ="name">Adverse Event Detail</span>
+        </td>
+        <td width="60%" align="left">
+            <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialPatientObj.Trial_Id__r.Name}" />
+        </td>
+    </tr>
+</table>
+    <apex:outputPanel id="showXMLInPopupId">
+        <script>
+            var myWindow;
+            function showXMLInPopup() {
+                var LeftPosition = (screen.width) ? (screen.width-500)/2 : 0;
+                var TopPosition = (screen.height) ? (screen.height-300)/2 : 0; 
+                if(myWindow && !myWindow.closed) {  //checks to see if window is open
+                    myWindow.close();
+                    myWindow=window.open('/apex/AE_XML_Page?trialPat='+'{!TrialPatientId}'+'&aeid='+'{!rId}'+'&isxmlpage=true','','width=500,height=300, left='+LeftPosition+',top='+TopPosition+',resizable=yes,scrollbars=yes,menubar=yes');
+                    myWindow.focus();
+                    return;
+                } 
+                else { 
+                    myWindow=window.open('/apex/AE_XML_Page?trialPat='+'{!TrialPatientId}'+'&aeid='+'{!rId}'+'&isxmlpage=true','','width=500,height=300, left='+LeftPosition+',top='+TopPosition+',resizable=yes,scrollbars=yes,menubar=yes');
+                    myWindow.focus();
+                }
+            }
+        </script>
+    </apex:outputPanel>
+<apex:form id="formId">
+    <apex:pageBlock id="menoPageBlockBtn" helpTitle="Help"  helpUrl="/apex/AdverseEventFormUserGuide" rendered="{!isComplete}" tabStyle="Account">
+        <apex:pageBlockButtons location="top" id="pbbId">
+            <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel" status="tabChangeStatus">
+                <apex:param name="nextTab" value="saveAndClose"/>
+            </apex:commandButton>
+            <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true" />
+        </apex:pageBlockButtons>
+    </apex:pageBlock> 
+    <apex:pageBlock rendered="{!isDelete}">
+          <apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!customCancel}" value="Delete" onclick="return checkDelete();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+                <!-- <apex:commandButton value="Generate Pdf" action="{!redirect}" rendered="{!AEObj.Status__c =='Accepted'}"/> -->
+                <apex:commandLink style="text-decoration:none;" value="Generate Pdf" target="_blank" styleClass="btn" action="{!redirect}" rendered="{!AEObj.Status__c =='Accepted'}"/>
+                
+          </apex:pageBlockButtons>
+    </apex:pageBlock>
+    <apex:outputPanel rendered="{!IF($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator', true, false)}">
+    <apex:pageBlock id="menoPageBlockBtn1" rendered="{!IF(AEObj.Status__c == 'Accepted',true,false)}" tabStyle="Account">
+        <apex:pageBlockButtons location="top" id="pbbId">
+            <div align="center">
+                    <table width="100%" align="center" id="btnTableId"> 
+                        <tr>
+                            <td width="10%" align="left" id="td1">
+                                <apex:commandButton action="{!viewXML}" value="View XML " reRender="showXMLInPopupId" status="tabChangeStatus" id="genXMLBtn" onComplete="showXMLInPopup();"/>
+                            </td>
+                            <td width="20%" id="td2">
+                                <apex:outputPanel >
+                                    <apex:selectRadio value="{!radioValue}">
+                                        <apex:selectOption itemValue="CDA" itemLabel="CDA"/>
+                                        <apex:selectOption itemValue="CCD" itemLabel="CCD"/>
+                                        <apex:selectOption itemValue="HL7" itemLabel="HL7"/>
+                                    </apex:selectRadio>
+                                </apex:outputPanel>
+                            </td>
+                            <td width="70%" align="left" id="td3">
+                                <apex:outputPanel id="genXMLLinkPanel">
+                                    <apex:commandLink id="dwnLinkId" action="{!downloadXML}" value="Download XML" status="tabChangeStatus" rendered="{!IsXMLGenerated}" />
+                                </apex:outputPanel>
+                                <apex:actionStatus id="tabChangeStatus" onstart="hideDwnXML(true);" onstop="hideDwnXML(false);" startText="Processing..."/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+        </apex:pageBlockButtons>
+    </apex:pageBlock> 
+    </apex:outputPanel>
+    <apex:actionFunction name="next" action="{!next}"  rerender="theTabPanel" status="splashStatus"/>
+    <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+    <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />  
+    <apex:outputPanel >
+    <script>
+        function enterToNextTab(val){
+            //alert(val);
+            if('{!isComplete}' != 'false'){
+                document.getElementById('pageId:formId:nextTabNameID').value = val;
+                next();
+                
+            }
+        }
+    </script>
+    </apex:outputPanel>
+    <apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+    <apex:tab label="Overview" name="overviewTab" id="OverviewId" rendered="{!isComplete}" ontabenter="enterToNextTab('overviewTab');">
+            <apex:pageBlock id="overviewBlock" tabStyle="Account">
+                <apex:pageBlockButtons location="top">
+                    <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel" status="splashStatus">
+                        <apex:param name="nextTab" value="AEPage1Tab"/>
+                    </apex:commandButton>
+<!--                    <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>-->
+                    <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Visit Date" for="Visit_Date"/>
+                        <apex:outputPanel >
+                            <apex:inputField value="{!AEObj.Visit_Date__c}" id="Visit_Date" required="true"/>
+                            <script type="text/javascript">
+                                document.getElementById('{!$Component.Visit_Date}').onfocus = function onfocus(event) {
+                                DatePicker.pickDate(true, '{!$Component.Visit_Date}', false); 
+                                   addYearInDateField('past'); 
+                                };
+                            </script>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="" for="Patient_Hospitalized">
+                        Was patient hospitalized since the last AE report?<apex:outputText value="{0,date, dd'/'MM'/'yyyy}"><apex:param value="{!LastVisitDate}" /></apex:outputText>
+                        </apex:outputLabel>
+                        <apex:inputField value="{!AEObj.Patient_Hospitalized__c}" id="Patient_Hospitalized"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Was a caAERS report filed with the DCC since the last assessment?" for="caAERS_report_filed"/>
+                        <apex:inputField value="{!AEObj.caAERS_report_filed__c}" id="caAERS_report_filed"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+<!--    
+        ======================================================================================================================================
+        ======================================================Baseline Allergies==============================================================
+        ======================================================================================================================================          
+-->
+                <!--<apex:pageBlockSection title="Baseline Allergies" columns="1" rendered="{!isAllergyShow}">
+                    <apex:pageBlockTable value="{!allergyList}" var="allergy">
+                          ==============================make Allergen column=============================    
+                        <apex:column headerClass="tableHead">
+                            <apex:facet name="header">Allergen</apex:facet>
+                            <apex:outputText value="{!allergy.Name}"/>
+                        </apex:column>
+                        
+                          ==============================make Reaction column=============================    
+                        <apex:column headerClass="tableHead">
+                            <apex:facet name="header">Reaction(s)</apex:facet>
+                            <apex:outputText value="{!allergy.Reactions__c}" rendered="{!IF(ISNULL(allergy.Reactions__c), false, true)}"/>
+                            <apex:outputText value="{!allergy.Other_Reactions__c}" rendered="{!IF(ISNULL(allergy.Other_Reactions__c), false, true)}"/>
+                        </apex:column>
+                        
+                          ==============================make Severity column=============================    
+                        <apex:column headerClass="tableHead">
+                            <apex:facet name="header">Severity</apex:facet>
+                            <apex:outputText value="{!allergy.Severity__c}"/>
+                        </apex:column>
+                        
+                          ==============================make Year_first_seen column=============================    
+                        <apex:column headerClass="tableHead">
+                            <apex:facet name="header">Year first seen</apex:facet>
+                            <apex:outputText value="{!allergy.Year_first_seen__c}"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+--><!--    
+        ======================================================================================================================================
+        ======================================================Baseline Condition==============================================================
+        ======================================================================================================================================          
+-->
+                <!--<apex:pageBlockSection id="conditionSection" columns="1" title="Baseline Condition" rendered="{!isbaselineConditionShow}">
+                <apex:pageBlockSection id="conditionSection" title="Baseline Condition" columns="1">
+                    <apex:pageBlockTable value="{!wrapConditionList}" var="condition" id="conditionTable">
+                              ==============================make Action column=============================    
+                        <apex:column headerClass="tableHead actionHead">
+                            <apex:facet name="header">Action</apex:facet>
+                            <apex:outputPanel rendered="{!condition.isReadOnly}">
+                                <apex:commandLink styleClass="actionLink" style="color: blue;" action="{!editCondition}" value="Edit" status="processStatus" reRender="conditionTable">
+                                    <apex:param name="recordId" value="{!condition.baselineConditionObj.Id}" />
+                                    <apex:param name="type" value="condition" />
+                                </apex:commandLink>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!condition.isEditOnly}">
+                                <apex:commandLink styleClass="actionLink" style="color: blue;" action="{!updateCondition}" value="Update" status="processStatus" reRender="conditionTable">
+                                    <apex:param name="recordId" value="{!condition.baselineConditionObj.Id}" />
+                                    <apex:param name="type" value="condition" />
+                                </apex:commandLink>
+                                |&nbsp;
+                                <apex:commandLink styleClass="actionLink" style="color: blue;" action="{!updateCancelCondition}" value="Cancel" status="processStatus" reRender="conditionTable">
+                                    <apex:param name="recordId" value="{!condition.baselineConditionObj.Id}" />
+                                    <apex:param name="type" value="condition" />
+                                </apex:commandLink>
+                            </apex:outputPanel>
+                        </apex:column>
+                        
+                              ==============================make Onset Date column=============================    
+                        <apex:column headerClass="tableHead">
+                            <apex:facet name="header">Onset Date</apex:facet>
+                            <apex:outputText value="{0,date, dd'/'MM'/'yyyy}"><apex:param value="{!condition.baselineConditionObj.Onset_Date__c}" /></apex:outputText>
+                        </apex:column>
+                        
+                          ==============================make Event column=============================    
+                        <apex:column headerClass="tableHead">
+                            <apex:facet name="header">Event</apex:facet>
+                            <apex:outputText value="{!condition.baselineConditionObj.Daignosis__r.Name}"/>
+                        </apex:column>
+                        
+                          ==============================make Grade column=============================    
+                        <apex:column headerClass="tableHead">
+                            <apex:facet name="header">Grade</apex:facet>
+                            <apex:outputText value="{!condition.baselineConditionObj.Severity_Grade__c}"/>
+                        </apex:column>
+                        
+                          ==============================make Attribution column=============================    
+                        <apex:column headerClass="tableHead">
+                            <apex:facet name="header">Attribution</apex:facet>
+                            <apex:outputText value="{!condition.baselineConditionObj.Attribution__c}"/>
+                        </apex:column>
+                        
+                          ==============================make Resolved column=============================    
+                        <apex:column headerClass="tableHead">
+                            <apex:facet name="header">Resolved?</apex:facet>
+                            <apex:outputText value="{!condition.baselineConditionObj.Resolved__c}" rendered="{!condition.isReadOnly}"/>
+                            <apex:outputPanel rendered="{!condition.isEditOnly}">
+                                <apex:inputField value="{!condition.baselineConditionObj.Resolved__c}" id="Resolved" onchange="enableEndDate(this, 'condition');"/>
+                                <script>enableEndDate(document.getElementById('{!$Component.Resolved}'), 'condition');</script>
+                            </apex:outputPanel>
+                        </apex:column>
+                        
+                          ==============================make End Date column=============================    
+                        <apex:column headerClass="tableHead endDateHead">
+                            <apex:facet name="header">End Date</apex:facet>
+                            <apex:outputText value="{!condition.baselineConditionObj.End_Date__c}" rendered="{!condition.isReadOnly}"/>
+                            <apex:outputText value="{0,date, dd'/'MM'/'yyyy}" rendered="{!condition.isReadOnly}"><apex:param value="{!condition.baselineConditionObj.End_Date__c}" /></apex:outputText>
+                            <apex:inputField value="{!condition.baselineConditionObj.End_Date__c}" id="End_Date" rendered="{!condition.isEditOnly}"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    <apex:outputPanel >
+                        <apex:actionStatus startText="Processing..." id="processStatus"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+--><!--    
+        ======================================================================================================================================
+        ======================================================Baseline Symptoms==============================================================
+        ======================================================================================================================================          
+-->
+                <apex:pageBlockSection id="symptomSection" title="Baseline Symptoms" columns="1" rendered="{!isBaselineSymptomShow}">
+                    <apex:pageBlockTable value="{!wrapBaselineToxicityList}" var="toxicity" id="toxicityTable">
+                    
+                <!--  ==============================make Action column=============================    -->
+                        <apex:column headerClass="tableHead actionHead" style="vertical-align: top;">
+                            <apex:facet name="header">Action</apex:facet>
+                            <apex:outputPanel rendered="{!toxicity.isReadOnly}">
+                                <apex:commandLink styleClass="actionLink" style="color: blue;" action="{!editCondition}" value="Edit" status="symptomStatus" reRender="toxicityTable">
+                                    <apex:param name="recordId" value="{!toxicity.ToxicityObj.Id}" />
+                                    <apex:param name="type" value="toxicity" />
+                                    <apex:param name="form" value="baseline" />
+                                </apex:commandLink>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!toxicity.isEditOnly}">
+                                <apex:commandLink styleClass="actionLink" style="color: blue;" action="{!updateCondition}" value="Update" status="symptomStatus" reRender="toxicityTable">
+                                    <apex:param name="recordId" value="{!toxicity.ToxicityObj.Id}" />
+                                    <apex:param name="type" value="toxicity" />
+                                    <apex:param name="form" value="baseline" />
+                                </apex:commandLink>
+                                |&nbsp;
+                                <apex:commandLink styleClass="actionLink" style="color: blue;" action="{!updateCancelCondition}" value="Cancel" status="symptomStatus" reRender="toxicityTable">
+                                    <apex:param name="recordId" value="{!toxicity.ToxicityObj.Id}" />
+                                    <apex:param name="type" value="toxicity" />
+                                    <apex:param name="form" value="baseline" />
+                                </apex:commandLink>
+                            </apex:outputPanel>
+                        </apex:column>
+                        
+                <!--  ==============================make AE ID column=============================    -->
+                        <apex:column headerClass="tableHead" style="vertical-align: top;">
+                            <apex:facet name="header">AE ID</apex:facet>
+                            <apex:outputField value="{!toxicity.ToxicityObj.AE_ID__c}"/>
+                        </apex:column>
+                        
+                <!--  ==============================make Onset Date column=============================    -->
+                        <apex:column headerClass="tableHead" style="vertical-align: top;">
+                            <apex:facet name="header">Onset Date</apex:facet>
+<!--                            <apex:outputText value="{0,date, dd'/'MM'/'yyyy}"><apex:param value="{!toxicity.ToxicityObj.Onset_Date__c}" /></apex:outputText>-->
+                            <apex:outputField value="{!toxicity.ToxicityObj.Onset_Date__c}"/>
+                        </apex:column>
+                        
+                <!--  ==============================make Event column=============================    -->
+                        <apex:column headerClass="tableHead eventHead" style="vertical-align: top;">
+                            <apex:facet name="header">Event</apex:facet>
+                            <apex:outputText value="{!toxicity.ToxicityObj.Toxicity_Master__r.Toxicity_Name__c}"/>
+                            <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.ToxicityObj.Toxicity_Other__c))}">
+                                &nbsp;(<apex:outputText value="{!toxicity.ToxicityObj.Toxicity_Other__c}"/>)
+                            </apex:outputPanel>
+                        </apex:column>
+                        
+                <!--  ==============================make Grade column=============================    -->
+                        <apex:column headerClass="tableHead gradeHead" style="vertical-align: top;">
+                            <apex:facet name="header">Grade</apex:facet>
+                            <apex:outputText value="{!toxicity.ToxicityObj.Grade__c}"/><br/><br/>
+                            <apex:outputText value="{!toxicity.ToxicityObj.Patient_Complaint__c}"/>
+                        </apex:column>
+                        
+                <!--  ==============================make Attribution column=============================    -->
+                        <apex:column headerClass="tableHead" style="vertical-align: top;">
+                            <apex:facet name="header">Attribution</apex:facet>
+                            <apex:outputText value="{!toxicity.ToxicityObj.Attribution__c}"/>
+                        </apex:column>
+                        
+                <!--  ==============================make Resolved column=============================    -->
+                        <apex:column headerClass="tableHead" style="vertical-align: top;">
+                            <apex:facet name="header">Resolved?</apex:facet>
+                            <apex:outputText value="{!IF((toxicity.ToxicityObj.Resolved__c), 'Yes', 'No')}" rendered="{!toxicity.isReadOnly}"/>
+                            <apex:outputPanel rendered="{!toxicity.isEditOnly}">
+                                <apex:inputField value="{!toxicity.ToxicityObj.Resolved__c}" id="symptomResolved" onchange="enableEndDate(this, 'symptom');"/>
+                                <script>enableEndDate(document.getElementById('{!$Component.symptomResolved}'), 'symptom');</script>
+                            </apex:outputPanel>
+                        </apex:column>
+                        
+                <!--  ==============================make End Date column=============================    -->
+                        <apex:column headerClass="tableHead endDateHead" style="vertical-align: top;">
+                            <apex:facet name="header">End Date</apex:facet>
+<!--                            <apex:outputText value="{0,date, dd'/'MM'/'yyyy}" rendered="{!toxicity.isReadOnly}"><apex:param value="{!toxicity.ToxicityObj.AE_End_Date__c}" /></apex:outputText>-->
+                            <apex:outputField value="{!toxicity.ToxicityObj.AE_End_Date__c}" rendered="{!toxicity.isReadOnly}"/>
+                            <apex:inputField value="{!toxicity.ToxicityObj.AE_End_Date__c}" id="symptom_End_Date" rendered="{!toxicity.isEditOnly}"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    <apex:outputPanel >
+                        <apex:actionStatus startText="Processing..." id="symptomStatus"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+<!--    
+        ======================================================================================================================================
+        ======================================================Prior AE Reporting==============================================================
+        ======================================================================================================================================          
+-->             
+                <apex:pageBlockSection id="priorAESection" title="Prior AE Reporting" columns="1" rendered="{!isPriorAEShow}">
+                    <apex:pageBlockTable value="{!wrapAEToxicityList}" var="toxicity" id="AEtoxicityTable">
+                    
+                <!--  ==============================make Action column=============================    -->
+                        <apex:column headerClass="tableHead actionHead" style="vertical-align: top;">
+                            <apex:facet name="header">Action</apex:facet>
+                            <apex:outputPanel rendered="{!toxicity.isReadOnly}">
+                                <apex:commandLink styleClass="actionLink" style="color: blue;" action="{!editCondition}" value="Edit" status="AEToxicityStatus" reRender="AEtoxicityTable">
+                                    <apex:param name="recordId" value="{!toxicity.ToxicityObj.Id}" />
+                                    <apex:param name="type" value="toxicity" />
+                                    <apex:param name="form" value="AE" />
+                                </apex:commandLink>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!toxicity.isEditOnly}">
+                                <apex:commandLink styleClass="actionLink" style="color: blue;" action="{!updateCondition}" value="Update" status="AEToxicityStatus" reRender="AEtoxicityTable">
+                                    <apex:param name="recordId" value="{!toxicity.ToxicityObj.Id}" />
+                                    <apex:param name="type" value="toxicity" />
+                                    <apex:param name="form" value="AE" />
+                                </apex:commandLink>
+                                |&nbsp;
+                                <apex:commandLink styleClass="actionLink" style="color: blue;" action="{!updateCancelCondition}" value="Cancel" status="AEToxicityStatus" reRender="AEtoxicityTable">
+                                    <apex:param name="recordId" value="{!toxicity.ToxicityObj.Id}" />
+                                    <apex:param name="type" value="toxicity" />
+                                    <apex:param name="form" value="AE" />
+                                </apex:commandLink>
+                            </apex:outputPanel>
+                        </apex:column>
+                        
+                <!--  ==============================make AE ID column=============================    -->
+                        <apex:column headerClass="tableHead" style="vertical-align: top;">
+                            <apex:facet name="header">AE ID</apex:facet>
+                            <apex:outputField value="{!toxicity.ToxicityObj.AE_ID__c}"/>
+                        </apex:column>
+                        
+                <!--  ==============================make Onset Date column=============================    -->
+                        <apex:column headerClass="tableHead" style="vertical-align: top;">
+                            <apex:facet name="header">Onset Date</apex:facet>
+<!--                            <apex:outputText value="{0,date, dd'/'MM'/'yyyy}"><apex:param value="{!toxicity.ToxicityObj.Onset_Date__c}" /></apex:outputText>-->
+                            <apex:outputField value="{!toxicity.ToxicityObj.Onset_Date__c}"/>
+                        </apex:column>
+                        
+                <!--  ==============================make Event column=============================    -->
+                        <apex:column headerClass="tableHead eventHead" style="vertical-align: top;">
+                            <apex:facet name="header">Event</apex:facet>
+                            <apex:outputText value="{!toxicity.ToxicityObj.Toxicity_Master__r.Toxicity_Name__c}"/>
+                            <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.ToxicityObj.Toxicity_Other__c))}">
+                                &nbsp;(<apex:outputText value="{!toxicity.ToxicityObj.Toxicity_Other__c}"/>)
+                            </apex:outputPanel>
+                        </apex:column>
+                        
+                <!--  ==============================make Grade column=============================    -->
+                        <apex:column headerClass="tableHead gradeHead" style="vertical-align: top;">
+                            <apex:facet name="header">Grade</apex:facet>
+                            <apex:outputText value="{!toxicity.ToxicityObj.Grade__c}"/><br/><br/>
+                            <apex:outputText value="{!toxicity.ToxicityObj.Patient_Complaint__c}"/>
+                        </apex:column>
+                        
+                <!--  ==============================make Attribution column=============================    -->
+                        <apex:column headerClass="tableHead attributHead" style="vertical-align: top;">
+                            <apex:facet name="header">Attribution</apex:facet>
+                            <apex:outputText value="{!toxicity.ToxicityObj.Attribution__c}" rendered="{!toxicity.isReadOnly}"/>
+                            <apex:inputField value="{!toxicity.ToxicityObj.Attribution__c}" rendered="{!toxicity.isEditOnly}"/>
+                        </apex:column>
+                        
+                <!--  ==============================make Resolved column=============================    -->
+                        <apex:column headerClass="tableHead" style="vertical-align: top;">
+                            <apex:facet name="header">Resolved?</apex:facet>
+                            <apex:outputText value="{!IF((toxicity.ToxicityObj.Resolved__c), 'Yes', 'No')}" rendered="{!toxicity.isReadOnly}"/>
+                            <apex:outputPanel rendered="{!toxicity.isEditOnly}">
+                                <apex:inputField value="{!toxicity.ToxicityObj.Resolved__c}" id="AEResolved" onchange="enableEndDate(this, 'AE');"/>
+                                <script>enableEndDate(document.getElementById('{!$Component.AEResolved}'), 'AE');</script>
+                            </apex:outputPanel>
+                        </apex:column>
+                        
+                <!--  ==============================make Attribution column=============================    -->
+                        <apex:column headerClass="tableHead" style="vertical-align: top;">
+                            <apex:facet name="header">SAE</apex:facet>
+                            <apex:outputText value="{!toxicity.ToxicityObj.SAE__c}"/>
+                        </apex:column>
+                        
+                <!--  ==============================make End Date column=============================    -->
+                        <apex:column headerClass="tableHead endDateHead" style="vertical-align: top;">
+                            <apex:facet name="header">End Date</apex:facet>
+<!--                            <apex:outputText value="{0,date, dd'/'MM'/'yyyy}" rendered="{!toxicity.isReadOnly}"><apex:param value="{!toxicity.ToxicityObj.AE_End_Date__c}" /></apex:outputText>-->
+                            <apex:outputField value="{!toxicity.ToxicityObj.AE_End_Date__c}" rendered="{!toxicity.isReadOnly}"/>
+                            <apex:inputField value="{!toxicity.ToxicityObj.AE_End_Date__c}" id="AE_End_Date" rendered="{!toxicity.isEditOnly}"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    <apex:outputPanel >
+                        <apex:actionStatus startText="Processing..." id="AEToxicityStatus"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        
+<!--        <c:BaselineConditionComponent />-->
+    </apex:tab>
+    <apex:tab label="AE Page 1" name="AEPage1Tab" id="AEPage1Id" rendered="{!isComplete}" ontabenter="enterToNextTab('AEPage1Tab');">
+        <apex:pageBlock title="Common Toxicity (Newly Reported)" id="Page1Block" helpUrl="http://evs.nci.nih.gov/ftp1/CTCAE/CTCAE_4.03_2010-06-14_QuickReference_5x7.pdf" helpTitle="Common Terminology Criteria for Adverse Events v4.0 (CTCAE)" tabStyle="Account" rendered="{!currentTab = 'AEPage1Tab'}">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel" status="splashStatus">
+                    <apex:param name="prevTab" value="procedureTab"/>
+                </apex:commandButton>
+                <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel" status="splashStatus">
+                    <apex:param name="nextTab" value="AEPage2Tab"/>
+                </apex:commandButton>
+                <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1" rendered="{!IF((treatmentArmName != ''), true, false)}" id="page1Section">
+                <strong>Treatment Arm: {!treatmentArmName}</strong>
+                <c:ToxicityAgentComponent id="Page1Component" treatmentArmId="{!treatmentArmId}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" rendered="{!IF((treatmentArmName != ''), false, true)}">
+                <apex:pageMessage summary="No Treatment Arm for this patient." severity="info" strength="3" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:tab>
+    <apex:tab label="AE Page 2" name="AEPage2Tab" id="AEPage2Id" rendered="{!isComplete}" ontabenter="enterToNextTab('AEPage2Tab');">
+        <apex:pageBlock id="Page2Block" helpUrl="http://evs.nci.nih.gov/ftp1/CTCAE/CTCAE_4.03_2010-06-14_QuickReference_5x7.pdf" helpTitle="Common Terminology Criteria for Adverse Events v4.0 (CTCAE)" tabStyle="Account" rendered="{!currentTab = 'AEPage2Tab'}">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel" status="splashStatus">
+                    <apex:param name="prevTab" value="AEPage1Tab"/>
+                </apex:commandButton>
+                <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel" status="splashStatus">
+                    <apex:param name="nextTab" value="attachmentTab"/>
+                </apex:commandButton>
+              <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+            </apex:pageBlockButtons>
+            <c:AddToxicityComponent id="Page2Component"/>
+        </apex:pageBlock>
+    </apex:tab>
+    <apex:tab label="Comments & Attachments" name="attachmentTab" id="attachmentTabId" rendered="{!isComplete}" ontabenter="enterToNextTab('attachmentTab');">
+        <apex:pageBlock title="Comments & Attachments" id="attachmentBlockId" tabStyle="Account">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel" status="splashStatus">
+                    <apex:param name="prevTab" value="AEPage2Tab"/>
+                </apex:commandButton> 
+                <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel" status="splashStatus">
+                    <apex:param name="nextTab" value="CompleteTab"/>
+                </apex:commandButton>
+<!--                <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>-->
+                <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+            </apex:pageBlockButtons>
+            <apex:pageMessage summary="Please redact all PHI information from attachments." severity="info" strength="3"/>
+            <apex:pageBlockSection columns="1">
+<!--                <chatter:feedWithFollowers entityId="{!AEObj.Id}" />-->
+                <apex:iframe src="/apex/ChatterPage?recId={!AEObj.Id}" scrolling="true" id="theIframe"/>
+                <c:CRFAttachmentComponent rId="{!AEObj.Id}" feedCRFName="AE_Detail__Feed" rtId="{!AEObj.Root_CRF_Id__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:tab>
+    <apex:tab label="Complete" name="CompleteTab" id="completeId" ontabenter="enterToNextTab('CompleteTab');">
+        <apex:pageBlock title="Adverse Event Form" id="completeBlockId" tabStyle="Account">
+                <apex:pageBlockButtons location="top" >
+<!--                      <apex:commandButton action="{!customCancel}" value="Delete" onClick="return cancelConfirm();" immediate="true" rendered="{!profileName =='System Administrator'}"/>-->
+                    <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel" status="splashStatus" rendered="{!isComplete}">
+                        <apex:param name="prevTab" value="attachmentTab"/>
+                    </apex:commandButton>
+                </apex:pageBlockButtons> 
+<!--            <apex:actionFunction name="editCRF" action="{!editCRF}" rerender="theTabPanel" status="processStatus"/>-->
+            <center>
+            <apex:outputPanel id="dummayPanel">
+                <!--<script>
+                    //alert("{!openInEditMode}");
+                    if("{!openInEditMode}" == "true") {
+                        editCRF();
+                    }
+                </script>-->
+                <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">
+                    <apex:commandButton action="{!editCRF}" value="  Edit  " reRender="formId" status="processStatus" rendered="{!IF(AND(AEObj.Status__c == 'Rejected', isShowEditButton),true,false)}"/>
+                </apex:outputPanel>
+                <apex:actionStatus id="processStatus" startText="Processing..." onstop=""/>
+            </apex:outputPanel>
+            </center>
+            <apex:pageBlockSection >
+                <!--<apex:pageBlockSectionItem>
+                    <apex:outputLabel value="Visit Date:"/>
+                    -->
+                <apex:outputField value="{!AEObj.Visit_Date__c}"/>
+                <apex:inputCheckbox id="dateCheckBoxId" value="{!visitDate}" rendered="{!IF((AEObj.Status__c == 'Accepted') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/>
+<!--                </apex:pageBlockSectionItem>-->
+            </apex:pageBlockSection>
+<!--  ======================================================================================================================================
+======================================================Baseline Symptoms==============================================================
+======================================================================================================================================  -->
+            <apex:pageBlockSection title="Baseline Symptoms" columns="1" rendered="{!currentTab = 'CompleteTab'}"/>
+            <table border="0" cellspacing="0" cellpadding="0" class="detailList">
+                    <tbody>
+                        <tr>
+                            <td colspan="2" class="data2Col  first  last ">
+                            <table border="0" cellspacing="0" cellpadding="0" id="pageId:formId:menoPageBlockBtn:completeBlockId:j_id9:toxicityTable" class="list ">
+                                <colgroup span="12"></colgroup>
+                                <thead class="rich-table-thead">
+                                    <tr class="headerRow ">
+                                        
+                                        <th colspan="1" scope="col" class="headerRow  tableHead">
+                                            <div>Onset Date
+<!--                                             <input type="checkbox" onchange="addFields(this,'Onset_Date__c','Baseline');" name="pageId:formId:menoPageBlockBtn:completeBlockId:j_id9:toxicityTable:j_id13"/></div>-->
+                                            <apex:inputCheckbox id="dateCheckBoxId" value="{!BaseOnsetDate}" onchange="addFields(this,'Onset_Date__c','Baseline');" rendered="{!IF((AEObj.Status__c == 'Accepted') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/></div>
+                                        </th>
+                                        <th colspan="1" scope="col" class="headerRow  tableHeadSmall">
+                                            <!--<div>Event<input onchange="addFields(this,'Name,Toxicity_Other__c','Baseline');" name="pageId:formId:menoPageBlockBtn:completeBlockId:j_id9:toxicityTable:j_id22"/></div>-->
+                                            <div>Event<apex:inputCheckbox value="{!BaseEvent}" onchange="addFields(this,'Name,Toxicity_Other__c','Baseline');" rendered="{!IF((AEObj.Status__c == 'Accepted') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/></div>
+                                        </th>
+                                        <th colspan="1" scope="col" class="headerRow  tableHeadSmall">
+                                            <!--<div>Grade<input onchange="addFields(this,'Grade__c,Patient_Complaint__c', 'Baseline');" name="pageId:formId:menoPageBlockBtn:completeBlockId:j_id9:toxicityTable:j_id29"/></div>-->
+                                            <div>Grade<apex:inputCheckbox value="{!BaseGrade}" onchange="addFields(this,'Grade__c,Patient_Complaint__c', 'Baseline');" rendered="{!IF((AEObj.Status__c == 'Accepted') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/></div>
+                                        </th>
+                                        <th colspan="1" scope="col" class="headerRow  tableHead">
+                                            <!--<div>Attribution<input onchange="addFields(this,'Attribution__c', 'Baseline');" name="pageId:formId:menoPageBlockBtn:completeBlockId:j_id9:toxicityTable:j_id34"/></div>-->
+                                            <div>Attribution<apex:inputCheckbox value="{!BaseAttribution}" onchange="addFields(this,'Attribution__c', 'Baseline');" rendered="{!IF((AEObj.Status__c == 'Accepted') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/></div>
+                                        </th>
+                                        <th colspan="1" scope="col" class="headerRow  tableHeadSmall">
+                                            <!--<div>End Date<input onchange="addFields(this,'AE_End_Date__c', 'Baseline');" name="pageId:formId:menoPageBlockBtn:completeBlockId:j_id9:toxicityTable:j_id45"/></div>-->
+                                            <div>Status<apex:inputCheckbox value="{!BaseResolved}" onchange="addFields(this,'AE_End_Date__c', 'Baseline');" rendered="{!IF((AEObj.Status__c == 'Accepted') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/></div>
+                                        </th>
+                                        <th colspan="1" scope="col" class="headerRow  tableHeadSmall">
+                                            <!--<div>End Date<input onchange="addFields(this,'AE_End_Date__c', 'Baseline');" name="pageId:formId:menoPageBlockBtn:completeBlockId:j_id9:toxicityTable:j_id45"/></div>-->
+                                            <div>End Date<apex:inputCheckbox value="{!BaseEndDate}" onchange="addFields(this,'AE_End_Date__c', 'Baseline');" rendered="{!IF((AEObj.Status__c == 'Accepted') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/></div>
+                                        </th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!wrapBaselineToxicityList}" var="toxicity">
+                                        <tr>
+                                            <td>
+<!--                                            <apex:outputText value="{0,date, dd'/'MM'/'yyyy}"><apex:param value="{!toxicity.ToxicityObj.Onset_Date__c}" /></apex:outputText>-->
+                                                <apex:outputField value="{!toxicity.ToxicityObj.Onset_Date__c}" />
+                                            </td>
+                                            <td>
+                                                 <apex:outputText value="{!toxicity.ToxicityObj.Toxicity_Master__r.Toxicity_Name__c}"/>
+                                                 <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.ToxicityObj.Toxicity_Other__c))}">
+                                                 &nbsp;(<apex:outputText value="{!toxicity.ToxicityObj.Toxicity_Other__c}"/>)
+                                                 </apex:outputPanel>
+                                            </td>
+                                            <td>
+                                                <apex:outputText value="{!toxicity.ToxicityObj.Grade__c}"/>
+                                                <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.ToxicityObj.Patient_Complaint__c))}">
+                                                    <br/><br/><apex:outputText value="{!toxicity.ToxicityObj.Patient_Complaint__c}"/>
+                                                </apex:outputPanel>
+                                            </td>
+                                            <td>
+                                                 <apex:outputText value="{!toxicity.ToxicityObj.Attribution__c}"/>
+                                            </td>
+                                            <td>
+                                                <apex:outputText value="{!IF((toxicity.ToxicityObj.Resolved__c), 'Resolved', 'Ongoing')}" />
+                                            </td>
+                                            <td>
+<!--                                                <apex:outputText value="{0,date, dd'/'MM'/'yyyy}" rendered="{!toxicity.isReadOnly}"><apex:param value="{!toxicity.ToxicityObj.AE_End_Date__c}" /></apex:outputText>-->
+                                                <apex:outputField value="{!toxicity.ToxicityObj.AE_End_Date__c}" rendered="{!toxicity.isReadOnly}"/>
+                                            </td>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+<!--    
+        ======================================================================================================================================
+        ======================================================Prior AE Reporting==============================================================
+        ======================================================================================================================================          
+-->             
+           <apex:pageBlockSection id="AESection" title="AE Reporting" columns="1" rendered="{!currentTab = 'CompleteTab'}"/>
+                            <table border="0" cellspacing="0" cellpadding="0" class="detailList">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" class="data2Col  first  last ">
+                                        <table border="0" cellspacing="0" cellpadding="0"
+                                            id="pageId:formId:menoPageBlockBtn:completeBlockId:j_id9:toxicityTable"
+                                            class="list ">
+                                            <colgroup span="12"></colgroup>
+                                            <thead class="rich-table-thead">
+                                                <tr class="headerRow ">
+                                                    <th colspan="1" scope="col" class="headerRow  tableHead">
+                                                        <div>Onset Date <apex:inputCheckbox value="{!AEOnsetDate}" onchange="addFields(this,'Onset_Date__c', 'AE');" rendered="{!IF((AEObj.Status__c == 'Accepted') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/></div>
+                                                    </th>
+                                                    <th colspan="1" scope="col" class="headerRow  tableHeadSmall">
+                                                        <div>Event <apex:inputCheckbox value="{!AEEvent}" rendered="{!IF(AEObj.Status__c == 'Accepted',true,false)}"/></div>
+                                                    </th>
+                                                    <th colspan="1" scope="col" class="headerRow  tableHeadSmall">
+                                                        <div>Grade<apex:inputCheckbox value="{!AEGrade}" onchange="addFields(this,'Grade__c', 'AE');" rendered="{!IF((AEObj.Status__c == 'Accepted') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/></div>
+                                                    </th>
+                                                    <th colspan="1" scope="col" class="headerRow  tableHead">
+                                                        <div>SAE<apex:inputCheckbox value="{!AESAE}" onchange="addFields(this,'SAE__c', 'AE');" rendered="{!IF((AEObj.Status__c == 'Accepted') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/></div>
+                                                    </th>
+                                                    
+                                                    <th colspan="1" scope="col" class="headerRow  tableHeadSmall">
+                                                        <div>Attribution<apex:inputCheckbox value="{!AeAttribution}" onchange="addFields(this,'Attribution__c', 'AE');" rendered="{!IF((AEObj.Status__c == 'Accepted') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/></div>
+                                                    </th>
+                                                    <th colspan="1" scope="col" class="headerRow  tableHeadSmall">
+                                                        <div>Status<apex:inputCheckbox value="{!AEResolved}" onchange="addFields(this,'Resolved__c', 'AE');" rendered="{!IF((AEObj.Status__c == 'Accepted') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/></div>
+                                                    </th>
+                                                    
+                                                    <th colspan="1" scope="col" class="headerRow  tableHeadSmall">
+                                                        <div>End Date <apex:inputCheckbox value="{!AEEndDate}" onchange="addFields(this,'AE_End_Date__c', 'AE');" rendered="{!IF((AEObj.Status__c == 'Accepted') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/></div>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <apex:repeat value="{!toxicityDisplayList}" var="toxicity">
+                                                    <tr>
+                                                        <td>
+                                                            <apex:outputField value="{!toxicity.Onset_Date__c}" />
+                                                        </td>
+                                                        <td>
+                                                            <apex:outputText value="{!toxicity.Toxicity_Master__r.Toxicity_Name__c}" />
+                                                            <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.Toxicity_Other__c))}">
+                                                                &nbsp;(<apex:outputText value="{!toxicity.Toxicity_Other__c}"/>)
+                                                            </apex:outputPanel>
+                                                        </td>
+                                                        <td>
+                                                            <apex:outputText value="{!toxicity.Grade__c}" />
+                                                            <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.Patient_Complaint__c))}">
+                                                                <br/><br/>
+                                                                <apex:outputText value="{!toxicity.Patient_Complaint__c}"/>
+                                                            </apex:outputPanel>
+                                                        </td>
+                                                        <td>
+                                                            <apex:outputText value="{!toxicity.SAE__c}"/>
+                                                        </td>
+                                                        <td>
+                                                            <apex:outputText value="{!toxicity.Attribution__c}" />
+                                                        </td>
+                                                        <td> 
+                                                            <apex:outputText rendered="{!ISNULL(toxicity.Toxicity_Agent__c)}" value="{!IF((toxicity.Resolved__c), 'Resolved', IF((LEFT(toxicity.AE_Detail__c, 15) = LEFT(rId, 15)), 'New', 'Ongoing'))}" />
+                                                            <apex:outputText rendered="{!NOT(ISNULL(toxicity.Toxicity_Agent__c))}" value="{!IF((toxicity.Toxicity_Status__c = 'Yes'),IF((toxicity.Resolved__c), 'Resolved', IF((LEFT(toxicity.AE_Detail__c, 15) = LEFT(rId, 15)), 'New', 'Ongoing')),'Not Experienced')}" />
+                                                        </td>
+                                                        <td>
+                                                            <apex:outputField value="{!toxicity.AE_End_Date__c}" />
+                                                        </td>
+                                                    </tr>
+                                                </apex:repeat>
+                                            </tbody>
+                                        </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+            <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(AEObj.Id))}">
+                <c:CRFAttachmentComponent rId="{!AEObj.Id}" feedCRFName="AE_Detail__Feed" rtId="{!AEObj.Root_CRF_Id__c}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(AEObj.Id))}">
+                <c:CRFEventComponent rId="{!AEObj.Id}" objectName="AE_Detail__c" rtId="{!AEObj.Root_CRF_Id__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:outputPanel id="msgPanelId" layout="block" style="width: 100%;">
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" width="100%" align="center">
+                                    <br /> 
+                                    <font color="{!msgColor}">{!errorMsg}&nbsp;</font>
+                                    <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%">&nbsp;</td>
+                                <td width="70%">
+                                    <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!isComplete}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!isComplete}"/>&nbsp;&nbsp;
+                                    <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" rendered="{!isComplete}" rerender="msgPanelId"  status="counterStatus" oncomplete="checkForError()"/>
+                                    <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" rendered="{!isComplete}"/>
+                                    <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                                </td>
+                            </tr>
+                        </table>
+                       <script>
+                            function checkForError() {
+                             var err = '{!errorMsg}';
+                              //  {!IF(ISNULL(errorMsg), "window.location = '/{!patientId}';", "")}
+                           // alert("Hi"+err);
+                              if(err=="") {
+                                    window.location = "/{!patientId}";
+                               }else{
+                                 
+                               }
+                            }
+                        </script>
+                </apex:outputPanel> 
+    </apex:tab>
+</apex:tabPanel>
+</apex:form>
+</apex:page>

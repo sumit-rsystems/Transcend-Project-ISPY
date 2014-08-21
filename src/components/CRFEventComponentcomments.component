@@ -1,0 +1,9 @@
+<apex:component controller="CRFEventComponentController" allowDML="true">
+<apex:attribute name="rId" description="This is the value for the component." type="String" required="true" assignTo="{!recordId}"/>
+<apex:attribute name="objectNamec" description="This is the value for the component." type="String" required="true" assignTo="{!objectName}"/>
+<apex:attribute name="rtId" description="This is the value for the component." type="String" required="true" assignTo="{!rootId}"/>
+<!--    <script>alert('{!wrapCrfList.size}')</script>-->
+    <!-- <apex:repeat value="{!wrapCrfList}" var="crf">-->
+             <apex:outputText value="{!wrapCrfList[0].Comment}" /> 
+    <!--</apex:repeat> -->
+</apex:component>

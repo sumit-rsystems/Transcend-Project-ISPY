@@ -1,0 +1,494 @@
+<apex:component controller="InvasiveTumor" id="compnewId" allowDML="true">
+	<apex:attribute name="subFormIT" description="This is the value for on-study pathology" type="String" />
+	<apex:attribute name="key" 
+    type="String" 
+    assignTo="{!Key}" 
+    description="The key given to this component so the page can easily get access to it" />
+
+  	<apex:attribute name="pageController" 
+      type="PageControllerBase" 
+      assignTo="{!pageController}" 
+      required="true" 
+      description="The controller for the page." />
+<script>
+	function call_saveInvasiveTumor(id,hiddenField) {
+		//alert('Invasive');
+		document.getElementById(hiddenField).value = id;
+		if(document.getElementById('pageId:invasiveForm:invasivePageBlock:invasivePageBlockSection:invasivePageBlockSectionItem:invasiveDropDown').value == 'Yes'){
+			saveInvasiveTumor();
+		}
+	}
+	
+	function call_savePostInvasiveTumor(id,hiddenField) {
+		document.getElementById(hiddenField).value = id;
+		if(document.getElementById('pageId:invasiveForm:invasivePageBlock:invasivePageBlockSection:invasivePageBlockSectionItem:invasiveDropDown').value == 'Yes'){
+			savePostInvasiveTumor();
+		}
+	}
+	
+	function call_skinInvolvement(val){
+		if(val.value == 'Yes'){
+			document.getElementById('pageId:formId:InvasiveTumorBlock:InvasiveTumorSection:InvasiveTumorComponent:compnewId:skinInvolvementId').style.display = '';
+		} else {
+			document.getElementById('pageId:formId:InvasiveTumorBlock:InvasiveTumorSection:InvasiveTumorComponent:compnewId:skinInvolvementId').style.display = 'none';
+		}
+	}
+	
+	function disableInvasiveTextBox(obj){
+		var trObj = obj.parentNode.parentNode;
+		var inputList = trObj.getElementsByTagName('input');
+		for(var i = 0; i<inputList.length; i++) {
+			if(obj.checked) {
+				inputList[i].disabled = true;
+			} else {
+				inputList[i].disabled = false;
+			}
+			break;
+		}
+	}
+	
+	function disableInvasiveUnknownCheckBox(obj) {
+		var trObj = obj.parentNode.parentNode;
+		var inputList = trObj.getElementsByTagName('input');
+		for(var i = 1; i<inputList.length; i++) {
+			if(obj.value != '') {
+				inputList[i].disabled = true;
+			} else {
+				inputList[i].disabled = false;
+			}
+		}
+	}
+	
+</script>
+			<apex:inputHidden value="{!invasivePostId}" id="invasivePostId"/>
+			<apex:inputHidden value="{!totalPoints}" id="totalPointsHiddenId"/>
+			<apex:inputHidden value="{!SBRGrade}" id="SBRGradeHiddenId"/>
+			<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),true,false)}">
+				<table width="50%" >
+					<tr>
+						<td width="30%">
+							<apex:outputLabel value="Overall cancer cellularity:" />
+						</td>
+						<td>
+							<apex:inputField value="{!objITD.Overall_cancer_cellularity__c}" id="Invasivepercentage" style="width : 40px;" onkeyup="disableInvasiveUnknownCheckBox(this);"/>%
+						</td>
+						<td width="1%">
+							<apex:inputField value="{!objITD.Unknown_Not_Reported__c}" id="UnknownInvasive" onclick="disableInvasiveTextBox(this);"/>
+						</td>
+						<td>
+							<apex:outputLabel value="Unknown/Not Reported" />
+						</td>
+					</tr>
+				</table>
+				<script>
+					disableInvasiveTextBox(document.getElementById('pageId:formId:InvasiveTumorBlock:InvasiveTumorSection:InvasiveTumorComponent:compnewId:UnknownInvasive'));
+					disableInvasiveUnknownCheckBox(document.getElementById('pageId:formId:InvasiveTumorBlock:InvasiveTumorSection:InvasiveTumorComponent:compnewId:Invasivepercentage'));
+				</script>
+			</apex:outputPanel>
+			<table width="30%" >
+				<tr>
+					<td>
+						<apex:outputPanel rendered="{!IF((subFormIT == 'On-Study Pathology Form'),false,true)}">
+							<table>
+								<tr>
+									<td>
+										<apex:outputLabel value="Tumor Size:" />
+									</td>
+								</tr>
+							</table>
+						</apex:outputPanel>
+						<apex:outputPanel rendered="{!IF((subFormIT == 'Breast Surgical Procedure'),true,false)}">
+						<table>
+							<tr>
+								<td>
+									<apex:inputField value="{!objITD.Tumor_Size__c}" style="width : 40px;"/>cm
+								</td>
+							</tr>
+						</table>
+						</apex:outputPanel>
+						<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),true,false)}">
+							<table>
+								<tr>
+									<td>
+										<apex:inputField value="{!objITD.Tumor_Size_Width__c}" style="width : 40px;"/>
+									</td>	
+									<td>
+										<b>X</b>
+									</td>
+									<td>
+										<apex:inputField value="{!objITD.Tumor_Size_Height__c}" style="width : 40px;"/>
+									</td>
+									<td>
+										<apex:inputField value="{!objITD.Tumor_Measurement_Unit__c}" />
+									</td>
+								</tr>
+							</table>
+						</apex:outputPanel>
+					</td>
+				</tr>
+			</table>
+			<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),true,false)}">
+				<table >
+					<tr>
+						<td >
+							<apex:outputLabel value="Was tumor multi-focal?" />
+						</td>
+						<td>
+							<apex:inputField value="{!objITD.Multi_focal_Tumor__c}" />
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),true,false)}">
+				<table >
+					<tr>
+						<td>
+							<b>Invasive Margins:</b>
+						</td>
+						<td>
+							<apex:inputField value="{!objITD.Invasive_margins__c}" />
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),true,false)}">
+				<table >
+					<tr>
+						<td>
+							<b>Closest Margin:</b>
+						</td>
+						<td>
+							<apex:inputField value="{!objITD.Closest_Margin__c}" />
+						</td>
+						<td>
+							<apex:inputField value="{!objITD.Specify_No__c}" style="width : 40px;"/>
+						</td>
+						<td>
+							<apex:inputField value="{!objITD.Specify_Units__c}" />
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!IF((subFormIT == 'Breast Surgical Procedure'),true,false)}">
+				<table >
+					<tr>
+						<td>
+							<b>Invasive Margins</b>
+						</td>
+						<td>
+							<apex:inputField value="{!objITD.Invasive_margins__c}" />
+						</td>
+						<td>
+							<apex:inputField value="{!objITD.Invasive_margins_size__c}" style="width : 40px;"/>mm
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel >
+				<table >
+					<tr>
+						<td>
+							<b>Invasive histology:</b>
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel id="panelId">
+				<table  id="tableId" width="100%">	
+					<tr>
+						<td width="1%">
+							<apex:inputField value="{!objITD.Invasive_ductal_carcinoma_nos__c}" />
+						</td>
+						<td>
+							<apex:outputLabel value="Invasive ductal carcinoma nos" />
+						</td>
+					</tr>
+					<tr>
+						<td width="1%">
+							<apex:inputField value="{!objITD.Invasive_lobular_carcinoma_classic_type__c}" />
+						</td>
+						<td>
+							<apex:outputLabel value="Invasive lobular carcinoma classic type" />
+						</td>
+					</tr>
+					<tr>
+						<td width="1%">
+							<apex:inputField value="{!objITD.Invasive_lobular_carcinoma_alveolar_type__c}" />
+						</td>
+						<td>
+							<apex:outputLabel value="Invasive lobular carcinoma alveolar type" />
+						</td>
+					</tr>
+					<tr>
+						<td width="1%">
+							<apex:inputField value="{!objITD.Pleomorphic_lobular_carcinoma__c}" />
+						</td>
+						<td>
+							<apex:outputLabel value="Pleomorphic lobular carcinoma" />
+						</td>
+					</tr>
+					<tr>
+						<td width="1%">
+							<apex:inputField value="{!objITD.Tubulolobular_carcinoma__c}" />
+						</td>
+						<td>
+							<apex:outputLabel value="Tubulolobular carcinoma" />
+						</td>
+					</tr>
+					<tr>
+						<td width="1%">
+							<apex:inputField value="{!objITD.Invasive_carcinoma_mixed_ductal_lobular__c}" />
+						</td>
+						<td>
+							<apex:outputLabel value="Invasive carcinoma mixed ductal and lobular type" />
+						</td>
+					</tr>
+					<tr>
+						<td width="1%">
+							<apex:inputField value="{!objITD.Tubular_carcinoma__c}" />
+						</td>
+						<td>
+							<apex:outputLabel value="Tubular carcinoma" />
+						</td>
+					</tr>
+					<tr>
+						<td width="1%">
+							<apex:inputField value="{!objITD.Mucinous_carcinoma__c}" />
+						</td>
+						<td>
+							<apex:outputLabel value="Mucinous carcinoma" />
+						</td>
+					</tr>
+					<tr>
+						<td width="1%">
+							<apex:inputField value="{!objITD.Medullary_carcinoma__c}" />
+						</td>
+						<td>
+							<apex:outputLabel value="Medullary carcinoma" />
+						</td>
+					</tr>
+					<tr>
+						<td width="1%">
+							<apex:inputField value="{!objITD.Invasive_papillary_carcinoma__c}" />
+						</td>
+						<td>
+							<apex:outputLabel value="Invasive papillary carcinoma" />
+						</td>
+					</tr>
+					<tr>
+						<td width="1%">
+							<apex:inputField value="{!objITD.Invasive_cribiform_carcinoma__c}" />
+						</td>
+						<td>
+							<apex:outputLabel value="Invasive cribiform carcinoma" />
+						</td>
+					</tr>
+					<tr>
+						<td width="1%">
+							<apex:inputField value="{!objITD.Other__c}" onclick="showOtherInvasive(this);" id="invasiveOther"/>
+							<script> showOtherInvasive(document.getElementById('{!$Component.invasiveOther}')); </script>
+						</td>
+						<td>
+							<apex:outputLabel value="Other" />
+						</td>
+					</tr>
+					<tr id="trNewId">
+						<td>
+							
+						</td>
+						<td id="tdNewId">
+							<apex:inputField value="{!objITD.Other_if_other_mention_type_in_textbox__c}" id="trId" style="display : none;"/>
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),false,true)}">
+				<table  width="50%" style="margin-top: 25px;">
+					<tr>
+						<td width="1%">
+							<apex:inputField value="{!objITD.Signs_of_Treatment_Effect__c}" />
+						</td>
+						<td>
+							<apex:outputLabel value="Signs of Treatment Effect" />
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),false,true)}">
+				<table  width="50%" style="margin-top: 25px;">
+					<tr>
+						<td width="5%">
+							<apex:outputLabel value="Calcifications:" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<apex:inputField value="{!objITD.Calcifications__c}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<apex:inputField value="{!objITD.Calcifications_Present__c}" />
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel >
+				<table style="background-color: #EEEEEE; margin-top: 25px;"  width="100%" >
+					<tr>
+						<td>
+							<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),true,false)}">
+								<table width="40%">
+									<tr>
+										<td>
+											<b>Components of SBR</b>
+										</td>
+									</tr>
+								</table>
+							</apex:outputPanel>
+							<table width="40%">
+								<tr>
+									<td>
+										<b>Nuclear Grade</b>
+									</td>
+									<td>
+										<apex:inputField value="{!objITD.Nuclear_Grade__c}" onChange="Cal_PointsAndGrade();" id="NuclearGradeId" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>Mitotic Count</b>
+									</td>
+									<td>
+										<apex:inputField value="{!objITD.Mitotic_Count__c}" onChange="Cal_PointsAndGrade();" id="MitoticCountId" >
+	<!--										<apex:actionSupport event="onchange" action="{!sumGrade}" rerender="sum"/>-->
+										</apex:inputField>
+									</td>
+								</tr>
+								<tr> 
+									<td>
+										<b>Tubule/Papilla formation</b>
+									</td>
+									<td>
+										<apex:inputField value="{!objITD.Tubule_Papilla_formation__c}" onChange="Cal_PointsAndGrade();" id="TubulePapillaId" >
+	<!--										<apex:actionSupport event="onchange" action="{!sumGrade}" rerender="sum"/>-->
+										</apex:inputField>
+									</td>
+								</tr>
+							</table>
+							<apex:outputPanel id="sum">
+								<table width="100%" style="border-top: 1px solid #000;">
+									<tr>
+										<td>
+											<b>Total Points: </b><apex:outputText id="TotalPointsId"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>SBR Grade:  </b><apex:inputField value="{!objITD.SBR_Grade__c}" id="SBR_Grade" style="display:none;"/><apex:outputText id="SBRGradeId"/>
+										</td>
+									</tr>
+								</table>
+							</apex:outputPanel>
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel >	
+				<table>
+					<tr>
+						<td>
+							<b>Lympatic-vascular Invasion:</b>
+						</td>
+						<td>
+							<apex:inputField value="{!objITD.Lympatic_vascular_Invasion__c}" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),false,true)}">
+								<b>Skin Involvement:</b>
+							</apex:outputPanel>
+						</td>
+						<td>
+						<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),false,true)}">
+							<apex:inputField value="{!objITD.Skin_Involvement__c}" id="Skin_Involvement" onChange="call_skinInvolvement(this);"/>
+						</apex:outputPanel>
+						</td>
+					</tr>
+					
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),true,false)}">
+				<table>
+					<tr>
+						<td>
+							<b>Dermal Involvement:</b>
+						</td>
+						<td>
+							<apex:inputField value="{!objITD.Dermal_Involvement__c}" />
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),false,true)}"> 
+				<!--<table>
+					<tr>
+						<td>
+							<b>Skin Involvement:</b>
+						</td>
+						<td>
+							<apex:inputField value="{!objITD.Skin_Involvement__c}" id="Skin_Involvement" onChange="call_skinInvolvement(this);"/>
+						</td>
+					</tr>
+				</table>-->
+				<apex:outputPanel id="skinInvolvementId" style="display : none;">
+					<table>
+						<tr>
+							<td>
+								<apex:inputField value="{!objITD.Paget_disease__c}" /><apex:outputLabel value="Paget disease" />
+							</td>
+							<td>
+								<apex:inputField value="{!objITD.Ulceration_by_tumor__c}" /><apex:outputLabel value="Ulceration by tumor" />
+							</td>
+							<td>
+								<apex:inputField value="{!objITD.Derma_lymphatic_vascular_invasion__c}" /><apex:outputLabel value="Derma lymphatic vascular invasion" />
+							</td>
+						</tr>
+					</table>
+				</apex:outputPanel>
+				<script>call_skinInvolvement(document.getElementById('{!$Component.Skin_Involvement}'));</script>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),true,false)}">
+				<table >
+					<tr>
+						<td>
+							<b>Muscle involvement:</b>
+						</td>
+						<td>
+							<apex:inputField value="{!objITD.Muscle_involvement__c}" />
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),true,false)}">
+				<table >
+					<tr>
+						<td>
+							<b>Evidence of therapeutic effects:</b>
+						</td>
+						<td>
+							<apex:inputField value="{!objITD.Evidence_of_therapeutic_effects__c}" />
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!IF((subFormIT == 'Post Surgery Summary'),true,false)}">
+				<table >
+					<tr>
+						<td>
+							<b>Other changes present:</b>
+						</td>
+						<td>
+							<apex:inputField value="{!objITD.Other_changes_present__c}" />
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>	
+</apex:component>

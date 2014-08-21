@@ -1,0 +1,133 @@
+<apex:page standardController="AE_Detail__c" extensions="AdverseEventController" id="pageId" tabStyle="Account" sidebar="false" showHeader="false">
+<style>
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+</style>
+    <apex:pageBlock title="Adverse Event Form" id="completeBlockId">
+        <apex:pageBlockSection >
+            <apex:outputField value="{!AEObj.Visit_Date__c}"/>
+        </apex:pageBlockSection>
+<!--  ======================================================================================================================================
+======================================================Baseline Symptoms==============================================================
+======================================================================================================================================  -->
+        <apex:pageBlockSection title="Baseline Symptoms" columns="1" rendered="{!isBaselineSymptomShow}">
+            <apex:pageBlockTable value="{!wrapBaselineToxicityList}" var="toxicity" id="toxicityTable">
+                
+           <!--  ==============================make Onset Date column=============================    -->
+                <apex:column headerClass="tableHead" style="vertical-align: top;">
+                    <apex:facet name="header">Onset Date</apex:facet>
+<!--                    <apex:outputText value="{0,date, dd'/'MM'/'yyyy}"><apex:param value="{!toxicity.ToxicityObj.Onset_Date__c}" /></apex:outputText>-->
+                    <apex:outputField value="{!toxicity.ToxicityObj.Onset_Date__c}" />
+                </apex:column>
+                
+        <!--  ==============================make Event column=============================    -->
+                <apex:column headerClass="tableHead eventHead" style="vertical-align: top;">
+                    <apex:facet name="header">Event</apex:facet>
+                    <apex:outputText value="{!toxicity.ToxicityObj.Toxicity_Master__r.Toxicity_Name__c}"/>
+                    <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.ToxicityObj.Toxicity_Other__c))}">
+                    &nbsp;(<apex:outputText value="{!toxicity.ToxicityObj.Toxicity_Other__c}"/>)
+                    </apex:outputPanel>
+                </apex:column>
+                
+        <!--  ==============================make Grade column=============================    -->
+                <apex:column headerClass="tableHead gradeHead" style="vertical-align: top;">
+                    <apex:facet name="header">Grade</apex:facet>
+                    <apex:outputText value="{!toxicity.ToxicityObj.Grade__c}"/>
+                    <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.ToxicityObj.Patient_Complaint__c))}">
+                    	<br/><br/><apex:outputText value="{!toxicity.ToxicityObj.Patient_Complaint__c}"/>
+                    </apex:outputPanel>
+                </apex:column>
+                
+        <!--  ==============================make Attribution column=============================    -->
+                <apex:column headerClass="tableHead" style="vertical-align: top;">
+                    <apex:facet name="header">Attribution</apex:facet>
+                    <apex:outputText value="{!toxicity.ToxicityObj.Attribution__c}"/>
+                </apex:column>
+                
+        <!--  ==============================make Resolved column=============================    -->
+                <apex:column headerClass="tableHead" style="vertical-align: top;">
+                    <apex:facet name="header">Status</apex:facet>
+                    <apex:outputText value="{!IF((toxicity.ToxicityObj.Resolved__c), 'Resolved', 'Ongoing')}" />
+                </apex:column>
+                
+        <!--  ==============================make End Date column=============================    -->
+                <apex:column headerClass="tableHead endDateHead" style="vertical-align: top;">
+                    <apex:facet name="header">End Date</apex:facet>
+<!--                    <apex:outputText value="{0,date, dd'/'MM'/'yyyy}" rendered="{!toxicity.isReadOnly}"><apex:param value="{!toxicity.ToxicityObj.AE_End_Date__c}" /></apex:outputText>-->
+                    <apex:outputField value="{!toxicity.ToxicityObj.AE_End_Date__c}" rendered="{!toxicity.isReadOnly}"/>
+                </apex:column>
+                
+            </apex:pageBlockTable>
+            </apex:pageBlockSection>
+<!--    
+        ======================================================================================================================================
+        ======================================================Prior AE Reporting==============================================================
+        ======================================================================================================================================          
+-->             
+            <apex:pageBlockSection id="AESection" title="AE Reporting" columns="1" rendered="{!isCurrentAEShow}">
+                <apex:pageBlockTable value="{!toxicityDisplayList}" var="toxicity">
+                
+            <!--  ==============================make Onset Date column=============================    -->
+                <apex:column headerClass="tableHead" width="7%" style="vertical-align: top;">
+                        <apex:facet name="header">Onset Date</apex:facet>
+                        <apex:outputField value="{!toxicity.Onset_Date__c}" />
+                    </apex:column>
+                
+        <!--  ==============================make Event column=============================    -->
+                <apex:column headerClass="tableHead" style="vertical-align: top;">
+                     <apex:facet name="header">Adverse Event</apex:facet>
+                     <apex:outputText value="{!toxicity.Toxicity_Master__r.Toxicity_Name__c}" />
+                     <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.Toxicity_Other__c))}">
+                         &nbsp;(<apex:outputText value="{!toxicity.Toxicity_Other__c}"/>)
+                     </apex:outputPanel>
+                 </apex:column>
+                
+        <!--  ==============================make Grade column=============================    -->
+                <apex:column headerClass="tableHead" style="vertical-align: top;">
+                        <apex:facet name="header">Grade/Patient complaint</apex:facet>
+                        <apex:outputText value="{!toxicity.Grade__c}" />
+                        <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.Patient_Complaint__c))}">
+                            <br/><br/>
+                            <apex:outputText value="{!toxicity.Patient_Complaint__c}"/>
+                        </apex:outputPanel>
+                    </apex:column>
+                    
+        <!--  ==============================make SAE column=============================    -->
+                <apex:column headerClass="tableHead" width="7%" style="vertical-align: top;">
+                    <apex:facet name="header">SAE</apex:facet>
+                    <apex:outputText value="{!toxicity.SAE__c}"/>
+                </apex:column>
+                                        
+        <!--  ==============================make Attribution column=============================    -->
+                <apex:column headerClass="tableHead" width="7%" style="vertical-align: top;">
+                    <apex:facet name="header">Attribution</apex:facet>
+                    <apex:outputText value="{!toxicity.Attribution__c}" />
+                </apex:column>
+                
+        <!--  ==============================make Resolved column=============================    -->
+                <apex:column headerClass="tableHead" width="7%" style="vertical-align: top;">
+                    <apex:facet name="header">Status</apex:facet>
+                    <apex:outputText value="{!IF((toxicity.Resolved__c), 'Resolved', IF((LEFT(toxicity.AE_Detail__c, 15) = LEFT(rId, 15)), 'New', 'Ongoing'))}" />
+                </apex:column>
+                
+        <!--  ==============================make End Date column=============================    -->
+                    <apex:column headerClass="tableHead" width="7%" style="vertical-align: top;">
+                        <apex:facet name="header">End Date</apex:facet>
+                        <apex:outputField value="{!toxicity.AE_End_Date__c}" />
+                    </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(AEObj.Id))}">
+			<c:CRFAttachmentComponent rId="{!AEObj.Id}" feedCRFName="AE_Detail__Feed" rtId="{!AEObj.Root_CRF_Id__c}"/>
+		</apex:pageBlockSection>
+		
+		<apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(AEObj.Id))}">
+	    	<c:CRFEventComponent rId="{!AEObj.Id}" objectName="AE_Detail__c" rtId="{!AEObj.Root_CRF_Id__c}"/>
+	    </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

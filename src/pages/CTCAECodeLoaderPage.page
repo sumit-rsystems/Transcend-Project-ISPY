@@ -1,0 +1,6 @@
+<apex:page controller="CTCAECodeLoader">
+	<apex:form >
+		<apex:inputFile value="{!fileBody}" filename="{!fileName}"/>
+		<apex:commandButton value="Upload" action="{!storeCSVRecords}" />
+	</apex:form>
+</apex:page>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Baseline Condition</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Baseline Conditions</value>
+    </caseValues>
+    <fields>
+        <label><!-- Attribution --></label>
+        <name>Attribution__c</name>
+    </fields>
+    <fields>
+        <label><!-- Baseline Symptoms Form --></label>
+        <name>BaselineSymptomsForm__c</name>
+        <relationshipLabel><!-- Baseline Conditions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Daignosis --></label>
+        <name>Daignosis__c</name>
+        <relationshipLabel><!-- Baseline Conditions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Diagnosis Type --></label>
+        <name>DiagnosisType__c</name>
+        <picklistValues>
+            <masterLabel>Condition</masterLabel>
+            <translation><!-- Condition --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other Condition</masterLabel>
+            <translation><!-- Other Condition --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Date --></label>
+        <name>End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- End_Day --></label>
+        <name>End_Day__c</name>
+    </fields>
+    <fields>
+        <label><!-- End_Month --></label>
+        <name>End_Month__c</name>
+    </fields>
+    <fields>
+        <label><!-- End_Year --></label>
+        <name>End_Year__c</name>
+    </fields>
+    <fields>
+        <label><!-- Onset Date --></label>
+        <name>Onset_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Onset_Day --></label>
+        <name>Onset_Day__c</name>
+    </fields>
+    <fields>
+        <label><!-- Onset_Month --></label>
+        <name>Onset_Month__c</name>
+    </fields>
+    <fields>
+        <label><!-- Onset_Year --></label>
+        <name>Onset_Year__c</name>
+    </fields>
+    <fields>
+        <label><!-- OtherDaignosis --></label>
+        <name>OtherDaignosis__c</name>
+    </fields>
+    <fields>
+        <label><!-- Resolved --></label>
+        <name>Resolved__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Severity Grade --></label>
+        <name>Severity_Grade__c</name>
+        <picklistValues>
+            <masterLabel>1-Mild</masterLabel>
+            <translation><!-- 1-Mild --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2-Moderate</masterLabel>
+            <translation><!-- 2-Moderate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3-Severe</masterLabel>
+            <translation><!-- 3-Severe --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4-Life threatening or Disabling</masterLabel>
+            <translation><!-- 4-Life threatening or Disabling --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5-Fatal</masterLabel>
+            <translation><!-- 5-Fatal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Controlled</masterLabel>
+            <translation><!-- Controlled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Disease Free</masterLabel>
+            <translation><!-- Disease Free --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

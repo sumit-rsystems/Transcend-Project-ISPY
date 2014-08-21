@@ -1,0 +1,161 @@
+<apex:page StandardController="TissueSpecimenDetail__c" renderAs="pdf"
+ extensions="TissueSpecimenFormController" standardStylesheets="false">
+    
+   <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : Tissue Specimen Form" initial="" 
+    instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+    
+    
+    <br/>
+    <b><apex:outputLabel value="Tissue Specimen Tracking Summary"></apex:outputLabel></b>
+    
+        <br/><br/>
+        <div style="background-color:#97C7EC"><b style="margin:10px;color:white">Core Biopsy</b></div>
+        
+        <table cellpadding="5" width="100%" >
+            <tr >
+                <td align="right"><b><apex:outputLabel value="Procedure Date  " /></b>
+            </td>
+                <td>
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                        <apex:param value="{!tissueSpecimenForm.ProcedureDate__c}" /> 
+                    </apex:outputText>
+                </td>
+            </tr>    
+            
+            <tr>
+                <td align="right"><b><apex:outputLabel value="Guidance Method (s)  " /></b></td>
+                <td>{!tissueSpecimenForm.Guidance_Method_s__c}</td>
+            </tr>
+            
+            <tr >
+                <td align="right" width="30%"><b><apex:outputLabel value="Other (Guidance Method) " /></b></td>
+                <td >{!tissueSpecimenForm.Other_Guidance_Method__c}</td>
+            </tr>
+            
+            <tr>
+                <td align="right"><b><apex:outputLabel value="Time Point " /></b></td>
+                <td>{!tissueSpecimenForm.Time_Point__c}</td>
+            </tr> 
+        </table>
+        
+        <div style="background-color:#97C7EC"><b style="margin:10px;color:white">Core Biopsy Specimens</b></div>
+        <br/>
+         <table  width="100%" border="1">
+            <tr style="background-color:#F2F2F2">
+                <th>#</th>
+                <th >Specimen ID</th>
+                <th >Shipped?</th>
+                <th >Reason sample not shipped?</th>
+                <th >Other</th>
+            </tr>
+            
+            <apex:repeat value="{!lstCoreBiopsyWrapper}" var="cbWrapper">
+                <tr >
+                    <td  >{!cbWrapper.coreBiopsyNumber}</td>
+                    <td >{!cbWrapper.coreBiopsySpecimen.SpecimenID__c}</td>
+                    <td>{!cbWrapper.coreBiopsySpecimen.Shipped__c}</td>
+                    <td>{!cbWrapper.coreBiopsySpecimen.Reason_samples_not_shipped__c}</td>
+                    <td>{!cbWrapper.coreBiopsySpecimen.Other_Reason_samples_not_shipped__c }</td>
+                </tr>  
+            </apex:repeat>  
+        </table>
+        <br/>
+        <div style="background-color:#97C7EC"><b style="margin:10px;color:white">Reason Section</b></div>
+        
+        
+        <table width="100%" >
+            <tr>               
+                <td align="right" valign="top" width="20%"><b>Reason all Sample not Collected</b> </td>
+                <td align="right" valign="top" width="20%"> {!tissueSpecimenForm.Reason_all_samples_not_collected__c}</td>
+                <td align="right" valign="top" width="20%"><b>Other</b></td>
+                <td align="right" valign="top" width="40%">{!tissueSpecimenForm.Other_Reason_not_all_samples_collected__c}</td>
+            </tr>
+         </table>
+         
+         <br/>
+         <div style="background-color:#97C7EC"><b style="margin:10px;color:white">Specimen Used</b></div>
+         <table width="100%" >  
+            
+            <tr>
+                <td width="10%">&nbsp;</td>
+                <td align="top" width="5%">
+                    <apex:outputField value="{!tissueSpecimenForm.PatientConsentedStudy__c}" />
+                </td >
+                <td align="top">  
+                    <apex:outputLabel value="Patient consented to use specimen for this study"/> 
+                </td>
+            </tr>
+            <tr>
+                <td width="10%">&nbsp;</td>
+                <td align="top" width="5%">
+                    <apex:outputField value="{!tissueSpecimenForm.PatientConsentedOutsideStudy__c}" />
+                </td >
+                <td align="top"> 
+                    <apex:outputLabel value="Patient consented to use specimen for research outside of this study"/>          
+                </td>
+            </tr>
+                
+            
+        </table>
+        <br/>
+        
+    <!--   <table width="100%">
+           <tr>
+               <td width="20%">&nbsp;</td>
+               <td width="80%">
+                   <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+                   <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+               </td>
+           </tr>
+       </table>  
+    <c:CRFPDFFooter crfFormName="Tissue Specimen Form , v1"  />
+
+</apex:page>-->
+<table > 
+    <tr>
+        <td  >
+            <apex:outputLabel style="float:right;font-weight:bold;"  value="CRF Status:" />
+        </td>
+        <td >
+            <apex:outputField value="{!tissueSpecimenForm.Status__c}"/>
+        </td>
+    
+   
+    </tr> 
+      </table>
+      <br/>
+      <br/>
+      <apex:pageBlock tabStyle="Account">
+    <!--  <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(tissueSpecimenForm.Id))}">
+             <c:CRFAttachmentComponent rId="{!tissueSpecimenForm.Id}" feedCRFName="TissueSpecimenDetail__Feed"/>
+      </apex:pageBlockSection>-->
+      <c:CRFAttachmentComponentPdf rId="{!tissueSpecimenForm.Id}" feedCRFNamePdf="TissueSpecimenDetail__Feed" rtId="{!tissueSpecimenForm.Root_CRF_Id__c}"/>
+      <br/>
+      <div style="background-color:#97C7EC"><b style="margin:10px;color:white">CRF Events</b></div>
+      
+      <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(tissueSpecimenForm.Id))}">
+            <c:CRFEventComponent rId="{!tissueSpecimenForm.Id}" objectName="TissueSpecimenDetail__c" rtId="{!tissueSpecimenForm.Root_CRF_Id__c}"/>
+      </apex:pageBlockSection>
+      </apex:pageBlock>
+      <br/>
+      <br/>
+      <br/>
+      
+   <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  
+  
+  
+</apex:page>

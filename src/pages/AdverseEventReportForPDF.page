@@ -1,0 +1,318 @@
+<apex:page controller="AdverseEventReportController" sidebar="false" showheader="false" renderAs="pdf">
+	<head>
+		<style>
+			@page {
+			    @top-right {
+			        content: "Page " counter(page) " of " counter(pages);
+			        font-size : 10 px;
+			        color : Black;
+			     }
+			}
+		</style>
+	</head>
+    <table style="border: 1px black solid; height: 110; width: 100%">
+        <tr>
+            <td style="width: 150px;">
+                <apex:image id="theImage" value="{!$Resource.Logo}" width="150" height="100"/>
+            </td>
+            <td valign="top">
+                <table width="100%" height="108px;">
+                    <tr>
+                        <td style="font-size: 18px; font-family: Arial;">
+                            <center><b>ADVERSE EVENTS AND CHEMOTHERAPY TREATMENT REPORT</b></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <table style="font-size: 16px; font-family: Arial; width: 100%">
+                                <tr>
+                                    <td >
+                                        <b>Study: </b>
+                                    </td>
+                                    <td >
+                                        {!trialName}
+                                    </td>
+                                </tr> 
+                                <tr> 
+                                    <td>
+                                        <b>Reporting period:</b>
+                                    </td>
+                                    <td>
+                                        <apex:outputText value="{0,date,dd MMMM yyyy}" >
+                                            <apex:param value="{!startDate}" />
+                                        </apex:outputText> through &nbsp;
+                                        <apex:outputText value="{0,date,dd MMMM yyyy}" >
+                                            <apex:param value="{!endDate}" />
+                                        </apex:outputText> 
+                                    </td>
+                                </tr> 
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <table style="height: 110; width: 100%" cellspacing = "0" cellpadding = "0">
+        <tr style="background-color : #C4D5D4">
+            <td style="font-size: 15px;">
+                <b>ADVERSE EVENTS</b>
+            </td>
+        </tr>
+    </table>
+    <br></br>
+    <table>
+        <tr>
+            <td style="font-size: 0.8em;">
+                <b>TOTAL ADVERSE EVENTS BY PARTICIPANT AND TREATMENT ARM</b>
+            </td>
+        </tr>
+    </table>
+    <table style="border: 2px solid #5090D0; height: 110; width: 50%; font-size: 11px;" cellspacing = "0" cellpadding = "0">
+        <tr style="background-color : #5090D0; text-align: center;">
+            <td style="color: #fff;">
+                <b>Treatment Arm / I-SPY 2 ID</b>
+            </td>
+            <td style="color: #fff;">
+                <b>Total AEs</b>
+            </td>
+            <td style="color: #fff;">
+                <b>Possible SAEs</b>
+            </td>
+            <td style="color: #fff;">
+                <b>Unresolved AEs</b>
+            </td>
+            <td style="color: #fff;">
+                <b>Resolved AEs</b>
+            </td>
+        </tr>
+        <apex:repeat value="{!summaryList}" var="summary">
+            <tr style="background-color: {!summary.rowColor}">
+                <td>
+                    <apex:outputPanel rendered="{!summary.isArm}">
+                        <b>{!summary.armOrSubject}</b>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{! NOT(summary.isArm)}">
+                        {!summary.armOrSubject}
+                    </apex:outputPanel>
+                </td>
+                <td>
+                    <apex:outputPanel rendered="{!summary.isArm}">
+                        <b>{!summary.totalAEs}</b>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{! NOT(summary.isArm)}">
+                        {!summary.totalAEs}
+                    </apex:outputPanel>
+                </td>
+                <td>
+                    <apex:outputPanel rendered="{!summary.isArm}">
+                        <b>{!summary.possibleSAEs}</b>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{! NOT(summary.isArm)}">
+                        {!summary.possibleSAEs}
+                    </apex:outputPanel>
+                </td>
+                <td>
+                    <apex:outputPanel rendered="{!summary.isArm}">
+                        <b>{!summary.unresolvedAEs}</b>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{! NOT(summary.isArm)}">
+                        {!summary.unresolvedAEs}
+                    </apex:outputPanel>
+                </td>
+                <td>
+                    <apex:outputPanel rendered="{!summary.isArm}">
+                        <b>{!summary.resolvedAEs}</b>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{! NOT(summary.isArm)}">
+                        {!summary.resolvedAEs}
+                    </apex:outputPanel>
+                </td>
+            </tr>
+        </apex:repeat>
+    </table>
+    <br></br>
+    <table>
+        <tr>
+            <td style="font-size: 0.8em;">
+                <b>ADVERSE EVENTS BY PARTICIPANT AND TREATMENT ARM</b>
+            </td>
+        </tr>
+    </table>
+    <table style="border: 2px solid #5090D0; height: 110; width: 100%; font-size: 9px;" cellspacing = "0" cellpadding = "3">
+        <tr style="font-weight: bold;">
+            <td style="width: 13%;">
+                Treatment Arm
+            </td>
+            <td>
+                I-SPY 2 ID
+            </td>
+            <td style="width: 18%;">
+                CTCAEv4 Term
+            </td>
+            <td>
+                CTCAE Code
+            </td>
+            <td>
+                Visit Date
+            </td>
+            <td>
+                Baseline Symptom
+            </td>
+            <td>
+                Event Onset Date
+            </td>
+            <td>
+                Resolved
+            </td>
+            <td>
+                Event End Date
+            </td>
+            <td width="6%">
+                Event Grade
+            </td>
+            <td width="8%">
+                Attribution
+            </td>
+            <td>
+                SAE
+            </td>
+            <td>
+                Patient Complaint
+            </td>
+        </tr>
+        <apex:repeat value="{!aeList}" var="ae">
+        <tr style="background-color: {!ae.rowColor};">
+            <td>
+            	{!ae.arm}
+            </td>
+            <td>
+                {!ae.subjectId}
+            </td>
+            <td>
+                {!ae.ctcae}
+            </td>
+            <td>
+                {!ae.ctcaeCode}
+            </td>
+            <td>
+            	<apex:outputText value="{0,date,MM/dd/yyyy}" >
+	            	<apex:param value="{!ae.visitDate}" />
+	        	</apex:outputText>
+            </td>
+            <td>
+                {!ae.baselineSymptom}
+            </td>
+            <td>
+            	<apex:outputText value="{0,date,MM/dd/yyyy}" >
+	            	<apex:param value="{!ae.eventOnsetDate}" />
+	        	</apex:outputText>
+            </td>
+            <td>
+                {!ae.resolved}
+            </td>
+            <td>
+                <apex:outputText value="{0,date,MM/dd/yyyy}" >
+	            	<apex:param value="{!ae.eventEndDate}" />
+	        	</apex:outputText>
+            </td>
+            <td>
+                {!ae.eventGrade}
+            </td>
+            <td>
+                {!ae.attribution}
+            </td>
+            <td>
+                {!ae.sae}
+            </td>
+            <td>
+                {!ae.patientComplaint}
+            </td>
+        </tr>
+        </apex:repeat>
+    </table>
+    <table>
+        <tr>
+            <td style="font-size: 0.8em;">
+                <b>Treatments Received by Participant</b>
+            </td>
+        </tr>
+    </table>
+    <table style="border: 2px solid #5090D0; height: 110; width: 100% " cellspacing = "0" cellpadding = "3">
+        <tr style="font-size: 10px;">
+            <td>
+                I-SPY 2 ID
+            </td>
+            <td>
+                Date of Therapy
+            </td>
+            <td>
+                Cycle#
+            </td>
+            <td>
+                Day
+            </td>
+            <td style="width: 15%;">
+                Agent Name
+            </td>
+            <td>
+                Prescribed Dose
+            </td>
+            <td>
+                Actual Dose
+            </td>
+            <td>
+                Dose Delay
+            </td>
+            <td>
+                Dose Modification %
+            </td>
+            <td>
+                Dose Modification Reason
+            </td>
+            <td>
+                Off-Study Treatment Reason
+            </td>
+        </tr>
+        <apex:repeat value="{!chemoRegimentList}" var="reg">
+        <tr style="font-size: 9px; background-color: {!reg.Row_Color__c};">
+            <td>
+                {!reg.Chemo_Treatment__r.TrialPatient__r.Subject_Id__c}
+            </td>
+            <td>
+                <apex:outputText value="{0,date,MM/dd/yyyy}" >
+	            	<apex:param value="{!reg.Chemo_Treatment__r.Date_of_therapy__c}" />
+	        	</apex:outputText>
+            </td>
+            <td>
+                {!reg.Chemo_Treatment__r.Cycle_number__c}
+            </td>
+            <td>
+                {!reg.Day__c}
+            </td>
+            <td nowrap="nowrap">
+                {!reg.Agent__r.Name}
+            </td>
+            <td>
+                {!reg.Prescribed_Dose__c}
+            </td>
+            <td>
+                {!reg.Total_Dose__c}
+            </td>
+            <td>
+                {!reg.Dose_Delay__c}
+            </td>
+            <td>
+                {!reg.Dose_Mod__c}
+            </td>
+            <td>
+                {!reg.Dose_modification__c}
+            </td>
+            <td>
+                {!reg.Reason_why_patient_stopped_receiving__c}
+            </td>
+        </tr>
+        </apex:repeat>
+    </table>
+</apex:page>

@@ -1,0 +1,200 @@
+<apex:page StandardController="BloodSpecimenForm__c" renderAs="pdf" extensions="BloodSpecimenController" sideBar="false" id="pageId" tabStyle="Patient_Custom__c">
+    
+    <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : Blood Specimen Tracking Form" initial="" 
+    instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+    <br/>                 
+   
+    <font size="3"><b><apex:outputlabel value="Blood Specimen Tracking" >
+    </apex:outputlabel></b></font> <br /><br />
+    
+    
+    <div style="background-color:#97C7EC"><b style="color:white;margin:5px"> Blood</b></div>
+             
+    <table width="100%"  cellpadding="5"> 
+    <tr>
+    <td width="30%"  >
+    <b><apex:outputLabel style="float:right " value="Collection Date  " /></b>
+    </td>
+    <td >
+    <apex:outputField value="{!bloodSpecimen.CollectionDate__c}"/>
+    </td>
+    </tr> 
+    
+    <tr>
+    <td width="30%" >
+    <b><apex:outputLabel style="float:right" value="Time Point  " /></b>
+    </td>
+    <td>
+    <apex:outputField value="{!bloodSpecimen.Time_Point__c}"/>
+    </td>
+    </tr> 
+    </table>
+    <br/>       
+    <apex:dataTable border="1" width="100%"  value="{!lstSerumSpecimenWrapper}" var="serumSpecimen" >
+        <apex:column headerClass="tableHead" width="25%" >
+            <apex:facet name="header"></apex:facet>
+            <apex:outputText value="{!serumSpecimen.SpecimenNumber}" />
+        </apex:column>
+        <apex:column headerClass="tableHead" width="25%" >
+            <apex:facet name="header">Assigned Specimen Id</apex:facet>
+            <apex:outputPanel id="shippedPanelId1">   
+                <apex:outputField value="{!serumSpecimen.bloodSpecimenInfo.Specimen_ID__c}"  />
+            </apex:outputPanel>
+        </apex:column>
+        <apex:column headerClass="tableHead" width="30%" >
+            <apex:facet name="header">Reason Samples not Shipped</apex:facet>
+            <apex:outputField value="{!serumSpecimen.bloodSpecimenInfo.Reason_samples_not_shipped__c}" />
+            
+        </apex:column>
+        <apex:column headerClass="tableHead" width="20%" >
+            <apex:facet name="header"></apex:facet>
+            <apex:outputPanel id="otherPanel1">
+                <apex:outputField value="{!serumSpecimen.bloodSpecimenInfo.Other_Reason_samples_not_shipped__c}" id="otherRId1"/>
+            </apex:outputPanel>
+        </apex:column>
+    </apex:dataTable>
+            
+    <apex:dataTable border="1" width="100%"  value="{!lstPlasmaSpecimenWrapper}" var="plasmaSpecimen" >
+        <apex:column headerClass="tableHead" width="25%">
+            <apex:facet name="header"></apex:facet>
+            <apex:outputText value="{!plasmaSpecimen.SpecimenNumber}" />
+        </apex:column>
+        <apex:column headerClass="tableHead" width="25%" >
+            <apex:facet name="header">Assigned Specimen Id</apex:facet>
+            <apex:outputPanel id="shippedPanelId2">
+                <apex:outputField value="{!plasmaSpecimen.bloodSpecimenInfo.Specimen_ID__c}" />
+                
+            </apex:outputPanel>
+        </apex:column>
+        <apex:column headerClass="tableHead" width="30%" >
+            <apex:facet name="header">Reason Samples not Shipped</apex:facet>
+            <apex:outputField value="{!plasmaSpecimen.bloodSpecimenInfo.Reason_samples_not_shipped__c}"/>
+            
+        </apex:column>
+        <apex:column headerClass="tableHead" width="20%" >
+            <apex:facet name="header"></apex:facet>
+            <apex:outputPanel >
+                <apex:outputField value="{!plasmaSpecimen.bloodSpecimenInfo.Other_Reason_samples_not_shipped__c}" />
+            </apex:outputPanel>
+        </apex:column>
+    </apex:dataTable>
+        
+    <apex:dataTable border="1" value="{!lstBuffySpecimenWrapper}" var="buffySpecimen" width="100%" >
+        <apex:column headerClass="tableHead" width="25%" >
+            <apex:facet name="header"></apex:facet>
+            <apex:outputText value="{!buffySpecimen.SpecimenNumber}" />
+        </apex:column>
+        
+        <apex:column headerClass="tableHead" width="25%" >
+            <apex:facet name="header">Assigned Specimen Id</apex:facet>
+            <apex:outputPanel >
+                <apex:outputField value="{!buffySpecimen.bloodSpecimenInfo.Specimen_ID__c}" />
+            </apex:outputPanel>
+        </apex:column>
+        
+        <apex:column headerClass="tableHead" width="30%" >
+            <apex:facet name="header">Reason Samples not Shipped</apex:facet>
+            <apex:outputPanel >
+                <apex:outputField value="{!buffySpecimen.bloodSpecimenInfo.Reason_samples_not_shipped__c}"  />
+            </apex:outputPanel>
+        </apex:column>
+        <apex:column headerClass="tableHead" width="20%" >
+            <apex:facet name="header"></apex:facet>
+            <apex:outputPanel id="otherPanel3">
+                <apex:outputField value="{!buffySpecimen.bloodSpecimenInfo.Other_Reason_samples_not_shipped__c}" />
+            </apex:outputPanel>
+        </apex:column>
+    </apex:dataTable>
+    <br/>
+    <div style="background-color:#97C7EC"><b style="color:white;margin:5px">Specimen Usage</b> </div> 
+    
+            <table width="100%" cellspacing="5">
+            <tr>
+            <td width="30%" valign="top" align="right">
+            <b><apex:outputLabel value="Patient consented to use specimen for this study" /></b>
+            </td>
+            <td valign="top">
+            &nbsp;&nbsp;<apex:outputField value="{!bloodSpecimen.Consented_to_use_specimen_study__c}"  />
+            </td>
+            </tr>
+            
+            <tr style="height:80px;">
+            <td valign="top" align="right"> 
+            <b><apex:outputLabel value="Patient consented to use specimen for research outside of this study" /></b>
+            </td>
+            <td valign="top">
+            &nbsp;&nbsp;<apex:outputField value="{!bloodSpecimen.Contented_specimen_outside_study__c}" />
+            </td>
+            </tr>
+           <!-- </table> -->
+                    
+          
+            <!--<c:CRFAttachmentComponent rId="{!bloodSpecimen.Id}" feedCRFName="BloodSpecimenForm__Feed"/>
+            -->
+           
+       <!--   <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+   </table>
+             <c:CRFPDFFooter crfFormName="Blood Specimen Form , v1"  />
+      
+</apex:page> --->
+<!--<table >  -->
+   <!-- <tr>
+        <td  >
+            <apex:outputLabel style="float:right;font-weight:bold;"  value="CRF Status:" />
+        </td>
+        <td >
+            <apex:outputField value="{!bloodSpecimen.Status__c}"/>
+        </td>
+    
+   
+    </tr> -->
+    <tr >
+            <td valign="top" align="right" > 
+            <b><apex:outputLabel value="CRF Status:" /></b>
+            </td>
+            <td valign="top">
+            &nbsp;&nbsp;<apex:outputField value="{!bloodSpecimen.Status__c}" />
+            </td>
+            </tr>
+      </table>
+      <br/>
+      <br/>
+       <apex:pageBlock tabStyle="Account">
+     <!-- <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(bloodSpecimen.Id))}">
+                    <c:CRFAttachmentComponent rId="{!bloodSpecimen.Id}" feedCRFName="BloodSpecimenForm__Feed"/>
+                </apex:pageBlockSection>-->
+                
+     <c:CRFAttachmentComponentPdf rId="{!bloodSpecimen.Id}" feedCRFNamePdf="BloodSpecimenForm__Feed" rtId="{!bloodSpecimen.Root_CRF_Id__c}"/>  
+     <br/>
+     <div style="background-color:#97C7EC"><b style="margin:10px;color:white">CRF Events</b></div>
+     <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(bloodSpecimen.Id))}">
+           <c:CRFEventComponent rId="{!bloodSpecimen.Id}" objectName="BloodSpecimenForm__c" rtId="{!bloodSpecimen.Root_CRF_Id__c}"/>
+     </apex:pageBlockSection>
+     </apex:pageBlock> 
+      
+             
+   <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+ 
+  
+  
+</apex:page>

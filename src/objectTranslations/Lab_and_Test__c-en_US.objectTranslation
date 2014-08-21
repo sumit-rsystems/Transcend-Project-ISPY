@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Lab and Test</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Lab and Tests</value>
+    </caseValues>
+    <fields>
+        <label><!-- ALT Institutional Reference Range --></label>
+        <name>ALT_Institutional_Reference_Range__c</name>
+    </fields>
+    <fields>
+        <label><!-- ALT Result --></label>
+        <name>ALT_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- ALT --></label>
+        <name>ALT__c</name>
+    </fields>
+    <fields>
+        <help><!-- Absolute Neutrophil Count(ANC) Industrial Reference Range --></help>
+        <label><!-- ANC Industrial Reference Range --></label>
+        <name>ANC_Industrial_Reference_Range__c</name>
+    </fields>
+    <fields>
+        <label><!-- APTT IRR --></label>
+        <name>APTT_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- APTT Result --></label>
+        <name>APTT_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- AST Institutional Reference Range --></label>
+        <name>AST_Institutional_Reference_Range__c</name>
+    </fields>
+    <fields>
+        <label><!-- AST Result --></label>
+        <name>AST_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- AST --></label>
+        <name>AST__c</name>
+    </fields>
+    <fields>
+        <label><!-- Absolute Neutrophil Count (ANC) Result --></label>
+        <name>Absolute_Neutrophil_Count_ANC_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Absolute Neutrophil Count (ANC) --></label>
+        <name>Absolute_Neutrophil_Count_ANC__c</name>
+    </fields>
+    <fields>
+        <label><!-- Activated partial thromboplastin time --></label>
+        <name>Activated_partial_thromboplastin_time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Left Ear(0.25) --></label>
+        <name>Air_Conduction_Test_Left_Ear_0_25__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Left Ear(0.5) --></label>
+        <name>Air_Conduction_Test_Left_Ear_0_5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Left Ear 1 --></label>
+        <name>Air_Conduction_Test_Left_Ear_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Left Ear 3 --></label>
+        <name>Air_Conduction_Test_Left_Ear_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Left Ear 4 --></label>
+        <name>Air_Conduction_Test_Left_Ear_4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Left Ear 6 --></label>
+        <name>Air_Conduction_Test_Left_Ear_6__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Left Ear 8 --></label>
+        <name>Air_Conduction_Test_Left_Ear_8__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Left Ear(0.25) --></label>
+        <name>Air_Conduction_Test_Left_Ear_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Left Ear --></label>
+        <name>Air_Conduction_Test_Left_Ear__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Right Ear(0.5)) --></label>
+        <name>Air_Conduction_Test_Right_Ear_0_5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Right Ear 1 --></label>
+        <name>Air_Conduction_Test_Right_Ear_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Right Ear 2 --></label>
+        <name>Air_Conduction_Test_Right_Ear_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Right Ear 3 --></label>
+        <name>Air_Conduction_Test_Right_Ear_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Right Ear 4 --></label>
+        <name>Air_Conduction_Test_Right_Ear_4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Right Ear 6 --></label>
+        <name>Air_Conduction_Test_Right_Ear_6__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Right Ear 8 --></label>
+        <name>Air_Conduction_Test_Right_Ear_8__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Right Ear(0.25) --></label>
+        <name>Air_Conduction_Test_Right_Ear_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Air Conduction Test, Right Ear --></label>
+        <name>Air_Conduction_Test_Right_Ear__c</name>
+    </fields>
+    <fields>
+        <label><!-- Albumin IRR --></label>
+        <name>Albumin_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Albumin Result --></label>
+        <name>Albumin_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Albumin --></label>
+        <name>Albumin__c</name>
+    </fields>
+    <fields>
+        <label><!-- ApprovalURL --></label>
+        <name>ApprovalURL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Audiometry Test --></label>
+        <name>Audiometry_Test__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Left Ear (0.25) --></label>
+        <name>Bone_Conduction_Test_Left_Ear_0_25__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Left Ear (0.5) --></label>
+        <name>Bone_Conduction_Test_Left_Ear_0_5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Left Ear 1 --></label>
+        <name>Bone_Conduction_Test_Left_Ear_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Left Ear 3 --></label>
+        <name>Bone_Conduction_Test_Left_Ear_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Left Ear 4 --></label>
+        <name>Bone_Conduction_Test_Left_Ear_4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Left Ear 6 --></label>
+        <name>Bone_Conduction_Test_Left_Ear_6__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Left Ear 8 --></label>
+        <name>Bone_Conduction_Test_Left_Ear_8__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Left Ear --></label>
+        <name>Bone_Conduction_Test_Left_Ear__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Right Ear(0.25) --></label>
+        <name>Bone_Conduction_Test_Right_Ear_0_25__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Right Ear(0.5) --></label>
+        <name>Bone_Conduction_Test_Right_Ear_0_5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Right Ear 1 --></label>
+        <name>Bone_Conduction_Test_Right_Ear_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Right Ear 2 --></label>
+        <name>Bone_Conduction_Test_Right_Ear_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Right Ear 3 --></label>
+        <name>Bone_Conduction_Test_Right_Ear_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Right Ear 4 --></label>
+        <name>Bone_Conduction_Test_Right_Ear_4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Right Ear 6 --></label>
+        <name>Bone_Conduction_Test_Right_Ear_6__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Right Ear 8 --></label>
+        <name>Bone_Conduction_Test_Right_Ear_8__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bone Conduction Test, Right Ear --></label>
+        <name>Bone_Conduction_Test_Right_Ear__c</name>
+    </fields>
+    <fields>
+        <label><!-- CRF --></label>
+        <name>CRF__c</name>
+        <relationshipLabel><!-- Lab and Tests --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Calcium IRR --></label>
+        <name>Calcium_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Calcium Result --></label>
+        <name>Calcium_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Calcium --></label>
+        <name>Calcium__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cardiac Echo Date --></label>
+        <name>Cardiac_Echo_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cardiac Echo Institutional Lower Limit --></label>
+        <name>Cardiac_Echo_Institutional_Lower_Limit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cardiac  Echo LVEF --></label>
+        <name>Cardiac_Echo_LVEF__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cardiac Echo --></label>
+        <name>Cardiac_Echo__c</name>
+    </fields>
+    <fields>
+        <help><!-- Clinical Hearing Evaluation Checklist Completed --></help>
+        <label><!-- Clinical Hearing Evaluation Checklist --></label>
+        <name>Clinical_Hearing_Evaluation_Checklist__c</name>
+    </fields>
+    <fields>
+        <label><!-- Collection Date --></label>
+        <name>Collection_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Collection Date --></label>
+        <name>Collection_Date_for_Investigative_Agent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- CompletedDate --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Creatinine Institutional Reference Range --></label>
+        <name>Creatinine_Institutional_Reference_Range__c</name>
+    </fields>
+    <fields>
+        <label><!-- Creatinine Result --></label>
+        <name>Creatinine_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Creatinine --></label>
+        <name>Creatinine__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective_Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Save and Close --></label>
+        <name>First_Save_and_Close__c</name>
+    </fields>
+    <fields>
+        <label><!-- GGT IRR --></label>
+        <name>GGT_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- GGT Result --></label>
+        <name>GGT_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- GGT --></label>
+        <name>GGT__c</name>
+    </fields>
+    <fields>
+        <label><!-- Glucose IRR --></label>
+        <name>Glucose_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Glucose Result --></label>
+        <name>Glucose_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Glucose --></label>
+        <name>Glucose__c</name>
+    </fields>
+    <fields>
+        <label><!-- HgbA1C IRR --></label>
+        <name>HgbA1C_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- HgbA1C Result --></label>
+        <name>HgbA1C_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- HgbA1C --></label>
+        <name>HgbA1C__c</name>
+    </fields>
+    <fields>
+        <label><!-- LDH IRR --></label>
+        <name>LDH_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- LDH Result --></label>
+        <name>LDH_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- LDH --></label>
+        <name>LDH__c</name>
+    </fields>
+    <fields>
+        <label><!-- Leukocytes Institutional Reference Range --></label>
+        <name>Leukocytes_Institutional_Reference_Range__c</name>
+    </fields>
+    <fields>
+        <label><!-- Leukocytes Result --></label>
+        <name>Leukocytes_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Leukocytes --></label>
+        <name>Leukocytes__c</name>
+    </fields>
+    <fields>
+        <label><!-- MUGA Institutional Lower Limit of Normal --></label>
+        <name>MUGA_Institutional_Lower_Limit_of_Normal__c</name>
+    </fields>
+    <fields>
+        <label><!-- MUGA Scan Date --></label>
+        <name>MUGA_Scan_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- MUGA Scan LVEF --></label>
+        <name>MUGA_Scan_LVEF__c</name>
+    </fields>
+    <fields>
+        <label><!-- MUGA Scan --></label>
+        <name>MUGA_Scan__c</name>
+    </fields>
+    <fields>
+        <label><!-- Magnesium IRR --></label>
+        <name>Magnesium_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Magnesium Result --></label>
+        <name>Magnesium_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Magnesium --></label>
+        <name>Magnesium__c</name>
+    </fields>
+    <fields>
+        <label><!-- OriginalCRF --></label>
+        <name>OriginalCRF__c</name>
+        <relationshipLabel><!-- Lab and Tests --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Follow-up</masterLabel>
+            <translation><!-- Follow-up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening</masterLabel>
+            <translation><!-- Screening --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment</masterLabel>
+            <translation><!-- Treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Phosphate IRR --></label>
+        <name>Phosphate_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phosphate Result --></label>
+        <name>Phosphate_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phosphate --></label>
+        <name>Phosphate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Platelets Institutional Reference Range --></label>
+        <name>Platelets_Institutional_Reference_Range__c</name>
+    </fields>
+    <fields>
+        <label><!-- Platelets Result --></label>
+        <name>Platelets_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Platelets --></label>
+        <name>Platelets__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prothrombin time (PT)/INR IRR --></label>
+        <name>Prothrombin_time_PT_INR_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prothrombin time (PT)/INR Result --></label>
+        <name>Prothrombin_time_PT_INR_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prothrombin time (PT)/INR --></label>
+        <name>Prothrombin_time_PT_INR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Root CRF Id --></label>
+        <name>Root_CRF_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Not Required</masterLabel>
+            <translation><!-- Approval Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Pending</masterLabel>
+            <translation><!-- Approval Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cloned</masterLabel>
+            <translation><!-- Cloned --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Submitter --></label>
+        <name>Submitter__c</name>
+        <relationshipLabel><!-- Lab and Tests --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Total Bilirubin Institutional Reference Range --></help>
+        <label><!-- Total Bilirubin Institutional Reference --></label>
+        <name>Total_Bilirubin_Institutional_Reference__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Bilirubin Result --></label>
+        <name>Total_Bilirubin_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Bilirubin --></label>
+        <name>Total_Bilirubin__c</name>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- Lab and Tests --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Tympanometry Result --></label>
+        <name>Tympanometry_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tympanometry --></label>
+        <name>Tympanometry__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urea IRR --></label>
+        <name>Urea_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urea Result --></label>
+        <name>Urea_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urea --></label>
+        <name>Urea__c</name>
+    </fields>
+    <fields>
+        <label><!-- Uric Acid IRR --></label>
+        <name>Uric_Acid_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Uric Acid Result --></label>
+        <name>Uric_Acid_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Uric Acid --></label>
+        <name>Uric_Acid__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urinalysis, Blood IRR --></label>
+        <name>Urinalysis_Blood_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urinalysis, Blood Result --></label>
+        <name>Urinalysis_Blood_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urinalysis, Blood --></label>
+        <name>Urinalysis_Blood__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urinalysis, Protein IRR --></label>
+        <name>Urinalysis_Protein_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urinalysis, Protein Result --></label>
+        <name>Urinalysis_Protein_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urinalysis, Protein --></label>
+        <name>Urinalysis_Protein__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urinalysis, Specific gravity IRR --></label>
+        <name>Urinalysis_Specific_gravity_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urinalysis, Specific gravity Result --></label>
+        <name>Urinalysis_Specific_gravity_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urinalysis, Specific gravity --></label>
+        <name>Urinalysis_Specific_gravity__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urinalysis, pH IRR --></label>
+        <name>Urinalysis_pH_IRR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urinalysis, pH Result --></label>
+        <name>Urinalysis_pH_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urinalysis, pH --></label>
+        <name>Urinalysis_pH__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_lab&amp;Test_Id --></label>
+        <name>pg_lab_Test_Id__c</name>
+    </fields>
+    <layouts>
+        <layout>AdHoc</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Approval Pending</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Lab and Test Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- AdHoc --></label>
+        <name>AdHoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Audiometry_Test_date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Cardiac_Echo_Date_date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Collection_Date_date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Collection_Date_for_agent_date_validatio</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>MUGA_Scan_Date_date_validatio</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Cancel --></label>
+        <name>Cancel</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Complete --></label>
+        <name>Complete</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Edit --></label>
+        <name>Edit</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Sign_and_Submit --></label>
+        <name>Sign_and_Submit</name>
+    </webLinks>
+</CustomObjectTranslation>

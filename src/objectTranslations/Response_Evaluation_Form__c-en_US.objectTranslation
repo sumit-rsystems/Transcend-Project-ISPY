@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Response Evaluation Form</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Response Evaluation Forms</value>
+    </caseValues>
+    <fields>
+        <label><!-- ApprovalURL --></label>
+        <name>ApprovalURL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Response Status --></label>
+        <name>Best_overall_Response_to_date__c</name>
+        <picklistValues>
+            <masterLabel>Complete Response (CR)</masterLabel>
+            <translation><!-- Complete Response (CR) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not adequately assessed</masterLabel>
+            <translation><!-- Not adequately assessed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Partial Response (PR)</masterLabel>
+            <translation><!-- Partial Response (PR) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Progressive Disease (PD)</masterLabel>
+            <translation><!-- Progressive Disease (PD) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stable Disease (SD)</masterLabel>
+            <translation><!-- Stable Disease (SD) --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Breast Conserv Snomed --></label>
+        <name>Breast_Conserv_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- CRF --></label>
+        <name>CRF__c</name>
+        <relationshipLabel><!-- Response Evaluation Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Clinical Staging Period --></label>
+        <name>Clinical_Staging_Period__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Clinically staging period M --></label>
+        <name>Clinically_staging_period_M__c</name>
+        <picklistValues>
+            <masterLabel>M0</masterLabel>
+            <translation><!-- M0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>M1</masterLabel>
+            <translation><!-- M1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MX</masterLabel>
+            <translation><!-- MX --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Clinically staging period N --></label>
+        <name>Clinically_staging_period_N__c</name>
+        <picklistValues>
+            <masterLabel>N0</masterLabel>
+            <translation><!-- N0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N1</masterLabel>
+            <translation><!-- N1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N2a</masterLabel>
+            <translation><!-- N2a --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N2b</masterLabel>
+            <translation><!-- N2b --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N3a</masterLabel>
+            <translation><!-- N3a --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N3b</masterLabel>
+            <translation><!-- N3b --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N3c</masterLabel>
+            <translation><!-- N3c --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nx</masterLabel>
+            <translation><!-- Nx --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Clinically staging period T --></label>
+        <name>Clinically_staging_period_T__c</name>
+        <picklistValues>
+            <masterLabel>T0</masterLabel>
+            <translation><!-- T0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T1</masterLabel>
+            <translation><!-- T1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T1a</masterLabel>
+            <translation><!-- T1a --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T1b</masterLabel>
+            <translation><!-- T1b --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T1c</masterLabel>
+            <translation><!-- T1c --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T1mi</masterLabel>
+            <translation><!-- T1mi --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T2</masterLabel>
+            <translation><!-- T2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T3</masterLabel>
+            <translation><!-- T3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T4</masterLabel>
+            <translation><!-- T4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T4a</masterLabel>
+            <translation><!-- T4a --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T4b</masterLabel>
+            <translation><!-- T4b --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T4c</masterLabel>
+            <translation><!-- T4c --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T4d</masterLabel>
+            <translation><!-- T4d --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tis</masterLabel>
+            <translation><!-- Tis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tx</masterLabel>
+            <translation><!-- Tx --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Complete response (CR) --></label>
+        <name>Complete_response_CR_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Complete response (CR) --></label>
+        <name>Complete_response_CR__c</name>
+    </fields>
+    <fields>
+        <label><!-- CompletedDate --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Status of T4 Tumor --></label>
+        <name>Current_status_of_T4_tumor__c</name>
+        <picklistValues>
+            <masterLabel>Chest wall</masterLabel>
+            <translation><!-- Chest wall --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inflammatory</masterLabel>
+            <translation><!-- Inflammatory --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No Skin involvement</masterLabel>
+            <translation><!-- No Skin involvement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Skin and chest wall</masterLabel>
+            <translation><!-- Skin and chest wall --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Skin only</masterLabel>
+            <translation><!-- Skin only --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Date of clinical assessment --></label>
+        <name>Date_of_clinical_assessment__c</name>
+    </fields>
+    <fields>
+        <label><!-- Disease Extent --></label>
+        <name>Disease_Extent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Distant --></label>
+        <name>Distant__c</name>
+        <picklistValues>
+            <masterLabel>Bone</masterLabel>
+            <translation><!-- Bone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bone Marrow</masterLabel>
+            <translation><!-- Bone Marrow --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Brain / CNS</masterLabel>
+            <translation><!-- Brain / CNS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Contralateral Breast</masterLabel>
+            <translation><!-- Contralateral Breast --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Distant Lymph Nodes</masterLabel>
+            <translation><!-- Distant Lymph Nodes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Distant skin and subcutaneous tissue</masterLabel>
+            <translation><!-- Distant skin and subcutaneous tissue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Liver</masterLabel>
+            <translation><!-- Liver --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lung</masterLabel>
+            <translation><!-- Lung --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pieura</masterLabel>
+            <translation><!-- Pieura --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pleura</masterLabel>
+            <translation><!-- Pleura --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Save and Close --></label>
+        <name>First_Save_and_Close__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Candidate For Conservation Surgery --></label>
+        <name>IsCandidateForConservationSurgery__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Local-Regional --></label>
+        <name>Local_Regional__c</name>
+        <picklistValues>
+            <masterLabel>Axillary Nodes</masterLabel>
+            <translation><!-- Axillary Nodes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Chest Wall</masterLabel>
+            <translation><!-- Chest Wall --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Infraclavicular nodes</masterLabel>
+            <translation><!-- Infraclavicular nodes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal mammary nodes</masterLabel>
+            <translation><!-- Internal mammary nodes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ipsilateral Breast</masterLabel>
+            <translation><!-- Ipsilateral Breast --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Supraclavicular nodes</masterLabel>
+            <translation><!-- Supraclavicular nodes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>local-regional skin and subcutaneous tis</masterLabel>
+            <translation><!-- local-regional skin and subcutaneous tis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>skin and subcutaneous tissue</masterLabel>
+            <translation><!-- skin and subcutaneous tissue --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Matted nodes --></label>
+        <name>Matted_nodes__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- New distant progression Date --></label>
+        <name>New_distant_progression_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- New distant progression --></label>
+        <name>New_distant_progression__c</name>
+    </fields>
+    <fields>
+        <label><!-- New local- regional recurrence --></label>
+        <name>New_local_regional_recurrence_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- New local- regional recurrence --></label>
+        <name>New_local_regional_recurrence__c</name>
+    </fields>
+    <fields>
+        <label><!-- Nodes fixed to chest wall --></label>
+        <name>Nodes_fixed_to_chest_wall__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- OriginalCRF --></label>
+        <name>OriginalCRF__c</name>
+        <relationshipLabel><!-- Response Evaluation Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- OtherReason --></label>
+        <name>OtherReason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Distant --></label>
+        <name>Other__c</name>
+    </fields>
+    <fields>
+        <label><!-- Palpable nodes --></label>
+        <name>Palpable_nodes__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Partial response (PR) --></label>
+        <name>Partial_response_PR_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Partial response (PR) --></label>
+        <name>Partial_response_PR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Follow-up</masterLabel>
+            <translation><!-- Follow-up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening</masterLabel>
+            <translation><!-- Screening --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment</masterLabel>
+            <translation><!-- Treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- ReasonNoSurg_PTx_Snomed --></label>
+        <name>ReasonNoSurg_PTx_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- ReasonNotConservationSurgeryCandidate --></label>
+        <name>ReasonNotConservationSurgeryCandidate__c</name>
+        <picklistValues>
+            <masterLabel>Diffuse micro calcifications</masterLabel>
+            <translation><!-- Diffuse micro calcifications --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inflammatory disease</masterLabel>
+            <translation><!-- Inflammatory disease --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Institutional norm</masterLabel>
+            <translation><!-- Institutional norm --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Multi-centric disease</masterLabel>
+            <translation><!-- Multi-centric disease --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient choice/family history</masterLabel>
+            <translation><!-- Patient choice/family history --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Specific anatomy of primary</masterLabel>
+            <translation><!-- Specific anatomy of primary --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Reporting Period --></label>
+        <name>Reporting__c</name>
+        <picklistValues>
+            <masterLabel>Baseline</masterLabel>
+            <translation><!-- Baseline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inter-regimen</masterLabel>
+            <translation><!-- Inter-regimen --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pre-surgery</masterLabel>
+            <translation><!-- Pre-surgery --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Root CRF Id --></label>
+        <name>Root_CRF_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Size of largest node --></label>
+        <name>Size_of_largest_node__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Not Required</masterLabel>
+            <translation><!-- Approval Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Pending</masterLabel>
+            <translation><!-- Approval Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cloned</masterLabel>
+            <translation><!-- Cloned --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Submitter --></label>
+        <name>Submitter__c</name>
+        <relationshipLabel><!-- Response Evaluation Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- TestHarnessId --></label>
+        <name>TestHarnessId__c</name>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- Response Evaluation Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Type of lymph node involvement --></label>
+        <name>Type_of_lymph_node_involvement__c</name>
+        <picklistValues>
+            <masterLabel>Axillary</masterLabel>
+            <translation><!-- Axillary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Infraclavicular</masterLabel>
+            <translation><!-- Infraclavicular --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal mammary</masterLabel>
+            <translation><!-- Internal mammary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Supaclavicular</masterLabel>
+            <translation><!-- Supaclavicular --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- pg_ResponseEvaluation_Id --></label>
+        <name>pg_ResponseEvaluation_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_status --></label>
+        <name>pg_status__c</name>
+    </fields>
+    <layouts>
+        <layout>Complete</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Response Evaluation Form Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>SignAndSubmit</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- AdHoc --></label>
+        <name>AdHoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Complete_response_CR_Date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Date_of_clinical_assessment_Date_valid</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>New_distant_progression_Date_valid</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>New_local_regional_recurrence_Date_valid</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Partial_response_PR_Date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Matted Nodes is required. --></errorMessage>
+        <name>Validate_Palpable_Nodes</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Cancel --></label>
+        <name>Cancel</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Complete --></label>
+        <name>Complete</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Sign_and_Submit --></label>
+        <name>Sign_and_Submit</name>
+    </webLinks>
+</CustomObjectTranslation>

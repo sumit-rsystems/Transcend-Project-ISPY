@@ -1,0 +1,200 @@
+<apex:page StandardController="AE_Detail__c" renderAs="pdf"
+ extensions="AdverseEventController" standardStylesheets="false">
+  <apex:form >
+ 
+  <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : Adverse Event Detail" initial="" 
+     instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+  
+  <br/>
+    <b><apex:outputLabel value="Adverse Event Form"></apex:outputLabel></b> 
+  <br/>   
+    
+  <table width="100%"  cellpadding="5"> 
+    <tr>
+        <td width="30%" >
+            <apex:outputLabel style="float:right " value="Visit Date  " />
+        </td>
+        <td >
+            <apex:outputField value="{!AEObj.Visit_Date__c}"/>
+        </td>
+    </tr> 
+  </table>  
+  <br/><br/>
+        <div style="background-color:#97C7EC"><b style="margin:10px;color:white">Baseline Symptoms</b></div>
+  <br/>
+        
+  <table  width="100%" border="1">
+            <tr style="background-color:#F2F2F2">
+               <!-- <th><center>Onset Date</center></th>
+                <th ><center>Event</center></th>
+                <th ><center>Grade</center></th>
+                <th ><center>Attribution</center></th>
+                <th ><center>Status</center></th>
+                <th ><center>End Date</center></th>-->
+                <th width="17%">Onset Date</th>
+                <th width="16%">Event</th>
+                <th width="17%">Grade</th>
+                <th width="17%">Attribution</th>
+                <th width="16%">Status</th>
+                <th width="17%">End Date</th>
+            </tr>  
+            <apex:repeat value="{!wrapBaselineToxicityList}" var="toxicity">
+                <tr >
+                    <td >
+                         <!--<apex:outputText value="{0,date, dd'/'MM'/'yyyy}"><apex:param value="{!toxicity.ToxicityObj.Onset_Date__c}" /></apex:outputText>-->
+                         <apex:outputField value="{!toxicity.ToxicityObj.Onset_Date__c}" />
+                    </td>
+                    <td>
+                         <apex:outputText value="{!toxicity.ToxicityObj.Toxicity_Master__r.Toxicity_Name__c}"/>
+                               <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.ToxicityObj.Toxicity_Other__c))}">
+                                     &nbsp;(<apex:outputText value="{!toxicity.ToxicityObj.Toxicity_Other__c}"/>)
+                               </apex:outputPanel>                   
+                    </td>
+                    <td>
+                        <apex:outputText value="{!toxicity.ToxicityObj.Grade__c}"/>
+                              <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.ToxicityObj.Patient_Complaint__c))}">
+                                    <br/><br/><apex:outputText value="{!toxicity.ToxicityObj.Patient_Complaint__c}"/>
+                              </apex:outputPanel>
+                    </td>
+                    <td>
+                         <apex:outputText value="{!toxicity.ToxicityObj.Attribution__c}"/>
+                    </td>
+                    <td>
+                         <apex:outputText value="{!IF((toxicity.ToxicityObj.Resolved__c), 'Resolved', 'Ongoing')}" />
+
+                    </td>
+                    <td>
+                          <!--<apex:outputText value="{0,date, dd'/'MM'/'yyyy}" rendered="{!toxicity.isReadOnly}"><apex:param value="{!toxicity.ToxicityObj.AE_End_Date__c}" /></apex:outputText>-->
+                          <apex:outputField value="{!toxicity.ToxicityObj.AE_End_Date__c}" rendered="{!toxicity.isReadOnly}"/>
+                                           
+
+                    </td>
+                </tr>  
+            </apex:repeat> 
+  </table>   
+  
+  <br/>
+        <div style="background-color:#97C7EC"><b style="margin:10px;color:white">AE Reporting</b></div>
+  <br/>
+        
+  <table  width="100%" border="1">
+            <tr style="background-color:#F2F2F2">
+               <!-- <th><center>Onset Date</center></th>
+                <th ><center>Event</center></th>
+                <th ><center>Grade</center></th>
+                <th ><center>SAE</center></th>
+                <th ><center>Attribution</center></th>
+                <th ><center>Status</center></th>
+                <th ><center>End Date</center></th> -->
+                <th width="15%">Onset Date</th>
+                <th width="14%">Event</th>
+                <th width="14%">Grade</th>
+                <th width="14%">SAE</th>
+                <th width="14%">Attribution</th>
+                <th width="14%">Status</th>
+                <th width="15%">End Date</th>
+            </tr>  
+            <apex:repeat value="{!toxicityDisplayList}" var="toxicity">
+                <tr >
+                    <td >
+                         <apex:outputField value="{!toxicity.Onset_Date__c}" />
+                    </td>
+                    <td>
+                         <apex:outputText value="{!toxicity.Toxicity_Master__r.Toxicity_Name__c}" />
+                               <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.Toxicity_Other__c))}">
+                                        &nbsp;(<apex:outputText value="{!toxicity.Toxicity_Other__c}"/>)
+                               </apex:outputPanel>                 
+                    </td>
+                    <td>
+                        <apex:outputText value="{!toxicity.Grade__c}" />
+                        <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.Patient_Complaint__c))}">
+                               <br/><br/>
+                              <apex:outputText value="{!toxicity.Patient_Complaint__c}"/>
+                        </apex:outputPanel>
+                    </td>
+                    <td>
+                         <apex:outputText value="{!toxicity.SAE__c}"/>
+                    </td>
+                    <td>
+                         <apex:outputText value="{!toxicity.Attribution__c}" />
+                    </td>
+                    <td>
+                         <apex:outputText rendered="{!ISNULL(toxicity.Toxicity_Agent__c)}" value="{!IF((toxicity.Resolved__c), 'Resolved', IF((LEFT(toxicity.AE_Detail__c, 15) = LEFT(rId, 15)), 'New', 'Ongoing'))}" />
+                         <apex:outputText rendered="{!NOT(ISNULL(toxicity.Toxicity_Agent__c))}" value="{!IF((toxicity.Toxicity_Status__c = 'Yes'),IF((toxicity.Resolved__c), 'Resolved', IF((LEFT(toxicity.AE_Detail__c, 15) = LEFT(rId, 15)), 'New', 'Ongoing')),'Not Experienced')}" />
+
+                    </td>
+                    <td>
+                          
+                          <apex:outputField value="{!toxicity.AE_End_Date__c}" /> 
+                                                                  
+
+                    </td>
+                </tr>  
+            </apex:repeat>            
+  </table>
+  <br/>
+  <br/>
+  <br/>
+  <table> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="CRF Status:" />
+        </td>
+        <td >
+            <apex:outputField value="{!AEObj.Status__c}"/>
+        </td>
+    </tr> 
+    
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"   value="DCC Action:" />
+        </td>
+        <td >
+            <apex:outputField value="{!AEObj.Status__c}"/>
+        </td>
+    </tr> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="DCC Comments:" />
+        </td>
+        <td >
+           <!-- <apex:outputField value="{!}"/>-->
+           <c:CRFEventComponentcomments rId="{!AEObj.Id}" objectNamec="AE_Detail__c" rtId="{!AEObj.Root_CRF_Id__c}"/>
+        </td>
+    </tr> 
+  </table>
+  <br/>
+  <br/>
+  
+  <apex:pageBlock tabStyle="Account">
+  <!--<apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(AEObj.Id))}">
+                <c:CRFAttachmentComponent rId="{!AEObj.Id}" feedCRFName="AE_Detail__Feed"/>
+  </apex:pageBlockSection>-->
+  <c:CRFAttachmentComponentPdf rId="{!AEObj.Id}" feedCRFNamePdf="AE_Detail__Feed" rtId="{!AEObj.Root_CRF_Id__c}"/>
+  <br/>
+  
+  <div style="background-color:#97C7EC"><b style="margin:10px;color:white">CRF Events</b></div>
+  
+  <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(AEObj.Id))}">
+        <c:CRFEventComponent rId="{!AEObj.Id}" objectName="AE_Detail__c" rtId="{!AEObj.Root_CRF_Id__c}"/>
+  </apex:pageBlockSection>
+        
+  </apex:pageBlock>   
+           
+           
+  <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  </apex:form>
+</apex:page>

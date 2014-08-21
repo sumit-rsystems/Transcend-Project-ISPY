@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Drug</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Drugs</value>
+    </caseValues>
+    <fields>
+        <label><!-- Display Order --></label>
+        <name>Display_Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dose Unit --></label>
+        <name>Dose_Unit__c</name>
+        <picklistValues>
+            <masterLabel>mcg</masterLabel>
+            <translation><!-- mcg --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>mg</masterLabel>
+            <translation><!-- mg --></translation>
+        </picklistValues>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

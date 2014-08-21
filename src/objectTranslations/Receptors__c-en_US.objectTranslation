@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Receptors</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Receptors</value>
+    </caseValues>
+    <fields>
+        <label><!-- CB-11 Value --></label>
+        <name>CB_11_Value__c</name>
+        <picklistValues>
+            <masterLabel>+1</masterLabel>
+            <translation><!-- +1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>+2</masterLabel>
+            <translation><!-- +2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>+3</masterLabel>
+            <translation><!-- +3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>0</masterLabel>
+            <translation><!-- 0 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- CB-11 --></label>
+        <name>CB_11__c</name>
+    </fields>
+    <fields>
+        <label><!-- DAKO Herceptest  Value --></label>
+        <name>DAKO_Herceptest_Value__c</name>
+        <picklistValues>
+            <masterLabel>+1</masterLabel>
+            <translation><!-- +1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>+2</masterLabel>
+            <translation><!-- +2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>+3</masterLabel>
+            <translation><!-- +3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>0</masterLabel>
+            <translation><!-- 0 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- DAKO Herceptest --></label>
+        <name>DAKO_Herceptest__c</name>
+    </fields>
+    <fields>
+        <label><!-- ER_TS_OS Snomed --></label>
+        <name>ER_TS_OS_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- ERpos_OS Snomed --></label>
+        <name>ERpos_OS_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Estrogen Intensity Score Number --></label>
+        <name>Estrogen_Intensity_Score_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Estrogen Intensity Score --></label>
+        <name>Estrogen_Intensity_Score__c</name>
+        <picklistValues>
+            <masterLabel>0 (negative)</masterLabel>
+            <translation><!-- 0 (negative) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1 (weak)</masterLabel>
+            <translation><!-- 1 (weak) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2 (intermediate)</masterLabel>
+            <translation><!-- 2 (intermediate) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3 (strong)</masterLabel>
+            <translation><!-- 3 (strong) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not available</masterLabel>
+            <translation><!-- Not available --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Estrogen Proportion Score Number --></label>
+        <name>Estrogen_Proportion_Score_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Estrogen Receptor  Proportion Score --></label>
+        <name>Estrogen_Receptor_Proportion_Score__c</name>
+        <picklistValues>
+            <masterLabel>0</masterLabel>
+            <translation><!-- 0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1 (less than 1%)</masterLabel>
+            <translation><!-- 1 (less than 1%) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2 (1%-10%)</masterLabel>
+            <translation><!-- 2 (1%-10%) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3 (10%-33%)</masterLabel>
+            <translation><!-- 3 (10%-33%) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4 (33%-66%)</masterLabel>
+            <translation><!-- 4 (33%-66%) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5 (66%-100%)</masterLabel>
+            <translation><!-- 5 (66%-100%) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not available</masterLabel>
+            <translation><!-- Not available --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Estrogen Receptor  Status --></label>
+        <name>Estrogen_Receptor_Status__c</name>
+        <picklistValues>
+            <masterLabel>Indeterminate</masterLabel>
+            <translation><!-- Indeterminate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Estrogen Total Score Number --></label>
+        <name>Estrogen_Total_Score_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- FISH test not done --></label>
+        <name>FISH_test_not_done__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fish --></label>
+        <name>Fish__c</name>
+        <picklistValues>
+            <masterLabel>Indeterminate</masterLabel>
+            <translation><!-- Indeterminate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- HER2/neu Marker Status --></label>
+        <name>HER2_neu_Marker__c</name>
+        <picklistValues>
+            <masterLabel>Indeterminate</masterLabel>
+            <translation><!-- Indeterminate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Her2Pos_OS Snomed --></label>
+        <name>Her2Pos_OS_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- IHC --></label>
+        <name>IHC__c</name>
+        <picklistValues>
+            <masterLabel>Indeterminate</masterLabel>
+            <translation><!-- Indeterminate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- IHC test not done --></label>
+        <name>IHC_test_not_done__c</name>
+    </fields>
+    <fields>
+        <label><!-- Letarality --></label>
+        <name>Letarality__c</name>
+        <picklistValues>
+            <masterLabel>Left</masterLabel>
+            <translation><!-- Left --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Right</masterLabel>
+            <translation><!-- Right --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- On-Study Pathology Form --></label>
+        <name>On_Study_Pathology_Form__c</name>
+        <relationshipLabel><!-- Receptors --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Other FISH Results --></label>
+        <name>Other_FISH_Results__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other FISH Test Value --></label>
+        <name>Other_FISH_Test_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other FISH Test --></label>
+        <name>Other_FISH_Test__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other IHC Results --></label>
+        <name>Other_IHC_Results__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other IHC Test Value --></label>
+        <name>Other_IHC_Test_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other IHC Test --></label>
+        <name>Other_IHC_Test__c</name>
+    </fields>
+    <fields>
+        <label><!-- PgR_TS_OS Snomed --></label>
+        <name>PgR_TS_OS_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Post Surgery Summary --></label>
+        <name>Post_Surgery_Summary__c</name>
+        <relationshipLabel><!-- Receptors --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Progesterone Intensity Score Number --></label>
+        <name>Progesterone_Intensity_Score_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Progesterone Intensity Score --></label>
+        <name>Progesterone_Intensity_Score__c</name>
+        <picklistValues>
+            <masterLabel>0 (negative)</masterLabel>
+            <translation><!-- 0 (negative) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1 (weak)</masterLabel>
+            <translation><!-- 1 (weak) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2 (intermediate)</masterLabel>
+            <translation><!-- 2 (intermediate) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3 (strong)</masterLabel>
+            <translation><!-- 3 (strong) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not available</masterLabel>
+            <translation><!-- Not available --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Progesterone Proportion Score Number --></label>
+        <name>Progesterone_Proportion_Score_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Progesterone Receptor Proportion Score --></label>
+        <name>Progesterone_Receptor_Proportion_Score__c</name>
+        <picklistValues>
+            <masterLabel>0</masterLabel>
+            <translation><!-- 0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1 (less than 1%)</masterLabel>
+            <translation><!-- 1 (less than 1%) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2 (1%-10%)</masterLabel>
+            <translation><!-- 2 (1%-10%) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3 (10%-33%)</masterLabel>
+            <translation><!-- 3 (10%-33%) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4 (33%-66%)</masterLabel>
+            <translation><!-- 4 (33%-66%) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5 (66%-100%)</masterLabel>
+            <translation><!-- 5 (66%-100%) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not available</masterLabel>
+            <translation><!-- Not available --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Progesterone Receptor  Status --></label>
+        <name>Progesterone_Receptor_Status__c</name>
+        <picklistValues>
+            <masterLabel>Indeterminate</masterLabel>
+            <translation><!-- Indeterminate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Progesterone Total Score Number --></label>
+        <name>Progesterone_Total_Score_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Score ER --></label>
+        <name>Total_Score_ER__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Score PR --></label>
+        <name>Total_Score_PR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Estrogen</masterLabel>
+            <translation><!-- Estrogen --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>HER2/neu marker</masterLabel>
+            <translation><!-- HER2/neu marker --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Progesteron</masterLabel>
+            <translation><!-- Progesteron --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Ventana Oncoprobe Value --></label>
+        <name>Ventana_Oncoprobe_Value__c</name>
+        <picklistValues>
+            <masterLabel>+1</masterLabel>
+            <translation><!-- +1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>+2</masterLabel>
+            <translation><!-- +2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>+3</masterLabel>
+            <translation><!-- +3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>0</masterLabel>
+            <translation><!-- 0 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Ventana Oncoprobe --></label>
+        <name>Ventana_Oncoprobe__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ventana kit Value --></label>
+        <name>Ventana_kit_Value__c</name>
+        <picklistValues>
+            <masterLabel>+1</masterLabel>
+            <translation><!-- +1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>+2</masterLabel>
+            <translation><!-- +2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>+3</masterLabel>
+            <translation><!-- +3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>0</masterLabel>
+            <translation><!-- 0 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Ventana kit --></label>
+        <name>Ventana_kit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vysis/Path Vision Value --></label>
+        <name>Vysis_Path_Vision_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vysis/Path Vision --></label>
+        <name>Vysis_Path_Vision__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_Receptors_Id --></label>
+        <name>pg_Receptors_Id__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

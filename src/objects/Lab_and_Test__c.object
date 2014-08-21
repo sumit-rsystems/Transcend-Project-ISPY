@@ -1,0 +1,1658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>LabAndTestDetails</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>LabAndTestDetails</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>ALT_Institutional_Reference_Range__c</fullName>
+        <externalId>false</externalId>
+        <label>ALT Institutional Reference Range</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ALT_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>ALT Result</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ALT__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>ALT</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ANC_Industrial_Reference_Range__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Absolute Neutrophil Count(ANC) Industrial Reference Range</inlineHelpText>
+        <label>ANC Industrial Reference Range</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>APTT_IRR__c</fullName>
+        <externalId>false</externalId>
+        <label>APTT IRR</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>APTT_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>APTT Result</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AST_Institutional_Reference_Range__c</fullName>
+        <externalId>false</externalId>
+        <label>AST Institutional Reference Range</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AST_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>AST Result</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AST__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>AST</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Absolute_Neutrophil_Count_ANC_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Absolute Neutrophil Count (ANC) Result</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Absolute_Neutrophil_Count_ANC__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Absolute Neutrophil Count (ANC)</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Activated_partial_thromboplastin_time__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Activated partial thromboplastin time</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Left_Ear_0_25__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Left Ear(0.25)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Left_Ear_0_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Left Ear(0.5)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Left_Ear_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Left Ear 1</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Left_Ear_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Left Ear 3</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Left_Ear_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Left Ear 4</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Left_Ear_6__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Left Ear 6</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Left_Ear_8__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Left Ear 8</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Left_Ear_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Left Ear(0.25)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Left_Ear__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Left Ear</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Right_Ear_0_5__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Right Ear(0.5))</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Right_Ear_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Right Ear 1</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Right_Ear_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Right Ear 2</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Right_Ear_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Right Ear 3</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Right_Ear_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Right Ear 4</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Right_Ear_6__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Right Ear 6</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Right_Ear_8__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Right Ear 8</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Right_Ear_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Right Ear(0.25)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Conduction_Test_Right_Ear__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Air Conduction Test, Right Ear</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Albumin_IRR__c</fullName>
+        <defaultValue>&apos;&apos; &amp; &apos;1.0-2.0&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>Albumin IRR</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Albumin_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Albumin Result</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Albumin__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Albumin</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ApprovalURL__c</fullName>
+        <externalId>false</externalId>
+        <label>ApprovalURL</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Audiometry_Test__c</fullName>
+        <externalId>false</externalId>
+        <label>Audiometry Test</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Left_Ear_0_25__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Left Ear (0.25)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Left_Ear_0_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Left Ear (0.5)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Left_Ear_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Left Ear 1</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Left_Ear_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Left Ear 3</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Left_Ear_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Left Ear 4</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Left_Ear_6__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Left Ear 6</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Left_Ear_8__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Left Ear 8</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Left_Ear__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Left Ear</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Right_Ear_0_25__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Right Ear(0.25)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Right_Ear_0_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Right Ear(0.5)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Right_Ear_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Right Ear 1</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Right_Ear_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Right Ear 2</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Right_Ear_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Right Ear 3</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Right_Ear_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Right Ear 4</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Right_Ear_6__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Right Ear 6</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Right_Ear_8__c</fullName>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Right Ear 8</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bone_Conduction_Test_Right_Ear__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Bone Conduction Test, Right Ear</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CRF__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CRF</label>
+        <referenceTo>CRF__c</referenceTo>
+        <relationshipLabel>Lab and Tests</relationshipLabel>
+        <relationshipName>Lab_and_Tests</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Calcium_IRR__c</fullName>
+        <defaultValue>&apos;&apos; &amp; &apos;0.40-1.00&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>Calcium IRR</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Calcium_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Calcium Result</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Calcium__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Calcium</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Cardiac_Echo_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Cardiac Echo Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Cardiac_Echo_Institutional_Lower_Limit__c</fullName>
+        <externalId>false</externalId>
+        <label>Cardiac Echo Institutional Lower Limit</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cardiac_Echo_LVEF__c</fullName>
+        <externalId>false</externalId>
+        <label>Cardiac  Echo LVEF</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cardiac_Echo__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Cardiac Echo</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Clinical_Hearing_Evaluation_Checklist__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Clinical Hearing Evaluation Checklist Completed</inlineHelpText>
+        <label>Clinical Hearing Evaluation Checklist</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Collection_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Collection Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Collection_Date_for_Investigative_Agent__c</fullName>
+        <externalId>false</externalId>
+        <label>Collection Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CompletedDate__c</fullName>
+        <externalId>false</externalId>
+        <label>CompletedDate</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Creatinine_Institutional_Reference_Range__c</fullName>
+        <externalId>false</externalId>
+        <label>Creatinine Institutional Reference Range</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Creatinine_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Creatinine Result</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Creatinine__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Creatinine</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Effective_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Effective_Time</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>First_Save_and_Close__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>First Save and Close</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>GGT_IRR__c</fullName>
+        <defaultValue>&apos;&apos; &amp; &apos;0.40-1.00&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>GGT IRR</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GGT_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>GGT Result</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GGT__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>GGT</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Glucose_IRR__c</fullName>
+        <defaultValue>&apos;&apos; &amp; &apos;0.40-1.00&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>Glucose IRR</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Glucose_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Glucose Result</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Glucose__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Glucose</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>HgbA1C_IRR__c</fullName>
+        <externalId>false</externalId>
+        <label>HgbA1C IRR</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HgbA1C_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>HgbA1C Result</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HgbA1C__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>HgbA1C</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LDH_IRR__c</fullName>
+        <defaultValue>&apos;&apos; &amp; &apos;0.40-1.00&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>LDH IRR</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LDH_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>LDH Result</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LDH__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>LDH</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Leukocytes_Institutional_Reference_Range__c</fullName>
+        <externalId>false</externalId>
+        <label>Leukocytes Institutional Reference Range</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Leukocytes_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Leukocytes Result</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Leukocytes__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Leukocytes</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>MUGA_Institutional_Lower_Limit_of_Normal__c</fullName>
+        <externalId>false</externalId>
+        <label>MUGA Institutional Lower Limit of Normal</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MUGA_Scan_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>MUGA Scan Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>MUGA_Scan_LVEF__c</fullName>
+        <externalId>false</externalId>
+        <label>MUGA Scan LVEF</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MUGA_Scan__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>MUGA Scan</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Magnesium_IRR__c</fullName>
+        <defaultValue>&apos;&apos; &amp; &apos;0.40-1.00&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>Magnesium IRR</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Magnesium_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Magnesium Result</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Magnesium__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Magnesium</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>OriginalCRF__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>OriginalCRF</label>
+        <referenceTo>Lab_and_Test__c</referenceTo>
+        <relationshipLabel>Lab and Tests</relationshipLabel>
+        <relationshipName>Lab_and_Tests</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Phase__c</fullName>
+        <externalId>false</externalId>
+        <label>Phase</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Treatment</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Phosphate_IRR__c</fullName>
+        <defaultValue>&apos;&apos; &amp; &apos;0.40-1.00&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>Phosphate IRR</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phosphate_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Phosphate Result</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phosphate__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Phosphate</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Platelets_Institutional_Reference_Range__c</fullName>
+        <externalId>false</externalId>
+        <label>Platelets Institutional Reference Range</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Platelets_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Platelets Result</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Platelets__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Platelets</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Prothrombin_time_PT_INR_IRR__c</fullName>
+        <externalId>false</externalId>
+        <label>Prothrombin time (PT)/INR IRR</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Prothrombin_time_PT_INR_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Prothrombin time (PT)/INR Result</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Prothrombin_time_PT_INR__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Prothrombin time (PT)/INR</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Root_CRF_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Root CRF Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Completed</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Submitter__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The user who is sign and submitting the record</description>
+        <externalId>false</externalId>
+        <label>Submitter</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Lab_and_Tests</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Total_Bilirubin_Institutional_Reference__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Total Bilirubin Institutional Reference Range</inlineHelpText>
+        <label>Total Bilirubin Institutional Reference</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Bilirubin_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Bilirubin Result</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Bilirubin__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Bilirubin</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>TrialPatient__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>TrialPatient</label>
+        <referenceTo>TrialPatient__c</referenceTo>
+        <relationshipLabel>Lab and Tests</relationshipLabel>
+        <relationshipName>Lab_and_Tests</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Tympanometry_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Tympanometry Result</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Tympanometry__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Tympanometry</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Urea_IRR__c</fullName>
+        <defaultValue>&apos;&apos; &amp; &apos;0.40-1.00&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>Urea IRR</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Urea_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Urea Result</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Urea__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Urea</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Uric_Acid_IRR__c</fullName>
+        <defaultValue>&apos;&apos; &amp; &apos;0.40-1.00&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>Uric Acid IRR</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Uric_Acid_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Uric Acid Result</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Uric_Acid__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Uric Acid</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Urinalysis_Blood_IRR__c</fullName>
+        <defaultValue>&apos;&apos; &amp; &apos;0.40-1.00&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>Urinalysis, Blood IRR</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Urinalysis_Blood_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Urinalysis, Blood Result</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Urinalysis_Blood__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Urinalysis, Blood</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Urinalysis_Protein_IRR__c</fullName>
+        <defaultValue>&apos;&apos; &amp; &apos;0.40-1.00&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>Urinalysis, Protein IRR</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Urinalysis_Protein_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Urinalysis, Protein Result</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Urinalysis_Protein__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Urinalysis, Protein</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Urinalysis_Specific_gravity_IRR__c</fullName>
+        <defaultValue>&apos;&apos; &amp; &apos;0.40-1.00&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>Urinalysis, Specific gravity IRR</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Urinalysis_Specific_gravity_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Urinalysis, Specific gravity Result</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Urinalysis_Specific_gravity__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Urinalysis, Specific gravity</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Urinalysis_pH_IRR__c</fullName>
+        <defaultValue>&apos;&apos; &amp; &apos;0.40-1.00&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>Urinalysis, pH IRR</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Urinalysis_pH_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Urinalysis, pH Result</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Urinalysis_pH__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Urinalysis, pH</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>pg_lab_Test_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_lab&amp;Test_Id</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Lab and Test</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{000000}</displayFormat>
+        <label>Lab and Test Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Lab and Tests</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypes>
+        <fullName>AdHoc</fullName>
+        <active>true</active>
+        <label>AdHoc</label>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Completed</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Approval_Pending</fullName>
+        <active>true</active>
+        <label>Approval Pending</label>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Completed</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Live</fullName>
+        <active>true</active>
+        <label>Live</label>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Completed</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>Audiometry_Test_date_validation</fullName>
+        <active>true</active>
+        <description>The date field should not be a future date.</description>
+        <errorConditionFormula>Audiometry_Test__c  &gt;  TODAY()</errorConditionFormula>
+        <errorDisplayField>Audiometry_Test__c</errorDisplayField>
+        <errorMessage>You have entered a future date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Cardiac_Echo_Date_date_validation</fullName>
+        <active>true</active>
+        <description>The date field should not be a future date.</description>
+        <errorConditionFormula>Cardiac_Echo_Date__c   &gt;  TODAY()</errorConditionFormula>
+        <errorDisplayField>Cardiac_Echo_Date__c</errorDisplayField>
+        <errorMessage>You have entered a future date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Collection_Date_date_validation</fullName>
+        <active>true</active>
+        <description>The date field should not be a future date.</description>
+        <errorConditionFormula>Collection_Date__c    &gt;  TODAY()</errorConditionFormula>
+        <errorDisplayField>Collection_Date__c</errorDisplayField>
+        <errorMessage>You have entered a future date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Collection_Date_for_agent_date_validatio</fullName>
+        <active>true</active>
+        <description>The date field should not be a future date.</description>
+        <errorConditionFormula>Collection_Date_for_Investigative_Agent__c   &gt;  TODAY()</errorConditionFormula>
+        <errorDisplayField>Collection_Date_for_Investigative_Agent__c</errorDisplayField>
+        <errorMessage>You have entered a future date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>MUGA_Scan_Date_date_validatio</fullName>
+        <active>true</active>
+        <description>The date field should not be a future date.</description>
+        <errorConditionFormula>MUGA_Scan_Date__c    &gt;  TODAY()</errorConditionFormula>
+        <errorDisplayField>MUGA_Scan_Date__c</errorDisplayField>
+        <errorMessage>You have entered a future date</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Cancel</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Cancel</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if(confirm(&quot;Completely cancel and remove?&quot;)) {
+window.location.href=&quot;/apex/CustomDelete?objApi=Lab_and_Test__c&amp;id={!Lab_and_Test__c.Id}&amp;triPat={!Lab_and_Test__c.TrialPatientId__c}&quot;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Complete</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Complete</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/ChangeAdhocToLive?rid={!Lab_and_Test__c.Id}&amp;type=submit&amp;sharingwith=Site,Lab</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Edit</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Edit</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if( {!ISPICKVAL( Lab_and_Test__c.Status__c , &apos;Approval Pending&apos;)}){
+alert(&apos;Record is Locked you can not edit the record.&apos;);
+} else {
+window.location.href=&quot;/apex/LabAndTestDetails?trialPat={!Lab_and_Test__c.TrialPatientId__c}&amp;labAndTestId={!Lab_and_Test__c.Id}&quot;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Sign_and_Submit</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Sign and Submit</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/SignAndSubmitPage?id={!Lab_and_Test__c.Id}&amp;form_code=00055</url>
+    </webLinks>
+</CustomObject>

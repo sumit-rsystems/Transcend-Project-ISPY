@@ -1,0 +1,141 @@
+<apex:component controller="AdditionalQuestionControllerReadOnly" allowDML="true" id="additionalQueComponent">
+    <apex:attribute name="CRFType" description="This is CRF Type." type="String" required="false" assignTo="{!CRFType}" />
+    <apex:attribute name="armId" description="This is armId."  type="String" required="false" assignTo="{!armId}" />
+    <apex:attribute name="TrialPatientId" description="This is TrialPatientId."  type="String" required="false" assignTo="{!TrialPatientId}" />
+    <apex:attribute name="SectionTitle" description="This is Section Title"  type="String" required="false" />
+    <apex:attribute name="CRFId" description="This is CRFId"  type="String" required="false" assignTo="{!CRFId}"/>
+    <apex:attribute name="isReadOnly" description="This is isReadOnly"  type="Boolean" required="false" assignTo="{!isReadOnly}" />
+    <apex:attribute name="isEdited" description="This is isEdited"  type="Boolean" required="false" />
+    <apex:attribute name="key" description="This is Key"  type="String" required="false"  assignTo="{!Key}" /> 
+    <apex:attribute name="pageController" type="PageControllerBase" assignTo="{!pageController}" required="false" description="The controller for the page." />
+    <apex:attribute name="type" type="String" assignTo="{!Questiontype}" required="false" description="Type of Question" />
+    <!-- <apex:attribute name="isEdited" description="This is isEdited."  type="Boolean" required="false" assignTo="{!isEdited}" />-->
+                    <table id="mainTableId" width="100%">
+                        <tr>
+                            <td colspan="3" id="t1">
+                                <apex:outputPanel rendered="{!Questiontype}">
+                                    <b>Test Name</b>                                
+                                </apex:outputPanel>
+                            </td>
+                            <td colspan="2" id="t2">
+                                <apex:outputPanel rendered="{!Questiontype}">
+                                    <b>Result</b>
+                                </apex:outputPanel>
+                            </td>
+                            <td colspan="2" id="t3">
+                                <apex:outputPanel rendered="{!Questiontype}">
+                                    <b>Institutional Reference Range</b>
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" ><apex:outputPanel rendered="{!Questiontype}"><hr/></apex:outputPanel></td>
+                            <td colspan="2" ><apex:outputPanel rendered="{!Questiontype}"><hr/></apex:outputPanel></td>
+                            <td colspan="2" ><apex:outputPanel rendered="{!Questiontype}"><hr/></apex:outputPanel></td>
+                            <td ><apex:outputPanel rendered="{!Questiontype}"><hr/></apex:outputPanel></td>
+                        </tr>
+                        <apex:repeat value="{!lstQuesAnsWrapper}" var="quesAnsWrapper">
+                            <tr id="repeat1">
+                                <td colspan="3" id="td1">
+                                     
+                                    <apex:outputPanel rendered="{!IF((quesAnsWrapper.QuestionAnswer.AnswerType__c='Text'),true,false)}" id="parTxt">
+                                        <apex:outputLabel value="{!quesAnsWrapper.QuestionAnswer.Question__c}" />&nbsp;<apex:outputText value="{!quesAnsWrapper.textAns}" />
+                                    </apex:outputPanel>
+                                    
+                                    <apex:outputPanel rendered="{!IF((quesAnsWrapper.QuestionAnswer.AnswerType__c='TextArea'),true,false)}" id="parTxtArea">
+                                        <apex:outputLabel value="{!quesAnsWrapper.QuestionAnswer.Question__c}" />&nbsp;<apex:outputText value="{!quesAnsWrapper.textAreaAns}" />
+                                    </apex:outputPanel>
+                                    
+                                    <apex:outputPanel rendered="{!IF((quesAnsWrapper.QuestionAnswer.AnswerType__c='Picklist'),true,false)}" id="parPick">
+                                        <apex:outputLabel value="{!quesAnsWrapper.QuestionAnswer.Question__c}" /> 
+                                        <apex:selectList id="picklst" value="{!quesAnsWrapper.picklistAns}" size="1">
+                                            <apex:selectOptions value="{!quesAnsWrapper.lstPicklistAns}" />
+                                        </apex:selectList>                  
+                                    </apex:outputPanel>
+                                    
+                                    <apex:outputPanel rendered="{!IF((quesAnsWrapper.QuestionAnswer.AnswerType__c='Picklist (Multi-Select)'),true,false)}" id="parmultiPick">
+                                        <apex:outputLabel value="{!quesAnsWrapper.QuestionAnswer.Question__c}" /> 
+                                        <apex:selectList id="multipicklst" value="{!quesAnsWrapper.multiPicklistAns}" size="4" multiselect="true">
+                                            <apex:selectOptions value="{!quesAnsWrapper.lstMultiPicklistAns}" />
+                                        </apex:selectList>                  
+                                    </apex:outputPanel>
+                                    
+                                    <apex:outputPanel rendered="{!IF((quesAnsWrapper.QuestionAnswer.AnswerType__c='Date'),true,false)}" id="parDate">
+                                        <apex:outputLabel value="{!quesAnsWrapper.QuestionAnswer.Question__c}" />&nbsp;
+                                        <apex:outputField value="{!quesAnsWrapper.QuestionAnswer.Date__c}" />               
+                                    </apex:outputPanel>
+                                    
+                                    <apex:outputPanel rendered="{!IF((quesAnsWrapper.QuestionAnswer.AnswerType__c='Boolean'),true,false)}" id="parCheck">
+                                        <b><apex:outputLabel value="{!quesAnsWrapper.QuestionAnswer.Question__c}" /></b>&nbsp; - &nbsp;     
+                                        <apex:outputText value="{!IF((quesAnsWrapper.booleanAns),'Yes','No')}" id="CheckBoxId" />
+                                    </apex:outputPanel>
+                                 
+                                    <apex:repeat value="{!quesAnsWrapper.lstAnsOption}" var="ansOpt">
+                                        <td colspan="2" id="td2">
+                                            <apex:outputPanel >
+                                                <apex:outputField value="{!ansOpt.Contextdata__c}" id="contextData"/>
+                                                <apex:outputLabel value="{!ansOpt.ContextDataUnit__c}"/>
+                                            </apex:outputPanel>
+                                        </td>
+                                    </apex:repeat>
+                                </td>
+                            </tr>
+                            <apex:repeat value="{!quesAnsWrapper.lstQuesAnsWrapperList}" var="ChildQuesAnsWrapperList">
+                                <tr id="tr2">
+                                     <td width="5%">
+                                        </td>   
+                                    <apex:repeat value="{!ChildQuesAnsWrapperList}" var="ChildQuesAnsWrapper">
+                                        <td>
+                                        </td>
+                                        <td colspan="2" width="20%" td="td3">
+                                         
+                                            <apex:outputPanel rendered="{!IF((ChildQuesAnsWrapper.QuestionAnswer.AnswerType__c='Text'),true,false)}" id="chtxt">
+                                                <apex:outputLabel value="{!ChildQuesAnsWrapper.QuestionAnswer.Question__c}" /> <apex:outputText value="{!ChildQuesAnsWrapper.textAns}" />
+                                            </apex:outputPanel>
+                                            
+                                            <apex:outputPanel rendered="{!IF((ChildQuesAnsWrapper.QuestionAnswer.AnswerType__c='TextArea'),true,false)}" id="chtxtArea">
+                                                <apex:outputLabel value="{!ChildQuesAnsWrapper.QuestionAnswer.Question__c}" /> <apex:outputText value="{!ChildQuesAnsWrapper.textAreaAns}" />
+                                            </apex:outputPanel>
+                                            
+                                            <apex:outputPanel rendered="{!IF((ChildQuesAnsWrapper.QuestionAnswer.AnswerType__c='Picklist'),true,false)}" id="chPicklist">
+                                                <apex:outputLabel value="{!ChildQuesAnsWrapper.QuestionAnswer.Question__c}" /> 
+                                                <apex:selectList id="picklst" value="{!ChildQuesAnsWrapper.picklistAns}" size="1">
+                                                    <apex:selectOptions value="{!ChildQuesAnsWrapper.lstPicklistAns}" />
+                                                </apex:selectList>                  
+                                            </apex:outputPanel>
+                                            
+                                            <apex:outputPanel rendered="{!IF((ChildQuesAnsWrapper.QuestionAnswer.AnswerType__c='Picklist (Multi-Select)'),true,false)}" id="chMultiPicklist" >
+                                                <apex:outputLabel value="{!ChildQuesAnsWrapper.QuestionAnswer.Question__c}" /> 
+                                                <apex:selectList id="multipicklst" value="{!ChildQuesAnsWrapper.multiPicklistAns}" size="4" multiselect="true">
+                                                    <apex:selectOptions value="{!ChildQuesAnsWrapper.lstMultiPicklistAns}" />
+                                                </apex:selectList>                  
+                                            </apex:outputPanel>
+                                            
+                                            <apex:outputPanel rendered="{!IF((ChildQuesAnsWrapper.QuestionAnswer.AnswerType__c='Date'),true,false)}" id="chDate">
+                                                <apex:outputLabel value="{!ChildQuesAnsWrapper.QuestionAnswer.Question__c}" />&nbsp;
+                                                <apex:outputField value="{!ChildQuesAnsWrapper.QuestionAnswer.Date__c}" />              
+                                            </apex:outputPanel>
+                                            
+                                            <apex:outputPanel rendered="{!IF((ChildQuesAnsWrapper.QuestionAnswer.AnswerType__c='Boolean'),true,false)}" id="chCheck">
+                                                <b><apex:outputLabel value="{!ChildQuesAnsWrapper.QuestionAnswer.Question__c}" /></b> &nbsp; - &nbsp;
+                                                <apex:outputText value="{!IF((ChildQuesAnsWrapper.booleanAns),'Yes','No')}" id="CheckBoxId" />
+                                            </apex:outputPanel>
+                                   
+                                        </td>
+                                        <td width="25%" id="td4">
+                                            <apex:repeat value="{!ChildQuesAnsWrapper.lstAnsOption}" var="childsansOpt">
+                                                <apex:outputPanel id="childop1">
+                                                    <apex:outputField value="{!childsansOpt.Contextdata__c}" id="contextData_Child"/>
+                                                    <apex:outputLabel value="{!childsansOpt.ContextDataUnit__c}"/>
+                                                </apex:outputPanel>
+                                                <br />
+                                            </apex:repeat>
+                                        </td>
+                                    </apex:repeat>
+                                </tr>
+                            </apex:repeat>
+                        </apex:repeat>
+                    </table>
+                    
+       
+</apex:component>

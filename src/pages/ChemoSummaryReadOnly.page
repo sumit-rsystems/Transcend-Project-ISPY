@@ -1,0 +1,34 @@
+<apex:page StandardController="Chemo_Summary_Form__c" extensions="ChemoSummaryFormController" sideBar="false" id="pageId" tabStyle="Account" showHeader="false">
+<style>
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+</style>
+    <apex:pageBlock id="pageblockId6" >
+        <apex:outputPanel rendered="{!IF(currentTab = 'lastTab',true,false)}">
+			<c:ChemoSummaryCompletePageComponent regimenName="Taxane" trialPatientId="{!trialPatientId}" id="CompId1" key="regAgent1" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+		</apex:outputPanel>
+		<apex:outputPanel rendered="{!IF(currentTab = 'lastTab',true,false)}">
+			<c:ChemoSummaryCompletePageComponent regimenName="Anthracycline" trialPatientId="{!trialPatientId}" id="CompId2" key="regAgent2" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+		</apex:outputPanel>
+		<apex:outputPanel rendered="{!IF(currentTab = 'lastTab',true,false)}">
+			<c:ChemoSummaryCompletePageComponent regimenName="Investigational" trialPatientId="{!trialPatientId}" id="CompId3" key="regAgent3" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+		</apex:outputPanel>
+		<apex:outputPanel rendered="{!IF(currentTab = 'lastTab',true,false)}">
+			<c:ChemoSummaryCompletePageComponent regimenName="Other" trialPatientId="{!trialPatientId}" id="CompId4" key="regAgent4" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+		</apex:outputPanel>
+        <br />
+        <br />
+        <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(chemoSummary.Id))}">
+			<c:CRFAttachmentComponent rId="{!chemoSummary.Id}" feedCRFName="Chemo_Summary_Form__Feed" rtId="{!chemoSummary.Root_CRF_Id__c}"/>
+		</apex:pageBlockSection>
+		
+		<apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(chemoSummary.Id))}" >
+	    	<c:CRFEventComponent rId="{!chemoSummary.Id}" objectName="Chemo_Summary_Form__c" rtId="{!chemoSummary.Root_CRF_Id__c}"/>
+	    </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

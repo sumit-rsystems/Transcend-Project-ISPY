@@ -1,0 +1,36 @@
+<apex:page standardController="MRI_Volume__c" extensions="MRIVolumeController" id="pageId" tabStyle="Account" sidebar="false" showHeader="false">
+<style>
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+</style>
+	<apex:pageBlock title="MRI Volume" id="completePageBlock">
+           <apex:pageBlockSection >
+           	<apex:outputField value="{!mriObj.Was_MRI_Readable__c}" />
+           	<apex:outputField value="{!mriObj.MRI_Scan_Date__c}" label="Date of MRI scan"/>
+           	<apex:outputField value="{!mriObj.Time_Point__c}"/>
+           	<apex:pageBlockSectionItem >
+           		<apex:outputLabel value="MRI Volume"/>
+           		<apex:outputPanel >
+	            	<apex:outputField value="{!mriObj.MRI_Volume_in_cm3__c}" rendered="{!IF(ISNULL(mriObj.MRI_Volume_in_cm3__c), false, true)}"/>
+	            	<apex:outputText value="<b>No volume reported</b>" escape="false" rendered="{!IF(ISNULL(mriObj.MRI_Volume_in_cm3__c), true, false)}"/>
+           		</apex:outputPanel>
+           	</apex:pageBlockSectionItem>
+           	<apex:outputField value="{!mriObj.Laterality__c}"/>
+           	<apex:outputField value="{!mriObj.Longest_Diameter_Of_Index_Lesion_in_cm__c}" />
+           	<apex:outputField value="{!mriObj.Seprate_masses_or_enhancements_reported__c}" label="Other than the index lesion, Are separate masses or enhancements reported?"/>
+           </apex:pageBlockSection>
+           
+           <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(mriObj.Id))}">
+				<c:CRFAttachmentComponent rId="{!mriObj.Id}" feedCRFName="MRI_Volume__Feed" rtId="{!mriObj.Root_CRF_Id__c}"/>
+			</apex:pageBlockSection>
+			
+			<apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(mriObj.Id))}">
+		    	<c:CRFEventComponent rId="{!mriObj.Id}" objectName="MRI_Volume__c" rtId="{!mriObj.Root_CRF_Id__c}"/>
+		    </apex:pageBlockSection>
+   	</apex:pageBlock>
+</apex:page>

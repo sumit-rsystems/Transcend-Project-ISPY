@@ -1,0 +1,405 @@
+<apex:page StandardController="Chemo_Summary_Form__c" extensions="ChemoSummaryFormController" sideBar="false" id="pageId" action="{!saveMainCRF}" tabStyle="Patient_Custom__c">
+    <style>
+        .mystyle
+        {
+            background-color: #cf00f8;
+        }
+        
+        .activeTab {
+            background: none repeat scroll 0 0 #FFFFFF;
+            border-bottom: 2px solid #FFFFFF;
+            color: #000000;
+            font-weight: 600;
+            width: 180px;
+        }
+        
+        .inactiveTab {
+          cursor: pointer;
+          background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+          color: white; /*#3C3C3C;*/
+          font-weight: bold;
+          font-size: 12px;
+          height: 15px;
+          width: 180px;
+          vertical-align: middle;
+          border: none;
+        }
+         
+        .rich-tab-inactive {
+         background-repeat: repeat-x;
+         border-color: #FFFFFF;
+         border-style: none;
+         border-width: 0;
+         cursor: pointer;
+        }
+        
+        .rich-tabhdr-side-border {
+         background-image:none; 
+         border-radius: 4px 4px 0 0;
+         background-color: none;
+         width: 2px;
+        }
+        
+        .rich-tabhdr-side-cell {
+         box-shadow: 0 -2px 2px #A7A7A8;
+         border-top: 2px solid #056FC1;
+         border-left: 2px solid #056FC1;
+         border-right: 2px solid #056FC1;
+         border-radius: 4px 4px 0 0;
+        }
+        
+        .rich-tabpanel-content {
+         background-color: #fff;
+         border-left: 2px solid #056FC1;
+         border-right: 2px solid #056FC1;
+         border-bottom: 2px solid #056FC1;
+        }
+        
+        .rich-tab-bottom-line {
+         border-bottom: 1px solid #056FC1;
+        }
+        
+        .accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+         background-color: #97C7EC;
+        }
+        
+        body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+         background-color: #fff;
+        }
+        .name {
+            font-size: 1.50em;
+            font-weight: bold;
+        }
+        .selectbox{
+            background-color: #2F96E4;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            height: 25px;
+            position: relative;
+            width: 152px;
+            border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+            color:#fff;
+            font-size:12px; font-weight: bold;
+            padding:3px 0 3px 10px;
+        }
+    </style>
+    <script>
+        
+        function startSplash() {
+            var divObj = document.getElementById('splashDiv');
+            var msgSplash =document.getElementById('waitMsg');
+            var browserName = navigator.appName;
+            if(browserName == 'Netscape'){
+                divObj.style.display='table-cell'; 
+            } else {
+                divObj.style.display='table-cell';
+            }
+       }
+        function endSplash() {            
+            document.getElementById('splashDiv').style.display='none';
+        } 
+        
+        function cancelConfirm() {
+            if(confirm('Completely Cancel and Remove?')) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        function cancelDelete() {
+            if(confirm('Are you sure you want to Delete this form?')) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+    </script>
+    <div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+        <div style="text-align: center; top: 50%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+    </div> 
+    <span class ="name"> Patient's Details </span>
+    <br/>
+        <c:PatientDetailReadOnly patientId="{!chemoSummary.TrialPatient__r.Patient_Id__c}"/>
+    <br/>
+    <table width="100%">
+        <tr>
+            <td width="40%" align="left">
+                 <span class ="name">Chemo Summary Form</span>
+            </td>
+            <td width="60%" align="left">
+                <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialPatientObj.Trial_Id__r.Name}" />
+            </td>
+        </tr>
+    </table>
+    <apex:form id="formId">
+    <apex:pageMessages ></apex:pageMessages>
+    <apex:pageBlock tabStyle="Account" helpTitle="Help"  helpUrl="/apex/ChemoSummaryFormUserGuide" rendered="{!isComplete}"> 
+            <apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel,errMsg" status="splashStatus">
+                    <apex:param name="nextTab" value="saveAndClose"/>
+                </apex:commandButton>
+                <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!isDelete}">
+          <apex:pageBlockButtons location="top" >
+               <apex:commandButton action="{!cancelCRF}" value="Delete" onClick="return cancelDelete();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+              <!-- <apex:commandButton value="Generate Pdf" action="{!redirect}" rendered="{!chemoSummary.Status__c == 'Accepted'}"/> -->
+              <apex:commandLink style="text-decoration:none;" value="Generate Pdf" target="_blank" styleClass="btn" action="{!redirect}"  rendered="{!chemoSummary.Status__c == 'Accepted'}"/>
+          </apex:pageBlockButtons>
+    </apex:pageBlock>  
+        <apex:actionFunction name="next" action="{!next}"  rerender="theTabPanel" status="splashStatus"/>
+            <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/> 
+        <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " /> 
+        <apex:outputPanel >
+        <script>
+            function enterToNextTab(val){
+                //alert(val);
+                if('{!isComplete}' != 'false'){
+                    document.getElementById('pageId:formId:nextTabNameID').value = val;
+                    next();
+                }
+            }
+        </script>
+        </apex:outputPanel>
+        <apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+            <apex:tab label="Taxane Regimen" name="firstTab" id="firstTabId" ontabenter="enterToNextTab('firstTab');" rendered="{!isComplete}">
+                <apex:pageBlock id="pageblockId1" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">           
+<!--                        <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>-->
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus">
+                            <apex:param name="nextTab" value="secondTab"/>
+                        </apex:commandButton>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                    </apex:pageBlockButtons>
+                    <apex:outputPanel rendered="{!IF(currentTab = 'firstTab',true,false)}">
+                        <c:RegimenAgentComponent regimenName="Taxane" trialPatientId="{!trialPatientId}" id="taxanCompId" key="regAgent1" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+                    </apex:outputPanel>
+                </apex:pageBlock>
+            </apex:tab>
+            <apex:tab label="Anthracycline Regimen" name="secondTab" id="secondTabId" ontabenter="enterToNextTab('secondTab');" rendered="{!isComplete}">
+                <apex:pageBlock id="pageblockId2" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>-->
+                        <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus"/> 
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus">
+                            <apex:param name="nextTab" value="thirdTab"/>
+                        </apex:commandButton>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                    </apex:pageBlockButtons>
+                    <apex:outputPanel rendered="{!IF(currentTab = 'secondTab',true,false)}">
+                        <c:RegimenAgentComponent regimenName="Anthracycline" trialPatientId="{!trialPatientId}" id="antCompId" key="regAgent2" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+                    </apex:outputPanel>
+                </apex:pageBlock>
+            </apex:tab>
+            <apex:tab label="Investigational Regimen" name="thirdTab" id="thirdTabId" ontabenter="enterToNextTab('thirdTab');" rendered="{!isComplete}">
+                <apex:pageBlock id="pageblockId3" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>-->
+                        <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus"/> 
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus">
+                            <apex:param name="nextTab" value="fourthTab"/>
+                        </apex:commandButton>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                    </apex:pageBlockButtons>
+                    <apex:outputPanel rendered="{!IF(currentTab = 'thirdTab',true,false)}">
+                        <c:RegimenAgentComponent regimenName="Investigational" trialPatientId="{!trialPatientId}" id="invCompId" key="regAgent3" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+                    </apex:outputPanel>
+                </apex:pageBlock>
+            </apex:tab>
+            <apex:tab label="Other Agent Regimen" name="fourthTab" id="fourthTabId" ontabenter="enterToNextTab('fourthTab');" rendered="{!isComplete}">
+                <apex:pageBlock id="pageblockId4" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>-->
+                        <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus"/> 
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus">
+                            <apex:param name="nextTab" value="fifthTab"/>
+                        </apex:commandButton>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                    </apex:pageBlockButtons>
+                    <apex:outputPanel rendered="{!IF(currentTab = 'fourthTab',true,false)}">
+                        <c:RegimenAgentComponent regimenName="Other" trialPatientId="{!trialPatientId}" id="otherCompId" key="regAgent4" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+                    </apex:outputPanel>
+                </apex:pageBlock>
+            </apex:tab>
+            <apex:tab label="Comments & Attachments" name="fifthTab" id="fifthTabId" ontabenter="enterToNextTab('fifthTab');" rendered="{!isComplete}">
+                <apex:pageBlock id="pageblockId5" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>-->
+                        <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus"/> 
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus">
+                            <apex:param name="nextTab" value="lastTab"/>
+                        </apex:commandButton>
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                    </apex:pageBlockButtons>
+                    <apex:pageMessage summary="Please redact all PHI information from attachments." severity="info" strength="3"/>
+                    <apex:pageBlockSection columns="1">
+<!--                        <chatter:feedWithFollowers entityId="{!chemoSummary.Id}" />-->
+                        <apex:iframe src="/apex/ChatterPage?recId={!chemoSummary.Id}" scrolling="true" id="theIframe"/>
+                        <c:CRFAttachmentComponent rId="{!chemoSummary.Id}" feedCRFName="Chemo_Summary_Form__Feed" rtId="{!chemoSummary.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:tab>
+            <apex:tab label="Complete" name="lastTab" id="lastTabId" ontabenter="enterToNextTab('lastTab');">
+                <apex:pageBlock id="pageblockId6" tabStyle="Account">
+                  <!--  <apex:pageBlockButtons location="top" >
+                      <apex:commandButton action="{!cancelCRF}" value="Delete" onClick="return cancelConfirm();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+                    </apex:pageBlockButtons> -->
+                    <!--<apex:actionFunction name="editCRF" action="{!editCRF}" rerender="theTabPanel" status="processStatus" />
+                    <apex:outputPanel id="dummayPanel">
+                        <script>
+                            //alert("{!openInEditMode}");
+                            if("{!openInEditMode}" == "true") {
+                                editCRF();
+                            }
+                        </script>
+                    </apex:outputPanel>-->
+                <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">
+                    <apex:pageBlock tabStyle="Account"> 
+                        <apex:pageBlockButtons location="top">
+                            <apex:commandButton action="{!editCRF}" rendered="{!IF(AND(chemoSummary.Status__c == 'Rejected', isShowEditButton),true,false)}" value="Edit" reRender="formId" status="tabChangeStatus">
+                                <apex:param value="true" name="cloneCalled" ></apex:param>
+                            </apex:commandButton> 
+    <!--                        <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true" rendered="{!isComplete}"/>-->
+                            <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus" rendered="{!isComplete}"/> 
+                            <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                        </apex:pageBlockButtons>
+                    </apex:pageBlock>
+                </apex:outputPanel>
+                    <apex:outputPanel rendered="{!IF(currentTab = 'lastTab',true,false)}">
+                        <c:ChemoSummaryCompletePageComponent regimenName="Taxane" trialPatientId="{!trialPatientId}" id="CompId1" key="regAgent1" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!IF(currentTab = 'lastTab',true,false)}">
+                        <c:ChemoSummaryCompletePageComponent regimenName="Anthracycline" trialPatientId="{!trialPatientId}" id="CompId2" key="regAgent2" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!IF(currentTab = 'lastTab',true,false)}">
+                        <c:ChemoSummaryCompletePageComponent regimenName="Investigational" trialPatientId="{!trialPatientId}" id="CompId3" key="regAgent3" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!IF(currentTab = 'lastTab',true,false)}">
+                        <c:ChemoSummaryCompletePageComponent regimenName="Other" trialPatientId="{!trialPatientId}" id="CompId4" key="regAgent4" pageController="{!this}" crfId="{!chemoSummaryId}"/>
+                    </apex:outputPanel>
+                    <!-- <table width="100%">
+                            <apex:repeat value="{!lstCompletePageWrapper}" var="completePageWrapper">
+                                <script>
+                                    var counter = 0; 
+                                </script> 
+                                <tr>
+                                    <td width="100%">
+                                    <table width="100%">
+                                        <tr>
+                                            <td colspan="2">
+                                                <font size="5"><apex:outputText value="{!completePageWrapper.regimenName}" /></font>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        <apex:repeat value="{!completePageWrapper.lstChemoSummaryAgent}" var="agentDetail">
+                                            <td width="50%">
+                                                <table width="100%">
+                                                    <tr>
+                                                        <td width="60%">Therapy Dates:</td>
+                                                        <td width="40%">
+                                                            <apex:outputField value="{!completePageWrapper.chemoSummaryRegimen.First_Date_of_Therapy__c}" />
+                                                            <apex:outputText value=" to " rendered="{!IF(IsNull(completePageWrapper.chemoSummaryRegimen.Last_Date_of_Therapy__c), false, true)}"/>
+                                                            <apex:outputField value="{!completePageWrapper.chemoSummaryRegimen.Last_Date_of_Therapy__c}" /> 
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="60%">Agent:</td>
+                                                        <td width="40%">
+                                                            {!agentDetail.Agent__c}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="60%">Initial Dose (C1):</td>
+                                                        <td width="40%">
+                                                            {!agentDetail.cycle1Dose__c}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="60%">Number of cycles:</td>
+                                                        <td width="40%">
+                                                            {!agentDetail.completedCycle__c}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="60%">Cumulative dose:</td>
+                                                        <td width="40%">
+                                                            {!agentDetail.totalDose__c}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="60%">Treatment Schedule:</td>
+                                                        <td width="40%">
+                                                            {!agentDetail.treatmentSchedule__c}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="60%">Dose delay:</td>
+                                                        <td width="40%">
+                                                            {!agentDetail.doseDelay__c}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="60%">Dose modification:</td>
+                                                        <td width="40%">
+                                                            {!agentDetail.doseMod__c}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="60%">&nbsp;</td>
+                                                        <td width="40%">&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <script>
+                                                if(++counter % 2 == 0)
+                                                    document.write('</tr><tr>');
+                                            </script>
+                                    </apex:repeat>
+                                    </tr>
+                                </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="50%">&nbsp;</td>
+                                <td width="50%">&nbsp;</td>
+                            </tr>
+                        </apex:repeat>
+                    </table>-->
+                    <br />
+                    <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(chemoSummary.Id))}">
+                        <c:CRFAttachmentComponent rId="{!chemoSummary.Id}" feedCRFName="Chemo_Summary_Form__Feed" rtId="{!chemoSummary.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(chemoSummary.Id))}">
+                        <c:CRFEventComponent rId="{!chemoSummary.Id}" objectName="Chemo_Summary_Form__c" rtId="{!chemoSummary.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <apex:outputPanel id="msgPanelId" layout="block" style="width: 100%;">
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" width="100%" align="center">
+                                    <br /> 
+                                    <font color="{!msgColor}">{!errorMsg}&nbsp;</font>
+                                    <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%">&nbsp;</td>
+                                <td width="70%">
+                                    <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!isComplete}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!isComplete}"/>&nbsp;&nbsp;
+                                    <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" rendered="{!isComplete}"/>
+                                    <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" rendered="{!isComplete}"/>
+                                    <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                                </td>
+                            </tr>
+                        </table>
+                </apex:outputPanel> 
+            </apex:tab>
+        </apex:tabPanel>
+    </apex:form>
+</apex:page>

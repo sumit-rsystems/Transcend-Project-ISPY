@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Menopausal DCC Template</name>
+    <style>none</style>
+    <subject>Approval Request</subject>
+    <textOnly>{!Menopausal_Status_Detail__c.Submitter__c} has requested your approval for the following item: Click Here
+
+Please click this link to approve or reject this record.
+
+Thank you,
+salesforce.com</textOnly>
+    <type>custom</type>
+</EmailTemplate>

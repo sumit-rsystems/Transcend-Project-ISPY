@@ -1,0 +1,993 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>MenopausalNew</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>MenopausalStatusDetailPage</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>AgeVal__c</fullName>
+        <externalId>false</externalId>
+        <label>Age</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Age &gt; 50</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Age &lt; 50</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ApprovalURL__c</fullName>
+        <externalId>false</externalId>
+        <label>ApprovalURL</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Bilateral_Oophorectomy_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Bilateral Oophorectomy Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Bilateral_Oophorectomy_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>Bilateral Oophorectomy  Snomed</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bilateral_oophorectomy__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Bilateral oophorectomy</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CRF_Id__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CRF Id</label>
+        <referenceTo>CRF__c</referenceTo>
+        <relationshipName>Menopausal_Status_Details</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CompletedDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Completed Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date_of_Last_Menstrual_Period_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>Date of Last Menstrual Period Snomed</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Date_of_Last_Menstrual_Period__c</fullName>
+        <externalId>false</externalId>
+        <label>Date of Last Menstrual Period</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>ECOG_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>ECOG Snomed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Effective_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Effective Time</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Enstrogent_Replacement_Duration_Months__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enstrogent Replacement Duration Months should be in the range of 1-12.</inlineHelpText>
+        <label>Enstrogent Replacement Duration Months</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Enstrogent_Replacement_Duration_Years__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please provide Enstrogent Replacement Duration Years in YYYY format.</inlineHelpText>
+        <label>Enstrogent Replacement Duration Years</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>First_Save_and_Close__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>First Save and Close</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Follow_Up_Detail__c</fullName>
+        <externalId>false</externalId>
+        <label>Follow Up Detail</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hysterectomy_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Hysterectomy Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Hysterectomy_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>Hysterectomy Snomed</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hysterectomy__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Hysterectomy</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_Menstrual_Day__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Menstrual Day</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Menstrual_Month__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Menstrual Month</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Menstrual_Year__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please provide Last Menstrual Year in YYYY format</inlineHelpText>
+        <label>Last Menstrual Year</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MenoStatus_OS_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>MenoStatus_OS Snomed</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Menopausal_Status_Val_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>Menopausal Status Val Snomed</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Menopausal_Status__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Menopausal Status depends on &quot;Age&quot;.</inlineHelpText>
+        <label>Menopausal Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Premenopausal(&lt;6 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Perimenopausal(6-12 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Postmenopausal (prior bilateral ovariectomy OR &gt; 12 months since LMP with no prior hysterectomy)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Above categories not applicable AND Age &lt; 50</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Above categories not applicable AND Age &gt; 50</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>On_Estrogen_Replacement_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>On Estrogen Replacement Snomed</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>On_Estrogen_Replacement__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>On Estrogen Replacement</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>OriginalCRF__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>OriginalCRF</label>
+        <referenceTo>Menopausal_Status_Detail__c</referenceTo>
+        <relationshipLabel>Menopausal Status Details</relationshipLabel>
+        <relationshipName>Menopausal_Status_Details</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Patient__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Patient</label>
+        <referenceTo>Patient_Custom__c</referenceTo>
+        <relationshipName>Menopausal_Status_Details</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Patient_age__c</fullName>
+        <externalId>false</externalId>
+        <formula>TrialPatient__r.Patient_Id__r.Age__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Patient age</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phase__c</fullName>
+        <externalId>false</externalId>
+        <label>Phase</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Screening</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RPMA_Her2_0_Negative_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>RPMA Her2 0= Negative Snomed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RPMA_Her2_1_Positive_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>RPMA Her2 1= Positive Snomed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RPMA_Her2_2_not_done_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>RPMA Her2 2= not done Snomed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RPMA_Her2_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>RPMA Her2 Snomed</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Root_CRF_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Root CRF Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Submitter__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The user who is sign and submitting the record</description>
+        <externalId>false</externalId>
+        <label>Submitter</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Menopausal_Status_Details</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TrialPatient__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>TrialPatient</label>
+        <referenceTo>TrialPatient__c</referenceTo>
+        <relationshipLabel>Menopausal CRF</relationshipLabel>
+        <relationshipName>Menopausal_Status_Details</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Unknown_Date_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>Unknown Date Snomed</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Unknown_Date__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Unknown Date</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Unknown_Date_but_12_Months_Ago__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Unknown Date but &gt;12 Months Ago</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>pg_MenopausalStatus_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_MenopausalStatus_Id</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>pg_status__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_status</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Menopausal Status Detail</label>
+    <nameField>
+        <displayFormat>{0000}</displayFormat>
+        <label>Menopausal Status Details Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Menopausal Status Details</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypes>
+        <fullName>Adhoc</fullName>
+        <active>true</active>
+        <label>Adhoc</label>
+        <picklistValues>
+            <picklist>AgeVal__c</picklist>
+            <values>
+                <fullName>Age %3C 50</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Age %3E 50</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Menopausal_Status__c</picklist>
+            <values>
+                <fullName>Above categories not applicable AND Age %3C 50</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Above categories not applicable AND Age %3E 50</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Perimenopausal%286-12 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Postmenopausal %28prior bilateral ovariectomy OR %3E 12 months since LMP with no prior hysterectomy%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Premenopausal%28%3C6 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Approval_Pending</fullName>
+        <active>true</active>
+        <label>Approval Pending</label>
+        <picklistValues>
+            <picklist>AgeVal__c</picklist>
+            <values>
+                <fullName>Age %3C 50</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Age %3E 50</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Menopausal_Status__c</picklist>
+            <values>
+                <fullName>Above categories not applicable AND Age %3C 50</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Above categories not applicable AND Age %3E 50</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Perimenopausal%286-12 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Postmenopausal %28prior bilateral ovariectomy OR %3E 12 months since LMP with no prior hysterectomy%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Premenopausal%28%3C6 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Live</fullName>
+        <active>true</active>
+        <label>Live</label>
+        <picklistValues>
+            <picklist>AgeVal__c</picklist>
+            <values>
+                <fullName>Age %3C 50</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Age %3E 50</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Menopausal_Status__c</picklist>
+            <values>
+                <fullName>Above categories not applicable AND Age %3C 50</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Above categories not applicable AND Age %3E 50</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Perimenopausal%286-12 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Postmenopausal %28prior bilateral ovariectomy OR %3E 12 months since LMP with no prior hysterectomy%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Premenopausal%28%3C6 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>Bilateral_Oopherectomy_LT_Today</fullName>
+        <active>false</active>
+        <errorConditionFormula>Bilateral_Oophorectomy_Date__c &gt;  TODAY()</errorConditionFormula>
+        <errorMessage>Bilateral Oophorectomy Date should be less than or equal to current date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Bilateral_oophorectomy</fullName>
+        <active>false</active>
+        <errorConditionFormula>Bilateral_oophorectomy__c = true &amp;&amp;  ISNULL(Bilateral_Oophorectomy_Date__c )</errorConditionFormula>
+        <errorDisplayField>Bilateral_Oophorectomy_Date__c</errorDisplayField>
+        <errorMessage>Please Provide Bilateral Oophorectomy Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Bilateral_oophorectomy_Date</fullName>
+        <active>false</active>
+        <errorConditionFormula>Bilateral_oophorectomy__c = false &amp;&amp;  NOT( ISNULL(Bilateral_Oophorectomy_Date__c ))</errorConditionFormula>
+        <errorDisplayField>Bilateral_Oophorectomy_Date__c</errorDisplayField>
+        <errorMessage>Please Check  Bilateral oophorectomy or remove  Bilateral_oophorectomy Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Enstrogent_Replacement_Months_Validation</fullName>
+        <active>false</active>
+        <errorConditionFormula>Enstrogent_Replacement_Duration_Months__c &gt; 12</errorConditionFormula>
+        <errorDisplayField>Enstrogent_Replacement_Duration_Months__c</errorDisplayField>
+        <errorMessage>Enstrogent Replacement Duration Months should be less than 12.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Hysterectomy</fullName>
+        <active>false</active>
+        <errorConditionFormula>Hysterectomy__c = true &amp;&amp; ISNULL(Hysterectomy_Date__c )</errorConditionFormula>
+        <errorDisplayField>Hysterectomy_Date__c</errorDisplayField>
+        <errorMessage>Please provide Hysterectomy Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Hysterectomy_Date</fullName>
+        <active>false</active>
+        <errorConditionFormula>Hysterectomy__c = false &amp;&amp;  NOT( ISNULL( Hysterectomy_Date__c ) )</errorConditionFormula>
+        <errorDisplayField>Hysterectomy_Date__c</errorDisplayField>
+        <errorMessage>Please Check Hysterectomy or remove Hysterectomy Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Hysterectomy_Date_LT_Today</fullName>
+        <active>false</active>
+        <errorConditionFormula>Hysterectomy_Date__c &gt;  TODAY()</errorConditionFormula>
+        <errorMessage>Hysterectomy Date should be less than or equal to current date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>LMP_date</fullName>
+        <active>false</active>
+        <errorConditionFormula>OR(AND(Unknown_Date__c = true, NOT( ISNULL(Date_of_Last_Menstrual_Period__c ) )),AND(Unknown_Date_but_12_Months_Ago__c = true, NOT( ISNULL(Date_of_Last_Menstrual_Period__c ) )))</errorConditionFormula>
+        <errorMessage>Please uncheck &quot;Unknown Date&quot; and &quot;Unknown Date but 12 Months Ago&quot; Or remove Last Menstrual Period.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Last_Menstrual_Day_1_to_31</fullName>
+        <active>false</active>
+        <errorConditionFormula>Last_Menstrual_Day__c &lt; 1  ||  Last_Menstrual_Day__c &gt; 31</errorConditionFormula>
+        <errorDisplayField>Last_Menstrual_Day__c</errorDisplayField>
+        <errorMessage>Specified attribute is not between the expected values of 1 and 31</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Last_Menstrual_Month_between_1_and_12</fullName>
+        <active>false</active>
+        <errorConditionFormula>Last_Menstrual_Month__c &lt; 1  ||  Last_Menstrual_Month__c &gt; 12</errorConditionFormula>
+        <errorDisplayField>Last_Menstrual_Month__c</errorDisplayField>
+        <errorMessage>Specified attribute is not between the expected values of 1 and 12.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Last_Menstrual_Year_greater_than_1000</fullName>
+        <active>false</active>
+        <errorConditionFormula>Last_Menstrual_Year__c &lt; 1000</errorConditionFormula>
+        <errorMessage>Value is less than allowable minimum of &apos;1,000&apos;</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Last_Menstrual_Year_validation</fullName>
+        <active>false</active>
+        <errorConditionFormula>Last_Menstrual_Year__c  &gt; YEAR( TODAY() )</errorConditionFormula>
+        <errorDisplayField>Last_Menstrual_Year__c</errorDisplayField>
+        <errorMessage>Last Menstrual Year should be less than current year.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Menopausal_Status_Required</fullName>
+        <active>false</active>
+        <description>Menopausal Status must be selected in order to proceed further</description>
+        <errorConditionFormula>IF(ISPICKVAL(Menopausal_Status__c,&apos;&apos;),true,false)</errorConditionFormula>
+        <errorDisplayField>Menopausal_Status__c</errorDisplayField>
+        <errorMessage>Please select value.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Menstrual_Period_Date_GT_Today</fullName>
+        <active>false</active>
+        <errorConditionFormula>Date_of_Last_Menstrual_Period__c &gt;  TODAY()</errorConditionFormula>
+        <errorMessage>Date of last menstrual period should be less than or equal to the current date.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>On_Estrogen_Replacement_Val</fullName>
+        <active>false</active>
+        <errorConditionFormula>On_Estrogen_Replacement__c = true &amp;&amp; ( ISNULL(Enstrogent_Replacement_Duration_Months__c) &amp;&amp;  ISNULL( Enstrogent_Replacement_Duration_Years__c )   )</errorConditionFormula>
+        <errorMessage>Please provide Enstrogent Replacement Duration</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>On_estrogen_replacement</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND(On_Estrogen_Replacement__c = true, AND(ISNULL(Enstrogent_Replacement_Duration_Months__c) ,ISNULL(Enstrogent_Replacement_Duration_Years__c)) )</errorConditionFormula>
+        <errorMessage>Please Provide Enstrogent Replacement Duration Month and Year.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>On_estrogen_replacement_Year_Validation</fullName>
+        <active>false</active>
+        <errorConditionFormula>Enstrogent_Replacement_Duration_Years__c  &gt; YEAR( TODAY() )</errorConditionFormula>
+        <errorDisplayField>Enstrogent_Replacement_Duration_Years__c</errorDisplayField>
+        <errorMessage>Enstrogent Replacement Duration Years should be less than current year.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>On_estrogen_replacement_false</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND(On_Estrogen_Replacement__c = false, OR( NOT( ISNULL(Enstrogent_Replacement_Duration_Months__c) ) , NOT( ISNULL(Enstrogent_Replacement_Duration_Years__c) ) ) )</errorConditionFormula>
+        <errorDisplayField>On_Estrogen_Replacement__c</errorDisplayField>
+        <errorMessage>Please check On Estrogen Replacement.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Unknown_Date_validation</fullName>
+        <active>false</active>
+        <errorConditionFormula>Unknown_Date__c = true  &amp;&amp;  Unknown_Date_but_12_Months_Ago__c = true</errorConditionFormula>
+        <errorMessage>Please select either Unknown Date or Unknown Date but &gt; 12 months ago</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Delete</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Cancel</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if(confirm(&quot;Completely cancel and remove?&quot;)) {
+ window.location.href=&quot;/apex/CustomDelete?objApi=Menopausal_Status_Detail__c&amp;id={!Menopausal_Status_Detail__c.Id}&amp;triPat={!Menopausal_Status_Detail__c.TrialPatientId__c}&quot;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Sign_and_Submit</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Sign and Submit</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/SignAndSubmitPage?id={!Menopausal_Status_Detail__c.Id}&amp;form_code=00002</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Submit</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Complete</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/ChangeAdhocToLive?rid={!Menopausal_Status_Detail__c.Id}&amp;type=submit&amp;sharingwith=Site,Lab</url>
+    </webLinks>
+</CustomObject>

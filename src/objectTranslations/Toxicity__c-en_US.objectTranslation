@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Toxicity</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Toxicities</value>
+    </caseValues>
+    <fields>
+        <label><!-- AE Detail --></label>
+        <name>AE_Detail__c</name>
+        <relationshipLabel><!-- Toxicities --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- AE End Date --></label>
+        <name>AE_End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- AE ID --></label>
+        <name>AE_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attribute --></label>
+        <name>Attribution__c</name>
+        <picklistValues>
+            <masterLabel>0 - Baseline</masterLabel>
+            <translation><!-- 0 - Baseline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1 - Unrelated</masterLabel>
+            <translation><!-- 1 - Unrelated --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2 - Unlikely</masterLabel>
+            <translation><!-- 2 - Unlikely --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3 - Possible</masterLabel>
+            <translation><!-- 3 - Possible --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4 - Probable</masterLabel>
+            <translation><!-- 4 - Probable --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5 - Definite</masterLabel>
+            <translation><!-- 5 - Definite --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Baseline Symptoms Form --></label>
+        <name>Baseline_Symptoms_Form__c</name>
+        <relationshipLabel><!-- Toxicities --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- CTCAE Code --></label>
+        <name>CTCAE_Code__c</name>
+        <relationshipLabel><!-- Toxicities --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Did event required hospitalization? --></label>
+        <name>Did_event_required_hospitalization__c</name>
+    </fields>
+    <fields>
+        <help><!-- Did event result in death? --></help>
+        <label><!-- Did event result in death? --></label>
+        <name>Did_event_result_in_death__c</name>
+    </fields>
+    <fields>
+        <help><!-- Did the investigator find this event very unusual and/or potentially serious, but didn&apos;t meet any of the above criteria? --></help>
+        <label><!-- Did the investigator find event unusual --></label>
+        <name>Did_the_investigator_find_event_unusual__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Grade --></label>
+        <name>Grade__c</name>
+    </fields>
+    <fields>
+        <label><!-- Onset Date --></label>
+        <name>Onset_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Patient Complaint --></label>
+        <name>Patient_Complaint__c</name>
+    </fields>
+    <fields>
+        <label><!-- Resolved --></label>
+        <name>Resolved__c</name>
+    </fields>
+    <fields>
+        <help><!-- Resulted in conginental abnormality/birth defect --></help>
+        <label><!-- Result conginental abnormality defect --></label>
+        <name>Result_conginental_abnormality_defect__c</name>
+    </fields>
+    <fields>
+        <help><!-- Did event result in persistent or significant disability/incapacity or substantial disruption of the ability to perform life functions? --></help>
+        <label><!-- Result persistent/significant disability --></label>
+        <name>Result_persistent_significant_disability__c</name>
+    </fields>
+    <fields>
+        <label><!-- SAE --></label>
+        <name>SAE__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Symptom Masters --></label>
+        <name>Symptom_Masters__c</name>
+        <relationshipLabel><!-- Toxicities --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Symptom Status --></label>
+        <name>Symptom_Status__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not assessed</masterLabel>
+            <translation><!-- Not assessed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Toxicity Agent --></label>
+        <name>Toxicity_Agent__c</name>
+        <relationshipLabel><!-- Toxicities --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Toxicity Master --></label>
+        <name>Toxicity_Master__c</name>
+        <relationshipLabel><!-- Toxicities --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Toxicity Other --></label>
+        <name>Toxicity_Other__c</name>
+    </fields>
+    <fields>
+        <label><!-- Toxicity Status --></label>
+        <name>Toxicity_Status__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Assessed</masterLabel>
+            <translation><!-- Not Assessed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- Toxicities --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Was event life threatning at the time of event --></help>
+        <label><!-- Was event life threatning --></label>
+        <name>Was_event_life_threatning__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_toxicity_id --></label>
+        <name>pg_toxicity_id__c</name>
+    </fields>
+    <layouts>
+        <layout>Toxicity Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date. --></errorMessage>
+        <name>AE_End_Date_Cannot_be_a_future_date</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date. --></errorMessage>
+        <name>Onset_Date_Cannot_be_a_future_date</name>
+    </validationRules>
+</CustomObjectTranslation>

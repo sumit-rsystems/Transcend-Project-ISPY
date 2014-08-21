@@ -1,0 +1,117 @@
+<apex:component controller="StagingComponentController" allowDML="true">
+<apex:attribute name="subFormStaging" description="" type="String" />
+<apex:attribute name="subFormLaterlity" description="" type="String" />
+<apex:attribute name="recId" type="String" assignTo="{!recId}" description="CRF Id" />
+<apex:attribute name="key" type="String" assignTo="{!Key}" description="The key given to this component so the page can easily get access to it" />
+<apex:attribute name="pageController" type="PageControllerBase" assignTo="{!pageController}" description="The controller for the page." />
+
+<apex:pageBlock tabStyle="Account">
+	<apex:pageBlockSection title="Staging Modifier" columns="1" >
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Modifier" />
+			<apex:outputPanel >
+				<apex:outputField value="{!stagObjLeft.Staging_Modifier_Type__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/>
+				<apex:outputField value="{!stagObjRight.Staging_Modifier_Type__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem labelStyle="width: 24%;">
+			<apex:outputLabel value="m-multiple primary tumors in a single site"/>
+			<apex:outputPanel >
+				<apex:outputField value="{!stagObjLeft.Modifier_multiple_primary__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/>
+				<apex:outputField value="{!stagObjRight.Modifier_multiple_primary__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem labelStyle="width: 24%;">
+			<apex:outputLabel value="y-classification done during/following initial therapy"/>
+			<apex:outputPanel >
+				<apex:outputField value="{!stagObjLeft.Modifier_classification_done__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/>
+				<apex:outputField value="{!stagObjRight.Modifier_classification_done__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem labelStyle="width: 24%;">
+			<apex:outputLabel value="r-indicates a recurrent tumor"/>
+			<apex:outputPanel >
+				<apex:outputField value="{!stagObjLeft.Modifier_indicates_recurrent__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/>
+				<apex:outputField value="{!stagObjRight.Modifier_indicates_recurrent__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem labelStyle="width: 24%;">
+			<apex:outputLabel value="a-designates the staging done at autopsy"/>
+			<apex:outputPanel >
+				<apex:outputField value="{!stagObjLeft.Modifier_designates__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/>
+				<apex:outputField value="{!stagObjRight.Modifier_designates__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+	</apex:pageBlockSection>
+	
+	<apex:pageBlockSection title="Stages">
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Tumor"/>
+			<apex:outputPanel >
+				<apex:outputField value="{!stagObjLeft.Tumor_Type__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/>
+				<apex:outputField value="{!stagObjRight.Tumor_Type__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Node"/>
+			<apex:outputPanel >
+				<apex:outputField value="{!stagObjLeft.Node_Type__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/>
+				<apex:outputField value="{!stagObjRight.Node_Type__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Metastasis" />
+			<apex:outputPanel >
+				<apex:outputField value="{!stagObjLeft.Metastasis__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/>
+				<apex:outputField value="{!stagObjRight.Metastasis__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+	</apex:pageBlockSection>
+	
+	<apex:pageBlockSection title="Calculation">
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Calculated Stage" />
+			<apex:outputPanel >
+				<apex:outputLabel value="" style="float: left; width: 84px;" />&nbsp;
+				<apex:outputLabel value="" style="padding-left: 55px; width: 84px;" />
+				<apex:outputField value="{!stagObjLeft.Calculated_Stage__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:outputField value="{!stagObjRight.Calculated_Stage__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>&nbsp;
+				<apex:outputField value="{!stagObjLeft.Calculated_Stage_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:outputField value="{!stagObjRight.Calculated_Stage_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+	</apex:pageBlockSection>
+	
+	<apex:pageBlockSection title="Adjudicate">
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Adjudicated Stage" />
+			<apex:outputPanel >
+				<apex:outputField value="{!stagObjLeft.Adjudicated_Stage__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/>
+				<apex:outputField value="{!stagObjRight.Adjudicated_Stage__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}" />
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Adjudicated By"/>
+			<apex:outputPanel >
+				<apex:outputField value="{!stagObjLeft.Adjudicated_By__r.Name}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/>
+				<apex:outputField value="{!stagObjRight.Adjudicated_By__r.Name}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+	</apex:pageBlockSection>
+	
+	<apex:pageBlockSection title="If patient diagnosed with T4 at baseline, indicate final status" columns="1">
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="T4 Tumor"/>
+			<apex:outputPanel >
+				<apex:outputField value="{!stagObjLeft.T4_Tumor_final_status__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/>
+				<apex:outputField value="{!stagObjRight.T4_Tumor_final_status__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+	</apex:pageBlockSection>
+</apex:pageBlock>
+</apex:component>

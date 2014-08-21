@@ -1,0 +1,173 @@
+<apex:component controller="LCISController" allowDML="true" id="LCISCompId">
+	<apex:attribute name="subFormLCIS" description="This is the value for on-study pathology" type="String" />
+	<apex:attribute name="key" 
+    type="String" 
+    assignTo="{!Key}" 
+    description="The key given to this component so the page can easily get access to it" />
+
+  <apex:attribute name="pageController" 
+      type="PageControllerBase" 
+      assignTo="{!pageController}" 
+      required="true" 
+      description="The controller for the page." />
+<script>
+	function call_SaveLCIS(id,hiddenField) {
+		//alert(document.getElementById(hiddenField));
+		document.getElementById(hiddenField).value = id;
+		//alert("LCIS");
+		//alert(document.getElementById(hiddenField).value);
+		if(document.getElementById('pageId:LCISForm:LCISPageBlock:LCISPageBlockSection:LCISPageBlockSectionItem:LCISDropDown').value == 'Yes'){
+			saveLCIS();
+		}
+		return true;
+	}
+	
+	function call_SavePostLCIS(id,hiddenField) {
+		//alert(document.getElementById(hiddenField));
+		document.getElementById(hiddenField).value = id;
+		//alert(document.getElementById(hiddenField).value);
+		if(document.getElementById('pageId:LCISForm:LCISPageBlock:LCISPageBlockSection:LCISPageBlockSectionItem:LCISDropDown').value == 'Yes'){
+			savePostLCIS();
+		}
+		return true;
+	}
+	
+	function getLcisId(objValue) {
+		//alert('lcis');
+		//alert(objValue);
+		//var obj = document.getElementById("lcisForm:lcisId");
+		//pageId:j_id428:pageSectionId3:pageCompId3:j_id429:lcisFrom:lcisId
+		//var obj = document.getElementById("pageId:j_id428:pageSectionId3:pageCompId3:j_id429:lcisFrom:lcisId");
+		//alert(obj.value);
+		//document.getElementById("pageId:mainForm:mainLcisId").value = document.getElementById("lcisForm:lcisId").value;
+	}
+	
+	function disableLCISTextBox(obj){
+		var trObj = obj.parentNode.parentNode;
+		var inputList = trObj.getElementsByTagName('input');
+		for(var i = 0; i<inputList.length; i++) {
+			if(obj.checked) {
+				inputList[i].disabled = true;
+			} else {
+				inputList[i].disabled = false;
+			}
+			break;
+		}
+	}
+	
+	function disableLCISUnknownCheckBox(obj) {
+		var trObj = obj.parentNode.parentNode;
+		var inputList = trObj.getElementsByTagName('input');
+		for(var i = 1; i<inputList.length; i++) {
+			if(obj.value != '') {
+				inputList[i].disabled = true;
+			} else {
+				inputList[i].disabled = false;
+			}
+		}
+	}
+	
+	function showSpecify(obj) {
+		if(obj.value == "Specifiy") {
+			document.getElementById("pageId:formId:LCISPageBlockId:LCISOutputPanelSection:LCISComponent:LCISCompId:Specify_No").disabled = false;
+		} else {
+			document.getElementById("pageId:formId:LCISPageBlockId:LCISOutputPanelSection:LCISComponent:LCISCompId:Specify_No").disabled = true;
+		}
+	}
+</script>
+			<apex:inputHidden value="{!onStudyPathologyId}" id="lcisId"/>
+			<apex:inputHidden value="{!lcisPostId}" id="lcisPostId"/>
+
+			<apex:outputPanel rendered="{!IF((subFormLCIS == 'Post Surgery Summary'),true,false)}">
+				<table cellpadding="3" cellspacing="1">
+					<tr>
+						<td>
+							<apex:outputLabel value="LCIS" />
+						</td>
+						<td>
+							<apex:inputField value="{!lcisObj.LCIS__c}" style="width : 40px;" id="LCISpercentage" onkeyup="disableLCISUnknownCheckBox(this);"/>%
+						</td>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!lcisObj.Unknown_Not_Reported__c}" id="UnknownLCIS" onclick="disableLCISTextBox(this);"/><apex:outputLabel value="Unknown/Not Reported" />
+						</td>
+					</tr>
+				</table>
+				<script>
+					disableLCISTextBox(document.getElementById('pageId:formId:LCISPageBlockId:LCISOutputPanelSection:LCISComponent:LCISCompId:UnknownLCIS'));
+					disableLCISUnknownCheckBox(document.getElementById('pageId:formId:LCISPageBlockId:LCISOutputPanelSection:LCISComponent:LCISCompId:LCISpercentage'));
+				</script>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!IF((subFormLCIS == 'Post Surgery Summary'),true,false)}">
+				<table cellpadding="3" cellspacing="1" >
+					<tr>
+						<td>
+							<apex:outputLabel value="total histologic span of In Situ disease:" />
+						</td>
+						<td>
+							<apex:inputField value="{!lcisObj.Total_histological_span__c}" style="width : 40px;"/>
+						</td>
+						<td>
+							<apex:inputField value="{!lcisObj.Total_histological_span_measurement_unit__c}"/>
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel >
+				<apex:outputPanel rendered="{!IF((subFormLCIS == 'On-Study Pathology Form'),false,true)}">
+					<table cellpadding="3" cellspacing="1">
+						<tr>
+							<td>
+								<b>Histology type:</b>
+							</td>
+						</tr>
+					</table>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!IF((subFormLCIS == 'On-Study Pathology Form'),true,false)}">
+					<table>
+						<tr>
+							<td>
+								<b>LCIS type:</b>
+							</td>
+						</tr>
+					</table>					
+				</apex:outputPanel>
+				<table>
+					<tr>
+						<td>
+							<apex:inputField value="{!lcisObj.Histological_Type__c}" rendered="{!IF((subFormLCIS == 'On-Study Pathology Form'),true,false)}"/>
+							<apex:inputField value="{!lcisObj.Histological_Type__c}" id="Histological_Type" rendered="{!IF((subFormLCIS == 'Post Surgery Summary'),true,false)}" onchange="showMarginClosed(this);"/>
+						</td>
+					</tr>
+				</table>
+				<apex:outputPanel rendered="{!IF((subFormLCIS == 'Post Surgery Summary'),true,false)}" id="marginClosedPanel">
+					<table>
+						<tr>
+							<td>
+								<b>Margins:</b>
+							</td>
+							<td>
+								<apex:inputField value="{!lcisObj.Margins__c}"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Closest margin:</b>
+							</td>
+							<td>
+								<apex:inputField id="Closest_Margin" value="{!lcisObj.Closest_Margin__c}" onchange="showSpecify(this);"/>
+							</td>
+							<td>
+								<apex:inputField id="Specify_No" value="{!lcisObj.Specify_No__c}"/>
+							</td>
+							<td>
+								<apex:inputField id="Specify_Units" value="{!lcisObj.Specify_Units__c}"/>
+							</td>
+						</tr>
+					</table>
+					<script>
+					showMarginClosed(document.getElementById('{!$Component.Histological_Type}'));
+					showSpecify(document.getElementById('{!$Component.Closest_Margin}'));
+					</script>
+				</apex:outputPanel>
+			</apex:outputPanel>
+</apex:component>

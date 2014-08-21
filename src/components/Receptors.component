@@ -1,0 +1,364 @@
+<apex:component controller="Receptors" allowDML="true" id="receptorsMainComp">
+	<apex:attribute name="subFormReceptors" description="This is the value for on-study pathology" type="String" />
+	<apex:attribute name="subFormLaterlity" description="This is the value for on-study pathology" type="String"/>
+	<apex:attribute name="recId" type="String" assignTo="{!recId}" description="CRF Id" />
+	<apex:attribute name="key" type="String" assignTo="{!Key}" description="The key given to this component so the page can easily get access to it" />
+  	<apex:attribute name="pageController" type="PageControllerBase" assignTo="{!pageController}" required="true" description="The controller for the page." />
+<script>
+//=========where type should be 'IHC' or 'FISH'
+function enableOtherTextBox(type, obj) {
+	var tbodyObj = obj.parentNode.parentNode.parentNode;
+	var inputList;
+	if(type == 'IHC') {
+		inputList = tbodyObj.getElementsByTagName('tr')[2].getElementsByTagName('td')[0].getElementsByTagName('input');
+	} else if(type == 'FISH') {
+		inputList = tbodyObj.getElementsByTagName('tr')[2].getElementsByTagName('td')[0].getElementsByTagName('input');
+	}
+	
+	for(var i = 0; i<inputList.length; i++) {
+		if(obj.checked) {
+			inputList[i].disabled = false;
+		} else {
+			inputList[i].disabled = true;
+		}
+	}
+	
+}
+</script>
+			<apex:inputHidden value="{!ERTotalScoreHiddenId}" id="ERTotalScoreHiddenId"/>
+			<apex:inputHidden value="{!PRTotalScoreHiddenId}" id="PRTotalScoreHiddenId"/> 
+			<!--<apex:actionFunction name="insertRecPostLeft" action="{!insertRecPostLeft}" rerender="recFormId" rendered="{!IF((subFormLaterlity == 'left'), true, false)}">
+			</apex:actionFunction>
+			<apex:actionFunction name="insertRecPostRight" action="{!insertRecPostRight}" rerender="recFormId" rendered="{!IF((subFormLaterlity == 'right'), true, false)}">
+			</apex:actionFunction>-->
+			<table  Style="border-bottom: 1px solid black;" width="100%" >
+				<tr>
+					<td>
+						<b>Estrogen Receptor (ER) Status:</b>
+					</td>
+				</tr>
+			</table>
+			<table  width="45%" height="250px;">
+				<tr>
+					<td width="10%">
+						<apex:inputField value="{!recObj.Estrogen_Receptor_Status__c}" id="recObj" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/>
+						<apex:inputField value="{!recObjRight.Estrogen_Receptor_Status__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+					</td>
+					<td width="10%">
+					
+					</td>
+				</tr>
+				<tr>
+					<td nowrap="nowrap">
+						<b>Proportion Score </b><apex:outputLabel value="(PS) of stained malingant nuclei" />
+					</td>
+					<td>
+						<apex:outputPanel rendered="{!IF(AND(subFormReceptors != 'Post Surgery Summary', subFormReceptors != 'Breast Surgical Procedure'), true, false)}"><apex:inputField value="{!recObj.Estrogen_Receptor_Proportion_Score__c}" onChange="Cal_ERPRTotalScore();" id="ERPSId">
+	<!--						<apex:actionSupport event="onchange" action="{!sumERVal}" rerender="sum"/>-->
+						</apex:inputField></apex:outputPanel>
+						<apex:outputPanel rendered="{!IF(OR(subFormReceptors == 'Post Surgery Summary', subFormReceptors == 'Breast Surgical Procedure'), true, false)}"><apex:inputField value="{!recObj.Estrogen_Receptor_Proportion_Score__c}" onChange="Cal_ERPRTotalScore('{!subFormLaterlity}');" id="ERPSPostId" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Estrogen_Receptor_Proportion_Score__c}" onChange="Cal_ERPRTotalScore('{!subFormLaterlity}');" id="ERPSPostRightId" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/></apex:outputPanel>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Intensity Score </b><apex:outputLabel value="(IS) of stained malingant nuclei" />
+					</td>
+					<td>
+						<apex:outputPanel rendered="{!IF(AND(subFormReceptors != 'Post Surgery Summary', subFormReceptors != 'Breast Surgical Procedure'), true, false)}"><apex:inputField value="{!recObj.Estrogen_Intensity_Score__c}" onChange="Cal_ERPRTotalScore();" id="ERISId">
+	<!--						<apex:actionSupport event="onchange" action="{!sumERVal}" rerender="sum"/>-->
+						</apex:inputField></apex:outputPanel>
+						<apex:outputPanel rendered="{!IF(OR(subFormReceptors == 'Post Surgery Summary', subFormReceptors == 'Breast Surgical Procedure'), true, false)}"><apex:inputField value="{!recObj.Estrogen_Intensity_Score__c}" onChange="Cal_ERPRTotalScore('{!subFormLaterlity}');" id="ERISPostId" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Estrogen_Intensity_Score__c}" onChange="Cal_ERPRTotalScore('{!subFormLaterlity}');" id="ERISPostRightId" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/></apex:outputPanel>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Total Score</b><apex:outputLabel value="(TS) = PS + IS" />&nbsp;&nbsp;&nbsp;<apex:outputText id="ERTotalScoreId"/>	
+					</td>
+					<td>
+					
+					</td>
+				</tr>
+			</table>
+			<table  Style="border-bottom: 1px solid black;" width="100%">
+				<tr>
+					<td>
+						<b>Progesterone Receptor (PR) Status:</b>
+					</td>
+				</tr>
+			</table>
+			<table width="41%" height="250px;">
+				<tr>
+					<td>
+						<apex:inputField value="{!recObj.Progesterone_Receptor_Status__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/>
+						<apex:inputField value="{!recObjRight.Progesterone_Receptor_Status__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+					</td>
+				</tr>
+				<tr>
+					<td nowrap="nowrap">
+						<b>Proportion Score </b><apex:outputLabel value="(PS) of stained malingant nuclei" />
+					</td>
+					<td>
+						<apex:outputPanel rendered="{!IF(AND(subFormReceptors != 'Post Surgery Summary', subFormReceptors != 'Breast Surgical Procedure'), true, false)}"><apex:inputField value="{!recObj.Progesterone_Receptor_Proportion_Score__c}" onChange="Cal_ERPRTotalScore();" id="PRPSId" >
+	<!--						<apex:actionSupport event="onchange" action="{!sumERVal}" rerender="sum1"/>-->
+						</apex:inputField></apex:outputPanel>
+						<apex:outputPanel rendered="{!IF(OR(subFormReceptors == 'Post Surgery Summary', subFormReceptors == 'Breast Surgical Procedure'), true, false)}"><apex:inputField value="{!recObj.Progesterone_Receptor_Proportion_Score__c}" onChange="Cal_ERPRTotalScore('{!subFormLaterlity}');" id="PRPSPostId" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Progesterone_Receptor_Proportion_Score__c}" onChange="Cal_ERPRTotalScore('{!subFormLaterlity}');" id="PRPSPostRightId" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/></apex:outputPanel>
+					</td> 
+				</tr>
+				<tr>
+					<td>
+						<b>Intensity Score </b><apex:outputLabel value="(IS) of stained malingant nuclei" />
+					</td>
+					<td>
+						<apex:outputPanel rendered="{!IF(AND(subFormReceptors != 'Post Surgery Summary', subFormReceptors != 'Breast Surgical Procedure'), true, false)}"><apex:inputField value="{!recObj.Progesterone_Intensity_Score__c}" onChange="Cal_ERPRTotalScore();" id="PRISId">
+	<!--						<apex:actionSupport event="onchange" action="{!sumERVal}" rerender="sum1"/>-->
+						</apex:inputField></apex:outputPanel>
+						<apex:outputPanel rendered="{!IF(OR(subFormReceptors == 'Post Surgery Summary', subFormReceptors == 'Breast Surgical Procedure'), true, false)}"><apex:inputField value="{!recObj.Progesterone_Intensity_Score__c}" onChange="Cal_ERPRTotalScore('{!subFormLaterlity}');" id="PRISPostId" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Progesterone_Intensity_Score__c}" onChange="Cal_ERPRTotalScore('{!subFormLaterlity}');" id="PRISPostRightId" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/></apex:outputPanel>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Total Score</b><apex:outputLabel value="(TS) = PS + IS" />&nbsp;&nbsp;&nbsp;<apex:outputText id="PRTotalScoreId"/>	
+					</td>
+					<td>
+					
+					</td>
+				</tr>
+			</table>
+			<table  Style="border-bottom: 1px solid black;" width="100%">
+				<tr>
+					<td>
+						<b>HER2/neu Marker</b>
+					</td>
+				</tr>
+			</table>
+			<apex:outputPanel rendered="{!IF(OR(subFormReceptors == 'Post Surgery Summary', subFormReceptors == 'Breast Surgical Procedure'), true, false)}">
+				<table width="100%">
+				<tr>
+					<td>
+						<apex:inputField value="{!recObj.HER2_neu_Marker__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/>
+						<apex:inputField value="{!recObjRight.HER2_neu_Marker__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+					</td>
+				</tr>
+			</table>
+			</apex:outputPanel>
+			<table width="100%">
+				<tr>
+					<td width="50%">
+						<fieldset style="height:200px;">
+							<legend>IHC</legend>
+							<apex:outputPanel rendered="{!IF(AND(subFormReceptors != 'Post Surgery Summary', subFormReceptors != 'Breast Surgical Procedure'), true, false)}">
+								<table>
+									<tr>
+										<td>
+											<apex:inputField value="{!recObj.IHC__c}"/>
+										</td>
+									</tr>
+								</table>
+							</apex:outputPanel>
+							<table  width="70%">
+								<tr>
+									<td width="50%">
+										<apex:inputField value="{!recObj.DAKO_Herceptest__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.DAKO_Herceptest__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/> <apex:outputLabel value="DAKO Herceptest:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!recObj.DAKO_Herceptest_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.DAKO_Herceptest_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<apex:inputField value="{!recObj.Other_IHC_Test__c}" id="Other_IHC_Test" rendered="{!IF((subFormLaterlity != 'right'), true, false)}" onclick="enableOtherTextBox('IHC', this);"/><apex:inputField value="{!recObjRight.Other_IHC_Test__c}" id="Other_IHC_Test_Right" rendered="{!IF((subFormLaterlity == 'right'), true, false)}" onclick="enableOtherTextBox('IHC', this);"/> <apex:outputLabel value="Other IHC Test:" /><apex:outputLabel value="Other IHC Results" style="padding-left: 70px;"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<apex:inputField value="{!recObj.Other_IHC_Test_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Other_IHC_Test_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!recObj.Other_IHC_Results__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Other_IHC_Results__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+										<apex:outputPanel rendered="{!IF((subFormLaterlity != 'right'), true, false)}">
+											<script>
+												enableOtherTextBox('IHC', document.getElementById('{!$component.Other_IHC_Test}'));
+											</script>
+										</apex:outputPanel>
+										<apex:outputPanel rendered="{!IF((subFormLaterlity = 'right'), true, false)}">
+											<script>
+												enableOtherTextBox('IHC', document.getElementById('{!$component.Other_IHC_Test_Right}'));
+											</script>
+										</apex:outputPanel>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<apex:inputField value="{!recObj.Ventana_kit__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Ventana_kit__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/> <apex:outputLabel value="Ventana kit:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!recObj.Ventana_kit_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Ventana_kit_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<apex:inputField value="{!recObj.CB_11__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.CB_11__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/> <apex:outputLabel value="CB-11" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!recObj.CB_11_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.CB_11_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<apex:inputField value="{!recObj.IHC_test_not_done__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.IHC_test_not_done__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/><apex:outputLabel value="IHC test not done" />
+									</td>
+								</tr>
+							</table>
+						</fieldset>
+					</td>
+					<td width="50%">
+						<fieldset style="height:200px;">
+							<legend>FISH</legend>
+							<apex:outputPanel rendered="{!IF(AND(subFormReceptors != 'Post Surgery Summary', subFormReceptors != 'Breast Surgical Procedure'), true, false)}">
+								<table>
+									<tr>
+										<td>
+											<apex:inputField value="{!recObj.Fish__c}"/>
+										</td>
+									</tr>
+								</table>
+							</apex:outputPanel>
+							<table  width="70%">
+								<tr>
+									<td width="50%">
+										<apex:inputField value="{!recObj.Ventana_Oncoprobe__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Ventana_Oncoprobe__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/> <apex:outputLabel value="Ventana Oncoprobe:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!recObj.Ventana_Oncoprobe_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Ventana_Oncoprobe_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<apex:inputField value="{!recObj.Other_FISH_Test__c}" id="Other_FISH_Test" rendered="{!IF((subFormLaterlity != 'right'), true, false)}" onclick="enableOtherTextBox('FISH', this);"/><apex:inputField value="{!recObjRight.Other_FISH_Test__c}" id="Other_FISH_Test_Right" rendered="{!IF((subFormLaterlity == 'right'), true, false)}" onclick="enableOtherTextBox('FISH', this);"/> <apex:outputLabel value="Other FISH Test:" /><apex:outputLabel value="Other FISH Results" style="padding-left: 50px;"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<apex:inputField value="{!recObj.Other_FISH_Test_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Other_FISH_Test_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!recObj.Other_FISH_Results__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Other_FISH_Results__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+										<apex:outputPanel rendered="{!IF((subFormLaterlity != 'right'), true, false)}">
+											<script>
+												enableOtherTextBox('FISH', document.getElementById('{!$component.Other_FISH_Test}'));
+											</script>
+										</apex:outputPanel>
+										<apex:outputPanel rendered="{!IF((subFormLaterlity = 'right'), true, false)}">
+											<script>
+												enableOtherTextBox('FISH', document.getElementById('{!$component.Other_FISH_Test_Right}'));
+											</script>
+										</apex:outputPanel>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<apex:inputField value="{!recObj.FISH_test_not_done__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.FISH_test_not_done__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/><apex:outputLabel value="FISH test not done" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<apex:outputPanel rendered="{!IF((subFormReceptors == 'Post Surgery Summary'), true, false)}"><apex:inputField value="{!recObj.Vysis_Path_Vision__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Vysis_Path_Vision__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/> <apex:outputLabel value="Vysis/Path Vision:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!recObj.Vysis_Path_Vision_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Vysis_Path_Vision_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/></apex:outputPanel>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										&nbsp;
+									</td>
+								</tr>
+								<tr>
+									<td>
+										&nbsp;
+									</td>
+								</tr>
+							</table>
+						</fieldset>
+					</td>
+				</tr>
+			</table>
+			<!--<apex:outputPanel rendered="{!IF(AND(subFormReceptors != 'Post Surgery Summary', subFormReceptors != 'Breast Surgical Procedure'), true, false)}">
+			<table  width="70%" height="40px;">
+				<tr>
+					<td Style="border-bottom: 1px solid black;" width="50%">
+						<b>IHC</b>
+					</td>
+					<td Style="border-bottom: 1px solid black;" width="50%">
+						<b>FISH</b>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<apex:inputField value="{!recObj.IHC__c}"/>
+					</td>
+					<td>
+						<apex:inputField value="{!recObj.Fish__c}"/>
+					</td>
+				</tr>
+			</table>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!IF(OR(subFormReceptors == 'Post Surgery Summary', subFormReceptors == 'Breast Surgical Procedure'), true, false)}">
+			<table  width="70%" height="40px;">
+				<tr>
+					<td Style="border-bottom: 1px solid black;" width="50%">
+						<b>IHC</b>
+					</td>
+					<td Style="border-bottom: 1px solid black;" width="50%">
+						<b>FISH</b>
+					</td>
+				</tr>
+			</table>
+			</apex:outputPanel>
+			<table  width="70%">
+				<tr>
+					<td width="50%">
+						<apex:inputField value="{!recObj.DAKO_Herceptest__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.DAKO_Herceptest__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/> <apex:outputLabel value="DAKO Herceptest:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!recObj.DAKO_Herceptest_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.DAKO_Herceptest_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+					</td>
+					<td width="50%">
+						<apex:inputField value="{!recObj.Ventana_Oncoprobe__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Ventana_Oncoprobe__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/> <apex:outputLabel value="Ventana Oncoprobe:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!recObj.Ventana_Oncoprobe_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Ventana_Oncoprobe_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<apex:inputField value="{!recObj.Other_IHC_Test__c}" id="Other_IHC_Test" rendered="{!IF((subFormLaterlity != 'right'), true, false)}" onclick="enableOtherTextBox('IHC', this);"/><apex:inputField value="{!recObjRight.Other_IHC_Test__c}" id="Other_IHC_Test_Right" rendered="{!IF((subFormLaterlity == 'right'), true, false)}" onclick="enableOtherTextBox('IHC', this);"/> <apex:outputLabel value="Other IHC Test:" /><apex:outputLabel value="Other IHC Results" style="padding-left: 70px;"/>
+					</td>
+					<td>
+						<apex:inputField value="{!recObj.Other_FISH_Test__c}" id="Other_FISH_Test" rendered="{!IF((subFormLaterlity != 'right'), true, false)}" onclick="enableOtherTextBox('FISH', this);"/><apex:inputField value="{!recObjRight.Other_FISH_Test__c}" id="Other_FISH_Test_Right" rendered="{!IF((subFormLaterlity == 'right'), true, false)}" onclick="enableOtherTextBox('FISH', this);"/> <apex:outputLabel value="Other FISH Test:" /><apex:outputLabel value="Other FISH Results" style="padding-left: 50px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<apex:inputField value="{!recObj.Other_IHC_Test_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Other_IHC_Test_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!recObj.Other_IHC_Results__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Other_IHC_Results__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+						<apex:outputPanel rendered="{!IF((subFormLaterlity != 'right'), true, false)}">
+							<script>
+								enableOtherTextBox('IHC', document.getElementById('{!$component.Other_IHC_Test}'));
+							</script>
+						</apex:outputPanel>
+						<apex:outputPanel rendered="{!IF((subFormLaterlity = 'right'), true, false)}">
+							<script>
+								enableOtherTextBox('IHC', document.getElementById('{!$component.Other_IHC_Test_Right}'));
+							</script>
+						</apex:outputPanel>
+					</td>
+					<td>
+						<apex:inputField value="{!recObj.Other_FISH_Test_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Other_FISH_Test_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!recObj.Other_IHC_Results__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Other_IHC_Results__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+						<apex:outputPanel rendered="{!IF((subFormLaterlity != 'right'), true, false)}">
+							<script>
+								enableOtherTextBox('FISH', document.getElementById('{!$component.Other_FISH_Test}'));
+							</script>
+						</apex:outputPanel>
+						<apex:outputPanel rendered="{!IF((subFormLaterlity = 'right'), true, false)}">
+							<script>
+								enableOtherTextBox('FISH', document.getElementById('{!$component.Other_FISH_Test_Right}'));
+							</script>
+						</apex:outputPanel>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<apex:inputField value="{!recObj.Ventana_kit__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Ventana_kit__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/> <apex:outputLabel value="Ventana kit:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!recObj.Ventana_kit_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Ventana_kit_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+					</td>
+					<td>
+						<apex:inputField value="{!recObj.FISH_test_not_done__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.FISH_test_not_done__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/><apex:outputLabel value="FISH test not done" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<apex:inputField value="{!recObj.CB_11__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.CB_11__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/> <apex:outputLabel value="CB-11" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!recObj.CB_11_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.CB_11_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/>
+					</td>
+					<td>
+						<apex:outputPanel rendered="{!IF(OR(subFormReceptors == 'Post Surgery Summary', subFormReceptors == 'Breast Surgical Procedure'), true, false)}"><apex:inputField value="{!recObj.Vysis_Path_Vision__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Vysis_Path_Vision__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/> <apex:outputLabel value="Vysis/Path Vision:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!recObj.Vysis_Path_Vision_Value__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.Vysis_Path_Vision_Value__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/></apex:outputPanel>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<apex:inputField value="{!recObj.IHC_test_not_done__c}" rendered="{!IF((subFormLaterlity != 'right'), true, false)}"/><apex:inputField value="{!recObjRight.IHC_test_not_done__c}" rendered="{!IF((subFormLaterlity == 'right'), true, false)}"/><apex:outputLabel value="IHC test not done" />
+					</td>
+				</tr>
+			</table>-->
+</apex:component>

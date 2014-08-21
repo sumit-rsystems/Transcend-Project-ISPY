@@ -1,0 +1,104 @@
+<apex:page standardController="Trial_CRF__c" extensions="AssociateTrialCRFController" id="pageId" sidebar="false" tabStyle="Associate_CRF_With_Trials__tab">
+<style>
+	.trialHead{
+		width: 10%;
+	}
+	
+	.crfHead{
+		width: 90%;
+	}
+</style>
+<script>
+	function enableCRF(obj) {
+		var trObj = obj.parentNode.parentNode;
+		var inputList = trObj.getElementsByTagName('input');
+		for(var i = 1; i<inputList.length; i++) {
+			if(obj.checked) {
+				inputList[i].disabled = false;
+			} else {
+				inputList[i].disabled = true;
+			}
+		}
+	}
+	
+	function validateTrialCRF() {
+		var inputList = document.getElementById('pageId:formId:pageBlockId:tableDiv').getElementsByTagName('input');
+		for(var i = 0; i<inputList.length; i++) {
+			if((inputList[i].id).indexOf(':trialCheckBox') != -1) {
+				if(inputList[i].checked) {
+					//alert(inputList[i].checked);
+					return true;
+				}
+			}
+		}
+	}
+</script>
+	<apex:form onsubmit="return validateTrialCRF();" id="formId">
+		<apex:pageBlock title="Associate CRF With Trial" id="pageBlockId">
+			<apex:pageBlockButtons >
+            	<apex:commandButton action="{!createAssociation}" value="Save" />
+<!--                <apex:actionStatus id="counterStatus" startText="Processing..." />-->
+            </apex:pageBlockButtons>
+			<apex:pageBlockSection columns="1" id="messageSection">
+				<apex:pageMessage summary="Association has been made successfully." severity="confirm" strength="3" rendered="{!isSuccessMsg}"/>
+				<!--<apex:pageBlockTable value="{!wrapTrialList}" var="trial" id="trialTable" width="100%">
+				
+				  ==============================make Trial column=============================    
+				    <apex:column headerClass="tableHead trialHead" style="vertical-align: top;">
+				        <apex:facet name="header">Trial</apex:facet>
+				        <apex:inputCheckbox value="{!trial.isChecked}"/>
+				        &nbsp;<apex:outputText value="{!trial.trialObj.Name}"/>
+				    </apex:column>
+				<apex:repeat value="{!trial.wrapCRFList}" var="crf">
+				  ==============================make CRF column=============================    
+				    <apex:column headerClass="tableHead crfHead" style="vertical-align: top;">
+				        <apex:facet name="header">CRF</apex:facet>
+					        <apex:inputCheckbox value="{!crf.isChecked}"/>
+					        &nbsp;<apex:outputText value="{!crf.CRFObj.CRFType__c}"/>
+				    </apex:column>
+				</apex:repeat>  
+				</apex:pageBlockTable>-->
+			</apex:pageBlockSection>
+			<apex:outputPanel layout="block" id="tableDiv" style="width:1281px; overflow-x:scroll; border: 1px solid #E0E3E5; padding: 1px;">
+				<table class="list" width="99%">
+					<thead class="rich-table-thead">
+						<tr class="headerRow ">
+							<th class="headerRow tableHead trialHead">Trial</th>
+							<th class="headerRow tableHead">CRF</th>
+						</tr>
+					</thead>
+					<tbody>
+					<apex:repeat value="{!wrapTrialList}" var="trial">
+						<tr class="dataRow" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}" onmouseout="if (window.hiOff){hiOff(this);} " onmouseover="if (window.hiOn){hiOn(this);} ">
+							<td class="dataCell" nowrap="nowrap"><apex:inputCheckbox id="trialCheckBox" value="{!trial.isChecked}" onchange="enableCRF(this);"/>&nbsp;<apex:outputText value="{!trial.trialObj.Name}"/></td>
+							<td class="dataCell">
+								<script>
+									var count = 0;
+								</script>
+								<table width="100%" cellpadding="0" cellspacing="0">
+									<tr>
+										<apex:repeat value="{!trial.wrapCRFList}" var="crf">
+											<td nowrap="nowrap">
+												<apex:inputCheckbox value="{!crf.isChecked}"/>&nbsp;<apex:outputText value="{!crf.CRFObj.CRFType__c}"/>
+											</td>
+											<script>
+												count++;
+												if(count%7 == 0) {
+													//alert(count);
+													document.write("</tr><tr>");
+												}
+											</script>
+											
+										</apex:repeat>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<script>enableCRF(document.getElementById('{!$Component.trialCheckBox}'));</script>
+					</apex:repeat>
+					</tbody>
+				</table>
+			</apex:outputPanel>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,90 @@
+<apex:page controller="DCCApprovalRequestListController" title="Approval Request" sideBar="false">
+<apex:form >	
+	<apex:outputLink value="/apex/DCCApprovalCSV?mode=csv&selectedReq={!selectedRequestStatus}&curPg={!currentPage}" target="_blank" style="float:right;">Export to CSV</apex:outputLink>
+	<br/><br/>
+	<apex:pageBlock >
+		<apex:pageBlockSection columns="4">
+			<apex:pageBlockSectionItem >
+				<apex:selectRadio value="{!selectedRequestStatus}">
+					<apex:selectOption itemValue="pending" itemLabel="Pending"/>
+					<apex:selectOption itemValue="approved" itemLabel="Approved"/>
+					<apex:selectOption itemValue="rejected" itemLabel="Rejected"/>
+					<apex:actionSupport event="onchange" action="{!changeStatus}" />
+				</apex:selectRadio>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputPanel >
+				Total Records: {!totalRecords}
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								Showing records from {!displayingFrom} to {!displayingTo}
+				</apex:outputPanel>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputPanel >
+					<apex:commandLink action="{!firstPage}" rendered="{!showFirstLink}">First</apex:commandlink>&nbsp;
+					<apex:outputText rendered="{!NOT(showFirstLink)}">First</apex:outputText>&nbsp;
+					<apex:commandLink action="{!prev}" rendered="{!showPrevLink}">Previous</apex:commandlink>&nbsp;
+					<apex:outputText rendered="{!NOT(showPrevLink)}">Previous</apex:outputText>&nbsp;
+					<apex:commandLink action="{!next}" rendered="{!showNextLink}">Next</apex:commandlink>&nbsp;
+					<apex:outputText rendered="{!NOT(showNextLink)}">Next</apex:outputText>&nbsp;
+					<apex:commandLink action="{!lastPage}" rendered="{!showLastLink}">Last</apex:commandlink>
+					<apex:outputText rendered="{!NOT(showLastLink)}">Last</apex:outputText>&nbsp;
+				</apex:outputPanel>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem dataStyle="vertical-align: middle;">
+				<apex:actionStatus startText="processing..." id="counterStatus"/>
+			</apex:pageBlockSectionItem>
+		</apex:pageBlockSection><apex:outputPanel id="appReqTable" >
+			<table width="100%" cellspacing="1">
+				<tr style="font-size: small; background-color: #2e84c5; color: #ffffff;">
+					<th>Action</th>
+                    <th>Type</th>
+                    <th>Institution</th>
+                    <th>Site</th>
+                    <th>Study</th>
+                    <th>Subject ID</th>
+                    <th>Submitted By</th>
+                    <th>Date Submitted</th>
+				</tr>
+				<apex:repeat value="{!appReqList}" var="app">
+					<tr class = "rowHoverColor" height="20px">
+						<td>
+							<apex:outputLink value="{!app.Approval_URL__c}" target="_blank" rendered="{!IF((app.Status__c = 'Pending'), true, false)}">Approve / Reject</apex:outputLink>
+		    		    	<apex:outputLink value="{!app.Approval_URL__c}" target="_blank" rendered="{!IF(NOT(app.Status__c = 'Pending'), true, false)}">View CRF</apex:outputLink>
+						</td>
+						<td>
+							<apex:outputLabel value="{!app.Object_Label__c}"/>
+						</td>
+						<td>
+							<apex:outputField value="{!app.Institution__r.Name}"/>
+						</td>
+						<td>
+							<apex:outputField value="{!app.Site__r.Name}"/>
+						</td>
+						<td>
+							<apex:outputField value="{!app.Study__r.Name}"/>
+						</td>
+						<td>
+							<apex:outputField value="{!app.Subject_Id__c}"/>
+						</td>
+						<td>
+							<apex:outputLabel value="{!app.CreatedBy.Name}"/>
+						</td>
+						<td>
+							<apex:outputText value="{0,date,MM'/'dd'/'yyyy' 'hh:mm a}"> <apex:param value="{!app.CreatedDate}" /> </apex:outputText>
+						</td>
+					</tr>
+				</apex:repeat>
+			</table>
+		</apex:outputPanel>
+	</apex:pageBlock>
+	<br/>
+	<apex:outputLink value="/apex/DCCApprovalCSV?mode=csv&selectedReq={!selectedRequestStatus}&curPg={!currentPage}" target="_blank" style="float:right;">Export to CSV</apex:outputLink>
+	<style>
+		.rowHoverColor:hover {
+		    background: #E3F3FF;
+		    
+		}
+	</style>
+</apex:form>
+</apex:page>

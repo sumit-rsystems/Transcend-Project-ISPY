@@ -1,0 +1,24 @@
+<apex:page controller="PreEligibilityConsent" sidebar="false">
+	<apex:form >
+		<apex:pageBlock Title="Patients">
+			<apex:pageblockTable cellpadding="5" cellspacing="1" width="100%" value="{!patientList}" var="p" rowClasses="odd,even">
+				<apex:column >
+			        <apex:facet name="header">Patient Created Date</apex:facet>
+			        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}"> <apex:param value="{!p.CreatedDate}" /> </apex:outputText>
+			    </apex:column>
+			    <apex:column >
+			        <apex:facet name="header">Institution</apex:facet>
+			        <apex:outputText value="{!p.Institute_Text__c}" />
+			    </apex:column>
+			    <apex:column >
+			        <apex:facet name="header">Pre-Eligibility last modified date</apex:facet>
+			        <apex:outputPanel rendered="{!IF(p.PreEligibility_Checklists__r.size > 0,true,false)}">
+						<apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+							<apex:param value="{!p.PreEligibility_Checklists__r[0].LastModifiedDate}" />
+						</apex:outputText>
+					</apex:outputPanel>
+			    </apex:column>
+			</apex:pageblockTable>
+		</apex:pageBlock>
+	</apex:form>	
+</apex:page>

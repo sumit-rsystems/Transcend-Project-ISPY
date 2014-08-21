@@ -1,0 +1,130 @@
+<apex:page sidebar="false" showheader="false">
+	<style>
+		.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+	</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete Blood Specimen form?</h2>
+	</apex:outputPanel>
+		<p>The Blood Specimen Tracking Form is completed every time a study blood collection is done.  This includes collection of study blood pre-treatment, early treatment, inter-regimen, and pre-surgery.</p>
+		<p>Completing this form generates specimen IDs that are used to label the samples that are collected.  Once this form is completed, the specimen IDs will appear in caTissue for that particular patient.</p>
+		<p><i><b>Send a copy of this CRF along with the samples to the I-SPY Lab.</b></i></p>
+		<p><i>To open the Blood Specimen Tracking Form, select the patient from the 'Patient' Tab; select 'Trial', click 'Submit New' for 'Blood Specimen Form.'</i></p>
+		<p><apex:image url="{!URLFOR($Resource.BloodSpecimenFormImages, 'BloodImage1.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Select the date the research blood was collected using the blue calendar button to the right of the data field. You can also manually enter the date in mm/dd/yyyy format. Future dates are not allowed.</li>
+			<li>Select the time point for which the blood samples corresponds to from the drop down list [Pre-treatment, Early treatment, Inter-regimen, OR Surgery].</li>
+			<li>For each blood specimen that was collected from the patient, check the corresponding checkboxes to indicate they were collected.  An unchecked box indicates that sample was not obtained from the patient.</li>
+			<li>For each blood specimen that was collected (check box is checked), indicate if the sample will be shipped to the I-SPY Lab [Yes OR No].  NOTE: if after collecting the blood this answer changes, mark it on the paper copy that is sent with the samples to the I-SPY Lab; the I-SPY Lab will make the necessary updates to caTissue.</li>
+			<li>If a sample was not shipped (answered No), select the reason why it wasn't from the drop down list [Spilled on floor, Thawed, OR Other-specify in text box].</li>
+			<li>If not all specimens listed were collected from the patient, select the reason why from the drop down list [Patient refused, OR Other-specify in text box].  </li>
+		</ul>
+		<p style="color:red;"><i>NOTE: if after completing this CRF this answer changes, mark it on the paper copy that is sent with the samples to the I-SPY Lab; the I-SPY Lab will make the necessary updates to caTissue.</i></p>
+		<p><i>Select 'Next' to advance to the 'Consent' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.BloodSpecimenFormImages, 'BloodImage2.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Check the checkboxes that correspond to the patient's choice about using their specimens for research as indicated in her consent form. An unchecked checkbox indicates the patient did not give their consent.</li>
+			<li>If a Tissue Specimen or Blood Specimen Tracking Form has already been completed, this will automatically be populated.  If a patient removes either of her consents, indicate this status here by un-checking the checked checkbox.</li>
+		</ul>
+		<p><i>Select 'Next' to advance to the 'Comment &amp; Attachments' tab.</i></p>
+		<p>There is no requirement to attach any source documents to this CRF, but if you feel it necessary to attach anything for your own records, feel free to do so.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+		<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.BloodSpecimenFormImages, 'BloodImage3.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to update the incorrect information.</li>
+			<li>When you are ready to finalize the CRF (which then assigns the Specimen IDs to each specimen) enter your password and select ‘Sign and Submit’.</li>
+		</ul>
+		<h3><b>REFERENCE BLOOD SPECIMEN IDS:</b></h3>
+		<hr />
+		<p>If you need to label a cryovial the day before the Blood Specimen Form can be completed, you can do so by using this labeling schema.  NOTE- A copy of the Blood Specimen Form MUST still be sent to the lab along with the specimens AND the IDs on the cryovial and the Form must match!</p>
+		<table style="border: 1px solid #000; width: 100%;" cellpadding="0" cellspacing="0">
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000; background-color: #DBD9D9;"><b>Collection Time Point</b></td>
+			<td style="border-bottom: 1px solid #000; background-color: #DBD9D9;"><b>Blood Specimen ID</b></td>
+		</tr>
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Pre-Treatment, Serum</td>
+			<td style="border-bottom: 1px solid #000;">I-SPY 2 Patient ID (5-digits)+ 041, 042, 043
+														eg. 12345041, 12345042, 12345043
+			</td>
+		</tr>
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Pre-Treatment, Plasma</td>
+			<td style="border-bottom: 1px solid #000;">I-SPY 2 Patient ID (5-digits)+ 051, 052, 053
+														eg. 12345051, 12345052, 12345053
+			</td>
+		</tr>
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Pre-Treatment, Buffy Coat</td>
+			<td style="border-bottom: 1px solid #000;">I-SPY 2 Patient ID (5-digits)+ 061, 062
+				eg. 12345061, 12345062
+
+			</td>
+		</tr>
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Early Treatment, Serum</td>
+			<td style="border-bottom: 1px solid #000;">I-SPY 2 Patient ID (5-digits)+ 141, 142, 143
+														eg. 12345141, 12345142, 12345143
+			</td>
+		</tr>
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Early Treatment, Plasma</td>
+			<td style="border-bottom: 1px solid #000;">I-SPY 2 Patient ID (5-digits)+ 151, 152, 153
+														eg. 12345151, 12345152, 12345153
+			</td>
+		</tr>
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Early Treatment, Buffy Coat</td>
+			<td style="border-bottom: 1px solid #000;">I-SPY 2 Patient ID (5-digits)+ 161, 162
+														eg. 12345161, 12345162
+			</td>
+		</tr>
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Inter-Regimen, Serum</td>
+			<td style="border-bottom: 1px solid #000;">I-SPY 2 Patient ID (5-digits)+ 241, 242, 243
+														eg. 12345241, 12345242, 12345243
+			</td>
+		</tr>
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Inter-Regimen, Plasma</td>
+			<td style="border-bottom: 1px solid #000;">I-SPY 2 Patient ID (5-digits)+ 251, 252, 253
+														eg. 12345251, 12345252, 12345253
+			</td>
+		</tr>
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Inter-Regimen, Buffy Coat</td>
+			<td style="border-bottom: 1px solid #000;">I-SPY 2 Patient ID (5-digits)+ 261, 262
+														eg. 12345261, 12345262
+			</td>
+		</tr>
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Pre-Surgery, Serum</td>
+			<td style="border-bottom: 1px solid #000;">I-SPY 2 Patient ID (5-digits)+ 341, 342, 343
+														eg. 12345341, 12345342, 12345343
+			</td>
+		</tr>
+		<tr>
+			<td style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Pre-Surgery, Plasma</td>
+			<td style="border-bottom: 1px solid #000;">I-SPY 2 Patient ID (5-digits)+ 351, 352, 353
+														eg. 12345351, 12345352, 12345353
+			</td>
+		</tr>
+		<tr>
+			<td style="border-right: 1px solid #000;">Pre-Surgery, Buffy Coat</td>
+			<td>I-SPY 2 Patient ID (5-digits)+ 361, 362
+														eg. 12345361, 12345362
+			</td>
+		</tr>
+	</table>
+	<br /> <br />
+	</apex:outputPanel>
+</apex:page>

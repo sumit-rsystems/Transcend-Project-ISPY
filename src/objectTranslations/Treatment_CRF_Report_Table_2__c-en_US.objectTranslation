@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Treatment CRF Report Table 2</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Treatment CRF Report Table 2</value>
+    </caseValues>
+    <fields>
+        <label><!-- Chemo Summary Approved --></label>
+        <name>Chemo_Summary_Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- Chemo Summary Submitted --></label>
+        <name>Chemo_Summary_Submitted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Follow Up Approved --></label>
+        <name>Follow_Up_Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- Follow Up Submitted --></label>
+        <name>Follow_Up_Submitted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lost To Follow Up Approved --></label>
+        <name>Lost_To_Follow_Up_Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lost To Follow Up Submitted --></label>
+        <name>Lost_To_Follow_Up_Submitted__c</name>
+    </fields>
+    <fields>
+        <label><!-- No Longer Lost F/U Approved --></label>
+        <name>No_Longer_Lost_F_U_Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- No Longer Lost F/U Submitted --></label>
+        <name>No_Longer_Lost_F_U_Submitted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Request --></label>
+        <name>Report_Request__c</name>
+        <relationshipLabel><!-- Treatment CRF Report Table 2 --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Response Eval Inter Reg Approved --></label>
+        <name>Response_Eval_Inter_Reg_Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- Response Eval Inter Reg Submitted --></label>
+        <name>Response_Eval_Inter_Reg_Submitted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Response Eval Pre Surg Approved --></label>
+        <name>Response_Eval_Pre_Surg_Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- Response Eval Pre Surg Submitted --></label>
+        <name>Response_Eval_Pre_Surg_Submitted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trial Site Name --></label>
+        <name>Trial_Site_Name__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

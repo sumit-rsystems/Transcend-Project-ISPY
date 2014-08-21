@@ -1,0 +1,119 @@
+<apex:page controller="patientsViewTab" id="pageId" sidebar="false" title="Patient List" tabStyle="Patient_Custom__c">
+<head>
+	<title>Patients List</title>
+</head>
+	<script src="http://jrealty.org/jquery-ui/development-bundle/jquery-1.5.1.js"></script>	
+	<script type="text/javascript">       
+        var temp = ''; 
+    	var submit = ''; 
+		function decideAndSubmit() {
+		    if(temp) {
+		        if(!submit){
+		            //submit=true;
+		            return false;
+		        } else {
+		            temp = false;
+		            return true;
+		        }
+		    } else {
+		        return false;
+		    }
+		}
+		
+		function setSubmit() {
+	        submit = true;
+	        temp = true;
+		}
+		
+		function unsetSubmit() {
+	        submit = false;
+		}	
+
+    </script>
+    <style>
+        
+    	table#tblReport tr th{
+            border-top: 2px solid #90A8D7;   
+            background-color: #dce6f2;
+            height: 23px;            
+        }
+        
+        table#tblReport tr td{
+            font-size: 13px;                                          
+        }
+         
+        table#tblReportOut tr td a{
+            text-decoration: none;
+            color: black;
+            font-size: 12px;
+        }               
+        
+    </style>  
+	<apex:form id="formId" onsubmit="return decideAndSubmit">
+        <apex:actionFunction action="{!GoToPageNumber}" name="GoToPageNumber" reRender="pnlPropertyList,pnlPageShown,pnlPagination" status="splashStatus"></apex:actionFunction>
+        <apex:actionFunction action="{!ReviewSearch}" name="ReviewSearch" reRender="pnlPropertyList,pnlPageShown,pnlPagination" status="splashStatus"></apex:actionFunction>
+         <table width="100%">
+    			<tr>
+    				<td align="center">
+    					<apex:commandButton value="New Patient" action="/apex/patient"></apex:commandButton>	
+    				</td>
+    			</tr>
+    		</table>
+       	<div style="border: 1px solid #D7D7D7;border-radius:10px;width: 95%;margin: 10px auto auto auto;margin-bottom: 10px;">
+    		<table width="100%" cellpadding="0" cellspacing="0" style="padding-top: 15px;">
+    			<tr>
+<!--    				<td style="padding-left: 20px;padding-bottom: 20px;font-size: 13px;padding-left: 30px;" width="30%">-->
+<!--       					Search&nbsp;<apex:inputText value="{!strSearch}" onkeyup="SetTimer(event);setSubmit();" style="width:70%;" id="txtSearch"></apex:inputText>-->
+<!--       				</td>	        -->
+		       		<td style="padding-bottom: 20px;" align="center" width="40%">
+		       			<apex:outputPanel id="pnlPagination">
+		        			<apex:commandLink value="<< First   " onclick="setSubmit();" action="{!GoToFirstPage}" reRender="pnlPropertyList,pnlPageShown,pnlPagination" status="splashStatus" onmouseover="this.style.color='blue';this.style.fontWeight='bold';" onmouseout="this.style.color='black';this.style.fontWeight='normal';" rendered="{!hasRecords}"></apex:commandLink>&nbsp;&nbsp;
+		        			<apex:commandLink value="< Previous    " onclick="setSubmit();" rendered="{!isPreviousDisable}" action="{!GoToPreviousPage}" reRender="pnlPropertyList,pnlPageShown,pnlPagination" status="splashStatus" onmouseover="this.style.color='blue';this.style.fontWeight='bold';" onmouseout="this.style.color='black';this.style.fontWeight='normal';"></apex:commandLink> 
+		        			<b><apex:outputText value="GoToPage" rendered="{!hasRecords}" style="font-size: 12px;"></apex:outputText></b>&nbsp;<apex:selectList value="{!currentPageNumber}" size="1" onchange="setSubmit();GoToPageNumber();" rendered="{!hasRecords}"><apex:selectOptions value="{!lstPageNumber}"></apex:selectOptions></apex:selectList>&nbsp;&nbsp;
+		        			<apex:commandLink value="Next >    " onclick="setSubmit();" rendered="{!isNextDisable}" action="{!GoToNextPage}" reRender="pnlPropertyList,pnlPageShown,pnlPagination" status="splashStatus" onmouseover="this.style.color='blue';this.style.fontWeight='bold';" onmouseout="this.style.color='black';this.style.fontWeight='normal';"></apex:commandLink>&nbsp;&nbsp; 
+		        			<apex:commandLink value="Last >>" rendered="{!hasRecords}" onclick="setSubmit();" action="{!GoToLastPage}" reRender="pnlPropertyList,pnlPageShown,pnlPagination" status="splashStatus" onmouseover="this.style.color='blue';this.style.fontWeight='bold';" onmouseout="this.style.color='black';this.style.fontWeight='normal';"></apex:commandLink>
+		       			</apex:outputPanel> 	
+		       		</td>	
+		       		<td style="padding-bottom: 20px;font-size: 13px;" align="center" width="30%">
+		       			<apex:outputPanel id="pnlPageShown" >
+		        			<apex:outputPanel rendered="{!hasRecords}">
+		        				Current showing {!fromRecord} to {!toRecord} of {!totalRecord} Patients.
+		        			</apex:outputPanel>
+		       			</apex:outputPanel>
+		       		</td>
+    			</tr>
+    		</table>
+    	</div>
+    		<apex:outputPanel id="pnlPropertyList">	        										        								        			
+	    		<table id="tblReport" cellpadding="2" cellspacing="0" width="95%" border = "0" style="margin: 0px auto auto auto; " >                                                
+					<tr>
+						<th align="left" width="15%">
+		                	<apex:outputLabel value="Patient Name" ></apex:outputLabel>
+						</th>
+		                <th align="left" width="10%">
+		                	<apex:outputLabel value="Institution" ></apex:outputLabel>
+						</th>
+		                <th align="left" width="7%">
+		                	<apex:outputLabel value="Status"></apex:outputLabel>
+		                </th>
+					</tr> 
+					<apex:repeat value="{!patientList}" var="pat">
+        		    <tr style="height: 25px; cursor: pointer;" >
+                		<td style = "border-bottom:1px solid black" >
+                			<apex:outputLink value="/{!pat.Id}" >{!pat.Name}</apex:outputLink>
+                		</td>
+                    	<td style = "border-bottom:1px solid black" >
+                    		<apex:outputText value="{!pat.Institution__r.Name}"></apex:outputText>&nbsp;
+                    	</td>
+                    	<td style = "border-bottom:1px solid black" >
+                    		<apex:outputText value="{!pat.Status__c}"></apex:outputText>&nbsp;
+                    	</td>
+					</tr>
+				</apex:repeat>
+    		</table>
+    	</apex:outputPanel>	 
+	</apex:form>
+	<style>
+		#tblReport tr:hover{background-color: #EEE8F5;} 
+	</style>
+</apex:page>

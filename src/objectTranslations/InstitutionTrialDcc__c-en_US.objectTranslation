@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>InstitutionTrialDcc</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>InstitutionTrialDccs</value>
+    </caseValues>
+    <fields>
+        <label><!-- DCC Name --></label>
+        <name>DCC_Id__c</name>
+        <relationshipLabel><!-- InstitutionTrialDccs (DCC Id) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Institution Name --></label>
+        <name>Institution_Id__c</name>
+        <relationshipLabel><!-- InstitutionTrialDccs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Trial Name --></label>
+        <name>Trial_Id__c</name>
+        <relationshipLabel><!-- InstitutionTrialDccs --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>InstitutionTrialDcc Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

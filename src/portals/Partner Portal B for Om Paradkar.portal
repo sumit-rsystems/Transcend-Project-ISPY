@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Portal xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <admin>2pmao@ucdavis.edu</admin>
+    <description>Partner Portal B for Om Paradkar</description>
+    <emailSenderAddress>pmao@ucdavis.edu</emailSenderAddress>
+    <emailSenderName>2pmao@ucdavis.edu</emailSenderName>
+    <enableSelfCloseCase>false</enableSelfCloseCase>
+    <forgotPassTemplate>unfiled$public/ChangePwdEmail</forgotPassTemplate>
+    <isSelfRegistrationActivated>false</isSelfRegistrationActivated>
+    <logoDocument>SharedDocuments/Logo.jpg</logoDocument>
+    <newPassTemplate>unfiled$public/ChangePwdEmail</newPassTemplate>
+    <newUserTemplate>unfiled$public/NewUserEmail</newUserTemplate>
+    <showActionConfirmation>true</showActionConfirmation>
+    <type>Partner</type>
+</Portal>

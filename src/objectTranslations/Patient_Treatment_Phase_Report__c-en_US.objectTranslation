@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Patient Treatment Phase Report</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Patient Treatment Phase Reports</value>
+    </caseValues>
+    <fields>
+        <label><!-- Consent Date --></label>
+        <name>Consent_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- FirstAcTreatment --></label>
+        <name>FirstAcTreatment__c</name>
+    </fields>
+    <fields>
+        <label><!-- FirstPaclitaxelTreatment --></label>
+        <name>FirstPaclitaxelTreatment__c</name>
+    </fields>
+    <fields>
+        <label><!-- First AC Treatment Date --></label>
+        <name>First_AC_Treatment_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Paclit Treatment Date --></label>
+        <name>First_Paclit_Treatment_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- ISPY2ID --></label>
+        <name>ISPY2ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastAcCycle --></label>
+        <name>LastAcCycle__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastAcTreatment --></label>
+        <name>LastAcTreatment__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastPaclitaxelCycle --></label>
+        <name>LastPaclitaxelCycle__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastPaclitaxelTreatment --></label>
+        <name>LastPaclitaxelTreatment__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last AC Treatment Cycle --></label>
+        <name>Last_AC_Treatment_Cycle__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last AC Treatment Date --></label>
+        <name>Last_AC_Treatment_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Paclit Treatment Cycle --></label>
+        <name>Last_Paclit_Treatment_Cycle__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Paclit Treatment Date --></label>
+        <name>Last_Paclit_Treatment_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lost To Followup --></label>
+        <name>Lost_To_Followup__c</name>
+    </fields>
+    <fields>
+        <label><!-- LosttoFollowup --></label>
+        <name>LosttoFollowup__c</name>
+    </fields>
+    <fields>
+        <label><!-- MostRecentFollowup --></label>
+        <name>MostRecentFollowup__c</name>
+    </fields>
+    <fields>
+        <label><!-- Most Recent Followup --></label>
+        <name>Most_Recent_Followup__c</name>
+    </fields>
+    <fields>
+        <label><!-- OffStudyReason --></label>
+        <name>OffStudyReason__c</name>
+    </fields>
+    <fields>
+        <label><!-- OffStudy --></label>
+        <name>OffStudy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Off Study Reason --></label>
+        <name>Off_Study_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Request --></label>
+        <name>Report_Request__c</name>
+        <relationshipLabel><!-- Patient Treatment Phase Reports --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- SubjectId --></label>
+        <name>SubjectId__c</name>
+    </fields>
+    <fields>
+        <label><!-- SurgeryDate --></label>
+        <name>SurgeryDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Surgery Date --></label>
+        <name>Surgery_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- TreatmentConsentDate --></label>
+        <name>TreatmentConsentDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- TrialSite --></label>
+        <name>TrialSite__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trial Site Name --></label>
+        <name>Trial_Site_Name__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

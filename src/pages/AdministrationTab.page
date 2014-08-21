@@ -1,0 +1,130 @@
+<apex:page sidebar="false" >
+    <apex:form >
+        <apex:pageBlock title="Manage Institute">
+            <apex:pageBlockSection columns="3">
+                <apex:outputLink value="/001"  style="font-size: 12px;" >
+                  <apex:image value="/s.gif"  style="padding-right: 10px; background-image: url(/img/sprites/master.png); background-position: 0 -362px; height: 20px; width: 20px;"></apex:image>Institutes
+                </apex:outputLink>
+                <apex:outputLink value="/a0i" style="font-size: 12px;" >
+                    <apex:image value="/img/icon/bank32.png" style="width: 20px; padding-right: 10px;"></apex:image>Sites
+                </apex:outputLink>
+                <apex:outputLink value="/003" style="font-size: 12px;">
+                    <apex:image value="/s.gif"  style=" padding-right: 10px; background-image: url(/img/sprites/master.png); background-position: 0 -502px; height: 20px; width: 20px;"></apex:image>Study Staff (non-users)
+                </apex:outputLink>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock title="Manage Trials">
+            <apex:pageBlockSection columns="3">
+                <apex:outputLink value="/a0p" style="font-size: 12px;" >
+                    <apex:image value="/s.gif"  style=" padding-right: 10px; background-image: url(/img/sprites/master.png);background-position: 0 -698px;width: 20px;height: 20px;"></apex:image>Trials
+                </apex:outputLink>
+                <apex:outputLink value="/apex/AssociateTrialCRF?sfdc.tabName=01rE0000000QN1U" style="font-size: 12px;" >
+                    <apex:image value="/img/icon/wrench24.png"  style=" padding-right: 8px;"></apex:image>Associate CRF With Trials
+                </apex:outputLink>
+                <apex:outputLink value="/a07" style="font-size: 12px;" >
+                    <apex:image value="/img/icon/custom51_100/cup24.png" style=" padding-right: 8px;"></apex:image>CRF Master
+                </apex:outputLink>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock title="Manage Master Data">
+            <apex:pageBlockSection columns="3">
+                <apex:outputLink value="/a0b" style="font-size: 12px;">
+                    <apex:image value="/s.gif"  style=" padding-right: 10px; background-image: url(/img/sprites/master.png); background-position: 0 -670px; height: 20px; width: 20px;"></apex:image>Flexible Question Scheme
+                </apex:outputLink> 
+                <apex:outputLink value="/a0w" style="font-size: 12px;">
+                    <apex:image value="/img/icon/square24.png" style=" padding-right: 10px;"></apex:image>Agents
+                </apex:outputLink>  
+                <apex:outputLink value="/a0t" style="font-size: 12px;">
+                    <apex:image value="/img/icon/computer24.png" style=" padding-right: 8px;"></apex:image>Toxicities
+                </apex:outputLink> 
+                <apex:outputLink value="/a0y" style="font-size: 12px;">
+                    <apex:image value="/img/icon/custom51_100/compass24.png"  style=" padding-right: 10px;"></apex:image>Allergies
+                </apex:outputLink>
+                <apex:outputLink value="/a14" style="font-size: 12px;">
+                    <apex:image value="/s.gif"  style=" padding-right: 10px; background-image: url(/img/sprites/master.png); background-position: 0 -586px; height: 20px; width: 20px;"></apex:image>Diagnosis
+                </apex:outputLink>
+                <apex:outputLink value="/a03" style="font-size: 12px;">
+                    <apex:image value="/img/icon/box24.png"  style=" padding-right: 10px;"></apex:image>Arms
+                </apex:outputLink>
+                <apex:outputLink value="/a0s" style="font-size: 12px;">
+                    <apex:image value="/img/icon/desk24.png" style=" padding-right: 8px;"></apex:image>Symptoms Masters
+                </apex:outputLink>
+                <apex:outputLink value="/a1N" style="font-size: 12px;">
+                    <apex:image value="/img/icon/custom51_100/castle24.png"  style=" padding-right: 8px;"></apex:image>Toxicity Agents
+                </apex:outputLink>
+                <apex:outputLink value="/a0x" style="font-size: 12px;">
+                    <apex:image value="/img/icon/custom51_100/bottle24.png" style=" padding-right: 8px;"></apex:image>Allergy Masters
+                </apex:outputLink>
+                <apex:outputLink value="/a19"  style="font-size: 12px;">
+                    <apex:image value="/img/icon/custom51_100/compass24.png"  style=" padding-right: 10px;"></apex:image>Chemo Regimen Agents
+                </apex:outputLink>
+                <apex:outputLink value="/a1A" style="font-size: 12px;">
+                    <apex:image value="/s.gif"  style=" padding-right: 10px;padding-right: 10px; background-image: url(/img/sprites/master.png); background-position: 0 -754px; height: 20px; width: 20px;"></apex:image>Chemo Regimens
+                </apex:outputLink>
+                <apex:outputLink value="/a11" style="font-size: 12px;">
+                    <apex:image value="/img/icon/circle24.png"  style=" padding-right: 8px;"></apex:image>Chemo Therapy Regimens
+                </apex:outputLink>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock title="Reports">
+            <apex:pageBlockSection columns="3"> 
+                <apex:outputLink value="/apex/SummaryReport" style="font-size: 12px;" >
+                    <apex:image value="/s.gif"  style="padding-right: 10px; background-image: url(/img/sprites/master.png); background-position: 0 -362px; height: 20px; width: 20px;"></apex:image>Trial Summary Report
+                </apex:outputLink>
+                <apex:outputLink value="/apex/PatientSummaryReportPage" style="font-size: 12px;" >
+                    <apex:image value="/img/icon/factory32.png" style="width: 20px; padding-right: 10px;"></apex:image>Patient Summary Report 
+                </apex:outputLink>
+                <apex:outputLink value="/apex/AdverseEventReportPage" style="font-size: 12px;">
+                    <apex:image value="/img/icon/circle24.png"  style=" padding-right: 8px;"></apex:image>Adverse Event Report
+                </apex:outputLink>
+                <apex:outputLink value="/apex/caIntegratorDataTransPage" style="font-size: 12px;">
+                    <apex:image value="/img/icon/circle24.png"  style=" padding-right: 8px;"></apex:image>caIntegrator File
+                </apex:outputLink>
+                <apex:outputPanel ></apex:outputPanel>
+                <apex:outputPanel ></apex:outputPanel>
+            </apex:pageBlockSection>  
+        </apex:pageBlock>
+        <apex:pageBlock title="Others">
+            <apex:pageBlockSection columns="3">  
+                <apex:outputLink value="/001" style="font-size: 12px;" >  
+                    <apex:image value="/s.gif"  style="padding-right: 10px; background-image: url(/img/sprites/master.png); background-position: 0 -362px; height: 20px; width: 20px;"></apex:image>DCC Groups
+                </apex:outputLink>
+                <apex:outputLink value="/apex/AssociateInstitutionUser?sfdc.tabName=01rE0000000QC6Y" style="font-size: 12px;" >
+                    <apex:image value="/s.gif"  style=" padding-right: 10px;background-image: url(/img/sprites/master.png); background-position: 0 -838px; height: 20px; width: 20px;"></apex:image>Associate Site Users
+                </apex:outputLink>
+                <apex:outputLink value="/apex/LabUserAssociationPage" style="font-size: 12px;" >
+                    <apex:image value="/s.gif"  style=" padding-right: 10px;background-image: url(/img/sprites/master.png); background-position: 0 -838px; height: 20px; width: 20px;"></apex:image>Associate Lab Users
+                </apex:outputLink>
+                <apex:outputLink value="/a0c" style="font-size: 12px;">
+                    <apex:image value="/img/icon/desk24.png" style=" padding-right: 10px;"></apex:image>Randomization Properties
+                </apex:outputLink>
+                <apex:outputLink value="/apex/UploadCSVForTestHarness?sfdc.tabName=01rE0000000QUxK" style="font-size: 12px;">
+                    <apex:image value="/img/icon/custom51_100/buildingBlock24.png" style=" padding-right: 8px;"></apex:image>Test Harness
+                </apex:outputLink>
+                <apex:outputLink value="/apex/CrfXMLSelectionPage?sfdc.tabName=01rE0000000QUxK" style="font-size: 12px;">
+                    <apex:image value="/img/icon/desk24.png" style=" padding-right: 6px;"></apex:image>Configure Integration XML
+                </apex:outputLink>
+                <apex:outputPanel rendered="{!IF($Profile.Name == 'Trial Administrator' || $Profile.Name == 'Institute Level Admin' || $Profile.Name == 'System Administrator' , true,false)}">
+                    <apex:outputLink value="/apex/EnablePatientInPortal" style="font-size: 12px;">
+                        <apex:image value="/img/icon/custom51_100/compass24.png" style=" padding-right: 6px;"></apex:image>Enable/Disable Patient Portal Access
+                    </apex:outputLink>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!IF($Profile.Name == 'Trial Administrator' || $Profile.Name == 'Institute Level Admin' || $Profile.Name == 'System Administrator' , true,false)}">
+                    <apex:outputLink value="/apex/ReviewFailedTransaction" style="font-size: 12px;">
+                        <apex:image value="/img/icon/custom51_100/castle24.png" style=" padding-right: 6px;"></apex:image>Review Failed Transactions
+                    </apex:outputLink>
+                </apex:outputPanel>
+                <apex:outputLink value="/apex/ViewPatientXML" style="font-size: 12px;">
+                        <apex:image value="/img/icon/factory32.png" style=" padding-right: 6px;"></apex:image>Patient Trial Summary Note
+                 </apex:outputLink>
+                <!--<apex:outputPanel >
+                    <apex:outputLink value="/apex/ScheduleCRF" style="font-size: 12px;">
+                        <apex:image value="/img/icon/alarmClock24.png" style="padding-right: 6px;"></apex:image>Schedule CRFs
+                    </apex:outputLink>
+                </apex:outputPanel>
+                --><apex:outputPanel />
+                <apex:outputPanel />
+            </apex:pageBlockSection>  
+        </apex:pageBlock>
+      </apex:form>
+</apex:page>

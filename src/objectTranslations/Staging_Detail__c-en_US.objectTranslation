@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Staging Detail</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Staging Details</value>
+    </caseValues>
+    <fields>
+        <label><!-- Adjudicated By --></label>
+        <name>Adjudicated_By__c</name>
+        <relationshipLabel><!-- Staging Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Adjudicated Stage --></label>
+        <name>Adjudicated_Stage__c</name>
+        <picklistValues>
+            <masterLabel>Stage 0</masterLabel>
+            <translation><!-- Stage 0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stage I</masterLabel>
+            <translation><!-- Stage I --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stage IA</masterLabel>
+            <translation><!-- Stage IA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stage IB</masterLabel>
+            <translation><!-- Stage IB --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stage IIA</masterLabel>
+            <translation><!-- Stage IIA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stage IIB</masterLabel>
+            <translation><!-- Stage IIB --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stage IIIA</masterLabel>
+            <translation><!-- Stage IIIA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stage IIIB</masterLabel>
+            <translation><!-- Stage IIIB --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stage IIIC</masterLabel>
+            <translation><!-- Stage IIIC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stage IV</masterLabel>
+            <translation><!-- Stage IV --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Calculated Stage Value --></label>
+        <name>Calculated_Stage_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Calculated Stage --></label>
+        <name>Calculated_Stage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Letarality --></label>
+        <name>Letarality__c</name>
+        <picklistValues>
+            <masterLabel>Left</masterLabel>
+            <translation><!-- Left --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Right</masterLabel>
+            <translation><!-- Right --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Metastasis --></label>
+        <name>Metastasis__c</name>
+        <picklistValues>
+            <masterLabel>M0</masterLabel>
+            <translation><!-- M0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>M1</masterLabel>
+            <translation><!-- M1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MX</masterLabel>
+            <translation><!-- MX --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- y-classification done during/following initial therapy --></help>
+        <label><!-- Modifier classification done --></label>
+        <name>Modifier_classification_done__c</name>
+    </fields>
+    <fields>
+        <help><!-- a-designates the staging done at autopsy --></help>
+        <label><!-- Modifier designates --></label>
+        <name>Modifier_designates__c</name>
+    </fields>
+    <fields>
+        <help><!-- r-indicates a recurrent tumor --></help>
+        <label><!-- Modifier indicates recurrent --></label>
+        <name>Modifier_indicates_recurrent__c</name>
+    </fields>
+    <fields>
+        <help><!-- m-multiple primary tumors in a single site --></help>
+        <label><!-- Modifier multiple primary --></label>
+        <name>Modifier_multiple_primary__c</name>
+    </fields>
+    <fields>
+        <label><!-- Node Type --></label>
+        <name>Node_Type__c</name>
+        <picklistValues>
+            <masterLabel>N0</masterLabel>
+            <translation><!-- N0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N0i+</masterLabel>
+            <translation><!-- N0i+ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N0i-</masterLabel>
+            <translation><!-- N0i- --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N1a</masterLabel>
+            <translation><!-- N1a --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N1b</masterLabel>
+            <translation><!-- N1b --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N1mic</masterLabel>
+            <translation><!-- N1mic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N2a</masterLabel>
+            <translation><!-- N2a --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N2b</masterLabel>
+            <translation><!-- N2b --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N3a</masterLabel>
+            <translation><!-- N3a --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N3b</masterLabel>
+            <translation><!-- N3b --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N3c</masterLabel>
+            <translation><!-- N3c --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX</masterLabel>
+            <translation><!-- NX --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Patient --></label>
+        <name>Patient__c</name>
+        <relationshipLabel><!-- Staging Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Post Surgery Summary --></label>
+        <name>Post_Surgery_Summary__c</name>
+        <relationshipLabel><!-- Staging Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Staging Modifier Type --></label>
+        <name>Staging_Modifier_Type__c</name>
+        <picklistValues>
+            <masterLabel>Clinical Staging</masterLabel>
+            <translation><!-- Clinical Staging --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pathological Staging</masterLabel>
+            <translation><!-- Pathological Staging --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- T4 Tumor final status --></label>
+        <name>T4_Tumor_final_status__c</name>
+        <picklistValues>
+            <masterLabel>Chest wall</masterLabel>
+            <translation><!-- Chest wall --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inflammatory</masterLabel>
+            <translation><!-- Inflammatory --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No skin involvement</masterLabel>
+            <translation><!-- No skin involvement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Skin and chest wall</masterLabel>
+            <translation><!-- Skin and chest wall --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Skin only</masterLabel>
+            <translation><!-- Skin only --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Tumor Type --></label>
+        <name>Tumor_Type__c</name>
+        <picklistValues>
+            <masterLabel>T0</masterLabel>
+            <translation><!-- T0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T1a</masterLabel>
+            <translation><!-- T1a --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T1b</masterLabel>
+            <translation><!-- T1b --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T1c</masterLabel>
+            <translation><!-- T1c --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T1mic</masterLabel>
+            <translation><!-- T1mic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T2</masterLabel>
+            <translation><!-- T2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T3</masterLabel>
+            <translation><!-- T3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T4a</masterLabel>
+            <translation><!-- T4a --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T4b</masterLabel>
+            <translation><!-- T4b --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T4c</masterLabel>
+            <translation><!-- T4c --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T4d</masterLabel>
+            <translation><!-- T4d --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TX</masterLabel>
+            <translation><!-- TX --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tis</masterLabel>
+            <translation><!-- Tis --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- pg_StagingDetail_Id --></label>
+        <name>pg_StagingDetail_Id__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

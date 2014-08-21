@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>InstitutionUser</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>InstitutionUsers</value>
+    </caseValues>
+    <fields>
+        <label><!-- First Name --></label>
+        <name>First_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Institution --></label>
+        <name>Institution__c</name>
+        <relationshipLabel><!-- Institution Users --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- IsInstituteAdmin --></label>
+        <name>IsInstituteAdmin__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Name --></label>
+        <name>Last_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Site --></label>
+        <name>Site__c</name>
+        <relationshipLabel><!-- InstitutionUsers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Trial --></label>
+        <name>Trial__c</name>
+        <relationshipLabel><!-- InstitutionUsers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- User --></label>
+        <name>User__c</name>
+        <relationshipLabel><!-- InstitutionUsers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- isInstituteCalender --></label>
+        <name>isInstituteCalender__c</name>
+    </fields>
+    <layouts>
+        <layout>InstitutionUser Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

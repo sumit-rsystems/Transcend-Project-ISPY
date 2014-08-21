@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Additional_Nodes__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Additional Nodes</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Axillary_Nodes__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Axillary Nodes</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Cluster_Detection_Result__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Cluster Detection Result</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Detection_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Detection Result</label>
+        <picklist>
+            <picklistValues>
+                <fullName>single</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>cluster</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>focus</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not reported</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Examined__c</fullName>
+        <externalId>false</externalId>
+        <label>Examined</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Extramodal_Extension__c</fullName>
+        <externalId>false</externalId>
+        <label>Extramodal Extension</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Reported</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Focus_Detection_Result__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Focus Detection Result</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Letarality__c</fullName>
+        <externalId>false</externalId>
+        <label>Letarality</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Left</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Right</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <externalId>false</externalId>
+        <label>Location</label>
+        <picklist>
+            <controllingField>Node_Checkbox_Value__c</controllingField>
+            <picklistValues>
+                <fullName>Unknown/not indicated</fullName>
+                <controllingFieldValues>Additional Nodes</controllingFieldValues>
+                <controllingFieldValues>Sentinel Nodes</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Supraclavicular</fullName>
+                <controllingFieldValues>Additional Nodes</controllingFieldValues>
+                <controllingFieldValues>Sentinel Nodes</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Axillary</fullName>
+                <controllingFieldValues>Additional Nodes</controllingFieldValues>
+                <controllingFieldValues>Sentinel Nodes</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Infraclavicular</fullName>
+                <controllingFieldValues>Additional Nodes</controllingFieldValues>
+                <controllingFieldValues>Sentinel Nodes</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internal mammary</fullName>
+                <controllingFieldValues>Additional Nodes</controllingFieldValues>
+                <controllingFieldValues>Sentinel Nodes</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Upper inner quadrant (breast)</fullName>
+                <controllingFieldValues>Additional Nodes</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Upper outer quadrant (breast)</fullName>
+                <controllingFieldValues>Additional Nodes</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lower inner quadrant (breast)</fullName>
+                <controllingFieldValues>Additional Nodes</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lower outer quadrant (breast)</fullName>
+                <controllingFieldValues>Additional Nodes</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Axillary tail of breast</fullName>
+                <controllingFieldValues>Additional Nodes</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Overlapping lesion of breast</fullName>
+                <controllingFieldValues>Additional Nodes</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Central (breast)</fullName>
+                <controllingFieldValues>Additional Nodes</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subareolar region (breast)</fullName>
+                <controllingFieldValues>Additional Nodes</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Method_of_Detection__c</fullName>
+        <externalId>false</externalId>
+        <label>Method of Detection</label>
+        <picklist>
+            <picklistValues>
+                <fullName>IHC only</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IHC + H&amp;E</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>H&amp;E only</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Node_Checkbox_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Nodes Checkbox Value</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sentinel Nodes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Axillary Nodes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Additional Nodes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Not_reported_Detection_Result__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Not reported Detection Result</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Positive__c</fullName>
+        <externalId>false</externalId>
+        <label>Positive</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Post_Surgery_Summary__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Post Surgery Summary</label>
+        <referenceTo>Post_Surgaory_Summary__c</referenceTo>
+        <relationshipLabel>Lymph Nodes</relationshipLabel>
+        <relationshipName>Lymph_Nodes</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Procedure__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Procedure</label>
+        <referenceTo>Procedure__c</referenceTo>
+        <relationshipLabel>Lymph Nodes</relationshipLabel>
+        <relationshipName>Lymph_Nodes</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Sentinel_Nodes__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Sentinel Nodes</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Single_Detection_Result__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Single Detection Result</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Size_of_Largest_Tumor__c</fullName>
+        <externalId>false</externalId>
+        <label>Size of Largest Tumor</label>
+        <picklist>
+            <picklistValues>
+                <fullName>&lt;1mm</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&gt;1cm</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Reported</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Specify</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Specific_Size_of_Largest_Tumor__c</fullName>
+        <externalId>false</externalId>
+        <label>Specific Size of Largest Tumor</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tumor_Size_Measurement_Unit__c</fullName>
+        <externalId>false</externalId>
+        <label>Tumor Size Measurement Unit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>MM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CM</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>pg_Lymph_node_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_Lymph node _Id</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Lymph Node</label>
+    <nameField>
+        <displayFormat>{00000000}</displayFormat>
+        <label>Lymph Nodes Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Lymph Nodes</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

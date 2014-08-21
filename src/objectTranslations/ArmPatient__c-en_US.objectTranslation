@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>ArmPatient</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>ArmPatients</value>
+    </caseValues>
+    <fields>
+        <label><!-- Arm Id --></label>
+        <name>Arm_Id__c</name>
+        <relationshipLabel><!-- ArmPatients --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Patient Id --></label>
+        <name>Patient_Id__c</name>
+        <relationshipLabel><!-- ArmPatients --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Subject Id --></label>
+        <name>Subject_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- ArmPatients --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- assignedToPatient --></label>
+        <name>assignedToPatient__c</name>
+    </fields>
+    <layouts>
+        <layout>ArmPatient Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

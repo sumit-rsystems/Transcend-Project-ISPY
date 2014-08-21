@@ -1,0 +1,681 @@
+<apex:page standardController="Registration__c" extensions="Registration" id="pageId" tabStyle="Patient_Custom__c" sidebar="false">
+<script type="text/javascript">
+        function addYearInDateField(relatedYearShow) {
+                //alert(document.getElementById('datePicker').innerHTML);
+                 var currentYear = new Date().getFullYear();
+                 var startYear;
+                 var endYear;
+                 
+                 if(relatedYearShow == 'past'){
+                         startYear= 1900;
+                         endYear=currentYear;
+                 }else if(relatedYearShow == 'future'){
+                        startYear= currentYear;
+                        endYear= currentYear + 30;
+                 }else{
+                         startYear= 1950;
+                         endYear=currentYear + 20;
+                 }
+                 
+                 var htmlStr='';
+                 if(startYear<endYear){
+                        for(i=startYear;i<endYear+1;i++){
+                                if(i == currentYear) {
+                                        htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                                } else {
+                                        htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                                }
+                        }
+                }
+                //alert(htmlStr);
+                document.getElementById('calYearPicker').innerHTML = htmlStr; 
+        }
+</script>
+
+<style>
+        .activeTab {
+                background: none repeat scroll 0 0 #FFFFFF;
+            border-bottom: 2px solid #FFFFFF;
+            color: #000000;
+            font-weight: 600;
+            width: 112px;
+        }
+        
+        .inactiveTab {
+                        cursor: pointer;
+                        background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+                        color: white; /*#3C3C3C;*/
+                        font-weight: bold;
+                        font-size: 12px;
+                        height: 15px;
+                        width: 112px;
+                        vertical-align: middle;
+                        border: none;
+        }
+                
+        .rich-tab-inactive {
+                background-repeat: repeat-x;
+                border-color: #FFFFFF;
+                border-style: none;
+                border-width: 0;
+                cursor: pointer;
+        }
+        
+        .rich-tabhdr-side-border {
+                background-image:none; 
+                border-radius: 4px 4px 0 0;
+                background-color: none;
+                width: 2px;
+        }
+        
+        .rich-tabhdr-side-cell {
+                box-shadow: 0 -2px 2px #A7A7A8;
+                border-top: 2px solid #056FC1;
+                border-left: 2px solid #056FC1;
+                border-right: 2px solid #056FC1;
+                border-radius: 4px 4px 0 0;
+        }
+        
+        .rich-tabpanel-content {
+                background-color: #fff;
+                border-left: 2px solid #056FC1;
+                border-right: 2px solid #056FC1;
+                border-bottom: 2px solid #056FC1;
+        }
+        
+        .rich-tab-bottom-line {
+                border-bottom: 1px solid #056FC1;
+        }
+        
+        .accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+                background-color: #97C7EC;
+        }
+        
+        body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+                background-color: #fff;
+        }
+        .name 
+                {
+                font-size: 1.50em;
+                font-weight: bold;
+                }
+        .selectbox{
+            background-color: #2F96E4;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            height: 25px;
+            position: relative;
+            width: 152px;
+            border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+            color:#fff;
+            font-size:12px; font-weight: bold;
+            padding:3px 0 3px 10px;
+        }
+</style>
+
+<script>
+                
+        function checkCancel() {
+                if(confirm("Completely cancel and remove?")){
+                        return true;
+                } else {
+                        return false;
+                }
+        }
+        
+        function checkDelete() {
+                if(confirm("Are you sure you want to Delete this form?")){
+                        return true;
+                } else {
+                        return false;
+                }
+        }
+        
+        function startSplash() {
+                    var divObj = document.getElementById('splashDiv');
+                    var msgSplash =document.getElementById('waitMsg');
+                    var browserName = navigator.appName;
+                    if(browserName == 'Netscape'){
+                        divObj.style.display='table-cell'; 
+                        } else {
+                        divObj.style.display='table-cell';
+                        }
+        }
+        
+        function endSplash() {            
+                document.getElementById('splashDiv').style.display='none';
+        }
+        
+        function hideDwnXML(val) {
+        //alert(val);
+                if(val) {
+                        document.getElementById('pageId:formId:menoPageBlockBtn1:pbbId:dwnLinkId').style.display='none';
+                } else {
+                        document.getElementById('pageId:formId:menoPageBlockBtn1:pbbId:dwnLinkId').style.display='';
+                }
+        }
+</script>
+<div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+        <div style="text-align: center; top: 40%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+</div>
+<span class ="name">Patient's Details</span>
+        <br/>
+                <apex:outputPanel id="patCompo"><c:PatientDetailReadOnly patientId="{!patientObj.Id}" /></apex:outputPanel>
+        <br/>
+        <table width="100%">
+                <tr>
+                        <td width="40%" align="left">
+                                 <span class ="name"> Registration </span>
+                        </td>
+                        <td width="60%" align="left">
+                                <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialObj.Name}" />
+                        </td>
+                </tr>
+        </table>
+        
+<apex:pageMessages id="pageMessagesId"/>
+<apex:outputPanel id="JSPanel">
+        <script>
+                function enterToNextTab(val){
+                        //alert('{!currentTab}');
+                        //alert(val);
+                        if('{!currentTab}' == 'PatientTab') {
+                                document.getElementById('pageId:patientFormId:nextTabNameID').value = val;
+                                patientNext();
+                        } else if('{!currentTab}' == 'RegistrationTab') {
+                                if(val == 'RegistrationTab') {
+                                        document.getElementById('pageId:patientFormId:nextTabNameID').value = val;
+                                        patientNext();
+                                } else {
+                                        document.getElementById('pageId:regFormId:nextTabNameID').value = val;
+                                        regNext();
+                                } 
+                        } else if('{!currentTab}' == 'CompleteTab') {
+                                document.getElementById('pageId:completeFormId:nextTabNameID').value = val;
+                                completeNext();
+                        } 
+                        //document.getElementById('pageId:FormId:nextTabNameID').value = val;
+                        //next();
+                }
+        </script>
+</apex:outputPanel>
+        <apex:outputPanel id="showXMLInPopupId">
+                <script>
+                        var myWindow;
+                        function showXMLInPopup() {
+                                var LeftPosition = (screen.width) ? (screen.width-500)/2 : 0;
+                                var TopPosition = (screen.height) ? (screen.height-300)/2 : 0;
+                                if(myWindow && !myWindow.closed) {  //checks to see if window is open
+                                        myWindow.close();
+                                myWindow=window.open('/apex/Registration_XML_Page?patientId='+'{!patientId}'+'&trial='+'{!trialId}'+'&isxmlpage=true','','width=500,height=300, left='+LeftPosition+',top='+TopPosition+',resizable=yes,scrollbars=yes,menubar=yes');
+                                myWindow.focus();
+                                return;
+                        } 
+                        else { 
+                                        myWindow=window.open('/apex/Registration_XML_Page?patientId='+'{!patientId}'+'&trial='+'{!trialId}'+'&isxmlpage=true','','width=500,height=300, left='+LeftPosition+',top='+TopPosition+',resizable=yes,scrollbars=yes,menubar=yes');
+                                        myWindow.focus();
+                                }
+                        }
+                </script>
+        </apex:outputPanel>
+        <apex:pageBlock id="mriPageBlockBtn" helpTitle="Help"  helpUrl="/apex/RegistrationUserGuide" rendered="{!isComplete}" tabStyle="Account">
+                <apex:pageBlockButtons location="top">
+                        <apex:form onSubmit="return false;" style="float: left;"><apex:commandButton value="Save & Close" reRender="mriPageBlockBtn" status="splashStatus" onClick="enterToNextTab('saveAndClose');" /></apex:form>
+                        <apex:form ><apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>  </apex:form>
+                </apex:pageBlockButtons>
+        </apex:pageBlock>
+                        <apex:form id="formId" onSubmit="return false;">
+                        <apex:outputPanel rendered="{!IF($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator', true, false)}"> 
+                          <apex:pageBlock id="menoPageBlockBtn1" rendered="{!IF(registrationObj.Status__c == 'Approval Not Required',true,false)}" tabStyle="Account">
+                                <apex:pageMessages id="errorMessage" />                     
+                                        <apex:pageBlockButtons location="top" id="pbbId">
+                                    <div align="center">
+                                                        <table width="100%" align="center">
+                                                                <tr>
+                                                                        <td width="10%" align="left">
+<!--                                                         <apex:commandButton action="{!generateXML}" value="View XML " reRender="genXMLLinkPanel" status="tabChangeStatus" />-->
+                                                                    <apex:commandButton value="View XML " onclick="genCompleteTabXML();" reRender="errorMessage" status="tabChangeStatus"/>
+                                                                </td>
+                                                                        <td width="20%">
+                                                                                <apex:selectRadio value="{!radioValue}">
+                                                                                        <apex:selectOption itemValue="CDA" itemLabel="CDA"/>
+                                                                                        <apex:selectOption itemValue="CCD" itemLabel="CCD"/>
+                                                                                        <apex:selectOption itemValue="HL7" itemLabel="HL7"/>
+                                                                                </apex:selectRadio>
+                                                                        </td>
+                                                                        <td width="70%" align="left">
+                                                                                <apex:outputPanel id="genXMLLinkPanel" >
+                                                                                        <apex:commandLink id="dwnLinkId" action="{!downloadXML}" value="Download XML" status="tabChangeStatus" rendered="{!IsXMLGenerated}"/>
+                                                                                </apex:outputPanel>
+                                                                                <apex:actionStatus id="tabChangeStatus" onstart="hideDwnXML(true);" onstop="hideDwnXML(false);" startText="Processing..."/>
+                                                                        </td>
+                                                                </tr>
+                                                        </table>
+                                                </div>
+                                </apex:pageBlockButtons>
+                          </apex:pageBlock>
+                         </apex:outputPanel>
+                        </apex:form>
+<apex:tabPanel switchType="client" value="{!currentTab}"  id="theTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+        <apex:tab label="Patient" name="PatientTab" id="Patient" ontabenter="enterToNextTab('PatientTab');" rendered="{!isComplete}">
+        <apex:form id="patientFormId">
+                <apex:actionFunction name="patientNext" action="{!next}"  rerender="theTabPanel,JSPanel,patCompo,pageMessagesId" status="splashStatus"/>
+                <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+<!--         <apex:inputHidden value="{!PatientFieldCheck}" id="patientFieldCheckId"/>-->
+<!--         <apex:inputHidden value="{!RegistrationFieldCheck}" id="RegFieldCheckId"/>-->
+                <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " /> 
+<!--                 <apex:pageMessages />-->
+            <apex:pageBlock tabStyle="Account">
+                <apex:pageBlockButtons location="top">
+<!--                  <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>-->
+                         <apex:commandButton action="{!next}" value="Next" Rerender="theTabPanel,JSPanel,patCompo,pageMessagesId" status="splashStatus">
+                                <apex:param name="nextTab" value="RegistrationTab"/>
+                         </apex:commandButton>
+                         <apex:actionStatus startText="Processing..." id="counterStatus"/>
+                </apex:pageBlockButtons>
+                    <apex:pageBlockSection title="Patient Name" columns="2">
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="First Name"/>
+                                        <apex:outputPanel >                           
+                                                <apex:inputField value="{!patientObj.First_Name__c}" id="firstname"/>
+                                        <script>document.getElementById("{!$Component.firstname}").disabled=true;</script>
+                                </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                                <apex:inputField value="{!patientObj.Middle_Name__c}"/>
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Last Name"/>
+                                        <apex:outputPanel >                           
+                                                <apex:inputField value="{!patientObj.Last_Name__c}" id="lastname"/>
+                                        <script>document.getElementById("{!$Component.lastname}").disabled=true;</script>
+                                </apex:outputPanel>
+                        </apex:pageBlockSectionItem> 
+                                <apex:outputField value="{!patientObj.Initials__c}"/>
+                     </apex:pageBlockSection>
+<!--                         <script>document.getElementById("{!$component.lastname}").disabled=true;</script>-->
+                   
+                    <apex:pageBlockSection title="Other Informations" columns="2">
+                                <apex:outputField value="{!patientObj.Gender__c}"/>
+                                <apex:outputField value="{!patientObj.Race__c}"/>
+                                <apex:inputField value="{!patientObj.Country_of_Birth__c}"/>
+                                <apex:outputField value="{!patientObj.Ethnicity__c}"/>
+                                <apex:inputField value="{!patientObj.Medical_Record_Number__c}" Required="true"/>
+                                <apex:inputField value="{!patientObj.SSN__c}"/>
+                                <apex:outputField value="{!patientObj.Institute_Text__c}"/>
+                                
+                    </apex:pageBlockSection> 
+                     
+                    <apex:pageBlockSection title="Patient Address" columns="1">
+                                <apex:pageBlockSectionItem labelstyle="padding-right:15px;"> 
+                                        <apex:outputPanel >
+                                                <span id="a0fc0000000RO6S.00Nc0000000H5ai-_help" class="helpButton" > 
+                                                        Zip
+                                                <img title="" class="helpOrb" alt="" src="/s.gif" />
+                                                <script type="text/javascript">sfdcPage.setHelp('a0fc0000000RO6S.00Nc0000000H5ai', 'If Zip is unknown, enter 99999.');</script>
+                                                </span>
+                                </apex:outputPanel>
+                                        <apex:inputField value="{!patientObj.Zip__c}" Required="true"/>
+                                </apex:pageBlockSectionItem>
+                     </apex:pageBlockSection> 
+         </apex:pageBlock>
+         </apex:form>  
+        </apex:tab>
+        <apex:tab label="Registration" name="RegistrationTab" id="Registration" ontabenter="enterToNextTab('RegistrationTab');" rendered="{!isComplete}"> 
+                <apex:form id="regFormId">
+                        <apex:actionFunction name="regNext" action="{!next}"  rerender="theTabPanel,JSPanel,pageMessagesId" status="splashStatus"/>
+<!--                         <apex:actionFunction name="regPrevious" action="{!previous}"  rerender="theTabPanel,JSPanel" status="splashStatus"/>-->
+                                <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+                                <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " /> 
+                <apex:pageBlock tabStyle="Account">
+                        <apex:pageBlockButtons location="top">
+                                <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel,JSPanel,pageMessagesId" status="splashStatus">
+                            <apex:param name="prevTab" value="PatientTab"/>
+                        </apex:commandButton>
+                                 <apex:commandButton action="{!next}" value="Next" Rerender="theTabPanel,JSPanel,pageMessagesId" status="splashStatus">
+                                        <apex:param name="nextTab" value="CompleteTab"/>
+                                 </apex:commandButton>
+<!--                         <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>-->
+                                 <apex:actionStatus startText="Processing..." id="counterStatus"/>
+                        </apex:pageBlockButtons>
+                        <apex:pageBlockSection title="Registration" columns="1">
+                                <apex:inputField value="{!registrationObj.Registration_Date__c}" required="true" id="registrationDate"/ >
+                                        <script type="text/javascript">
+                                                document.getElementById('{!$Component.registrationDate}').onfocus = function onfocus(event) {
+                                                DatePicker.pickDate(true, '{!$Component.registrationDate}', false); 
+                                                addYearInDateField(''); 
+                                                };
+                                        </script>
+                                        
+                                <!-- ============================================For Institution==========================================                   -->
+                                 <!--<apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Institution"/>
+                                        <apex:outputPanel >
+                                                <apex:outputLabel value="{!patientObj.Institute_Text__c}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem> 
+                                --><!-- ============================================For site==========================================                  -->
+                                <!--<apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Site"/> 
+                                        <apex:outputPanel >
+                                                <apex:outputPanel id="thePanel3" >
+                                                        <apex:selectList value="{!selectedSite}" size="1" rendered="{!userAssociatedWithMultipleSites}">
+                                                                 <apex:selectOptions value="{!sites}"/>
+                                                        </apex:selectList> 
+                                                </apex:outputPanel> 
+                                                <apex:outputPanel id="thePanel2" rendered="{!NOT(userAssociatedWithMultipleSites)}">
+                                                                <apex:outputLabel value="{!instituteUsreObj.Site__r.Name}"/>  
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!NOT(ISNULL(registrationObj.Id))}">
+                                                                <apex:outputLabel value="{!registrationObj.Site__r.Name}"/>
+                                                </apex:outputPanel>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem> -->
+                        </apex:pageBlockSection>
+                        <apex:pageBlockSection title="Study Staff" columns="2">
+<!-- ============================================For oncologist==========================================                    -->
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Oncologist"/>
+                                        <apex:inputField value="{!registrationObj.Oncologist__c}"/>
+                                </apex:pageBlockSectionItem>
+                                
+<!-- ==========================================For Surgeon ==============================================                    -->
+                                        <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Surgeon"/>
+                                        <apex:inputField value="{!registrationObj.Surgeon__c}"/>
+                                </apex:pageBlockSectionItem>
+<!-- ==========================================For Clinical Coordinator ==============================================                       -->
+                                        <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Clinical Coordinator"/>
+                                        <apex:inputField value="{!registrationObj.Clinical_Coordinator__c}"/>
+                                </apex:pageBlockSectionItem>
+                                
+                <!--                 <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Phone"/>
+                                        <apex:inputField value="{!registrationObj.Clinical_Coordinator_Phone__c}"/>
+                                </apex:pageBlockSectionItem>
+                                 
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Fax"/>
+                                        <apex:inputField value="{!registrationObj.Clinical_Coordinator_Fax__c}"/>
+                                </apex:pageBlockSectionItem>
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Email"/>
+                                        <apex:inputField value="{!registrationObj.Clinical_Coordinator_Email__c}"/>
+                                </apex:pageBlockSectionItem>   -->
+                                
+<!-- ==========================================For Radiology Coordinator ==============================================                      -->
+                                        <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Radiology Coordinator"/>
+                                        <apex:inputField value="{!registrationObj.Radiology_Coordinator__c}"/>
+                                </apex:pageBlockSectionItem>
+                                
+                     <!--            <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Phone"/>
+                                        <apex:inputField value="{!registrationObj.Radiology_Coordinator_Phone__c}"/>
+                                </apex:pageBlockSectionItem>
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Fax"/>
+                                        <apex:inputField value="{!registrationObj.Radiology_Coordinator_Fax__c}"/>
+                                </apex:pageBlockSectionItem>
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Email"/>
+                                        <apex:inputField value="{!registrationObj.Radiology_Coordinator_Email__c}"/>
+                                </apex:pageBlockSectionItem>  -->                              
+                        </apex:pageBlockSection>  
+                      
+                             <apex:pageBlockSection title="Legal / Dates" columns="1">
+                                        <apex:inputField value="{!registrationObj.IRB_Approval_Date__c}" id="IRBApprovalDate"/>
+                                                <script type="text/javascript">
+                                                        document.getElementById('{!$Component.IRBApprovalDate}').onfocus = function onfocus(event) {
+                                                        DatePicker.pickDate(true, '{!$Component.IRBApprovalDate}', false); 
+                                                        addYearInDateField(''); 
+                                                        };
+                                                </script>
+                                        <apex:inputField value="{!registrationObj.Screening_Informed_Consent_Date__c}" id="ScreeningInformedConsentDate"/>
+                                                <script type="text/javascript">
+                                                        document.getElementById('{!$Component.ScreeningInformedConsentDate}').onfocus = function onfocus(event) {
+                                                        DatePicker.pickDate(true, '{!$Component.ScreeningInformedConsentDate}', false); 
+                                                        addYearInDateField(''); 
+                                                        };
+                                                </script>
+                                        <apex:inputField value="{!registrationObj.HIPPA_Consent_Date__c}" id="HIPPAConsemtDate"/>
+                                                <script type="text/javascript">
+                                                        document.getElementById('{!$Component.HIPPAConsemtDate}').onfocus = function onfocus(event) {
+                                                        DatePicker.pickDate(true, '{!$Component.HIPPAConsemtDate}', false); 
+                                                        addYearInDateField(''); 
+                                                        };
+                                                </script>
+                                                
+                             </apex:pageBlockSection>
+                   </apex:pageBlock>
+                   </apex:form>
+        </apex:tab> 
+        <apex:tab label="Complete" name="CompleteTab" id="Complete" ontabenter="enterToNextTab('CompleteTab');">
+        <apex:form id="completeFormId">
+                        
+                        <apex:actionFunction name="genCompleteTabXML" action="{!viewXML}"  reRender="showXMLInPopupId,errorMessage" status="tabChangeStatus" onComplete="showXMLInPopup();"/> 
+                <apex:actionFunction name="completeNext" action="{!next}"  rerender="theTabPanel,JSPanel" status="splashStatus"/>
+                        <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+                        <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " /> 
+                
+                <apex:pageBlock tabStyle="Account">
+                        <apex:pageBlockButtons location="top" >
+                            <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel,JSPanel" status="splashStatus" rendered="{!isComplete}">
+                               <apex:param name="prevTab" value="RegistrationTab"/>
+                           </apex:commandButton>
+                        <!-----  delete button fuctionlity- start    ----------------------------------> 
+                              <apex:commandButton action="{!customCancel}" value="Delete" onclick="return checkDelete();" immediate="true" rendered="{!profileName == 'System Administrator'}"/>
+                        <!-----  delete button fuctionlity- end   ------------------------------------->       
+                              <apex:commandLink style="text-decoration:none;" value="Generate Pdf" action="{!redirect}" styleClass="btn" target="_blank" rendered="{!registrationObj.Status__c == 'Approval Not Required'}"/>
+                        </apex:pageBlockButtons>
+                        <apex:pageBlockSection title="Patient" columns="2">
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Name"/>
+                                        <apex:outputPanel >
+                                                <apex:outputField value="{!patientObj.First_Name__c}"/>&nbsp;
+                                                <apex:outputField value="{!patientObj.Last_Name__c}"/>&nbsp;
+                                                (<apex:outputField value="{!patientObj.Initials__c}"/>)
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+<!--                 <apex:inputCheckbox value="{!firstNmLastNmInitl}" onchange="addFields(this, 'First_Name__c,Last_Name__c,Initials__c', 'patient');" id="FstnmLstNMIntialId"/>-->
+                                <apex:inputCheckbox value="{!firstNmLastNmInitl}"  id="FstnmLstNMIntialId" rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/>
+                                <apex:outputText value="" rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), false, true)}"/>
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Gender"/>
+                                        <apex:outputPanel >
+                                                <apex:outputField value="{!patientObj.Gender__c}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputText value=""/>
+<!--                 <apex:inputCheckbox value="{!Gender}" onchange="addFields(this,'Gender__c', 'patient');" id="GenderId"/>-->
+<!--                         <apex:inputCheckbox value="{!Gender}"  id="GenderId"/>-->
+
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Race / Ethnicity"/>
+                                        <apex:outputPanel >
+                                                <apex:outputField value="{!patientObj.Race__c}"/>&nbsp;
+                                                /&nbsp;<apex:outputField value="{!patientObj.Ethnicity__c}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+<!--                 <apex:inputCheckbox value="{!RaceEthnicity}" onchange="addFields(this, 'Race__c,Ethnicity__c', 'patient');" id="RaceEthnicityId"/>-->
+                                        <apex:inputCheckbox value="{!RaceEthnicity}"  id="EthnicityId" rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/>
+                                <apex:outputText value="" rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), false, true)}"/>
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Country of birth"/>
+                                        <apex:outputPanel >
+                                                <apex:outputField value="{!patientObj.Country_of_Birth__c}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputText value=""/>
+<!--                 <apex:inputCheckbox value="{!Countryofbirth}" onchange="addFields(this,'Country_of_Birth__c', 'patient');" id="CountrybrithId"/>-->
+<!--                 <apex:inputCheckbox value="{!Countryofbirth}"  id="CountrybrithId"/>-->
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="SSN (last 4)"/>
+                                        <apex:outputPanel >
+                                                <apex:outputField value="{!patientObj.SSN__c}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+<!--                 <apex:inputCheckbox value="{!SSN}" onchange="addFields(this,'SSN__c', 'patient');" id="SSNId"/> -->
+                                        <apex:inputCheckbox value="{!SSN}" id="SSNId" rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/>
+                                        <apex:outputText value="" rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), false, true)}"/>
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="MRN / Institute"/>
+                                        <apex:outputPanel >
+                                                <apex:outputField value="{!patientObj.Medical_Record_Number__c}"/>&nbsp;
+                                                /&nbsp;<apex:outputText value="{!patientObj.Institute_Text__c}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputText value=""/>
+<!--                 <apex:inputCheckbox value="{!MRNInstitute}" onchange="addFields(this,'Medical_Record_Number__c,Institute_Text__c', 'patient');" id="MrnInstituteId"/>-->
+<!--                 <apex:inputCheckbox value="{!MRNInstitute}" id="MrnInstituteId"/>-->
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Zip"/>
+                                        <apex:outputPanel >
+                                                <apex:outputField value="{!patientObj.Zip__c}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputText value=""/>
+<!--                 <apex:inputCheckbox value="{!Zip}" onchange="addFields(this,'Zip__c', 'patient');" id="ZipId"/>-->
+<!--                         <apex:inputCheckbox value="{!Zip}" id="ZipId"/>-->
+                       </apex:pageBlockSection>
+                        
+                        <apex:pageBlockSection title="Registration" columns="2">
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Registration Date"/>
+                                        <apex:outputPanel >
+                                                <apex:outputField value="{!registrationObj.Registration_Date__c}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputText value=""/>
+<!--                 <apex:inputCheckbox value="{!RegistrationDate}" onchange="addFields(this,'Registration_Date__c','Registration');" id="RegistrationDateId"/>-->
+<!--                 <apex:inputCheckbox value="{!RegistrationDate}" id="RegistrationDateId"/>-->
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Study Coordinator"/>
+                                        <apex:outputPanel >
+                                                <apex:outputText value="{!registrationObj.createdBy.name}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputText value=""/>
+<!--                         <apex:inputCheckbox value="{!StudyCoordinator}" onchange="addFields(this,'CreatedById','Registration');" id="StudyCordinateId"/>-->
+<!--                                 <apex:inputCheckbox value="{!StudyCoordinator}" id="StudyCordinateId"/>-->
+                                
+                                <!--  <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="ACRIN 6698 Repeat Scan Consent"/>
+                                        <apex:outputPanel >
+                                                <apex:outputField value="{!registrationObj.ACRIN_6693_MRS_Participant__c}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem> -->
+<!--                         <apex:outputText value=""/>-->
+<!--                         <apex:inputCheckbox value="{!ACRIN6698RepeatScanConsent}" onchange="addFields(this,'ACRIN_6693_MRS_Participant__c','Registration');" id="ACRIN6698RepeatScanConsentId"/>-->
+<!--                                 <apex:inputCheckbox value="{!ACRIN6698RepeatScanConsent}" id="ACRIN6698RepeatScanConsentId"/>-->
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="I-SPY 2 Subject Id"/>
+                                        <apex:outputPanel >
+                                                <apex:outputField value="{!registrationObj.ISPY2_Subject_Id__c}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+<!--                 <apex:inputCheckbox value="{!ISPY2SubjectId}" onchange="addFields(this,'ISPY2_Subject_Id__c','Registration');" id="ISPY2SubjectId"/>-->
+                                <apex:inputCheckbox value="{!ISPY2SubjectId}"  id="ISPY2SubjectId" rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), true, false)}"/>
+                                <apex:outputText value="" rendered="{!IF((registrationObj.Status__c == 'Approval Not Required') && ($Profile.Name == 'System Administrator' || $Profile.Name == 'Trial Administrator'), false, true)}"/>
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Oncologist"/>
+                                        <apex:outputPanel >
+                                                <apex:outputText value="{!registrationObj.Oncologist__r.Name}"/>              
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputText value=""/>
+<!--                         <apex:inputCheckbox value="{!Oncologist}" onchange="addFields(this,'Oncologist__c','Registration');" id="OncologistId"/>-->
+<!--                         <apex:inputCheckbox value="{!Oncologist}" id="OncologistId"/>-->
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Surgeon"/>
+                                        <apex:outputPanel >
+                                                <apex:outputText value="{!registrationObj.Surgeon__r.Name}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputText value=""/>
+<!--                         <apex:inputCheckbox value="{!Surgeon}" onchange="addFields(this,'Surgeon__c','Registration');" id="SurgeonId"/>-->
+<!--                         <apex:inputCheckbox value="{!Surgeon}"  id="SurgeonId"/>-->
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Clinical Coordinator"/>
+                                        <apex:outputPanel >
+                                                <apex:outputText value="{!registrationObj.Clinical_Coordinator__r.Name}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputText value=""/>
+<!--                         <apex:inputCheckbox value="{!ClinicalCoordinator}" onchange="addFields(this,'Clinical_Coordinator__c','Registration');" id="ClinicalCoordinatorId"/>-->
+<!--                         <apex:inputCheckbox value="{!ClinicalCoordinator}" id="ClinicalCoordinatorId"/>-->
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Radiology Coordinator"/>
+                                        <apex:outputPanel >
+                                                <apex:outputText value="{!registrationObj.Radiology_Coordinator__r.Name}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputText value=""/>
+<!--                         <apex:inputCheckbox value="{!RadiologyCoordinator}" onchange="addFields(this,'Radiology_Coordinator__c','Registration');" id="RadiologyCoordinatorId"/>-->
+<!--                         <apex:inputCheckbox value="{!RadiologyCoordinator}"  id="RadiologyCoordinatorId"/>-->
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="IRB Approval Date"/>
+                                        <apex:outputPanel >
+                                                <apex:outputField value="{!registrationObj.IRB_Approval_Date__c}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputText value=""/>
+<!--                         <apex:inputCheckbox value="{!IRBApprovalDate}" onchange="addFields(this,'IRB_Approval_Date__c','Registration','Registration');" id="IRBApprovalDateId"/>-->
+<!--                         <apex:inputCheckbox value="{!IRBApprovalDate}"  id="IRBApprovalDateId"/>-->
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Screening Informed Consent Date"/>
+                                        <apex:outputPanel >
+                                                <apex:outputField value="{!registrationObj.Screening_Informed_Consent_Date__c}"/>         
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputText value=""/>
+<!--                         <apex:inputCheckbox value="{!ScreeningInformedConsentDate}" onchange="addFields(this,'Screening_Informed_Consent_Date__c','Registration');" id="ScreeningInformedConsentDateId"/>-->
+<!--                         <apex:inputCheckbox value="{!ScreeningInformedConsentDate}" id="ScreeningInformedConsentDateId"/>-->
+                                
+                                <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="HIPPA Consent Date"/>
+                                        <apex:outputPanel >            
+                                                <apex:outputField value="{!registrationObj.HIPPA_Consent_Date__c}"/>
+                                        </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputText value=""/>
+<!--                         <apex:inputCheckbox value="{!HIPPAConsentDate}" onchange="addFields(this,'HIPPA_Consent_Date__c','Registration');" id="HIPPAConsentDateId"/>-->
+<!--                         <apex:inputCheckbox value="{!HIPPAConsentDate}" id="HIPPAConsentDateId"/>-->
+                                
+                        </apex:pageBlockSection>
+                </apex:pageBlock>
+                
+                <div align="center">
+                                
+<!--                 <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true" rendered="{!isComplete}"/>&nbsp;&nbsp; -->
+<!--                         <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>-->
+                                <br /> 
+                                <apex:outputPanel id="msgPanelId" layout="block" style="text-align: center;"><font color="{!msgColor}">{!errorMsg}&nbsp;</font></apex:outputPanel>
+                                <br />
+                                <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!isComplete}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!isComplete}"/>&nbsp;&nbsp;
+                                <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" rerender="theTabPanel,JSPanel,pageMessagesId" status="counterStatus" rendered="{!isComplete}"/>
+                                <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" rendered="{!isComplete}"/>
+                                <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                        </div>
+                        </apex:form>
+        </apex:tab>
+        </apex:tabPanel>
+</apex:page>

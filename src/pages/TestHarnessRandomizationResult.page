@@ -1,0 +1,118 @@
+<apex:page controller="TestHarnessRandomizationResultController" sideBar="false" tabStyle="Account" action="{!displayRandomizationResult}">
+	<apex:form > 
+		<apex:pageBlock >
+			<!--<apex:pageBlockTable value="{!lstRandResultWrapper}" var="randResult">
+					<apex:column headerClass="tableHead">
+						<apex:facet name="header">Patient Name</apex:facet>
+						<apex:outputText value="{!randResult.patientName}"/>
+					</apex:column> 
+					<apex:column headerClass="tableHead">
+						<apex:facet name="header">Treatment Arm</apex:facet>
+						<apex:outputText value="{!randResult.treatmentArm}"/>
+					</apex:column> 
+					<apex:column headerClass="tableHead">
+						<apex:facet name="header">Processed</apex:facet>
+						<apex:outputText value="{!randResult.isRandomized}"/>
+					</apex:column> 
+					<apex:column headerClass="tableHead">
+						<apex:facet name="header">Randomization Done On</apex:facet>
+						<apex:outputText value="{!randResult.randomizationDate}"/>
+					</apex:column> 
+				</apex:pageBlockTable>-->
+			<table class="list" cellpadding="0" cellspacing="0">
+				<thead class="rich-table-thead">
+					<tr class="headerRow">
+						<th class="headerRow">
+							<apex:commandLink action="{!sortResult}" value="Patient Name{!IF(sortExpression=='LastName__c',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort1">
+	             				<apex:param value="name" name="column" assignTo="{!sortExpression}" ></apex:param>
+	           				</apex:commandLink>
+	           			</th>
+	           			<th class="headerRow">
+							<apex:commandLink action="{!sortResult}" value="ER{!IF(sortExpression=='ER__c',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort2">
+	             				<apex:param value="name" name="column" assignTo="{!sortExpression}" ></apex:param>
+	           				</apex:commandLink>
+	           			</th>
+	           			<th class="headerRow">
+							<apex:commandLink action="{!sortResult}" value="PR{!IF(sortExpression=='PR__c',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort3">
+	             				<apex:param value="name" name="column" assignTo="{!sortExpression}" ></apex:param>
+	           				</apex:commandLink>
+	           			</th>
+	           			<th class="headerRow">
+							<apex:commandLink action="{!sortResult}" value="HER2IHC{!IF(sortExpression=='HER2ByIHC__c',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort4">
+	             				<apex:param value="name" name="column" assignTo="{!sortExpression}" ></apex:param>
+	           				</apex:commandLink>
+	           			</th>
+	           			<th class="headerRow">
+							<apex:commandLink action="{!sortResult}" value="HER2FISH{!IF(sortExpression=='HER2ByFISH__c',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort5">
+	             				<apex:param value="name" name="column" assignTo="{!sortExpression}" ></apex:param>
+	           				</apex:commandLink>
+	           			</th>
+						<th class="headerRow">
+							<apex:commandLink action="{!sortResult}" value="HER2 TargetPrint{!IF(sortExpression=='HER2ByTargetPrint__c',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort6">
+	             				<apex:param value="name" name="column" assignTo="{!sortExpression}" ></apex:param>
+	           				</apex:commandLink>
+						</th>
+						<th class="headerRow">
+							<apex:commandLink action="{!sortResult}" value="MP{!IF(sortExpression=='MP__c',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort7">
+	             				<apex:param value="name" name="column" assignTo="{!sortExpression}" ></apex:param>
+	           				</apex:commandLink>
+						</th>
+						<th class="headerRow">
+							<apex:commandLink action="{!sortResult}" value="Treatment Arm{!IF(sortExpression=='RandomizationResponse__c',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort8">
+	             				<apex:param value="name" name="column" assignTo="{!sortExpression}" ></apex:param>
+	           				</apex:commandLink>
+						</th>
+						<th class="headerRow">
+							<apex:commandLink action="{!sortResult}" value="Is Processed{!IF(sortExpression=='MP__c',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort9">
+	             				<apex:param value="name" name="column" assignTo="{!sortExpression}" ></apex:param>
+	           				</apex:commandLink>
+						</th>
+						<th class="headerRow">
+							<apex:commandLink action="{!sortResult}" value="Randomization Done On{!IF(sortExpression=='LastModifiedDate',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort10">
+	             				<apex:param value="name" name="column" assignTo="{!sortExpression}" ></apex:param>
+	           				</apex:commandLink>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<apex:repeat value="{!lstRandResultWrapperList}" var="lstRandResult">
+						<apex:repeat value="{!lstRandResult}" var="randResult">
+							<tr class="dataRow" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onblur="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}">
+								<td class="dataCell">
+									<apex:outputText value="{!randResult.patientName}"/>
+								</td>
+								<td class="dataCell">
+									<apex:outputText value="{!randResult.ER}"/>
+								</td>
+								<td class="dataCell">
+									<apex:outputText value="{!randResult.PR}"/>
+								</td>
+								<td class="dataCell">
+									<apex:outputText value="{!randResult.HER2IHC}"/>
+								</td>
+								<td class="dataCell">
+									<apex:outputText value="{!randResult.HER2FISH}"/>
+								</td>
+								<td class="dataCell">
+									<apex:outputText value="{!randResult.HER2TP}"/>
+								</td>
+								<td class="dataCell">
+									<apex:outputText value="{!randResult.MP}"/>
+								</td>
+								<td class="dataCell">
+									<apex:outputText value="{!randResult.treatmentArm}"/>
+								</td>
+								<td class="dataCell">
+									<apex:outputText value="{!randResult.isRandomized}"/>
+								</td>
+								<td class="dataCell">
+									<apex:outputText value="{!randResult.randomizationDate}"/>
+								</td>
+							</tr>
+						</apex:repeat>
+					</apex:repeat>
+				</tbody>
+			</table>	
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

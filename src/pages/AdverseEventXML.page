@@ -1,0 +1,344 @@
+<apex:page Controller="AdverseEventXML" id="pageId" sidebar="false" tabStyle="Patient_Custom__c" showHeader="false">  
+<style> 
+.activeTab {
+	background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    color: #000000;
+    font-weight: 600;
+    width: 150px; 
+}
+
+.inactiveTab {
+		cursor: pointer;
+		background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;   
+		color: white; /*#3C3C3C;*/
+		font-weight: bold;
+		font-size: 12px;
+		height: 15px;
+		width: 150px;
+		vertical-align: middle;
+		border: none;
+}
+	
+.rich-tab-inactive {
+	background-repeat: repeat-x;
+	border-color: #FFFFFF;
+	border-style: none;
+	border-width: 0;
+	cursor: pointer;
+}
+
+.rich-tabhdr-side-border {
+	background-image:none; 
+	border-radius: 4px 4px 0 0;
+	background-color: none;
+	width: 2px;
+}
+
+.rich-tabhdr-side-cell {
+	box-shadow: 0 -2px 2px #A7A7A8;
+	border-top: 2px solid #056FC1;
+	border-left: 2px solid #056FC1;
+	border-right: 2px solid #056FC1;
+	border-radius: 4px 4px 0 0;
+}
+
+.rich-tabpanel-content {
+	background-color: #fff;
+	border-left: 2px solid #056FC1;
+	border-right: 2px solid #056FC1;
+	border-bottom: 2px solid #056FC1;
+}
+
+.rich-tab-bottom-line {
+	border-bottom: 1px solid #056FC1;
+}
+
+.rich-tabpanel-content-position {
+
+}
+
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+	background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+	background-color: #fff;
+}
+
+.actionLink {
+	text-decoration: none;
+	padding-right: 3px;
+}
+
+.actionHead {
+	width: 150px;
+}
+
+.endDateHead {
+	width: 200px;
+}
+
+.attributHead {
+	width: 157px;
+}
+
+.gradeHead {
+	width: 295px;
+}
+
+.eventHead {
+	width: 250px;
+}
+.name {
+	font-size: 1.50em;
+	font-weight: bold;
+}
+.tableHead{
+	width:6%;
+	align:center;
+	padding-left:150px;
+	margin-left:auto;
+}
+.tableHeadSmall{
+	width:4%;
+	align:center;
+	padding-left:150px;
+	margin-left:auto;
+}
+.CheckBox{
+	width:10%;
+	align:center;
+	padding-left:150px;
+	margin-left:auto;
+}
+</style>
+<script>
+	/*function addFields(obj,val,objectName){
+		//alert('objthis='+obj + 'val ='+val);
+		var str='';
+		if(obj.checked){
+			if(objectName == 'Baseline') {
+				document.getElementById('pageId:formId:BaselineFieldId').value += val+',';
+			}else if(objectName == 'AE') {
+				document.getElementById('pageId:formId:AEId').value+=val+',';
+			 }
+		}else{
+			if(objectName == 'BaselineFields'){
+				str=document.getElementById('pageId:formId:BaselineFieldId').value;
+				var n=str.replace(val,"");
+				document.getElementById('pageId:formId:BaselineFieldId').value = n;
+			}else if(objectName == 'AE'){
+				str=document.getElementById('pageId:formId:AEId').value;
+				var n=str.replace(val,"");
+				document.getElementById('pageId:formId:AEId').value = n;
+			 }
+		}
+	}*/
+	    
+	function enableEndDate(val, formType) {
+		var tableId = '';
+		var endDateId = '';
+		var resolvedIndex = '';
+		
+		if(formType == 'condition') {
+			tableId = 'pageId:formId:overviewBlock:conditionSection:conditionTable';
+			endDateId = 'End_Date';
+			resolvedIndex = val.id.substring(val.id.lastIndexOf("conditionTable")+15, val.id.lastIndexOf("conditionTable")+16);
+		} else if(formType == 'symptom') {
+			tableId = 'pageId:formId:overviewBlock:symptomSection:toxicityTable';
+			endDateId = 'symptom_End_Date';
+			resolvedIndex = val.id.substring(val.id.lastIndexOf("toxicityTable")+14, val.id.lastIndexOf("toxicityTable")+15);
+		} else if(formType == 'AE') {
+			tableId = 'pageId:formId:overviewBlock:priorAESection:AEtoxicityTable';
+			endDateId = 'AE_End_Date';
+			resolvedIndex = val.id.substring(val.id.lastIndexOf("AEtoxicityTable")+16, val.id.lastIndexOf("AEtoxicityTable")+17);
+		}
+		
+		//alert('formType: '+formType+', tableId: '+tableId+', endDateId: '+endDateId+', resolvedIndex: '+resolvedIndex);
+		//alert(val.value);
+		if(val.checked) {
+			document.getElementById(tableId+':'+resolvedIndex+':'+endDateId).disabled = false;
+		} else {
+			document.getElementById(tableId+':'+resolvedIndex+':'+endDateId).value = '';
+			document.getElementById(tableId+':'+resolvedIndex+':'+endDateId).disabled = true;
+		}
+	}
+		
+	function checkCancel() {
+		if(confirm("Completely cancel and remove?")){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function enterToNextTab(val){   
+	 	//alert(val);
+	 	if('{!isComplete}' != 'false'){
+	 		document.getElementById('pageId:formId:nextTabNameID').value = val;
+	 		next();
+	 	}
+	} 
+		
+		function startSplash() {
+		    var divObj = document.getElementById('splashDiv');
+		    var msgSplash =document.getElementById('waitMsg');
+		    var browserName = navigator.appName;
+		    if(browserName == 'Netscape'){
+		       	divObj.style.display='table-cell'; 
+			} else {
+		       	divObj.style.display='table-cell';
+			}
+		}
+		
+		function endSplash() {            
+		   	document.getElementById('splashDiv').style.display='none';
+		}
+</script>
+	<div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+		<div style="text-align: center; top: 40%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+	</div>
+	<span class ="name">Adverse Event Xml</span>
+	<apex:form id="formId">
+		<apex:pageBlock id="menoPageBlockBtn"  tabStyle="Account"> 
+		<apex:pageBlockButtons >
+    		 <apex:commandButton value="Save Configuration" action="{!saveConfiguration}" />
+		</apex:pageBlockButtons>
+	<apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+	<apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />  
+	
+	<apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+    
+    <apex:tab label="Adverse Event Xml" name="CompleteTab" id="completeId" ontabenter="enterToNextTab('CompleteTab');">
+    		<apex:pageMessage summary="Configuration saved successfully!" severity="confirm" strength="3" rendered="{!IsConfigSaved}"/>
+    		<apex:actionFunction name="editCRF" action="{!editCRF}" rerender="theTabPanel" status="processStatus"/>
+
+				<apex:pageBlockSection >
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Visit Date:"/>
+						<apex:inputCheckbox id="visitDateId" value="{!visitDate}"/>
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Was patient hospitalized since the last AE report?:"/>
+						<apex:inputCheckbox id="phId" value="{!patientHospitalized}"/>
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Was a caAERS report filed with the DCC since the last assessment?:"/>
+						<apex:inputCheckbox id="caARESId" value="{!caAERSReportFiled}"/>
+					</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+<!--  ======================================================================================================================================
+======================================================Baseline Symptoms==============================================================
+======================================================================================================================================  -->
+	        
+	     	<apex:pageBlockSection title="Baseline Symptoms" columns="2">
+		      	<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Symptoms"/><apex:inputCheckbox id="BaseSymptomsId" value="{!BaseSymptoms}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Event"/><apex:inputCheckbox id="BaseEventId" value="{!BaseEvent}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Grade"/><apex:inputCheckbox id="BaseGradeId" value="{!BaseGrade}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Attribution"/><apex:inputCheckbox id="BaseAttributionId" value="{!BaseAttribution}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Symptom Status"/><apex:inputCheckbox id="BaseSymptomStatusId" value="{!BaseSymptomStatus}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Was Event Life Threatning"/><apex:inputCheckbox id="BaseWasEventLifeThreatningId" value="{!BaseWasEventLifeThreatning}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Toxicity Status"/><apex:inputCheckbox id="BaseToxicityStatusId" value="{!BaseToxicityStatus}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Result Conginental Abnormality Defect"/><apex:inputCheckbox id="BaseResultDefectId" value="{!BaseResultDefect}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Resolved"/><apex:inputCheckbox id="BaseResolvedId" value="{!BaseResolved}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Patient Complaint"/><apex:inputCheckbox id="BasePatientComplaintId" value="{!BasePatientComplaint}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Did The Investigator Find Event Unusual"/><apex:inputCheckbox id="BaseDidTheInvestigatorFindEventUnusualId" value="{!BaseDidTheInvestigatorFindEventUnusual}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Did Event Result In Death"/><apex:inputCheckbox id="BaseDidEventResultInDeathId" value="{!BaseDidEventResultInDeath}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Did Event Required Hospitalization"/><apex:inputCheckbox id="BaseDidEventRequiredHospitalizationId" value="{!BaseDidEventRequiredHospitalization}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="SAE"/><apex:inputCheckbox id="BaseSAEId" value="{!BaseSAE}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Onset Date"/><apex:inputCheckbox id="BaseOnsetDateId" value="{!BaseOnsetDate}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="End Date"/><apex:inputCheckbox id="BaseEndDateId" value="{!BaseEndDate}"/>
+				</apex:pageBlockSectionItem>
+      		</apex:pageBlockSection>  
+<!--    
+		======================================================================================================================================
+		======================================================Prior AE Reporting==============================================================
+		======================================================================================================================================    		
+-->		        
+		<apex:pageBlockSection id="AESection" title="AE Reporting" columns="2" >
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Symptoms"/><apex:inputCheckbox id="AESymptomsId" value="{!AESymptoms}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Event"/><apex:inputCheckbox id="AEEventId" value="{!AEEvent}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Grade"/><apex:inputCheckbox id="AEGradeId" value="{!AEGrade}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Attribution"/><apex:inputCheckbox id="AEAttributionId" value="{!AEAttribution}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Symptom Status"/><apex:inputCheckbox id="AESymptomStatusId" value="{!AESymptomStatus}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Was Event Life Threatning"/><apex:inputCheckbox id="AEWasEventLifeThreatningId" value="{!AEWasEventLifeThreatning}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Toxicity Status"/><apex:inputCheckbox id="AEToxicityStatusId" value="{!AEToxicityStatus}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Result Conginental Abnormality Defect"/><apex:inputCheckbox id="AEResultDefectId" value="{!AEResultDefect}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Resolved"/><apex:inputCheckbox id="AEResolvedId" value="{!AEResolved}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Patient Complaint"/><apex:inputCheckbox id="AEPatientComplaintId" value="{!AEPatientComplaint}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Did The Investigator Find Event Unusual"/><apex:inputCheckbox id="AEDidTheInvestigatorFindEventUnusualId" value="{!AEDidTheInvestigatorFindEventUnusual}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Did Event Result In Death"/><apex:inputCheckbox id="AEDidEventResultInDeathId" value="{!AEDidEventResultInDeath}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Did Event Required Hospitalization"/><apex:inputCheckbox id="AEDidEventRequiredHospitalizationId" value="{!AEDidEventRequiredHospitalization}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="SAE"/><apex:inputCheckbox id="AESAEId" value="{!AESAE}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Onset Date"/><apex:inputCheckbox id="AEOnsetDateId" value="{!AEOnsetDate}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="End Date"/><apex:inputCheckbox id="AEEndDateId" value="{!AEEndDate}"/>
+			</apex:pageBlockSectionItem>
+		</apex:pageBlockSection>
+    </apex:tab>
+</apex:tabPanel>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

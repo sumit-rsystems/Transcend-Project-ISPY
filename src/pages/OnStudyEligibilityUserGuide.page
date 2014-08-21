@@ -1,0 +1,45 @@
+<apex:page sidebar="false" showheader="false">
+	<style>
+		.headingDiv {
+			border-bottom: 1px solid #000;
+		}
+		.contentDiv {
+			width:1000px;
+			padding-left:160px;
+		}
+		.redColor{
+			color:red;
+		}
+	</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete On –Study Eligibility form?</h2>
+		</apex:outputPanel>
+		<p>The On-Study Eligibility Form is used to collect information about the patient's eligibility to join the treatment phase of the study as well as how the tumor was detected prior to starting neoadjuvant treatment. This information is used to help determined the patient's eligibility to be randomized to a study treatment arm and is required to be approved by the DCC prior to randomizing the patient.</p>
+		<p>The information used to complete this form can be found in clinical notes, laboratory reports, and radiology reports. </p>
+		<p style="color: red;"><i>NOTE: clinical significance for lab values do NOT need to be assessed for this CRF but do for the AE CRF.</i></p>
+		<p><i>To open the On-Study Eligibility Form, select the patient from the 'Patient' Tab, select 'CRFs,' select 'New,’ and select 'On-Study Eligibility Form.'</i></p>
+		<p><apex:image url="{!URLFOR($Resource.OnStudyEligibilityFormImages, 'OnstudyImage1.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Check the checkbox next to each eligibility criteria that the patient meets, if the patient doesn't meet a criteria requirement, leave the checkbox unchecked.  The Eligibility checklist criteria listed in section 4.1.2 of the I-SPY 2 Protocol is what appears on this page.  Only patients who meet all eligibility criteria may be eligible for randomization to a treatment arm.</li>
+			<li>If there are Investigational Agent Specific Eligibility Criteria listed in the I-SPY 2 Protocol (Appendix C, section 2) that are in addition to the Eligibility checklist above, they will appear here and the patient must also meet these criteria.  Only patients who meet ALL eligibility criteria from both sections on this page may be eligible for randomization to a treatment arm.</li>
+		</ul>
+		<p><i>Select 'Next' to advance to the 'Method of Detection' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.OnStudyEligibilityFormImages, 'OnstudyImage2.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Choose how the patient's cancer was first detected [Self exam, Clinical exam, Screening Mammogram, Screening MRI, Unknown, or Other, specify].  This is generally reported in the physician's notes documenting the patient's history.  If the cancer was first detected by Mammogram or MRI, answer if the mass was palpable [Yes, No, or Unknown].</li>
+			<li>nter the date the tumor mass was first detected using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.  If the date is not explicit (e.g.’ patient reported feeling a mass a few weeks ago'), use your best judgment to provide a date that is most appropriate.</li>
+			<li>Answer the question about whether a patient has had a prior screening mammogram [Yes OR No].  It is important to know which patients could potentially have a prior screening mammogram.  A screening mammogram is generally only done for US patients age 40 years or older, or if there is a strong family history of cancer.  A screening mammogram is not the same as a diagnostic mammogram. A diagnostic mammogram is done for a patient who 'feels something' or has a suspicious mass and is generally referred to as a diagnostic mammogram on the radiology report.</li>
+			<li>If the patient had a screening mammogram prior to detection of the mass, you must complete the date of the most recent normal or negative screening mammogram (those mammograms that have a BI-RADS score of 1, 2, or 3) using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.  The date for the prior screening mammogram is usually reported on a current mammogram radiology report or on a physician's clinical note.</li>
+		</ul>
+		<p><i>Select 'Next' to advance to the 'Comments &amp; Attachments' tab.</i></p>
+		<p>Attach all relevant de-identified pathology reports, clinical notes, laboratory notes, and imaging reports (source documents) that document the data that is listed on this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+		<p>Provide any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+		<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.OnStudyEligibilityFormImages, 'OnstudyImage3.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the previous screen to update the incorrect information.</li>
+			<li>When you are ready to send the CRF to the DCC for verification, enter your password and select 'Sign and Submit'.</li>
+		</ul>
+	</apex:outputPanel>		
+</apex:page>

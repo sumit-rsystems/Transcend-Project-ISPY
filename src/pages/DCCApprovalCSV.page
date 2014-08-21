@@ -1,0 +1,10 @@
+<apex:page controller="DCCApprovalRequestListController" action="{!showCSVRecords}" title="Approval Request" sideBar="false" showheader="false" standardStylesheets="false" cache="true" contentType="application/vnd.ms-excel#{!csvFileName}.csv">
+"{!selectedRequestStatus} list",
+"Total Records:{!totalRecords}",
+"Showing records from {!displayingFrom} to {!displayingTo}",
+"",
+"Action","Type","Institution","Site","Study","Subject ID","Submitted By","Date Submitted"
+<apex:repeat value="{!appReqList}" var="app">
+=HYPERLINK("{!app.Approval_URL__c}"),"{!app.Object_Label__c}","{!app.Institution__r.Name}","{!app.Site__r.Name}","{!app.Study__r.Name}","{!app.Subject_Id__c}","{!app.CreatedBy.Name}","<apex:outputText value="{0,date,MM'/'dd'/'yyyy' 'hh:mm a}"> <apex:param value="{!app.CreatedDate}" /> </apex:outputText>"
+</apex:repeat>
+</apex:page>

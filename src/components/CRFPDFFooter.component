@@ -1,0 +1,47 @@
+<apex:component >
+    <apex:attribute name="crfFormName" type="String" description="Name of crf form"/>
+    <head>        
+        <style type="text/css" media="print">           
+            @page {                 
+                @top-center {                   
+                    content: element(header);               
+                }
+                @bottom-left {
+                    content: element(footer);
+                }           
+            }                       
+ 
+            div.header {                
+                padding: 10px;              
+                position: running(header);           
+            }           
+            div.footer {                
+                display: block;             
+                padding: 5px;               
+                position: running(footer);          
+            }                       
+ 
+            .pagenumber:before {                
+                content: counter(page);             
+            }                       
+            .pagecount:before {             
+                content: counter(pages);            
+            }                   
+        </style>            
+    </head>     
+    <div class="footer">        
+    <br/>
+        <table style="background-color:#F2F2F2;" class="footer" border="1" width="100%"> 
+        <tr>
+            <td style="border:none">
+               {!crfFormName}
+            </td>
+            <td style="border:none">
+                 <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" /> 
+                </apex:outputText>
+            </td>
+         </tr>
+         </table>
+     </div>
+</apex:component>

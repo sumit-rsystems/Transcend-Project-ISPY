@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>PreEligibility Checklist</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>PreEligibility Checklists</value>
+    </caseValues>
+    <fields>
+        <label><!-- CRF Id --></label>
+        <name>CRF_Id__c</name>
+        <relationshipLabel><!-- PreEligibility Checklists --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Patient has clinically or radiologically measurable or non-measurable disease in breast defined as longest diameter ≥ 2.5cm, per protocol 4.1.1 B. --></help>
+        <label><!-- Clinically/radiologically measurable --></label>
+        <name>Clinically_radiologically_measurable__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Completed Date --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has not had prior cytotoxic regimens or other targeted anticancer therapies to the ipsilateral breast for this malignancy, per protocol 4.1.1 C. --></help>
+        <label><!-- Cytotoxic Regiments --></label>
+        <name>Cytotoxic_Regiments__c</name>
+    </fields>
+    <fields>
+        <label><!-- DCC Comments --></label>
+        <name>DCC_Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Disease In Breast --></label>
+        <name>Disease_In_Breast__c</name>
+    </fields>
+    <fields>
+        <label><!-- ECOG Score --></label>
+        <name>ECOG_Score__c</name>
+        <picklistValues>
+            <masterLabel>0-Asymptomatic</masterLabel>
+            <translation><!-- 0-Asymptomatic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1-Symptomatic but ambulatory</masterLabel>
+            <translation><!-- 1-Symptomatic but ambulatory --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2-Symptomatic, &lt;50% in bed</masterLabel>
+            <translation><!-- 2-Symptomatic, &lt;50% in bed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3-Symptomatic, &gt;= 50% in bed</masterLabel>
+            <translation><!-- 3-Symptomatic, &gt;= 50% in bed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4-Bedbound</masterLabel>
+            <translation><!-- 4-Bedbound --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5-Death</masterLabel>
+            <translation><!-- 5-Death --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- ECOG Snomed --></label>
+        <name>ECOG_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has no ferromagnetic prostheses that are not compatible with an MRI machine, per protocol 4.1.1 H. --></help>
+        <label><!-- No ferromagnetic prostheses --></label>
+        <name>Ferromegnatic_Prostheses__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Save and Close --></label>
+        <name>First_Save_and_Close__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has not had prior cytotoxic regimens or other targeted anticancer therapies to the ipsilateral breast for this malignancy, per protocol 4.1.1 C. --></help>
+        <label><!-- Not had prior cytotoxic regimens --></label>
+        <name>Had_prior_cytotoxic_regimens_anticancer__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has histologically confirmed invasive cancer of the female breast as confirmed by core needle, fine needle aspirate, or incisional biopsy*(*Incisional biopsy is allowed if residual tumor after biopsy measures at least 2.5cm), per protocol 4.1.1 A. --></help>
+        <label><!-- Histologically confirmed invasive cancer --></label>
+        <name>Histologically_confirmed_invasive_cancer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Institution --></label>
+        <name>Institution__c</name>
+        <relationshipLabel><!-- PreEligibility Checklists --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Patient is non-pregnant and non-lactating, per protocol 4.1.1 G. --></help>
+        <label><!-- Non-Pregnant and Not-Lactating --></label>
+        <name>Non_Pregnant_Not_Lactating__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has not had prior RT to the ipsilateral breast for this malignancy, per protocol 4.1.1 C. --></help>
+        <label><!-- Not had prior RT --></label>
+        <name>Not_had_prior_RT__c</name>
+    </fields>
+    <fields>
+        <label><!-- OriginalCRF --></label>
+        <name>OriginalCRF__c</name>
+        <relationshipLabel><!-- PreEligibility Checklists --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Patient has not had other investigational agents within 30 days of study enrollment, per protocol 4.2 A. --></help>
+        <label><!-- Not had other investigational agents --></label>
+        <name>Other_investigational_agents__c</name>
+    </fields>
+    <fields>
+        <label><!-- Patient --></label>
+        <name>Patient__c</name>
+        <relationshipLabel><!-- PreEligibility Checklists --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Patient is 18 years or older, per protocol 4.1.1 D. --></help>
+        <label><!-- Patient is 18 years or older --></label>
+        <name>Patient_is_18_years_or_older__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient is eligible to be screened for the study. --></help>
+        <label><!-- Patient is eligible to be screened --></label>
+        <name>Patient_is_eligible_to_be_screened_for_t__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient is willing to have study MRI. --></help>
+        <label><!-- Patient is willing to have study MRI --></label>
+        <name>Patient_is_willin_to_have_study_MRI__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient is willing to have study core biopsy. --></help>
+        <label><!-- Patient is willing to have core biospy --></label>
+        <name>Patient_is_willing_to_have_core_biospy__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient signed up for I-SPY2 screening form. --></help>
+        <label><!-- Patient signed up for I-SPY2 screening --></label>
+        <name>Patient_signed_up_for_I_SPY2_screening__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Follow-up</masterLabel>
+            <translation><!-- Follow-up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening</masterLabel>
+            <translation><!-- Screening --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment</masterLabel>
+            <translation><!-- Treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Primary Adenocarcinoma --></label>
+        <name>Primary_Adenocarcinoma__c</name>
+    </fields>
+    <fields>
+        <help><!-- Reason for not signing screening consent? --></help>
+        <label><!-- Reason for not signing screening consent --></label>
+        <name>Reason_for_not_signing_screening_consent__c</name>
+        <picklistValues>
+            <masterLabel>Insurance will not cover cost of standard care</masterLabel>
+            <translation><!-- Insurance will not cover cost of standard care --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient decided to be treated at another clinic</masterLabel>
+            <translation><!-- Patient decided to be treated at another clinic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient decided to be treated with a different neoadjuvant regimen</masterLabel>
+            <translation><!-- Patient decided to be treated with a different neoadjuvant regimen --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient decided to have surgery before treatment</masterLabel>
+            <translation><!-- Patient decided to have surgery before treatment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient does not want to participate in a clinical trial</masterLabel>
+            <translation><!-- Patient does not want to participate in a clinical trial --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient is not willing to be treated with an investigational agent</masterLabel>
+            <translation><!-- Patient is not willing to be treated with an investigational agent --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Site --></label>
+        <name>Site__c</name>
+        <relationshipLabel><!-- PreEligibility Checklists --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Approval Not Required</masterLabel>
+            <translation><!-- Approval Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Submitted Date --></label>
+        <name>Submitted_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Time of observation --></label>
+        <name>Time_of_observation__c</name>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- PreEligibility Checklists --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Trial --></label>
+        <name>Trial__c</name>
+        <relationshipLabel><!-- PreEligibility Checklists --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Patient has not had other investigational agents within 30 days of study enrollment, per protocol 4.2 A. --></help>
+        <label><!-- 30 Days Investigational Agents --></label>
+        <name>X30_Days_Investigational_Agents__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_preeligibilitychklist_Id --></label>
+        <name>pg_preeligibilitychklist_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_status --></label>
+        <name>pg_status__c</name>
+    </fields>
+    <layouts>
+        <layout>Adhoc</layout>
+        <sections>
+            <label><!-- Comments --></label>
+            <section>Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- ECOG Score --></label>
+            <section>ECOG Score</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+        <sections>
+            <label><!-- Patient is Eligible to be screened for the Study --></label>
+            <section>Patient is Eligible to be screened for the Study</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Approval Pending</layout>
+        <sections>
+            <label><!-- Comments --></label>
+            <section>Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- ECOG Score --></label>
+            <section>ECOG Score</section>
+        </sections>
+        <sections>
+            <label><!-- Patient is Eligible to be screened for the study --></label>
+            <section>Patient is Eligible to be screened for the study</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>PreEligibility Checklist Layout</layout>
+        <sections>
+            <label><!-- Comments --></label>
+            <section>Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- ECOG Score --></label>
+            <section>ECOG Score</section>
+        </sections>
+        <sections>
+            <label><!-- Patient is Eligible to be screened for the study --></label>
+            <section>Patient is Eligible to be screened for the study</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Adhoc --></label>
+        <name>Adhoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Please Provide ECOG Score --></errorMessage>
+        <name>ECOG_Score_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please give the reason if patient not signing Screening consent form or Uncheck the &quot;Patient signed up for I-SPY2 screening?&quot; checkbox --></errorMessage>
+        <name>Signing_screening_consent_form</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please UN-check the &quot;Patient signed up for I-SPY2 screening? &quot; checkbox or Select not for &quot;Reason for none signing screening consent&quot; --></errorMessage>
+        <name>Signing_screening_consent_form_unchecked</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Cancel --></label>
+        <name>Cancel</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Complete --></label>
+        <name>Complete</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Sign_and_Submit --></label>
+        <name>Sign_and_Submit</name>
+    </webLinks>
+</CustomObjectTranslation>

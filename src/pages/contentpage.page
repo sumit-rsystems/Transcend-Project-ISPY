@@ -1,0 +1,11 @@
+<apex:page >
+<!--Header -->
+<c:CRFPdfHeader crfFormName="I-SPY 2 Trail : Tissue Specimen Form" initial="DN" 
+    instituteName="Test institute" subjectId="12345"></c:CRFPdfHeader>
+
+<div> PAGE CONTENT GOES HERE</div>
+
+<!-- Footer -->
+<c:CRFPDFFooter crfFormName="Tissue Specimen Form , v1"  />
+
+</apex:page>

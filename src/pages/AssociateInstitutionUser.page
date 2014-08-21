@@ -1,0 +1,100 @@
+<apex:page controller="AssociateInstitutionUser" tabStyle="Account" sideBar="false">
+<style>
+
+/*.list .dataRow {
+	background-color: red;
+}*/
+.errorRow {
+	background-color: #EF7777;
+}
+</style>
+	<script>
+		function unCheckWholeRow (obj,isChecked) {
+			if(!isChecked) {
+				parentObj = obj.parentNode;
+				var likeString = parentObj.getElementsByTagName('input');
+				for(var i=0;i<likeString.length;i++) {
+					likeString[i].checked = false;
+				}
+			}
+		}
+	</script>
+    <apex:form >
+    	<apex:pageMessage summary="Please wait until users are listed." severity="error" strength="3" rendered="{!isNull}" />
+    	<apex:pageBlock >
+        	<apex:pageBlockButtons >
+            	<apex:commandButton action="{!CustomeSave}" value="Save" rerender="selectTrial,selectUsers" status="counterStatus"/>
+                <apex:actionStatus id="counterStatus" startText="Processing..." />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="2">
+<!--                <apex:pageBlockSectionItem dataStyle="width: 100%;text-align:center;" dataStyleClass="labelCol  first">-->
+				<apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Institutions" />
+                    <apex:outputPanel >
+                    	<apex:outputPanel rendered="{!IF(ISNULL(InsId), true, false)}" > 
+		                    <apex:selectList value="{!selectInstitutions}" size="1" >
+		                        <apex:selectOptions value="{!Institution}"/>
+		                        <apex:actionSupport event="onchange" action="{!getSiteRec}" rerender="selectTrial,selectUsers" status="counterStatus1"/>
+		                    </apex:selectList> 
+                    	</apex:outputPanel>
+                    	<apex:outputPanel rendered="{!IF(ISNULL(InsId), false, true)}" >
+	                		{!InsName}
+	                	</apex:outputPanel>
+                </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Sites/Labs"/>
+                    <apex:outputPanel >
+                    <apex:outputPanel rendered="{!IF(isSingleSite = false,true,false)}">
+	                    <apex:outputPanel rendered="{!forSite}">
+		                    <apex:selectList value="{!selectSite}" size="1" id="selectTrial">
+		                        <apex:selectOptions value="{!site}"/>
+		                        <apex:actionSupport event="onchange" action="{!getUserRec}" rerender="selectUsers" status="counterStatus2"/>
+		                    </apex:selectList>
+		                    <apex:actionStatus id="counterStatus1" startText="Loading..." />
+		                    <apex:actionStatus id="counterStatus2" startText="Loading..." />
+	                 	</apex:outputPanel>
+		                <apex:outputPanel rendered="{!IF(forInst = false,true,false)}"></apex:outputPanel>
+	                    	{!SitName}
+					</apex:outputPanel>
+					<apex:outputPanel rendered="{!isSingleSite}">
+						{!singleSiteName} 
+					</apex:outputPanel>
+				</apex:outputPanel>
+				
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" id="selectUsers">
+            	<apex:outputPanel rendered="{!showUser}">
+	            	<apex:pageMessage summary="{!errorMsg}" severity="error" strength="3" rendered="{!isUserTrialError}" />
+	            	<apex:pageMessage summary="{!associationMsg}" severity="info" strength="3" rendered="{!IsUserAssociated}" />
+	                <apex:outputPanel layout="block" style="height:306px; width: 1050px; overflow-x: auto; overflow-y: scroll;" rendered="{!toShowTable}">
+	                    <apex:pageBlockTable value="{!lstwrapperUsers}" var="user" >
+	                        <apex:column styleClass="{!IF((user.isTrErrorShow),'errorRow','')}"><apex:inputCheckbox value="{!user.ischecked}" onClick="unCheckWholeRow(this.parentNode, this.checked);" /></apex:column>
+	                        <apex:column styleClass="{!IF((user.isTrErrorShow),'errorRow','')}" value="{!user.wrapUser.FirstName}"/>
+	                        <apex:column styleClass="{!IF((user.isTrErrorShow),'errorRow','')}" value="{!user.wrapUser.Lastname}"/>
+	                        <apex:column styleClass="{!IF((user.isTrErrorShow),'errorRow','')}" value="{!user.wrapUser.Email}"/>
+	                        <apex:column styleClass="{!IF((user.isTrErrorShow),'errorRow','')}" >
+	                        	<apex:facet name="header">Institute Calender</apex:facet>
+	                        	<apex:inputCheckbox value="{!user.isInstituteCalender}"/>
+	                        </apex:column>
+	                        <apex:column styleClass="{!IF((user.isTrErrorShow),'errorRow','')}" >
+	                        	<apex:facet name="header">Institute Admin?</apex:facet>
+	                        	<apex:inputCheckbox value="{!user.isInstituteAdmin}"/>
+	                        </apex:column>
+	                        <apex:column styleClass="{!IF((user.isTrErrorShow),'errorRow','')}" >
+	                        	<apex:facet name="header">
+	                        		Trials
+	                    		</apex:facet>
+		                        <apex:repeat value="{!user.wrapTrial}" var="t">
+		                        	{!t.trialLabel}<apex:inputCheckbox value="{!t.isTrail}"/>&nbsp;&nbsp;&nbsp;
+		                        </apex:repeat>
+	                        </apex:column> 
+	                    </apex:pageBlockTable>
+	                </apex:outputPanel>
+				</apex:outputPanel>
+	        
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

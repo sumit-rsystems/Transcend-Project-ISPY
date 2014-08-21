@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Anterior_deep_Gross_specimen_size__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Anterior-deep Gross specimen size</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Anterior_deep_size_unit__c</fullName>
+        <externalId>false</externalId>
+        <label>Anterior-deep size unit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Block1__c</fullName>
+        <externalId>false</externalId>
+        <label>Block #</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Block2__c</fullName>
+        <externalId>false</externalId>
+        <label>Block #</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Effective_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Effective Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Lab__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Performing Lab</label>
+        <referenceTo>Site__c</referenceTo>
+        <relationshipLabel>Procedure Specimen Details</relationshipLabel>
+        <relationshipName>Procedure_Specimen_Details</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Lymph_node_tissue_present_in_sample__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Lymph node tissue present in sample</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Main_Specimen_submitted_for_histology__c</fullName>
+        <description>Main Specimen entirely submitted for histology</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Main Specimen entirely submitted for histology</inlineHelpText>
+        <label>Main Specimen submitted for histology</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Reported</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Medial_lateral_Gross_specimen_size__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Medial-lateral Gross specimen size</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Medial_lateral_size_unit__c</fullName>
+        <externalId>false</externalId>
+        <label>Medial-lateral size unit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Post_Surgery_Summary__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Post Surgery Summary</label>
+        <referenceTo>Post_Surgaory_Summary__c</referenceTo>
+        <relationshipLabel>Procedure Specimen Details</relationshipLabel>
+        <relationshipName>Procedure_Specimen_Details</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Procedure__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Procedure</label>
+        <referenceTo>Procedure__c</referenceTo>
+        <relationshipLabel>Procedure Specimen Details</relationshipLabel>
+        <relationshipName>Procedure_Specimen_Details</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Single_Speciment_submitted_for_histology__c</fullName>
+        <description>Single Speciment entirely submitted for histology</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Single Speciment entirely submitted for histology</inlineHelpText>
+        <label>Single Speciment submitted for histology</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Reported</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Slice1__c</fullName>
+        <externalId>false</externalId>
+        <label>Slice #</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Slice2__c</fullName>
+        <externalId>false</externalId>
+        <label>Slice #</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Slice_Plane1__c</fullName>
+        <externalId>false</externalId>
+        <label>Slice Plane1</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Ant-most</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Med-most</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sup-most</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Slice_Plane2__c</fullName>
+        <externalId>false</externalId>
+        <label>Slice Plane2</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Post-most</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lat-most</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inf-most</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Slicing_Method__c</fullName>
+        <externalId>false</externalId>
+        <label>Slicing Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Anterior/Posterior</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medial/Lateral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Superior/Inferior</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Specimen__c</fullName>
+        <externalId>false</externalId>
+        <label>Specimen</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Main specimen with separately submitted margins</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Single Specimen</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Superor_inferior_Gross_specimen_size__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Superor-inferior Gross specimen size</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Superor_inferior_size_unit__c</fullName>
+        <externalId>false</externalId>
+        <label>Superor-inferior size unit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Total_Slices__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Slices</label>
+        <precision>11</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>pg_ProcedureSpecimen_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_ProcedureSpecimen_Id</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Procedure Specimen Detail</label>
+    <nameField>
+        <displayFormat>{00000000}</displayFormat>
+        <label>Procedure Specimen Detail Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Procedure Specimen Details</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

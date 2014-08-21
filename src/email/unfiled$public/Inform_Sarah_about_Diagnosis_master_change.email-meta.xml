@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Inform Sarah about Diagnosis master change</name>
+    <style>none</style>
+    <subject>Diagnosis &quot;{!Daignosis_Master__c.Name}&quot; master changed</subject>
+    <textOnly>Hi,
+{!Daignosis_Master__c.LastModifiedBy} has changed the following diagnosis master record.
+{!Daignosis_Master__c.Name}
+
+Thanks.</textOnly>
+    <type>custom</type>
+</EmailTemplate>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Site Trial</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Site Trials</value>
+    </caseValues>
+    <fields>
+        <label><!-- Site --></label>
+        <name>Site__c</name>
+        <relationshipLabel><!-- Site Trials --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Trial --></label>
+        <name>Trial__c</name>
+        <relationshipLabel><!-- Site Trials --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- User --></label>
+        <name>User__c</name>
+        <picklistValues>
+            <masterLabel>Lab</masterLabel>
+            <translation><!-- Lab --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Site</masterLabel>
+            <translation><!-- Site --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Site Trial Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

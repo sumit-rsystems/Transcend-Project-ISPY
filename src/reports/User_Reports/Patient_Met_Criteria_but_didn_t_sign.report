@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>PreEligibility_Checklist__c.Reason_for_not_signing_screening_consent__c</field>
+    </columns>
+    <description>Patient met eligibility Criteria but did not Sign Screening Consent Form.</description>
+    <filter>
+        <criteriaItems>
+            <column>PreEligibility_Checklist__c.Patient_is_eligible_to_be_screened_for_t__c</column>
+            <operator>notEqual</operator>
+            <value>0</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>PreEligibility_Checklist__c.Patient_is_eligible_to_be_screened_for_t__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Patient Met Criteria but didn&apos;t sign</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$PreEligibility_Checklist__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <timeFrameFilter>
+        <dateColumn>PreEligibility_Checklist__c.CompletedDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

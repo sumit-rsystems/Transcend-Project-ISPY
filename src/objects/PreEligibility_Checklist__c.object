@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>PreEligibilityInfo</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>PreEligibilityChecklist</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>CRF_Id__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CRF Id</label>
+        <referenceTo>CRF__c</referenceTo>
+        <relationshipLabel>PreEligibility Checklists</relationshipLabel>
+        <relationshipName>PreEligibility_Checklists</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Clinically_radiologically_measurable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has clinically or radiologically measurable or non-measurable disease in breast defined as longest diameter ≥ 2.5cm, per protocol 4.1.1 B.</inlineHelpText>
+        <label>Clinically/radiologically measurable</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CompletedDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Completed Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Cytotoxic_Regiments__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has not had prior cytotoxic regimens or other targeted anticancer therapies to the ipsilateral breast for this malignancy, per protocol 4.1.1 C.</inlineHelpText>
+        <label>Cytotoxic Regiments</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>DCC_Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>DCC Comments</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Disease_In_Breast__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Disease In Breast</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ECOG_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>ECOG Score</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-Asymptomatic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-Symptomatic but ambulatory</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2-Symptomatic, &lt;50% in bed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3-Symptomatic, &gt;= 50% in bed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4-Bedbound</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-Death</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ECOG_Snomed__c</fullName>
+        <externalId>false</externalId>
+        <label>ECOG Snomed</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Effective_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Effective Time</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Ferromegnatic_Prostheses__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has no ferromagnetic prostheses that are not compatible with an MRI machine, per protocol 4.1.1 H.</inlineHelpText>
+        <label>No ferromagnetic prostheses</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>First_Save_and_Close__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>First Save and Close</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Had_prior_cytotoxic_regimens_anticancer__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has not had prior cytotoxic regimens or other targeted anticancer therapies to the ipsilateral breast for this malignancy, per protocol 4.1.1 C.</inlineHelpText>
+        <label>Not had prior cytotoxic regimens</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Histologically_confirmed_invasive_cancer__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has histologically confirmed invasive cancer of the female breast as confirmed by core needle, fine needle aspirate, or incisional biopsy*(*Incisional biopsy is allowed if residual tumor after biopsy measures at least 2.5cm), per protocol 4.1.1 A.</inlineHelpText>
+        <label>Histologically confirmed invasive cancer</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Institution__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Institution</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>PreEligibility Checklists</relationshipLabel>
+        <relationshipName>PreEligibility_Checklists</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Non_Pregnant_Not_Lactating__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient is non-pregnant and non-lactating, per protocol 4.1.1 G.</inlineHelpText>
+        <label>Non-Pregnant and Not-Lactating</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Not_had_prior_RT__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has not had prior RT to the ipsilateral breast for this malignancy, per protocol 4.1.1 C.</inlineHelpText>
+        <label>Not had prior RT</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>OriginalCRF__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>OriginalCRF</label>
+        <referenceTo>PreEligibility_Checklist__c</referenceTo>
+        <relationshipLabel>PreEligibility Checklists</relationshipLabel>
+        <relationshipName>PreEligibility_Checklists</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Other_investigational_agents__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has not had other investigational agents within 30 days of study enrollment, per protocol 4.2 A.</inlineHelpText>
+        <label>Not had other investigational agents</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Patient__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Patient</label>
+        <referenceTo>Patient_Custom__c</referenceTo>
+        <relationshipLabel>PreEligibility Checklists</relationshipLabel>
+        <relationshipName>PreEligibility_Checklists</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Patient_is_18_years_or_older__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient is 18 years or older, per protocol 4.1.1 D.</inlineHelpText>
+        <label>Patient is 18 years or older</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Patient_is_eligible_to_be_screened_for_t__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient is eligible to be screened for the study.</inlineHelpText>
+        <label>Patient is eligible to be screened</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Patient_is_willin_to_have_study_MRI__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient is willing to have study MRI.</inlineHelpText>
+        <label>Patient is willing to have study MRI</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Patient_is_willing_to_have_core_biospy__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient is willing to have study core biopsy.</inlineHelpText>
+        <label>Patient is willing to have core biospy</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Patient_signed_up_for_I_SPY2_screening__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient signed up for I-SPY2 screening form.</inlineHelpText>
+        <label>Patient signed up for I-SPY2 screening</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Phase__c</fullName>
+        <externalId>false</externalId>
+        <label>Phase</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Screening</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Adenocarcinoma__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Primary Adenocarcinoma</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_not_signing_screening_consent__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Reason for not signing screening consent?</inlineHelpText>
+        <label>Reason for not signing screening consent</label>
+        <picklist>
+            <controllingField>Patient_signed_up_for_I_SPY2_screening__c</controllingField>
+            <picklistValues>
+                <fullName>Patient does not want to participate in a clinical trial</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Patient is not willing to be treated with an investigational agent</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Patient decided to be treated with a different neoadjuvant regimen</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Patient decided to have surgery before treatment</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Patient decided to be treated at another clinic</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insurance will not cover cost of standard care</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Site__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Site</label>
+        <referenceTo>Site__c</referenceTo>
+        <relationshipLabel>PreEligibility Checklists</relationshipLabel>
+        <relationshipName>PreEligibility_Checklists</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Completed</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Submitted_Date__c</fullName>
+        <defaultValue>TODAY()</defaultValue>
+        <externalId>false</externalId>
+        <label>Submitted Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Time_of_observation__c</fullName>
+        <externalId>false</externalId>
+        <label>Time of observation</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>TrialPatient__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>TrialPatient</label>
+        <referenceTo>TrialPatient__c</referenceTo>
+        <relationshipLabel>PreEligibility Checklists</relationshipLabel>
+        <relationshipName>PreEligibility_Checklists</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Trial__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Trial</label>
+        <referenceTo>Trial__c</referenceTo>
+        <relationshipLabel>PreEligibility Checklists</relationshipLabel>
+        <relationshipName>PreEligibility_Checklists</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>X30_Days_Investigational_Agents__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has not had other investigational agents within 30 days of study enrollment, per protocol 4.2 A.</inlineHelpText>
+        <label>30 Days Investigational Agents</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>pg_preeligibilitychklist_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_preeligibilitychklist_Id</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>pg_status__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_status</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>PreEligibility Checklist</label>
+    <nameField>
+        <displayFormat>{0000}</displayFormat>
+        <label>PreEligibility Checklist Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>PreEligibility Checklists</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypes>
+        <fullName>Adhoc</fullName>
+        <active>true</active>
+        <label>Adhoc</label>
+        <picklistValues>
+            <picklist>ECOG_Score__c</picklist>
+            <values>
+                <fullName>0-Asymptomatic</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>1-Symptomatic but ambulatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2-Symptomatic%2C %3C50%25 in bed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3-Symptomatic%2C %3E%3D 50%25 in bed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4-Bedbound</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5-Death</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason_for_not_signing_screening_consent__c</picklist>
+            <values>
+                <fullName>Insurance will not cover cost of standard care</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patient decided to be treated at another clinic</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patient decided to be treated with a different neoadjuvant regimen</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patient decided to have surgery before treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patient does not want to participate in a clinical trial</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Patient is not willing to be treated with an investigational agent</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Approval_Pending</fullName>
+        <active>true</active>
+        <label>Approval Pending</label>
+        <picklistValues>
+            <picklist>ECOG_Score__c</picklist>
+            <values>
+                <fullName>0-Asymptomatic</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>1-Symptomatic but ambulatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2-Symptomatic%2C %3C50%25 in bed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3-Symptomatic%2C %3E%3D 50%25 in bed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4-Bedbound</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5-Death</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason_for_not_signing_screening_consent__c</picklist>
+            <values>
+                <fullName>Insurance will not cover cost of standard care</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patient decided to be treated at another clinic</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patient decided to be treated with a different neoadjuvant regimen</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patient decided to have surgery before treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patient does not want to participate in a clinical trial</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Patient is not willing to be treated with an investigational agent</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Live</fullName>
+        <active>true</active>
+        <label>Live</label>
+        <picklistValues>
+            <picklist>ECOG_Score__c</picklist>
+            <values>
+                <fullName>0-Asymptomatic</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>1-Symptomatic but ambulatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2-Symptomatic%2C %3C50%25 in bed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3-Symptomatic%2C %3E%3D 50%25 in bed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4-Bedbound</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5-Death</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason_for_not_signing_screening_consent__c</picklist>
+            <values>
+                <fullName>Insurance will not cover cost of standard care</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patient decided to be treated at another clinic</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patient decided to be treated with a different neoadjuvant regimen</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patient decided to have surgery before treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patient does not want to participate in a clinical trial</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Patient is not willing to be treated with an investigational agent</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>ECOG_Score_Required</fullName>
+        <active>true</active>
+        <errorConditionFormula>Patient_is_eligible_to_be_screened_for_t__c = true &amp;&amp;  ISPICKVAL( ECOG_Score__c , &apos;&apos;)</errorConditionFormula>
+        <errorDisplayField>ECOG_Score__c</errorDisplayField>
+        <errorMessage>Please Provide ECOG Score</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Signing_screening_consent_form</fullName>
+        <active>true</active>
+        <errorConditionFormula>( Patient_is_eligible_to_be_screened_for_t__c = true &amp;&amp; Patient_signed_up_for_I_SPY2_screening__c = false &amp;&amp; ISPICKVAL( Reason_for_not_signing_screening_consent__c ,&apos;&apos;))</errorConditionFormula>
+        <errorMessage>Please give the reason if patient not signing Screening consent form or Uncheck the &quot;Patient signed up for I-SPY2 screening?&quot; checkbox</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Signing_screening_consent_form_unchecked</fullName>
+        <active>false</active>
+        <errorConditionFormula>Patient_signed_up_for_I_SPY2_screening__c = true &amp;&amp;  NOT( ISNULL( TEXT( Reason_for_not_signing_screening_consent__c ) ) )</errorConditionFormula>
+        <errorMessage>Please UN-check the &quot;Patient signed up for I-SPY2 screening? &quot; checkbox or Select not for &quot;Reason for none signing screening consent&quot;</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Cancel</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Cancel</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if(confirm(&quot;Completely cancel and remove?&quot;)) {
+window.location.href=&quot;/apex/CustomDelete?objApi=PreEligibility_Checklist__c&amp;id={!PreEligibility_Checklist__c.Id}&amp;patId={!PreEligibility_Checklist__c.PatientId__c}&quot;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Complete</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Complete</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/ChangeAdhocToLive?rid={!PreEligibility_Checklist__c.Id}&amp;type=submit</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Sign_and_Submit</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Sign and Submit</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/SignAndSubmitPage?id={!PreEligibility_Checklist__c.Id}&amp;form_code=00008</url>
+    </webLinks>
+</CustomObject>

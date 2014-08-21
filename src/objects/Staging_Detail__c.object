@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Adjudicated_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Adjudicated By</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Staging Details</relationshipLabel>
+        <relationshipName>Staging_Details</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Adjudicated_Stage__c</fullName>
+        <externalId>false</externalId>
+        <label>Adjudicated Stage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Stage 0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stage IA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stage IB</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stage IIA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stage IIB</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stage IIIA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stage IIIB</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stage IIIC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stage IV</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stage I</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Calculated_Stage_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Calculated Stage Value</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Calculated_Stage__c</fullName>
+        <externalId>false</externalId>
+        <label>Calculated Stage</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Letarality__c</fullName>
+        <externalId>false</externalId>
+        <label>Letarality</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Left</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Right</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Metastasis__c</fullName>
+        <externalId>false</externalId>
+        <label>Metastasis</label>
+        <picklist>
+            <picklistValues>
+                <fullName>M0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>M1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MX</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Modifier_classification_done__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>y-classification done during/following initial therapy</description>
+        <externalId>false</externalId>
+        <inlineHelpText>y-classification done during/following initial therapy</inlineHelpText>
+        <label>Modifier classification done</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Modifier_designates__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>a-designates the staging done at autopsy</description>
+        <externalId>false</externalId>
+        <inlineHelpText>a-designates the staging done at autopsy</inlineHelpText>
+        <label>Modifier designates</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Modifier_indicates_recurrent__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>r-indicates a recurrent tumor</description>
+        <externalId>false</externalId>
+        <inlineHelpText>r-indicates a recurrent tumor</inlineHelpText>
+        <label>Modifier indicates recurrent</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Modifier_multiple_primary__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>m-multiple primary tumors in a single site</description>
+        <externalId>false</externalId>
+        <inlineHelpText>m-multiple primary tumors in a single site</inlineHelpText>
+        <label>Modifier multiple primary</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Node_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Node Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>N0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N0i+</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N1mic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N1a</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N1b</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N2a</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N2b</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N3a</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N3b</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N3c</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N0i-</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Patient__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Patient</label>
+        <referenceTo>Patient_Custom__c</referenceTo>
+        <relationshipLabel>Staging Details</relationshipLabel>
+        <relationshipName>Staging_Details</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Post_Surgery_Summary__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Post Surgery Summary</label>
+        <referenceTo>Post_Surgaory_Summary__c</referenceTo>
+        <relationshipLabel>Staging Details</relationshipLabel>
+        <relationshipName>Staging_Details</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Staging_Modifier_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Staging Modifier Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Clinical Staging</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pathological Staging</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>T4_Tumor_final_status__c</fullName>
+        <externalId>false</externalId>
+        <label>T4 Tumor final status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Skin only</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Chest wall</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Skin and chest wall</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inflammatory</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No skin involvement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Tumor_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Tumor Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>T0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>T1mic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>T1a</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>T1b</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>T1c</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>T2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>T3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>T4a</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>T4b</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>T4c</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>T4d</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TX</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>pg_StagingDetail_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_StagingDetail_Id</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Staging Detail</label>
+    <nameField>
+        <displayFormat>{00000000}</displayFormat>
+        <label>Staging Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Staging Details</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

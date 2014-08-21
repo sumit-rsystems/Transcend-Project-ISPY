@@ -1,0 +1,3 @@
+<apex:page controller="pretreatmentCompltMammafilledController" showHeader="false" sidebar="false">
+    {!data}
+</apex:page>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Off_Study_Detail__c.Status__c</field>
+    </columns>
+    <columns>
+        <field>Off_Study_Detail__c.Patient_did_not_have_surgery__c</field>
+    </columns>
+    <columns>
+        <field>Off_Study_Detail__c.Patient_did_not_have_surgery_reason__c</field>
+    </columns>
+    <columns>
+        <field>Off_Study_Detail__c.Patient_completed_study_per_protocol__c</field>
+    </columns>
+    <columns>
+        <field>Off_Study_Detail__c.Patient_did_nt_continue_on_treatment_arm__c</field>
+    </columns>
+    <columns>
+        <field>Off_Study_Detail__c.Patient_did_nt_want_to_complete_core_bio__c</field>
+    </columns>
+    <columns>
+        <field>Off_Study_Detail__c.Patient_did_not_want_to_complete_MRI__c</field>
+    </columns>
+    <columns>
+        <field>Off_Study_Detail__c.Patient_Died__c</field>
+    </columns>
+    <columns>
+        <field>Off_Study_Detail__c.Patient_withdrew_for_specimens__c</field>
+    </columns>
+    <description>Number of Patients Opt Out</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Off_Study_Detail__c.No_of_Off_Study_CRF__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Off Study Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Off_Study_Detail__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Off_Study_Detail__c.CompletedDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

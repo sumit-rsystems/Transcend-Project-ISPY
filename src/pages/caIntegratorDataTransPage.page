@@ -1,0 +1,3 @@
+<apex:page Controller="caIntegratorDataTransmissionController" sideBar="false" showHeader="false" id="pageId" tabStyle="Account" cache="true" contentType="application/vnd.ms-excel#caIntegratorData.csv">
+	{!csvContents}
+</apex:page>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>TrialPatient</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>TrialPatients</value>
+    </caseValues>
+    <fields>
+        <label><!-- FirstName --></label>
+        <name>FirstName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Institution --></label>
+        <name>Institution__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsRandomized --></label>
+        <name>IsRandomized__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastName --></label>
+        <name>LastName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Medical Record Number --></label>
+        <name>Medical_Record_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Patient Name --></label>
+        <name>Patient_Id__c</name>
+        <relationshipLabel><!-- Trial Associations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Phase Master --></label>
+        <name>Phase_Master__c</name>
+        <relationshipLabel><!-- TrialPatients --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- RandomizationCalled --></label>
+        <name>RandomizationCalled__c</name>
+    </fields>
+    <fields>
+        <label><!-- Site --></label>
+        <name>Site__c</name>
+        <relationshipLabel><!-- TrialPatients --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Stage --></label>
+        <name>Stage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subject Id --></label>
+        <name>Subject_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trial Name --></label>
+        <name>Trial_Id__c</name>
+        <relationshipLabel><!-- TrialPatients --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- pg_new_patient_id --></label>
+        <name>pg_new_patient_id__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_patient_Id --></label>
+        <name>pg_patient_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_patient_id_int --></label>
+        <name>pg_patient_id_int__c</name>
+    </fields>
+    <layouts>
+        <layout>Lab User Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>TrialPatient Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

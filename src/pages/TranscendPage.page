@@ -1,0 +1,1352 @@
+<apex:page standardController="Patient_Custom__c" extensions="PhaseMaster" id="pageId" sidebar="false" title="Patient Detail" tabStyle="Patient_Custom__c">
+<script type="text/javascript">
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script>
+
+
+<style>
+    table#tblReport {
+        border: 1px  solid #dce6f2;
+    }
+    table#tblReport tr td {
+        border-right: 1px  solid #dce6f2;
+        border-bottom: 1px  solid #dce6f2;
+    }
+        .tableProcedureHeadPage {
+            width: 22%;
+        }
+        .tableLateralityHeadPage { 
+            width: 6%; 
+        }
+        .tableLocationHeadPage { 
+            width: 18%; 
+        }
+         
+        .activeTab {
+            background: none repeat scroll 0 0 #FFFFFF; 
+            border-bottom: 2px solid #FFFFFF; 
+            color: #000000;
+            font-weight: 600;
+            width: 115px; 
+        }
+        
+        .inactiveTab {
+                cursor: pointer; 
+                /*background-color: #7A9FA0;*/
+                background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+                color: white; /*#3C3C3C;*/
+                font-weight: bold;
+                font-size: 12px;
+                height: 15px;
+                width: 115px;
+                vertical-align: middle;
+                /*padding-top: 4px;*/
+                border: none;
+        }
+        .activeTabSchedule {
+            background: none repeat scroll 0 0 #FFFFFF; 
+            border-bottom: 2px solid #FFFFFF; 
+            color: #000000;
+            font-weight: 600;
+            width: 150px;
+             
+        }
+        
+        .inactiveTabSchedule {
+                cursor: pointer; 
+                /*background-color: #7A9FA0;*/
+                background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+                color: white; /*#3C3C3C;*/
+                font-weight: bold;
+                font-size: 12px;
+                height: 15px;
+                vertical-align: middle;
+                /*padding-top: 4px;*/
+                border: none;
+                width: 150px;
+        }
+        .EventTab{
+                cursor: pointer;
+                /*background-color: #7A9FA0;*/
+                background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+                font-weight: bold;
+                font-size: 12px;
+                height: 20px;
+                width: 115px;
+                vertical-align: middle;
+                /*padding-top: 4px;*/
+                border: none;
+        }
+            
+        .rich-tab-inactive {
+            background-repeat: repeat-x;
+            border-color: #FFFFFF;
+            border-style: none;
+            border-width: 0;
+            cursor: pointer;
+        }
+        
+        .rich-tabhdr-side-border {
+            background-image:none; 
+            border-radius: 4px 4px 0 0;
+            background-color: none;
+            width: 2px;
+        }
+        
+        .rich-tabhdr-side-cell {
+            box-shadow: 0 -2px 2px #A7A7A8;
+            /*border: 2px solid #056FC1;*/
+            border-top: 2px solid #056FC1;
+            border-left: 2px solid #056FC1;
+            border-right: 2px solid #056FC1;
+            border-radius: 4px 4px 0 0;
+        }
+        
+        .rich-tabpanel-content {
+            background-color: #fff;
+            border-left: 2px solid #056FC1;
+            border-right: 2px solid #056FC1;
+            border-bottom: 2px solid #056FC1;
+        }
+        
+        .rich-tab-bottom-line {
+            border-bottom: 1px solid #056FC1;
+        }
+        
+        .requiredfield {
+            border-left: 3px solid #CC0000;
+        }
+        
+        .errorMsg {
+            font-weight: normal;
+        }
+        
+        /** {padding:0; margin:0;}*/
+        .noSidebarCell {vertical-align: top;}
+        a{ text-decoration:none;}
+        a:hover {text-decoration:none;}
+        /*p, h3 { 
+            margin-bottom:15px;
+        }
+        
+        h3 { 
+            font-size: 14px;
+            font-family: sans-serif;
+            display: block;
+        }*/
+        
+        #tabsection{width:800px; height:auto; float:left; padding:0; margin-top:5px; }
+        #tablelabel{ width:200px; height:20px; font-size:12px; color:#0f7ed3; float:left;padding:0;padding-top:3px; font-weight:600; }
+        /*#createnew {width:100px; height:20px; margin-left:10px; float:left; padding:0; margin-top:5px; }*/
+        /*.buttonNew {width:500px; height:20px; float:left; padding:0; margin-top:5px; }*/
+        .buttonNew a{ width:100px; height:20px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d; }
+        .buttonNew a:hover{ color:#fff; text-decoration: none; }
+        .buttonNew input[type = "submit"]{ font-weight:normal;font-size: 12px;width:100px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d; }
+        .buttonNew input[type = "button"]{ font-weight:normal;font-size: 12px; width:100px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d; }
+        
+        #createnew {width:100px; height:20px; float:left; padding:0; margin-top:5px; }
+        #createnew a{ width:100px; height:20px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d; }
+        
+        #createnew1 {width:1100px; height:20px; float:left; padding:0; margin-top:5px; }
+        #createnew1 a{ width:100px; height:20px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d; }
+        
+        #createnew3 {width:200px; height:20px; float:left; padding:0; margin-top:5px; }
+        #createnew3 a{ width:100px; height:20px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d; }
+        
+        #createnew2 {width:100px; height:20px; padding:0; }
+        #createnew2 a{ width:100px; height:20px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d; }
+        
+        /*#view_past{width:100px; height:20px; float:left; margin-left:10px; }*/
+        #view_past{width:100px; height:20px; float:left; margin-left:100px; }
+        #view_past select{width:100px; height:25px;  float:left; padding:0;  border:1px solid #5d6e7b; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px;}
+        #page_content{ width:1000px; height:auto; float:left;}
+        #page_title{ width:1000px; height:30px; background-color:#9dd3fc; border:1px solid #87c5f5;}
+        #page_title span{ float:left; margin-top:6px; margin-left:10px; font-size:14px; font-weight:600; }
+        #page_title span.btn1{ float:right; margin-left:0px; margin-right:10px; margin-top:1px;}
+        #page_title span a{ float:left; color:#fff; margin-top:3px; font-size:12px; font-weight:600; padding:3px 10px 3px 10px; border:1px solid #fff; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;}
+        #content_area{ width:1200px;}
+        #content_area fieldset{ width:980px; height:auto; padding:10px;  margin-top:10px; border:2px solid #056fc1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px;}
+        #content_area fieldset legend{ width:150px; height:19px; background-color:#ecf5fc; text-indent:10px; padding-top:3px; margin-left:20px; color:#000000; font-size:13px; font-weight:600; border:2px solid #056fc1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px;} 
+        #tab_area{ width:100%; float:left; }
+        
+        #tab_area{ float:left; margin-top:10px;}
+        #div_tbl{float:left; width:800px; }
+        #div_tbl table tr td.label{ width:250px; color:#333333; text-align:right; height:20px; padding-right: 5px; font-size:12px; font-weight:600;}
+        #div_tbl table tr td.info{ width:250px; color:#333333; text-align:left; height:20px; padding-right: 5px; font-size:12px; font-weight:400;}
+        div.tabdiv h3{ color:#333333}
+        #nextdue{ float:left; color:#0f7ed3 ; font-size:12px; font-weight:600; margin-left:65px;}
+        #nextdue span{ float:left;}
+        /*#cdate{ width:100px; height:20px; color:#333333; font-weight:normal; float:left; margin-left:10px; text-align:center;  border:1px solid #9faeba; background-color:#d4dce2; padding:0;padding-top:3px; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; }
+        #cdate{ width:100px; color:#333333; font-weight:normal; float:left; margin-left:10px; text-align:left;  border:1px solid #9faeba; background-color:#d4dce2; padding:0;padding-top:3px; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; }*/
+        .cdate{ width:400px; color:#333333; font-weight:normal; float:left; margin-left:10px; text-align:left;  border:1px solid #9faeba; background-color:#d4dce2; padding:0;padding-top:3px; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; }
+        
+        
+        #warp{ width:1000px; height:auto; margin:0 auto;}
+         .selectbox{
+            background-color: #2F96E4;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            height: 25px;
+            position: relative;
+            width: 152px;
+            border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+            color:#fff;
+            font-size:12px; font-weight: bold;
+            padding:3px 0 3px 10px;
+        }
+        select.selectbox option{ height:26px; padding:6px 0 0 10px; background-color:#2F96E4; color:#fff;
+            font-size:12px; font-weight:normal;}
+        select.selectbox option:hover{ background-color:#0fa2d2;}
+        .circle {
+            /*background: url'{!$Resource.LoadingImage}') no-repeat left top;*/
+            width: 22px;
+            height: 22px;
+            float: left;
+            
+        }
+
+.popupContent
+{
+    background: #fff;
+    padding: 15px;
+    border:2px solid #2E84C5;
+    -moz-border-radius: 18px 18px 18px 18px;
+    -webkit-border-radius: 18px;
+    position: absolute;
+    top: 50px;
+    left: 325px;
+    right: 325px;
+    z-index: 91;
+}
+
+.eventoverlay
+{
+   
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    opacity: 0.5;
+   
+    z-index: 80;
+}
+        
+.eventpopupContent
+{
+    background: #fff;
+    padding: 15px;
+    border:2px solid #2E84C5;
+    -moz-border-radius: 18px 18px 18px 18px;
+    -webkit-border-radius: 18px;
+    position: absolute;
+    left: 325px;
+    right: 275px;
+    z-index: 81;
+}
+
+.actionHead {
+    width: 50%;
+}
+
+.taskHead {
+    width: 30%;
+}  
+
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+
+div .message {
+    text-align: left;
+}
+    </style>
+    <script>
+    var temp = false;
+    var submit = false;
+        
+        function startSplash() {
+            var divObj = document.getElementById('splashDiv');
+            var msgSplash =document.getElementById('waitMsg');
+            var browserName = navigator.appName;
+            if(browserName == 'Netscape'){
+                divObj.style.display='table-cell';
+            } else {
+                divObj.style.display='table-cell';
+            }    
+        }
+        function endSplash() {            
+            document.getElementById('splashDiv').style.display='none';
+        }
+        
+        function startSplash1() {
+            var divObj = document.getElementById('splashDiv1');
+            var browserName = navigator.appName;
+            if(browserName == 'Netscape'){
+                divObj.style.display='';
+            } else {
+                divObj.style.display='';
+            } 
+        }
+        function endSplash1() {            
+            document.getElementById('splashDiv1').style.display='none';
+        }
+        
+        function eventCreationStart(status, taskId, taskType) {
+            var visitType = '';
+            if(taskType == 'Schedule the patient for a core biopsy' || taskType == 'Schedule the patient for a blood sample') {
+                visitType = 'Lab Visit';
+            } else if(taskType == 'Schedule the patient for a MRI scan') {
+                visitType = 'Radiology Visit';
+            } else if(taskType == 'Schedule a clinic appointment') {
+                visitType = 'Clinic Visit';
+            } else if(taskType == 'Schedule the patient for a lab visit') {
+                visitType = 'Lab Visit';
+            }
+            document.getElementById('pageId:PatientViewForm:visitTypeId').value = visitType;
+            if(status == '') {
+                status = 'Schedule';
+            }
+            document.getElementById('pageId:PatientViewForm:eventStatus').value = status;
+            document.getElementById('pageId:PatientViewForm:taskId').value = taskId;
+            var divObj = document.getElementById('eventcreation');
+            if(status == 'Complete') {
+                var trList = divObj.getElementsByTagName("div")[0].getElementsByTagName("table")[0].getElementsByTagName("tr");
+                for(var i = 0; i<trList.length; i++) {
+                    if(i != 2 && i != 3 && i != 8) {
+                        trList[i].style.display = 'none';
+                    }
+                }
+            } else {
+                var trList = divObj.getElementsByTagName("div")[0].getElementsByTagName("table")[0].getElementsByTagName("tr");
+                for(var i = 0; i<trList.length; i++) {
+                    trList[i].style.display = '';
+                }
+            }
+            if(taskId != '') {
+                //var windowWidth = 1000;
+                //var windowHeight = document.documentElement.clientHeight;
+                //var popupHeight = divObj.offsetHeight;
+                //var popupWidth = parseInt(divObj.style.width);
+                //centering
+                //divObj.getElementsByTagName("div")[0].style.top = windowHeight/2-(popupHeight/1.6)+'px';
+                //divObj.style.left = windowWidth/2-(popupWidth/2)+'px';
+                divObj.getElementsByTagName("div")[0].style.top = '400px';
+            } else {
+                divObj.getElementsByTagName("div")[0].style.top = '';
+            }
+            var browserName = navigator.appName;
+            if(browserName == 'Netscape'){
+                divObj.style.display='';
+            } else {
+                divObj.style.display='';
+            }
+            return false;
+        }
+        function eventCreationEnd() {
+            if(typeof(document.getElementsByClassName('message errorM4')[0]) != "undefined") {
+                document.getElementsByClassName('message errorM4')[0].parentNode.innerHTML = '';
+            }   
+            document.getElementById('eventcreation').style.display='none';
+                
+            document.getElementById('pageId:PatientViewForm:visitTypeId').value = '';
+            document.getElementById('pageId:PatientViewForm:startDateId').value = '';
+            document.getElementById('pageId:PatientViewForm:subjectidId').value = '';
+            document.getElementById('pageId:PatientViewForm:hoursId').value = '';
+            document.getElementById('pageId:PatientViewForm:minutesId').value = '';
+            document.getElementById('pageId:PatientViewForm:descriptionId').value = '';
+            return false;
+        }
+        
+         function rescheduleEventDivup(id) {
+            var divObj = document.getElementById('rescheduleEventDiv');
+            document.getElementById('pageId:PatientViewForm:eventId').value = id;
+            var browserName = navigator.appName;
+            if(browserName == 'Netscape'){
+                divObj.style.display='';
+            } else {
+                divObj.style.display='';
+            }
+            return false;
+        }
+        function rescheduleEventDivclose() {
+             if(typeof(document.getElementsByClassName('message errorM4')[0]) != "undefined") {
+                document.getElementsByClassName('message errorM4')[0].parentNode.innerHTML = '';
+            }
+            document.getElementById('rescheduleEventDiv').style.display='none';
+            document.getElementById('pageId:PatientViewForm:newSchedulerId').value = '';
+            document.getElementById('pageId:PatientViewForm:reschedulerReson').value = '';
+            document.getElementById('pageId:PatientViewForm:allEventReschedule').value = false;
+            
+        }
+        function dateValidationReschedule(){
+            var reschude = document.getElementById('pageId:PatientViewForm:newSchedulerId').value;
+            var now = new Date();
+            var totaltimeinMinutesReschedule = now.getTime()/(1000*60);
+            var totalStartDateTimeInMinutesReschedule = new Date(reschude).getTime()/(1000*60);
+            
+            if(reschude == ''){
+                alert('Please enter start date!');
+                document.getElementById('pageId:PatientViewForm:newSchedulerId').focus();
+                return false;
+            }else if(totalStartDateTimeInMinutesReschedule < totaltimeinMinutesReschedule){
+                alert('Please enter future date');
+                document.getElementById('pageId:PatientViewForm:newSchedulerId').focus();
+                return false;
+            }
+            
+        }
+        function dateValidation(){
+            var startdate = document.getElementById('pageId:PatientViewForm:startDateId').value;
+            var hours = document.getElementById('pageId:PatientViewForm:hoursId').value;
+            var minutes = document.getElementById('pageId:PatientViewForm:minutesId').value;
+            var eventStatus = document.getElementById('pageId:PatientViewForm:eventStatus').value;
+            var now = new Date();
+            var totaltimeinMinutes = now.getTime()/(1000*60);
+            var totalStartDateTimeInMinutes = new Date(startdate).getTime()/(1000*60);
+
+            if(startdate == ''){
+                alert('Please enter start date!');
+                document.getElementById('pageId:PatientViewForm:startDateId').focus();
+                return false;
+            }
+            if(eventStatus != 'Complete') {
+                if(totalStartDateTimeInMinutes < totaltimeinMinutes){
+                    alert('Please enter future date');
+                    document.getElementById('pageId:PatientViewForm:startDateId').focus();
+                    return false;
+                }else if(hours == ''){
+                    alert('please enter hours!');
+                    document.getElementById('pageId:PatientViewForm:hoursId').focus();
+                    return false;
+                }else if(isNaN(hours)===true){
+                    alert('Pleass enter nubmers only for Hours!');
+                    document.getElementById('pageId:PatientViewForm:hoursId').focus();
+                    return false;
+                }else if(isNaN(minutes)===true){
+                    alert('Pleass enter nubmers only for Minutes!');
+                    document.getElementById('pageId:PatientViewForm:minutesId').focus();
+                    return false;
+                }
+            }else {
+                if(totalStartDateTimeInMinutes > totaltimeinMinutes){
+                    alert('Please enter past date');
+                    document.getElementById('pageId:PatientViewForm:startDateId').focus();
+                    return false;
+                } else  {
+                    var totalStartDateTimeInDays = totalStartDateTimeInMinutes/(60*24);
+                    var registrationDateInDays = document.getElementById('pageId:PatientViewForm:regTimeStamp').value/(1000*60*60*24)
+                    if(totalStartDateTimeInDays < registrationDateInDays) {
+                        alert('Please enter date greater than registration date.');
+                        document.getElementById('pageId:PatientViewForm:startDateId').focus();
+                        return false;
+                    }
+                    //alert('totalStartDateTimeInDays: '+totalStartDateTimeInDays+', registrationDateInDays: '+registrationDateInDays);
+                } 
+            }
+        }
+        
+        
+     
+    /*  function startDateValidationEventCre(){
+            startDateValidationEventCreation();
+        }
+        function startDateValidationReschude(){
+            actionstartDateValidationreschud();
+        }
+        */
+    </script>
+    
+   <apex:form id="PatientViewForm" >
+        <apex:actionFunction name="eventAutoRefresh"  rerender="pageId" />
+<!--        <apex:actionFunction name="actionstartDateValidationreschud" action="{!startDateValidationReschude}" rerender="rescheduleEventStartDateErrorMessage,isScheduledEventres" />-->
+        <apex:inputHidden value="{!eventId}" id="eventId"/>
+        
+        <div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+             <div style="text-align: center; top: 50%;width:100%;height:100%;position: absolute;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+        </div>
+        <apex:actionStatus id="enableportal" onstart="startSplash();" onstop="endSplash(); " />
+
+        <apex:pagemessages />    
+        
+        <apex:outputPanel id="eventrescPanel">
+          <div id="rescheduleEventDiv" style="display: {!displynonere};">
+                <div class="popupContent">
+                    <table width="100%" cellspacing="5" cellpadding="5" align="center">
+                        <tr>
+                            <td align="right" style="width: 45%; font-weight: bold;">New Schedule:&nbsp;&nbsp;&nbsp;</td>
+                            <td align="left">
+                                <apex:inputField value="{!eventres.StartDateTime}" id="newSchedulerId" />
+                                    <script type="text/javascript">
+                                        document.getElementById('{!$component.newSchedulerId}').onfocus = function onfocus(event) {
+                                        DatePicker.pickDate(true, '{!$component.newSchedulerId}', true); 
+                                        addYearInDateField(); 
+                                    };
+                                </script>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td></td>
+                            <td>
+                                <apex:outputPanel id="rescheduleEventStartDateErrorMessage">    
+                                    <apex:pageMessage summary="{!isEventErrorMsg}" severity="error" strength="1" rendered="{!isEventError}"/>
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td align="right" style="font-weight: bold;">Reschedule Reason:&nbsp;&nbsp;&nbsp;</td>
+                            <td align="left"><apex:inputField value="{!eventres.Reschedule_reason__c}" style="width: 50%;" id="reschedulerReson"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right" style="font-weight: bold;">Reschedule all the following events also:&nbsp;&nbsp;&nbsp;</td>
+                            <td><apex:inputCheckbox value="{!allEvecheckboxre}" style="padding-top: 5px;" id="allEventReschedule"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right" style="padding-left: 130px">
+                                <apex:outputPanel id="isScheduledEventres">
+                                    <div id="createnew">
+                                        <apex:commandLink action="{!rescheduleEvent}" value="Save"  onClick="return dateValidationReschedule();" status="enableportal" ></apex:commandLink>
+                                    </div>
+                                </apex:outputPanel>
+                            </td>
+                            <td align="left">
+                                <apex:outputPanel >
+                                    <div id="createnew">
+                                        <apex:commandLink value="Cancel" rerender="PatientViewForm"  onclick="return rescheduleEventDivclose();" />
+                                    </div>
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                    </table> 
+                </div>
+            </div>
+         </apex:outputPanel>   
+       <apex:outputPanel id="eventCreationPanel">
+        <apex:inputHidden id="eventStatus" value="{!eventStatusHidden}"/>
+        <apex:inputHidden id="taskId" value="{!taskIdHidden}"/>
+        <div id="eventcreation" style="display: {!displynone}; width: 100%; z-index: 1;">
+            <div class="eventpopupContent" id="eventDiv">
+                <table width="100%" cellspacing="5" cellpadding="5" align="center">
+                    <tr> 
+                        <td style="padding-left:  15%; width: 35%; font-weight: bold;">Trial:</td>
+                        <td style="padding-right: 30%;">  <apex:outputText value="{!trailObj.Trial_Id__r.Name}" style="font-weight:bold ;width:25px;" rendered="{!trailrecoed}" />
+                            <apex:selectList value="{!selectedTrialEvent}" size="1" id="trialSelectEvent" styleclass="selectbox" rendered="{!trailList}">
+                                <apex:selectOptions value="{!trialOptionEvent}"  />
+                            </apex:selectList>
+                        </td>       
+                    </tr>       
+                     <tr>
+                        <td style="padding-left:  15%; width: 35%; font-weight: bold;">Visit Type:</td>
+                        <td style="padding-right: 25%;"><apex:inputField value="{!event.Type}" id="visitTypeId"/>
+                        </td>
+                    </tr>      
+                    <tr>
+                        <td style="padding-left:  15%; width: 35%; font-weight: bold;">Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td style="padding-right: 25%;"><apex:inputField value="{!event.StartDateTime}" id="startDateId" />
+                            <script type="text/javascript">
+                                document.getElementById('{!$component.startDateId}').onfocus = function onfocus(event) {
+                                    DatePicker.pickDate(true, '{!$component.startDateId}', true); 
+                                    addYearInDateField(); 
+                                };
+                            </script>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <apex:outputPanel id="scheduledEventStartDateError">    
+                                <apex:pageMessage summary="{!isEventErrorMsg}" severity="error" strength="1" rendered="{!isEventError}"/>
+                            </apex:outputPanel> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:  15%; width: 35%; font-weight: bold;">Subject:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td style="padding-right: 25%;"><apex:inputField value="{!event.subject__c}" id="subjectidId"/></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:  15%; width: 35%; font-weight: bold;">Duration:</td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td align="left" style="font-weight:bold">Hours:</td><td><apex:inputField value="{!event.Hours__c}" style="width:28px;" id="hoursId"/></td>
+                                    <td align="left" style="font-weight:bold; padding-left: 5px;">Minutes:</td><td><apex:inputField value="{!event.Minutes__c }" id="minutesId" style="width:28px;"/></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <td style="padding-left:  15%; width: 35%; font-weight: bold;">Description:</td>
+                        <td><apex:inputField value="{!event.Description}" style="width:50%;" id="descriptionId"/></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:  15%; width: 35%; font-weight: bold;"></td>    
+                        <td align="left" >
+                            <apex:outputPanel id="isScheduledEvent">
+                                <div id="createnew3">
+                                        <apex:commandLink rendered="{!isScheduledEvent}" action="{!ScheduledEvent}" value="Scheduled Event"  onClick="return dateValidation();" ></apex:commandLink> &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <apex:commandLink value="Cancel" onClick="return eventCreationEnd();" ></apex:commandLink>
+                                </div>
+                            </apex:outputPanel>    
+                        </td>
+                    </tr>
+                </table> 
+            </div>
+        </div>
+       </apex:outputPanel>
+        <table width="100%">
+            <tr>
+                <td width="100%" align="center"> 
+                    <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">  
+                        <apex:outputPanel styleClass="btn1" rendered="{!IF((patient.Status__c = 'Approval Not Required'), false, true)}">
+                            <apex:commandButton action="{!redirectPage}" value="Sign & Submit" rerender="PatientViewForm">
+                                <apex:param name="paramAtt" value="signSubmit"/>
+                            </apex:commandButton>
+                        </apex:outputPanel> 
+                        <!--<apex:outputPanel styleClass="btn1" rendered="{!IF((patient.RecordType.Name=='AdHoc'), true, false)}">
+                            <apex:commandButton action="{!redirectPage}" value="Complete" rerender="PatientViewForm">
+                                <apex:param name="paramAtt" value="complete"/>
+                            </apex:commandButton> 
+                        </apex:outputPanel>--> 
+                        <apex:commandButton action="{!redirectPage}" value="Delete" rerender="PatientViewForm" rendered="{!isShowDelete}">
+                            <apex:param name="paramAtt" value="delete"/>
+                        </apex:commandButton>
+                        <apex:commandButton action="{!redirectPage}" value="  Edit  " rerender="PatientViewForm" > 
+                            <apex:param name="paramAtt" value="edit"/>
+                        </apex:commandButton>
+                        
+                        
+                        
+                   <!--      <apex:commandButton value="Enable Patient As Portal User" rerender="PatientViewForm" rendered="{!IF($CurrentPage.parameters.pp='1', true,false)}" oncomplete="startSplash1();" status="enableportal">
+                        </apex:commandButton>  -->
+                          
+                    </apex:outputPanel>
+                </td>
+                <!--<td class="pbHelp" align="right">
+                    <span title="Help" class="help">
+                        <a class="linkCol" href="javascript:openPopupFocusEscapePounds('/apex/patientPageUserGuide?showSplash=true',%20'Help',%201024,%20768,%20'width=1024,height=768,resizable=yes,toolbar=yes,status=yes,scrollbars=yes,menubar=yes,directories=no,location=yes,dependant=no',%20false,%20false);"><img title="Help" class="helpIcon" alt="help" src="/s.gif" /></a>
+                    </span>
+                </td>-->
+            </tr>
+        </table>
+<!--    <table><tr><td height="25px"></td></tr></table>-->
+        <center><div id = "content_area">
+            <apex:tabPanel height="300px" width="1200px" switchType="client" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+                <apex:tab label="Personal Info" name="PersonalInfo" id="PersonalInfoTab">
+<!--                    <table width="100%">
+                        <tr>
+                            <td align="right" height="25px">
+<!--                                <apex:outputLink style="text-decoration: underline;" value="/apex/BreastSurgicalProcedure?patientId={!patientId}&formName=Breast Surgical Procedure Collection" >Add Breast Surgical Procedure</apex:outputLink>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
+                <!--    <apex:outputPanel layout="block" id="screenFail" rendered="{!IF((patient.Signed_Screening__c == false), true, false)}">
+                        <apex:pageMessage summary="Patient didn't sign screening form." severity="info" strength="3"/>
+                    </apex:outputPanel> -->  
+                    <!--<div id="div_tbl">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td class="label" >First Name: </td>
+                            <td class="info" ><apex:outputText value="{!patient.First_Name__c}" /></td>
+                            <td class="label" >Last Name: </td>
+                            <td class="info" ><apex:outputText value="{!patient.Last_Name__c}" /></td>
+                          </tr>
+                          <tr>
+                            <td class="label" >Gender: </td>
+                            <td class="info" ><apex:outputText value="{!patient.Gender__c}" /></td>
+                            <td class="label" >Age: </td>
+                            <td class="info" ><apex:outputText value="{0, number, ###}">
+                                                <apex:param value="{!patient.Age__c}" /> 
+                                            </apex:outputText>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="label" >Institution: </td>
+                            <td class="info" ><apex:outputText value="{!patient.Institute_Text__c}" /></td>
+                            <td class="label" >Owner: </td>
+                            <td class="info" ><apex:outputText value="{!patient.Owner.Name}" /></td>
+                          </tr>
+                          <tr>
+                            <td class="label" >Middle Name: </td>
+                            <td class="info" ><apex:outputText value="{!patient.Middle_Name__c}" /></td>
+                            <td class="label" >Suffix: </td>
+                            <td class="info" ><apex:outputText value="{!patient.Suffix__c}" /></td>
+                          </tr>
+                          <tr>
+                            <td class="label" >Birthdate: </td>
+                            <td class="info" ><apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                    <apex:param value="{!patient.Birthdate__c}" />  
+                                    </apex:outputText>
+                            </td>
+                            <td class="label" >Subject Id: </td>
+                            <td class="info" ><apex:outputText value="{!subjectId}" /></td>
+                          </tr>   
+                          <tr>  
+                                <td class="label">Signed Screening Form: </td>   
+                                <td class="info" ><apex:outputText value="{!patient.Signed_Screening__c}" /></td>  
+                            <td class="label" >Race: </td>
+                            <td class="info" ><apex:outputText value="{!patient.Race__c}" /></td>
+                          </tr>
+                          <tr>
+                            <td class="label" >Ethnicity: </td>
+                            <td class="info" ><apex:outputText value="{!patient.Ethnicity__c}" /></td>
+                          <td class="label" >VIP: </td> 
+                              <td class="info" ><apex:outputText value="{!patient.VIP__c}"/></td> 
+                          </tr> 
+                          <tr> 
+                            <td class="label" >Medical Record Number: </td>
+                            <td class="info" ><apex:outputText value="{!patient.Medical_Record_Number__c}" /></td>
+                          </tr>
+                        </table>
+                    </div> 
+                    --><apex:pageBlock tabStyle="Account" >
+                <apex:pageBlockSection >
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="First Name:"/>
+                        <apex:outputText value="{!patient.First_Name__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Middle Name:"/>
+                        <apex:outputText value="{!patient.Middle_Name__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Last Name:"/>
+                        <apex:outputText value="{!patient.Last_Name__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Suffix:"/>
+                        <apex:outputText value="{!patient.Suffix__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Gender:"/>
+                        <apex:outputText value="{!patient.Gender__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Birthdate:"/>
+                        <apex:outputField value="{!patient.Birthdate__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Age:"/>
+                        <apex:outputField value="{!patient.Age__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Institution:"/>
+                        <apex:outputField value="{!patient.Institute_Text__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Owner:"/>
+                        <apex:outputText value="{!patient.Owner.Name}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Subject Id:"/>
+                        <apex:outputText value="{!subjectId}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Race:"/>
+                        <apex:outputField value="{!patient.Race__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Ethnicity:"/>
+                        <apex:outputField value="{!patient.Ethnicity__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Medical Record Number:"/>
+                        <apex:outputField value="{!patient.Medical_Record_Number__c}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+                </apex:tab>
+                <apex:tab label="Address" name="Address" id="AddressTab">
+<!--                    <table><tr><td height="25px"></td></tr></table>
+                        <div id="div_tbl">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td class="label" >Address Line 1: </td>
+                                <td class="info" ><apex:outputText value="{!patient.Address_Line_1__c}" /></td>
+                              </tr>
+                              <tr>
+                                <td class="label" >City: </td>
+                                <td class="info" ><apex:outputText value="{!patient.City__c}" /></td>
+                              </tr>
+                              <tr>
+                                <td class="label" >Country: </td>
+                                <td class="info" ><apex:outputText value="{!patient.Country__c}" /></td>
+                              </tr>
+                            </table>
+                        </div>
+                        <div id="div_tbl" style="">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td class="label" >Address Line 2: </td>
+                                <td class="info" ><apex:outputText value="{!patient.Address_Line_2__c}" /></td>
+                              </tr>
+                              <tr>
+                                <td class="label" >State: </td>
+                                <td class="info" ><apex:outputText value="{!patient.State__c}" /></td>
+                              </tr>
+                              <tr>
+                                <td class="label" >Zip: </td>
+                                <td class="info" ><apex:outputText value="{!patient.Zip__c}" /></td>
+                              </tr>
+                            </table>
+                        </div> -->
+                        <apex:pageBlock tabStyle="Account" >
+                <apex:pageBlockSection >
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Address Line 1:"/>
+                        <apex:outputField value="{!patient.Address_Line_1__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Address Line 2:"/>
+                        <apex:outputField value="{!patient.Address_Line_2__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="City:"/>
+                        <apex:outputField value="{!patient.City__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="State:"/>
+                        <apex:outputField value="{!patient.State__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Country:"/>
+                        <apex:outputField value="{!patient.Country__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Zip:"/>
+                        <apex:outputField value="{!patient.Zip__c}" />
+                    </apex:pageBlockSectionItem>
+                    
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+                </apex:tab>
+                 <apex:tab label="Physicians" name="Physicians" id="PhysiciansTab">
+<!--                    <table><tr><td height="25px"></td></tr></table>
+                        <div id="div_tbl">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td class="label" >Primary MD: </td>
+                                <td class="info" ><apex:outputText value="{!patient.Primary_MD__r.Name}" /></td>
+                              </tr>
+                              <tr>
+                                <td class="label" >Created By: </td>
+                                <td class="info" ><apex:outputText value="{!patient.CreatedBy.Name}" /></td>
+                              </tr>
+                            </table>
+                        </div>
+                        <div id="div_tbl" style="">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td class="label" >Surgeon: </td>
+                                <td class="info" ><apex:outputText value="{!patient.Surgeon__r.Name}" /></td>
+                              </tr>
+                               <tr>
+                                <td class="label" >Last Modified By: </td>
+                                <td class="info" ><apex:outputText value="{!patient.LastModifiedBy.Name}" /></td>
+                              </tr>
+                            </table>
+                        </div> -->
+                        <apex:pageBlock tabStyle="Account">
+                <apex:pageBlockSection >
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Primary MD:"/>
+                        <apex:outputText value="{!patient.Primary_MD__r.Name}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Created By:"/>
+                        <apex:outputText value="{!patient.CreatedBy.Name}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Surgeon:"/>
+                        <apex:outputText value="{!patient.Surgeon__r.Name}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Last Modified By:"/>
+                        <apex:outputText value="{!patient.LastModifiedBy.Name}" />
+                    </apex:pageBlockSectionItem>  
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            </apex:tab>
+            <apex:tab label="Schedule" name="patienEventDetailView" id="patienEventDetailView" rendered="{!eventButton}" >
+                <apex:outputPanel id="scheduleTabPanel">
+                    <table width="100%">
+                        <tr align="center">
+                            <td >
+                                <div id="createnew1"> 
+                                    <apex:commandLink value="Scheduled Event" onclick="return eventCreationStart('','','');" ></apex:commandLink>
+                                </div>
+                            </td>
+                            <td align="right" style="font-size: 15px;">
+                                <apex:commandLink value="Refresh"  action="{!ScheduledEvent1}" reRender="rediaoButtonId,scheduleTabPanel,PatientViewForm" status="enableportal"></apex:commandLink>
+                            </td>
+                            <td align="right">
+                                <apex:commandLink value="" action="{!ScheduledEvent1}" reRender="rediaoButtonId,scheduleTabPanel,PatientViewForm" status="enableportal"><apex:image value="{!$Resource.refresh}"></apex:image></apex:commandLink>
+                            </td>
+                        </tr>
+                    </table>
+                    <apex:outputPanel id="rediaoButtonId">   
+                    <table>
+                        <tr>
+                            <td style="padding-left: -10px;">
+                                <apex:selectRadio value="{!selectredioButton}" id="rediabutton" >
+                                    <apex:selectOptions value="{!redioButton}"/> 
+                                    <apex:actionSupport event="onchange"  rerender="scheduleTabPanel" status="loadStatus"/>
+                                </apex:selectRadio>
+                            </td>
+                            <td>      
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:actionStatus id="loadStatus" startText="Loading..." />
+                            </td>
+                        </tr>
+                    </table>
+                    </apex:outputPanel>
+                    <table cellpadding="1" cellspacing="1" id="tblReport" width="100%" >  
+                        <tr class="EventTab" > 
+                            <td style="color: white; padding-left: 5px; width: 10%;">Trial </td>
+                            <td style="color: white; padding-left: 5px; width: 10%;">Visit Type</td>
+                            <td style="color: white; padding-left: 5px; width: 15%; ">Date</td>
+                            <td style="color: white; padding-left: 5px; width: 10%;">Subject</td>
+                            <td style="color: white; padding-left: 5px; width: 10%;">Description</td>
+                            <td style="color: white; padding-left: 5px; width: 7%;">Status</td>
+                        </tr>      
+                         
+                        <apex:repeat value="{!propsedReschList}" var="pro">
+                        <tr>
+                            <td style="padding-left: 5px;">
+                                <apex:outputField value="{!pro.Trial__c}"></apex:outputField>
+                             </td>
+                            <td style="padding-left: 5px;">
+                                <apex:outputField value="{!pro.Type__c}" ></apex:outputField>
+                            </td>
+                            <td style="padding-left: 5px; padding-top: 5px">
+                                <apex:outputField value="{!pro.StartDateTime__c}" ></apex:outputField>
+<!--                                <div id="createnew2" style="float: right;padding-right: 50px;"> -->
+<!--                                    <apex:commandLink value="Reschedule" onclick="return rescheduleEventDivup('{!Eve.ev.id}');" rendered="{!Eve.isRescheduleButton}"></apex:commandLink>-->
+<!--                                </div>-->
+                            </td>
+                            <td style="padding-left: 5px;">
+                                <apex:outputField value="{!pro.subject__c}" ></apex:outputField>
+                            </td>
+                            <td style="padding-left: 5px;">
+                                <apex:outputField value="{!pro.Description__c}" ></apex:outputField> 
+                            </td>
+                            <td style="padding-left: 5px;">
+                                <apex:outputField value="{!pro.status__c}" ></apex:outputField> 
+                            </td>
+                        </tr>
+                        </apex:repeat>
+                        
+                        <apex:repeat value="{!wrapList}" var="Eve">
+                        <tr>
+                            <td style="padding-left: 5px;">
+                                <apex:outputField value="{!Eve.ev.Trial__c}"></apex:outputField>
+                             </td>
+                            <td style="padding-left: 5px;">
+                                <apex:outputField value="{!Eve.ev.Type}" ></apex:outputField>
+                            </td>
+                            <td style="padding-left: 5px; padding-top: 5px">
+                                <apex:outputField value="{!Eve.ev.StartDateTime}" ></apex:outputField>
+                                <div id="createnew2" style="float: right;padding-right: 50px;"> 
+                                    <apex:commandLink value="Reschedule" onclick="return rescheduleEventDivup('{!Eve.ev.id}');" rendered="{!Eve.isRescheduleButton}"></apex:commandLink>
+                                </div>
+                            </td>
+                            <td style="padding-left: 5px;">
+                                <apex:outputField value="{!Eve.ev.subject__c}" ></apex:outputField>
+                            </td>
+                            <td style="padding-left: 5px;">
+                                <apex:outputField value="{!Eve.ev.Description}" ></apex:outputField> 
+                            </td>
+                            <td style="padding-left: 5px;">
+                                <apex:outputField value="{!Eve.ev.status__c}" ></apex:outputField> 
+                            </td>
+                        </tr>
+                        </apex:repeat>
+                    </table>
+                    </apex:outputPanel>
+                </apex:tab>
+            </apex:tabPanel> 
+            <apex:outputPanel layout="block" id="CRFPanel" rendered="{!IF((patient.Status__c=='Approval Not Required'), true, false)}">
+                <apex:inputHidden id="regTimeStamp" value="{!registrationDateTimeStamp}"/>
+                <table><tr><td height="25px"></td></tr></table>
+                <table width="100%">
+                    <tr>
+                        <td align="right" width="60%"></td>
+                        <td width="40%">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="right" width="60%">
+                            <apex:selectList value="{!selectedTrial}" size="1" id="trialSelect" styleclass="selectbox" rendered="{! NOT(singleTrial) }">
+                                <apex:selectOptions value="{!trialOption}"/>
+                                <apex:actionSupport event="onchange"  action="{!showCrf}"  rerender="crfTabPanel,panelId,CRFPanel,eventScheduleBlock" status="splashStatus"/>
+                            </apex:selectList>
+<!--                                    <script>alert("{!singleTrial} {!singleTrialName}");</script>-->
+                            <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="{!singleTrialName}" rendered="{!singleTrial}"></apex:outputText>
+                        </td>
+                        <td align="left" width="40%">
+                            <span id="splashDiv" style="display: none; ">
+                                <span class="circle"><apex:image value="{!$Resource.LoadingImage}"></apex:image></span>
+                            </span>
+                            <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />
+                        </td>
+                    </tr>
+                </table>
+                <apex:outputPanel id="RegisterErrorId">
+                    <apex:pageMessage summary="{!errorMsg}" severity="error" strength="3" rendered="{!isRegisterError}"/>
+                </apex:outputPanel>
+                
+                <apex:tabPanel switchType="client" value="{!selectedTab}" tabClass="activeTab" id="crfTabPanel" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;" rendered="{!IF(ISBLANK(selectedTrial),false,true)}">
+                    <apex:tab label="Tasks" name="taskTab" id="taskTab">
+                        <apex:pageBlock tabStyle="Account">
+                            <apex:outputPanel >  
+                                <table align="center" width="100%">
+                                    <tr>
+                                        <td width="50%" align="right">
+                                            <apex:selectList value="{!selectedTaskOption}" size="1" styleclass="selectbox">
+                                                <apex:selectOption itemValue="Pending" itemLabel="Pending"/>
+                                                <apex:selectOption itemValue="Completed" itemLabel="Completed"/>
+                                                <apex:selectOption itemValue="All" itemLabel="All"/>
+                                                <apex:actionSupport event="onchange" rerender="taskTable" status="taskOptionStatus"/>
+                                            </apex:selectList>
+                                        </td>
+                                        <td width="50%"><apex:actionStatus id="taskOptionStatus" startText="Processing..."/></td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                        </apex:pageBlock>
+                        <apex:pageBlock tabStyle="Account">
+                            <apex:pageBlockTable value="{!lstTask}" var="task" id="taskTable" width="100%">
+                                    
+                        <!--     ==============================make Subject column=============================    -->
+                                    <!--<apex:column style="" headerClass="tableHead">
+                                        <apex:facet name="header">Subject</apex:facet>
+                                        <apex:outputField value="{!task.Subject}" />
+                                    </apex:column>-->
+                                    
+                        <!--     ==============================make Type column=============================    -->
+                                    <apex:column style="" headerClass="tableHead taskHead">
+                                        <apex:facet name="header">Task</apex:facet>
+                                        <apex:outputText value="{!task.Type} - {!task.Object_Label__c}" rendered="{!IF((task.Type = 'Resubmit Rejected CRF'), true, false)}"/>
+                                        <apex:outputField value="{!task.Type}" rendered="{!IF((task.Type = 'Resubmit Rejected CRF'), false, true)}"/>
+                                    </apex:column>
+                                    
+                        <!--     ==============================make Action column=============================    -->
+                                    <apex:column style="" headerClass="tableHead actionHead" id="actionColumn">
+                                        <apex:facet name="header">Action</apex:facet>
+<!--                                                <script>alert("objectName: {!task.Object_Name__c}, objectId: {!task.CRF_Form_Id__c}");</script>-->
+                                        <apex:commandLink action="{!redirectTaskCRF}" value="View Rejected CRF" style="text-decoration: underline;" rendered="{!IF(AND(task.Type = 'Resubmit Rejected CRF', task.Status != 'Completed'), true, false)}">
+                                            <apex:param name="objectName" value="{!task.Object_Name__c}"/>
+                                            <apex:param name="objectId" value="{!task.CRF_Form_Id__c}"/>
+                                        </apex:commandLink>
+                                        <apex:outputPanel rendered="{!IF(OR(task.Type = 'Schedule the patient for a lab visit', task.Type = 'Schedule the patient for a core biopsy', task.Type = 'Schedule the patient for a blood sample', task.Type = 'Schedule the patient for a MRI scan', task.Type = 'Schedule a clinic appointment', task.Type = 'Resubmit Rejected CRF'), false, true)}">
+                                            <apex:commandLink action="{!redirectNewPage}" value="Submit {!task.Object_Label__c} CRF" style="text-decoration: underline;" rendered="{!IF((task.Status = 'Not Started'), true, false)}">
+                                                    <apex:param name="objectName" value="{!task.Object_Name__c}"/>
+                                            </apex:commandLink>
+                                            <apex:commandLink action="{!redirectTaskCRF}" value="View {!task.Object_Label__c} CRF" style="text-decoration: underline;" rendered="{!IF((task.Status = 'In Progress'), true, false)}">
+                                                <apex:param name="objectName" value="{!task.Object_Name__c}"/>
+                                                <apex:param name="objectId" value="{!task.CRF_Form_Id__c}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel id="scheduleButtonPanel" styleClass="buttonNew" rendered="{!IF(AND(OR(task.Type = 'Schedule the patient for a lab visit', task.Type = 'Schedule the patient for a core biopsy', task.Type = 'Schedule the patient for a blood sample', task.Type = 'Schedule the patient for a MRI scan', task.Type = 'Schedule a clinic appointment'), task.Status != 'Completed', task.Status != 'In Progress'), true, false)}">
+                                            <apex:commandButton value="Schedule" status="counterStatus" onClick="return eventCreationStart('Schedule', '{!task.Id}', '{!task.Type}');" >
+                                                <apex:param name="taskId" value="{!task.Id}"/>
+                                            </apex:commandButton>
+                                            <apex:commandButton value="Complete" status="counterStatus" onClick="return eventCreationStart('Complete', '{!task.Id}', '{!task.Type}');" >
+                                                <apex:param name="taskId" value="{!task.Id}"/>
+                                            </apex:commandButton>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel id="completeButtonPanel" styleClass="buttonNew" rendered="{!IF(AND(OR(task.Type = 'Schedule the patient for a lab visit', task.Type = 'Schedule the patient for a core biopsy', task.Type = 'Schedule the patient for a blood sample', task.Type = 'Schedule the patient for a MRI scan', task.Type = 'Schedule a clinic appointment'), task.Status = 'In Progress'), true, false)}">
+                                            <strong><apex:outputField value="{!task.Schedule_Event_Date__c}"/></strong>&nbsp;
+                                            <apex:commandButton value="Complete" action="{!completeTask}" reRender="taskTable" status="counterStatus">
+                                                <apex:param name="taskId" value="{!task.Id}"/>
+                                            </apex:commandButton>
+                                        </apex:outputPanel>
+                                        <apex:actionStatus startText="Processing..." id="counterStatus"/>
+                                    </apex:column>
+                                    
+                         <!--     ==============================make Due Date column=============================    -->
+                                    <apex:column style="" headerClass="tableHead">
+                                        <apex:facet name="header">Due Date</apex:facet>
+                                        <apex:outputField value="{!task.ActivityDate}" />
+                                    </apex:column>
+                               
+                         <!--     ==============================make Status column=============================    -->
+                                    <apex:column style="" headerClass="tableHead" rendered="{!IF((selectedTaskOption = 'All'), true, false)}">
+                                        <apex:facet name="header">Status</apex:facet>
+                                        <apex:outputField value="{!task.Status}" />
+                                    </apex:column>
+                            </apex:pageBlockTable>
+                        </apex:pageBlock>
+                    </apex:tab>
+                    <apex:tab label="Screening" name="Screening" id="ScreeningTab">
+                    <apex:pageMessage summary="There is no screening form associated with selected trial." severity="warning" rendered="{!crfInScreening}" strength="3"/>
+                        <apex:outputPanel rendered="{!IF(crfInScreening = true,false,true)}">
+                            <table width="100%" border="0" id="tab1Table">
+                                <tr>
+                                    <th>CRF</th>
+                                    <th>New</th>
+                                    <th>Status</th>
+                                    <th>Completed</th>
+                                    <th>Created</th>
+                                    <th style="padding-left:75px;">Next Due on</th>
+                                </tr>
+                                <apex:repeat value="{!screenWrapList}" var="screen" >
+                                <tr>
+                                    <td style="text-align: left;" width="10%"> 
+                                        <div id="tablelabel">
+                                            <apex:outputPanel >{!screen.screenForm}</apex:outputPanel>
+                                        </div>
+                                    </td>
+                                    <td width="10%">
+                                        <apex:outputPanel rendered="{!IF(screen.isInserted == false, true,false)}">
+                                            <div id="createnew">
+                                                <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}"> 
+                                                    <apex:commandLink action="{!redirectNewPage}" value="Submit New"  rendered="{!IF(OR(AND(screen.screenForm == 'Randomization Form', siteUserCanCreateRandomizationForm), $Profile.Name == 'System Administrator', $Profile.Name == 'Developers'), true, IF(screen.screenForm != 'Randomization Form', true, false))}" >
+                                                        <apex:param name="objectName" value="{!screen.formObjectName}"/>
+                                                        <apex:param name="phaseName" value="Screening"/>
+                                                    </apex:commandLink>
+                                                </apex:outputPanel>
+                                            </div>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF((screen.isInserted) && (screen.screenForm == 'Randomization Form'), true, false)}">
+                                            <div id="createnew">
+                                                <apex:outputPanel rendered="{!IF($Profile.Name == 'System Administrator', true, false)}">
+                                                    <apex:commandLink action="{!deleteRandomization}" value="Delete"  rendered="{!IF((screen.isInserted), true, false)}" >
+                                                        <apex:param name="objectName" value="Randomization_Form__c"/>
+                                                        <apex:param name="phaseName" value="Screening"/>
+                                                    </apex:commandLink>
+                                                </apex:outputPanel>
+                                            </div>
+                                        </apex:outputPanel>
+                                        
+                                    </td>
+                                    <td width="20%">
+                                        <div id="status1" style="width:150px;">
+                                            {!screen.status}
+                                        </div>
+                                    </td>
+                                    <td width="10%">
+                                        <div id = "createDate" >
+                                            <apex:commandLink action="{!redirectPage}" rendered="{!screen.isInserted}">
+                                                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                                        <apex:param value="{!screen.CompletedDate}" /> 
+                                                    </apex:outputText>
+                                                    <apex:param name="objectId" value="{!screen.rId}"/>
+                                                    <apex:param name="objectName" value="{!screen.formObjectName}"/>
+                                                    <apex:param name="trialPatient" value="{!screen.TrialPatId}"/>
+                                                    <apex:param name="paramAtt" value="detail"/>
+                                                    <apex:param name="phaseName" value="Screening"/>
+                                            </apex:commandLink>
+                                        </div>
+                                    </td>
+                                    <td width="10%">
+                                        <div id = "createDate" >
+                                            <apex:commandLink action="{!redirectPage}" rendered="{!IF(screen.isInserted && screen.formObjectName != 'Registration__c' && screen.formObjectName != 'MRI_Volume__c' && screen.formObjectName != 'BloodSpecimenForm__c' && screen.formObjectName != 'TissueSpecimenDetail__c',true,false)}">
+                                                    <apex:outputText value="{!screen.CreatedDate}"/>
+                                                    <!--<apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                                        <apex:param value="{!screen.CreatedDate}" /> 
+                                                    </apex:outputText>-->
+                                                    <apex:param name="objectId" value="{!screen.rId}"/>
+                                                    <apex:param name="objectName" value="{!screen.formObjectName}"/>
+                                                    <apex:param name="trialPatient" value="{!screen.TrialPatId}"/>
+                                                    <apex:param name="paramAtt" value="detail"/>
+                                                    <apex:param name="phaseName" value="Screening"/>
+                                            </apex:commandLink>
+                                            <apex:outputPanel rendered="{!IF(OR(screen.formObjectName == 'Registration__c', screen.formObjectName == 'MRI_Volume__c', screen.formObjectName == 'BloodSpecimenForm__c', screen.formObjectName == 'TissueSpecimenDetail__c'), true, false)}">
+                                                <apex:selectList style="width: 130px" value="{!screen.selectedCrfCreatedDate}" size="1" >
+                                                       <apex:selectOptions value="{!screen.crfCreatedDateOption}"/>
+                                                        <apex:actionSupport event="onchange"  action="{!redirectPage}" rerender="panelId" status="counterStatus">
+                                                            <apex:param name="objectId" value="{!screen.rId}"/>
+                                                            <apex:param name="createdType" value="pickList"/>
+                                                            <apex:param name="objectName" value="{!screen.formObjectName}"/>
+                                                            <apex:param name="trialPatient" value="{!screen.TrialPatId}"/>
+                                                            <apex:param name="paramAtt" value="detail"/>
+                                                            <apex:param name="phaseName" value="Screening"/>
+                                                        </apex:actionSupport>
+                                                   </apex:selectList> 
+                                                   <apex:actionStatus id="counterStatus"  startText="..."/>
+                                            </apex:outputPanel>
+                                            
+                                        </div>
+                                    </td>
+                                    <td width="40%">
+                                        <div id = "nextdue" ><span> <apex:outputPanel layout="block" styleClass="cdate" id="cdate" style="background-color: {!IF((screen.isTaskCreated), '#fff', '#d4dce2')}; color: {!screen.nextDueColumnColor}; border-width: {!IF((screen.isTaskCreated), '0px', '1px')};">{!screen.nextDueOn}</apex:outputPanel></span></div>
+                                    </td>
+                                </tr>
+                                </apex:repeat>
+                            </table>
+                          </apex:outputPanel>
+                    </apex:tab>
+                    <apex:tab label="Treatment" name="Treatment" id="TreatmentTab">
+                        <apex:pageMessage summary="There is no treatment form associated with selected trial." severity="warning" rendered="{!crfInTreatment}" strength="3"/>
+                        <apex:outputPanel rendered="{!IF(crfInTreatment = true,false,true)}">
+                            <table width="100%" border="0" id="tab1Table">
+                                <tr>
+                                    <th>CRF</th>
+                                    <th>New</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th style="padding-left:75px;">Next Due on</th>
+                                </tr>
+                                <apex:repeat value="{!treatmentWrapList}" var="treatment" > 
+                                <tr>
+                                    <td style="text-align: left;">
+                                        <div id="tablelabel"><apex:outputPanel >{!treatment.treatmentForm}</apex:outputPanel></div>
+                                    </td>
+                                    <td>
+                                        <apex:outputPanel rendered="{!IF((treatment.isInserted), false, true)}">
+                                            <div id="createnew"> 
+                                            <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">
+                                                <apex:commandLink action="{!redirectNewPage}" value="Submit New"  rendered="{!IF((treatment.isInserted), false, true)}">
+                                                    <apex:param name="objectName" value="{!treatment.formObjectName}"/>
+                                                    <apex:param name="phaseName" value="Treatment"/>
+                                                </apex:commandLink>
+                                            </apex:outputPanel>
+                                            <apex:commandLink action="{!redirectPage}" rendered="{!treatment.isInserted}">
+                                                <apex:param name="objectId" value="{!treatment.rId}"/>
+                                                <apex:param name="paramAtt" value="detail"/>
+                                                <apex:param name="phaseName" value="Treatment"/>
+                                            </apex:commandLink>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td>
+                                        <div id="status1" style="width:150px;">
+                                            {!treatment.status}
+                                        </div>  
+                                    </td>
+                                    <td>
+                                        <div id="v1">
+                                                <apex:selectList style="width: 130px" value="{!treatment.selectedCrfCreatedDate}" size="1">
+                                                   <apex:selectOptions value="{!treatment.crfCreatedDateOption}"/>
+                                                    <apex:actionSupport event="onchange"  action="{!redirectPage}" rerender="panelId" status="counterStatus">
+                                                        <apex:param name="objectId" value="{!treatment.rId}"/>
+                                                        <apex:param name="createdType" value="pickList"/>
+                                                        <apex:param name="objectName" value="{!treatment.formObjectName}"/>
+                                                        <apex:param name="trialPatient" value="{!treatment.TrialPatId}"/>
+                                                        <apex:param name="paramAtt" value="detail"/>
+                                                        <apex:param name="phaseName" value="Treatment"/>
+                                                    </apex:actionSupport>
+                                               </apex:selectList>
+                                               <apex:actionStatus id="counterStatus"  startText="..."/>
+                                                <!--<select name="ViewPast" id="ViewPast" >
+                                                    <option value="">- - View Past - -</option>
+                                                </select>-->
+                                        </div>
+                                    </td>
+                                    <td width="40%"><apex:outputPanel rendered="{!treatment.isShowColumn}">
+                                        <div id = "nextdue" > <span> <apex:outputPanel layout="block" styleClass="cdate" id="cdate" style="background-color: {!IF((treatment.isTaskCreated), '#fff', '#d4dce2')}; color: {!treatment.nextDueColumnColor}; border-width: {!IF((treatment.isTaskCreated), '0px', '1px')};">{!treatment.nextDueOn}</apex:outputPanel></span></div>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                               </apex:repeat>
+                            </table>
+                        </apex:outputPanel>
+                    </apex:tab>
+                    <apex:tab label="Follow Up" name="FollowUp" id="FollowUpTab">
+                        <apex:pageMessage summary="There is no followup form associated with selected trial." severity="warning" rendered="{!crfInFollowup}" strength="3"/>
+                        <apex:outputPanel rendered="{!IF(crfInFollowup = true,false,true)}">
+                            <table width="100%" border="0" id="tab1Table">
+                                <tr>
+                                    <th>CRF</th>
+                                    <th>New</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th style="padding-left:75px;">Next Due on</th>
+                                </tr>
+                                <apex:repeat value="{!followWrapList}" var="follow" >
+                                <tr>
+                                    <td style="text-align: left;" width="10%">
+                                        <div id="tablelabel"><apex:outputPanel >{!follow.followForm}</apex:outputPanel></div>
+                                    </td> 
+                                    <td width="10%">
+                                        <apex:outputPanel rendered="{!IF((follow.isInserted), false, true)}">
+                                            <div id="createnew">
+                                                <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">
+                                                    <apex:commandLink action="{!redirectNewPage}" value="Submit New"  rendered="{!IF((follow.isInserted), false, true)}">
+                                                        <apex:param name="objectName" value="{!follow.formObjectName}"/>
+                                                        <apex:param name="phaseName" value="Follow-up"/>
+                                                    </apex:commandLink>
+                                                </apex:outputPanel> 
+                                                <apex:commandLink action="{!redirectPage}" rendered="{!follow.isInserted}">
+                                                    <apex:param name="objectId" value="{!follow.rId}"/>
+                                                    <apex:param name="paramAtt" value="detail"/>
+                                                    <apex:param name="phaseName" value="Follow-up"/>
+                                                </apex:commandLink>
+                                            </div> 
+                                        </apex:outputPanel>
+                                   </td>  
+                                   <td width="15%">
+                                        <div id="statusDiv" style="width:150px;">
+                                            {!follow.status}
+                                         </div> 
+                                    </td>
+                                    <td width="10%">
+                                        <div id="v1">
+                                            <apex:selectList style="width: 130px" value="{!follow.selectedCrfCreatedDate}" size="1">
+                                               <apex:selectOptions value="{!follow.crfCreatedDateOption}"/>
+                                                <apex:actionSupport event="onchange"  action="{!redirectPage}" rerender="panelId" status="counterStatus">
+                                                    <apex:param name="objectId" value="{!follow.rId}"/>
+                                                    <apex:param name="createdType" value="pickList"/>
+                                                    <apex:param name="objectName" value="{!follow.formObjectName}"/>
+                                                    <apex:param name="trialPatient" value="{!follow.TrialPatId}"/>
+                                                    <apex:param name="paramAtt" value="detail"/>
+                                                    <apex:param name="phaseName" value="Follow-up"/>
+                                                </apex:actionSupport>
+                                           </apex:selectList>
+                                           <apex:actionStatus id="counterStatus"  startText="..."/>
+                                                <!--<select name="ViewPast" id="ViewPast" >
+                                                    <option value="">- - View Past - -</option>
+                                                </select>-->
+                                        </div>
+                                    </td>
+                                   <td width="10%">
+                                        <apex:outputPanel rendered="{!follow.isShowColumn}"> 
+                                                 <div id = "nextdue"><span> <apex:outputPanel layout="block" styleClass="cdate" id="cdate" style="background-color: {!IF((follow.isTaskCreated), '#fff', '#d4dce2')}; color: {!follow.nextDueColumnColor}; border-width: {!IF((follow.isTaskCreated), '0px', '1px')};">{!follow.nextDueOn}</apex:outputPanel></span></div>
+                                        </apex:outputPanel>
+                                  </td>
+                                </tr>
+                                </apex:repeat>
+                            </table>
+                        </apex:outputPanel>
+                    </apex:tab>
+                    
+                </apex:tabPanel>
+            </apex:outputPanel>
+         </div></center>
+    </apex:form>
+    <style>
+        #tblReport tr:hover{background-color: #dce6f2; color:black;}
+    </style>
+</apex:page>

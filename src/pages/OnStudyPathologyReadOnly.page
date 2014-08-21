@@ -1,0 +1,176 @@
+<apex:page standardController="On_Study_Pathology_Form__c" extensions="OnStudyPathology" id="pageId" sideBar="false" showHeader="false">
+<style>
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+</style>
+    <apex:form >
+    <apex:pageBlock tabStyle="Account">
+        <apex:pageBlockSection columns="1" >
+                <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Does the patient have bilateral breast cancer?" for="procedureDate"/>
+                <apex:outputPanel >
+                    <table>
+                        <tr>
+                            <td>
+                                <apex:outputField value="{!ospObj.Does_the_patient_have_bilateral_breast_c__c}" />              
+                            </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Tumor laterality (or side with most advanced disease)" for="Tumorlaterality"/>
+                <apex:outputPanel >
+                    <table>
+                        <tr>
+                            <td>
+                                <apex:outputField value="{!ospObj.Tumor_laterality__c}" />
+                            </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock title="Positive Breast Biopsies" tabStyle="Account">
+            <apex:pageBlockSection columns="1" >
+                <!--<c:ProcedureReadOnlyComponent subForm="On-Study Pathology Form(Positive Breast Biopsies)" />-->
+                <apex:dataTable cellpadding="3" cellspacing="1" width="100%" value="{!lstPositiveProWrapper}" var="newPro" rowClasses="odd,even">
+    <!--                ==============================make date column=============================    -->
+                <apex:column style="" headerClass="tableHead tableDateHead" >
+                    <apex:facet name="header">Date</apex:facet>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!newPro.proPositive.Date_Of_Procedure__c}" />
+                    </apex:outputPanel>
+                </apex:column>
+                
+    <!--                ==============================make Procedure column=============================    -->
+                <apex:column style="" headerClass="tableHead tableProcedureHead" >
+                    <apex:facet name="header">Procedure</apex:facet>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!newPro.proPositive.Procedure_Name__c}" />
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!IF((newPro.proPositive.Procedure_Name__c = 'Core biopsy'), true, false)}">
+                        <apex:outputlabel value="{!newPro.proScanCheckString}" rendered="{!NOT(ISBLANK(newPro.proScanCheckString))}"/>
+                    </apex:outputPanel>
+                </apex:column>
+                
+    <!--                ==============================make Laterality column=============================    -->
+                <apex:column style="" headerClass="tableHead tableLateralityHead">
+                    <apex:facet name="header">Laterality</apex:facet>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!newPro.proPositive.Laterality__c}" />
+                    </apex:outputPanel>
+                </apex:column>
+                
+    <!--                ==============================make Location column=============================    -->
+                <apex:column style="" headerClass="tableHead tableLocationHead">
+                    <apex:facet name="header">Location</apex:facet>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!newPro.proPositive.Location__c}" />
+                    </apex:outputPanel>
+                </apex:column> 
+            </apex:dataTable>
+        </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock title="Lymph Node Biopsies" tabStyle="Account">
+            <apex:pageBlockSection columns="1">
+                <!--<c:LymphProcedureReadOnlyComponent subForm="On-Study Pathology Form(Lymph Node Biopsies)" />-->
+                <apex:dataTable cellpadding="3" cellspacing="1" width="100%" value="{!lstLymphProWrapper}" var="newPro" rowClasses="odd,even">
+    <!--                ==============================make date column=============================    -->
+                <apex:column style="" headerClass="tableHead tableDateHead" >
+                    <apex:facet name="header">Date</apex:facet>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!newPro.proLymph.Date_Of_Procedure__c}" />
+                    </apex:outputPanel>
+                </apex:column>
+                
+    <!--                ==============================make Procedure column=============================    -->
+                <apex:column style="" headerClass="tableHead tableProcedureHead" >
+                    <apex:facet name="header">Procedure</apex:facet>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!newPro.proLymph.Procedure_Name__c}" />
+                    </apex:outputPanel> 
+                    <apex:outputPanel rendered="{!IF((newPro.proLymph.Procedure_Name__c = 'Core biopsy (lymph node)'), true, false)}">
+                        <apex:outputlabel value="{!newPro.proLymphScanCheckString}" rendered="{!NOT(ISBLANK(newPro.proLymphScanCheckString))}"/>
+                    </apex:outputPanel>
+                </apex:column>
+                
+    <!--                ==============================make Laterality column=============================    -->
+                <apex:column style="" headerClass="tableHead tableLateralityHead">
+                    <apex:facet name="header">Laterality</apex:facet>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!newPro.proLymph.Laterality__c}" />
+                    </apex:outputPanel>
+                </apex:column>
+                
+    <!--                ==============================make Location column=============================    -->
+                <apex:column style="" headerClass="tableHead tableLocationHead">
+                    <apex:facet name="header">Location</apex:facet>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!newPro.proLymph.Location__c}" />
+                    </apex:outputPanel>
+                </apex:column>
+                
+    <!--                ==============================make node result column=============================    -->
+                <apex:column style="" headerClass="tableHead tableLateralityHead" >
+                    <apex:facet name="header">Node Result</apex:facet>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!newPro.proLymph.Node_Result__c}" />
+                    </apex:outputPanel>
+                </apex:column>
+            </apex:dataTable>
+        </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock title="Procedure(s): DCIS Details" tabStyle="Account">
+                <apex:pageBlockSection >
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Is DCIS present?" />
+                <apex:outputField value="{!ospObj.Is_DCIS_Present__c}" />
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(ospObj.Id))}">
+            <c:DCISComplete pageController="{!ospObj.Id}" key="dcis" subFormNew="On-Study Pathology Form" pathid="{!ospObj.Id}"/>
+        </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock title="Procedure(s): LCIS Details" tabStyle="Account">
+        <apex:pageBlockSection id="LCISPageBlockSection">
+            <apex:pageBlockSectionItem id="LCISPageBlockSectionItem">
+                <apex:outputLabel value="Is LCIS present?" />
+                <apex:outputField value="{!ospObj.Is_LCIS_Present__c}" />
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" id="LCISOutputPanelSection" rendered="{!NOT(ISNULL(ospObj.Id))}">
+            <c:LCISReadOnly pageController="{!ospObj.Id}" key="lcis" subFormLCIS="On-Study Pathology Form" id="LCISComponent" pathid="{!ospObj.Id}"/>
+        </apex:pageBlockSection>
+        </apex:pageBlock> 
+        <apex:pageBlock tabStyle="Account">
+        <apex:pageBlockSection >
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Is invasive tumor present?" />
+                <apex:outputField value="{!ospObj.Is_invasive_tumor_present__c}" />
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(ospObj.Id))}">
+            <c:InvasiveTumorReadOnly pageController="{!ospObj.Id}" key="ivt" subFormIT="On-Study Pathology Form" pathid="{!ospObj.Id}"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock tabStyle="Account">
+        <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(ospObj.Id))}">
+            <c:ReceptorsReadOnly objId="{!ospObj.Id}" key="rcpt" subFormReceptors="On-Study Pathology Form" id="ReceptorsComp" />
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(ospObj.Id))}">
+			<c:CRFAttachmentComponent rId="{!ospObj.Id}" feedCRFName="On_Study_Pathology_Form__Feed" rtId="{!ospObj.Root_CRF_Id__c}"/>
+		</apex:pageBlockSection>
+		
+		<apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(ospObj.Id))}">
+	    	<c:CRFEventComponent rId="{!ospObj.Id}" objectName="On_Study_Pathology_Form__c" rtId="{!ospObj.Root_CRF_Id__c}"/>
+	    </apex:pageBlockSection>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,142 @@
+<apex:page standardController="Randomization_Form__c" renderAs="pdf" extensions="RandomizationFormController"  sidebar="false"  tabStyle="Patient_Custom__c">
+    <head>        
+        <style type="text/css" media="print">           
+            @page {                 
+                @top-center {                   
+                    content: element(header);               
+                }
+                @bottom-left {
+                    content: element(footer);
+                }           
+            }                       
+ 
+            div.header {                
+                padding: 10px;              
+                position: running(header);           
+            }           
+            div.footer {                
+                display: block;             
+                padding: 5px;               
+                position: running(footer);          
+            }                       
+ 
+            .pagenumber:before {                
+                content: counter(page);             
+            }                       
+            .pagecount:before {             
+                content: counter(pages);            
+            }                   
+        </style>            
+    </head>     
+ 
+            
+            
+            <div class="header">        
+            <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : Randomization Form" initial="" 
+            instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+            </div>
+            <br/>               
+           <div class="content">       
+    
+            <font size="3"><b><apex:outputlabel value="Randomization Summary" >
+                </apex:outputlabel></b></font> <br /><br />
+                <table width="100%" >
+                    <tr>
+                        <td>
+                           <apex:dataTable style="border: 1px solid #d8d8d8;" width="100%" cellpadding="3" cellspacing="1" value="{!lstCRFStatusWrapper}" var="crfStatus"  > 
+                        <!--<apex:dataTable style="border: 1px solid #d8d8d8;" cellpadding="3" cellspacing="1" value="{!lstCRFStatusWrapper}" var="crfStatus" id="dataTable" width="100%" rowClasses="odd,even" styleClass="tableClass">-->
+                                <apex:column headerClass="tableHead">
+                                    <apex:facet name="header">CRF</apex:facet>
+                                    <apex:outputLabel value="{!crfStatus.CRFType}" />
+                                </apex:column>
+                                <apex:column headerClass="tableHead">
+                                    <apex:facet name="header">Submitted</apex:facet>
+                                    <apex:outputLabel value="{!crfStatus.IsSubmitted}" />
+                                </apex:column>
+                                <apex:column headerClass="tableHead">
+                                    <apex:facet name="header">Approved</apex:facet>
+                                    <apex:outputLabel value="{!crfStatus.IsApproved}" />
+                                </apex:column>
+                            </apex:dataTable> 
+                        </td>
+                    </tr> 
+                    
+                    <tr>
+                        <td>
+                            <b>
+                                Randomization Result:
+                                &nbsp;&nbsp;<apex:outputField value="{!randObj.Randomization_Result__c}"/>
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><b>Treatment Consent Form</b></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Signed&nbsp;:&nbsp;
+                            <apex:outputPanel rendered="{!randObj.Did_Patient_Sign_Treatment_Consent_Form__c}">
+                                <apex:outputField value="{!randObj.Consent_Signed_Date__c}" />
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(randObj.Did_Patient_Sign_Treatment_Consent_Form__c, false, true)}">
+                                No&nbsp;-&nbsp;<apex:outputField value="{!randObj.Why_Patient_Not_Signed_Consent_Form__c}" />&nbsp;(<apex:outputField value="{!randObj.Other_Reason_Did_Not_Sign_Consent_Form__c}" />)
+                            </apex:outputPanel>
+                            
+                        </td> 
+                    </tr>
+                </table> 
+                <br/>
+                <br/>
+                <br/>   
+         
+         
+                   <!--           <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+   </table>
+   </div>
+             <div class="footer">        
+             <c:CRFPDFFooter crfFormName="Randomization Form , v1"  />
+             </div>
+</apex:page>-->
+<table > 
+    <tr>
+        <td  >
+            <apex:outputLabel style="float:right;font-weight:bold;"  value="CRF Status :" />
+        </td>
+        <td >
+           <!-- <apex:outputField value="{!randObj.Status__c}"/>-->
+           <apex:outputLabel value="Approval Not Required" />
+        </td>
+    
+   
+    </tr> 
+      </table>
+      
+      <br/>
+      <br/>
+   <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  </div>
+  
+</apex:page>

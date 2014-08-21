@@ -1,0 +1,1 @@
+<apex:page standardController="AE_Detail__c" extensions="AdverseEventController" sideBar="false" showHeader="false" id="pageId" tabStyle="Account" cache="true" contentType="text/html">{!xmlOutput}</apex:page>

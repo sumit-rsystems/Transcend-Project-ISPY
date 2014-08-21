@@ -1,0 +1,46 @@
+<apex:page controller="ViewFailedRegistrationDetailsController">
+ <apex:pageBlock title="Failed Registration Details">
+ <apex:pageBlockSection columns="1">
+ 
+ <apex:pageBlockSectionItem >
+ <apex:outputLabel value="Initiated By"></apex:outputLabel>
+ <apex:outputText value="{!fr.CreatedBy.Name }"></apex:outputText>
+ </apex:pageBlockSectionItem>
+ 
+ <apex:pageBlockSectionItem >
+ <apex:outputLabel value="Registration XML"></apex:outputLabel>
+ <apex:outputLink value="www.google.com">View</apex:outputLink>
+ </apex:pageBlockSectionItem>
+ 
+ <apex:pageBlockSectionItem >
+ <apex:outputLabel value="Transformed XML"></apex:outputLabel>
+ <apex:outputLink value="www.google.com">View</apex:outputLink>
+ </apex:pageBlockSectionItem>
+ 
+  <apex:pageBlockSectionItem >
+ <apex:outputLabel value="caAERS compliant XML"></apex:outputLabel>
+ <apex:outputLink value="www.google.com">View</apex:outputLink>
+ </apex:pageBlockSectionItem>
+ 
+ <apex:pageBlockSectionItem >
+ <apex:outputLabel value="caTissue compliant XML"></apex:outputLabel>
+ <apex:outputLink value="www.google.com">View</apex:outputLink>
+ </apex:pageBlockSectionItem>
+ 
+ <apex:pageBlockSectionItem >
+ <apex:outputLabel value="Error Code"></apex:outputLabel>
+ <apex:outputText value="{!fr.Error_Code__c}"></apex:outputText>
+ </apex:pageBlockSectionItem>
+ 
+ <apex:pageBlockSectionItem >
+ <apex:outputLabel value="Error Description"></apex:outputLabel>
+ <apex:outputText value="{!fr.Last_Error_Message__c }"></apex:outputText>
+ </apex:pageBlockSectionItem>
+ 
+ 
+ 
+  
+ 
+ </apex:pageBlockSection>
+ </apex:pageBlock>
+</apex:page>

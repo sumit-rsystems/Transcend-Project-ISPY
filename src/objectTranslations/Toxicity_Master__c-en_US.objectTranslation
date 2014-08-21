@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Toxicity Master</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Toxicity Masters</value>
+    </caseValues>
+    <fields>
+        <label><!-- CTCAE v4.0 AE Term Definition --></label>
+        <name>CTCAE_v4_0_AE_Term_Definition__c</name>
+    </fields>
+    <fields>
+        <label><!-- Grade 1 --></label>
+        <name>Grade_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Grade 2 --></label>
+        <name>Grade_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Grade 3 --></label>
+        <name>Grade_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Grade 4 --></label>
+        <name>Grade_4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Grade 5 --></label>
+        <name>Grade_5__c</name>
+    </fields>
+    <fields>
+        <label><!-- MedDRA v12.0 Code --></label>
+        <name>MedDRA_v12_0_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Symptom Master --></label>
+        <name>Symptom_Master__c</name>
+        <relationshipLabel><!-- Toxicity Masters --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Symptom --></label>
+        <name>Symptom__c</name>
+    </fields>
+    <fields>
+        <label><!-- Toxicity Name --></label>
+        <name>Toxicity_Name__c</name>
+    </fields>
+    <layouts>
+        <layout>Toxicity Master Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

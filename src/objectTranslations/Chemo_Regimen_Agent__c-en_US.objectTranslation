@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Chemo Regimen Agent</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Chemo Regimen Agents</value>
+    </caseValues>
+    <fields>
+        <label><!-- Agent --></label>
+        <name>Agent__c</name>
+        <relationshipLabel><!-- Chemo Regimen Agents --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Chemo Regimen --></label>
+        <name>Chemo_Regimen__c</name>
+        <relationshipLabel><!-- Chemo Regimen Agents --></relationshipLabel>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

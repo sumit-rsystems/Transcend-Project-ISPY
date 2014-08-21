@@ -1,0 +1,42 @@
+<apex:page showHeader="false" sidebar="false">
+<style>
+	.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete Menopausal Status form?</h2>
+		</apex:outputPanel>
+		<p>The Menopausal Status Form is used to collect the patient's menopausal status after they have been registered to the study. This CRF is required to be approved by the DCC prior to randomizing the patient.</p>
+		<p><i>To open the Menopausal Status Form, select the patient from the 'Patient' Tab; select 'Trial', click 'Submit New' for 'Menopausal Status.'</i></p>
+		<p class="redColor"><i><b>Note: Date of last menstrual period accepts "fuzzy" dates (e.g. if your source document only has the year of the patients last menstrual period then  input only the year).If you are manually entering in the year ensure all 4 digits are entered (e.g. 2010. Do NOT input only two digits for the year)</b></i></p>
+		<ul>
+			<li>Enter in the date of the patient's last menstrual period: year in the year field [4-digit numerical value], month [up to 2-digit numerical value] in the month field, day [up to 2-digit numerical value] in the day field. If only the month and/or year are known, enter those into their respective fields. If no year or month is known about the last date, check the Unknown date box that best fits the patient's status [Unknown date OR Unknown date, but > 12 months ago]. NOTE: if either Unknown checkbox is checked, it will not display on the complete screen.</li>
+			<li>Answer whether the patient is currently on or has ever been on estrogen replacement therapy (default is No).  If the answer is yes, complete the duration fields in months [up to 2-digit numerical value] and/or years [4-digit numerical value].  If it is unknown, leave the answer as No.</li>
+			<li>Answer whether the patient has had a bilateral oophorectomy (default is No).  If the answer is yes, enter in the date of the procedure using the blue calendar button to the right of the data field (if an exact date is unknown, uses your best judgment in selecting a date).  You can also manually enter the date in mm/dd/yyyy format.  If it is unknown, leave the answer as No.</li>
+			<li>Answer whether the patient has had a hysterctomy (default is No).  If the answer is yes, enter in the date of the procedure using the calendar button to the right of the data field (if an exact date is unknown, uses your best judgment in selecting a date).  You can also manually enter the date in mm/dd/yyyy format.  If it is unknown, leave the answer as No.</li>
+			<li>Select the patient's menopausal status per definition stated on the form.</li>
+		</ul>
+		<p class="redColor"><i><b>NOTE: Patient's age is automatically populated to reflect the patient's age on the date this CRF was first opened and is calculated based on the date of birth entered on the patient's personal eCHR record</b></i></p>
+		<p><apex:image url="{!URLFOR($Resource.menopasualScreenShot, 'menopasual1.png')}" width="100%" height="100%"/></p>
+		<p><i>Select 'Next' to advance to the 'Comments &amp; Attachments' tab.</i></p>
+		<p>Attach de-identified source documents that document the data that was entered for this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+		<p>Any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+		<p><apex:image url="{!URLFOR($Resource.menopasualScreenShot, 'menopasual2.png')}" width="100%" height="100%"/></p>
+		<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.menopasualScreenShot, 'menopasual3.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Review that the information on the 'Complete' screen is correct.  If any of the information is not correct, select 'Previous' to go back to the previous screen to update the incorrect information.  <i><b class="redColor">NOTE: if Unknown checkbox was checked, date of LMP will not display.</b></i></li>
+			<li>When you are ready to send the CRF to the DCC for verification, enter your password and select 'Sign and Submit'.</li>
+		</ul>
+		<p>Once the Menopausal Status Form is completed (Signed and Submitted), it will appear in Patient’s CRF page as “Approval Pending”.</p>
+	</apex:outputPanel>
+</apex:page>

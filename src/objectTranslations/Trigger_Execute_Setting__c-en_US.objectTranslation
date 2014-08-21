@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Trigger Execute Setting</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Trigger Execute Settings</value>
+    </caseValues>
+    <fields>
+        <label><!-- Event --></label>
+        <name>Event__c</name>
+        <picklistValues>
+            <masterLabel>After Delete</masterLabel>
+            <translation><!-- After Delete --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>After Insert</masterLabel>
+            <translation><!-- After Insert --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>After Update</masterLabel>
+            <translation><!-- After Update --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Before Delete</masterLabel>
+            <translation><!-- Before Delete --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Before Insert</masterLabel>
+            <translation><!-- Before Insert --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Before Update</masterLabel>
+            <translation><!-- Before Update --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Execute --></label>
+        <name>Execute__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trigger Name --></label>
+        <name>Trigger_Name__c</name>
+    </fields>
+    <layouts>
+        <layout>Trigger Execute Setting Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

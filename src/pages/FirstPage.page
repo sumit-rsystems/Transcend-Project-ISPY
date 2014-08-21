@@ -1,0 +1,6 @@
+<apex:page >
+<!--<apex:page controller="PatientbyRace">
+  <apex:form >
+      <apex:commandButton value="Generate Report" action="{!generateReport}"/>
+  </apex:form>-->
+</apex:page>

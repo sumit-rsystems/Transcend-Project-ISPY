@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>RandomizationTestingDetail</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>RandomizationTestingDetails</value>
+    </caseValues>
+    <fields>
+        <label><!-- Current Patient XML --></label>
+        <name>Current_Patient_XML__c</name>
+    </fields>
+    <fields>
+        <label><!-- DOB --></label>
+        <name>DOB__c</name>
+    </fields>
+    <fields>
+        <label><!-- ER --></label>
+        <name>ER__c</name>
+    </fields>
+    <fields>
+        <label><!-- Engine URL --></label>
+        <name>Engine_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ethnicity --></label>
+        <name>Ethnicity__c</name>
+    </fields>
+    <fields>
+        <label><!-- FirstName --></label>
+        <name>FirstName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Gender --></label>
+        <name>Gender__c</name>
+        <picklistValues>
+            <masterLabel>Female</masterLabel>
+            <translation><!-- Female --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Male</masterLabel>
+            <translation><!-- Male --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- HER2ByFISH --></label>
+        <name>HER2ByFISH__c</name>
+    </fields>
+    <fields>
+        <label><!-- HER2ByIHC --></label>
+        <name>HER2ByIHC__c</name>
+    </fields>
+    <fields>
+        <label><!-- HER2ByTargetPrint --></label>
+        <name>HER2ByTargetPrint__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsRandomized --></label>
+        <name>IsRandomized__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastName --></label>
+        <name>LastName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Laterality --></label>
+        <name>Laterality__c</name>
+    </fields>
+    <fields>
+        <label><!-- MP --></label>
+        <name>MP__c</name>
+    </fields>
+    <fields>
+        <label><!-- MiddleName --></label>
+        <name>MiddleName__c</name>
+    </fields>
+    <fields>
+        <label><!-- PR --></label>
+        <name>PR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Race --></label>
+        <name>Race__c</name>
+    </fields>
+    <fields>
+        <label><!-- Randomization Response --></label>
+        <name>RandomizationResponse__c</name>
+    </fields>
+    <fields>
+        <label><!-- Request XML --></label>
+        <name>Request_XML__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trial Name --></label>
+        <name>Trial_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- nSeed1 --></label>
+        <name>nSeed1__c</name>
+    </fields>
+    <fields>
+        <label><!-- nSeed2 --></label>
+        <name>nSeed2__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

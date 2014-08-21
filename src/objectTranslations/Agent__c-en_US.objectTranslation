@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Agent</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Agents</value>
+    </caseValues>
+    <fields>
+        <label><!-- Display Order --></label>
+        <name>Display_Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dose Unit --></label>
+        <name>Dose_Unit__c</name>
+        <picklistValues>
+            <masterLabel>AUC</masterLabel>
+            <translation><!-- AUC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>mg</masterLabel>
+            <translation><!-- mg --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>mg/kg</masterLabel>
+            <translation><!-- mg/kg --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>mg/m2</masterLabel>
+            <translation><!-- mg/m2 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Frequency --></label>
+        <name>Frequency__c</name>
+        <picklistValues>
+            <masterLabel>3 weeks</masterLabel>
+            <translation><!-- 3 weeks --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Daily</masterLabel>
+            <translation><!-- Daily --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Weekly</masterLabel>
+            <translation><!-- Weekly --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Total Dose Unit --></label>
+        <name>Total_Dose_Unit__c</name>
+        <picklistValues>
+            <masterLabel>mg</masterLabel>
+            <translation><!-- mg --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Agent Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

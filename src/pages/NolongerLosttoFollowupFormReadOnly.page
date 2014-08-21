@@ -1,0 +1,45 @@
+<apex:page StandardController="No_Longer_lost_to_Followup__c" extensions="NolongLosttoFollowupController" sideBar="false" showHeader="false" id="pageId" tabStyle="Account">
+<style>
+	.mystyle{
+		background-color: #cf00f8; 
+	}
+	.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+	    background-color: #97C7EC;
+	}
+	
+	body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+	    background-color: #fff;
+	}
+</style>
+<apex:pageBlock title="No Longer Lost To Follow-Up Summary" tabStyle="Account">
+	<table width="600px">
+		<col width="150px"/>
+		 <tr>
+ 			<td colspan="2"><b>Print CRF form after saving</b></td>
+ 		</tr>
+ 		<tr height="2px"></tr>
+ 		<tr>
+ 			<td colspan="2"><b>No Longer Lost To Follow-Up Status</b></td>
+ 		</tr>
+ 		<tr height="4px"></tr>
+ 		<tr>
+ 			<td colspan="2"><apex:outputField value="{!NLLFF.New_Information__c}"></apex:outputField></td>
+ 		</tr>
+ 		<tr>
+ 			<td> Survival status:</td>
+ 			<td><apex:outputField value="{!NLLFF.Survial_Status__c}"></apex:outputField></td>
+ 		</tr>
+ 		<tr>
+ 			<td> Last known status date:</td>
+ 			<td><apex:outputField value="{!NLLFF.last_alive_death_date__c}"></apex:outputField></td>
+ 		</tr>
+	</table>
+	<apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(NLLFF.Id))}">
+		<c:CRFAttachmentComponent rId="{!NLLFF.Id}" feedCRFName="No_Longer_lost_to_Followup__Feed" rtId="{!NLLFF.Root_CRF_Id__c}"/>
+	</apex:pageBlockSection>
+	
+	<apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(NLLFF.Id))}">
+    	<c:CRFEventComponent rId="{!NLLFF.Id}" objectName="No_Longer_lost_to_Followup__c" rtId="{!NLLFF.Root_CRF_Id__c}"/>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+</apex:page>

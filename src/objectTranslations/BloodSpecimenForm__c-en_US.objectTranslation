@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>BloodSpecimenForm</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>BloodSpecimenForms</value>
+    </caseValues>
+    <fields>
+        <label><!-- CRF --></label>
+        <name>CRF__c</name>
+        <relationshipLabel><!-- BloodSpecimenForms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Collection Date --></label>
+        <name>CollectionDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- CompletedDate --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient consented to use specimen for this study --></help>
+        <label><!-- Consented to use specimen study --></label>
+        <name>Consented_to_use_specimen_study__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient consented to use specimen for research outside of this study --></help>
+        <label><!-- Contented specimen outside study --></label>
+        <name>Contented_specimen_outside_study__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective_Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Save and Close --></label>
+        <name>First_Save_and_Close__c</name>
+    </fields>
+    <fields>
+        <label><!-- OriginalCRF --></label>
+        <name>OriginalCRF__c</name>
+        <relationshipLabel><!-- BloodSpecimenForms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Other (Reason samples not shipped) --></label>
+        <name>Other_Reason_samples_not_shipped__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Follow-up</masterLabel>
+            <translation><!-- Follow-up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening</masterLabel>
+            <translation><!-- Screening --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment</masterLabel>
+            <translation><!-- Treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Reason all samples not collected --></label>
+        <name>Reason_all_samples_not_collected__c</name>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient refused</masterLabel>
+            <translation><!-- Patient refused --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Root CRF Id --></label>
+        <name>Root_CRF_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Not Required</masterLabel>
+            <translation><!-- Approval Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Pending</masterLabel>
+            <translation><!-- Approval Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- TestHarnessId --></label>
+        <name>TestHarnessId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Time Point --></label>
+        <name>Time_Point__c</name>
+        <picklistValues>
+            <masterLabel>Early treatment</masterLabel>
+            <translation><!-- Early treatment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inter-regimen</masterLabel>
+            <translation><!-- Inter-regimen --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pre-Surgery</masterLabel>
+            <translation><!-- Pre-Surgery --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pre-treatment</masterLabel>
+            <translation><!-- Pre-treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- BloodSpecimenForms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- caTissue Specimen Status --></label>
+        <name>caTissue_Specimen_Status__c</name>
+        <picklistValues>
+            <masterLabel>Specimens creation successful</masterLabel>
+            <translation><!-- Specimens creation successful --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Specimens not created yet</masterLabel>
+            <translation><!-- Specimens not created yet --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- pg_bloodspecimenform_Id --></label>
+        <name>pg_bloodspecimenform_Id__c</name>
+    </fields>
+    <layouts>
+        <layout>Approval Pending</layout>
+        <sections>
+            <label><!-- Blood Specimen Tracking Summary --></label>
+            <section>Blood Specimen Tracking Summary</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>BloodSpecimenForm Layout</layout>
+        <sections>
+            <label><!-- Blood Specimen Tracking Summary --></label>
+            <section>Blood Specimen Tracking Summary</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Live</layout>
+        <sections>
+            <label><!-- Blood Specimen Tracking Summary --></label>
+            <section>Blood Specimen Tracking Summary</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- AdHoc --></label>
+        <name>AdHoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Collection_date_cannot_be_future_date</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Complete --></label>
+        <name>Complete</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Sign_and_Submit --></label>
+        <name>Sign_and_Submit</name>
+    </webLinks>
+</CustomObjectTranslation>

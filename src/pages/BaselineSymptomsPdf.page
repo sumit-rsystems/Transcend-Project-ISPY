@@ -1,0 +1,227 @@
+<apex:page StandardController="BaselineSymptomsForm__c" extensions="BaselineSymptomsFormController" sideBar="false" id="pageId" tabStyle="Patient_Custom__c" renderAs="pdf">
+     <apex:form >
+     <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : Baseline Symptoms" initial="" 
+         instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+    
+     <br/>
+     <b><apex:outputLabel value="Baseline Symptoms Form"></apex:outputLabel></b>
+     <br/><br/>
+     <table width="100%"  cellpadding="5"> 
+          <tr>
+              <td width="30%"  >
+                  <apex:outputLabel style="float:right " value="Visit Date  " />
+             </td>
+             <td >
+                  <apex:outputField value="{!baselineSymptoms.Visit_Date__c}"/>
+             </td>
+          </tr> 
+     </table>
+     
+     <br/><br/>
+        <!--<div style="background-color:#97C7EC"><b style="margin:10px;color:white">Allergies </b></div>-->
+        <div><b style="margin:0px;color:black">Allergies </b></div>
+     <br/>
+     
+     <table  width="100%" border="1">
+            <tr style="background-color:#F2F2F2">
+                <th width="25%">Allergen</th>
+                <th width="25%">Reaction(s)</th>
+                <th width="25%">Severity</th>
+                <th width="25%">Year first seen</th>
+                
+            </tr> 
+            <apex:repeat value="{!lstAllergyDisplayWrapper}" var="adWrapper">
+                <tr >
+                    <td >{!adWrapper.Allergen}</td>
+                    <td>{!adWrapper.Reaction}</td>
+                    <td>{!adWrapper.Severity}</td>
+                    <td>{!adWrapper.year}</td>
+                    
+                </tr>  
+            </apex:repeat> 
+     </table> 
+      
+     <br/><br/>
+       <!-- <div style="background-color:#97C7EC"><b style="margin:10px;color:white">Baseline Conditions </b></div>-->
+        <div><b style="margin:0px;color:black">Baseline Conditions </b></div>
+     <br/>  
+     
+     <table  width="100%" border="1">
+            <tr style="background-color:#F2F2F2">
+                <th width="17%">Onset Date (MM/DD/YYYY)</th>
+                <th width="17%">Condition</th>
+                <th width="17%">Severity Grade</th>
+                <th width="16%">Attribution</th>
+                <th width="16%">Resolved</th>
+                <th width="17%">End Date (MM/DD/YYYY)</th>
+                
+            </tr> 
+            <apex:repeat value="{!lstConditionWrapper}" var="conditionWrapper">
+                <tr >
+                    <td>
+                        <apex:outputField value="{!conditionWrapper.baselineCondition.Onset_Month__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputField value="{!conditionWrapper.baselineCondition.Onset_Day__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputField value="{!conditionWrapper.baselineCondition.Onset_Year__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                    </td>
+                    <td>
+                        <apex:outputPanel id="conPanel" >  
+                            <apex:outputField value="{!conditionWrapper.baselineCondition.Daignosis__r.name}" rendered="{!conditionWrapper.isReadOnly}" id="readConId"/> 
+                        </apex:outputPanel>
+                        <apex:outputPanel id="otherConPanel">
+                            <script>
+                                changeConType(document.getElementById('{!$Component.typeId}'));
+                            </script>
+                            <apex:outputPanel rendered="{!IF(conditionWrapper.baselineCondition.OtherDaignosis__c == null,false,true)}">
+                                <apex:outputField value="{!conditionWrapper.baselineCondition.OtherDaignosis__c}" rendered="{!conditionWrapper.isReadOnly}" id="readOtherConId"/>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                    </td>
+                    <td>
+                         <apex:outputField value="{!conditionWrapper.baselineCondition.Severity_Grade__c}" rendered="{!conditionWrapper.isReadOnly}"/>
+                    </td>
+                    <td>
+                         <apex:outputField value="{!conditionWrapper.baselineCondition.Attribution__c}" rendered="{!conditionWrapper.isReadOnly}"/>
+                    </td>
+                     <td>
+                         <apex:outputField value="{!conditionWrapper.baselineCondition.Resolved__c}" rendered="{!conditionWrapper.isReadOnly}" style="width: 35px;" />
+                     </td>
+                      <td>
+                          <apex:outputField value="{!conditionWrapper.baselineCondition.End_Month__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputField value="{!conditionWrapper.baselineCondition.End_Day__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+                        <apex:outputField value="{!conditionWrapper.baselineCondition.End_Year__c}" rendered="{!conditionWrapper.isReadOnly}" />
+                      </td>
+                    
+                </tr>  
+            </apex:repeat> 
+     </table>  
+     
+     <br/><br/>
+       <!-- <div style="background-color:#97C7EC"><b style="margin:10px;color:white">Baseline Symptoms </b></div>-->
+        <div ><b style="margin:0px;color:black">Baseline Symptoms </b></div>
+     <br/>
+        
+  <table  width="100%" border="1">
+            <tr style="background-color:#F2F2F2">
+                <th width="14%">AE ID</th>
+                <th width="14%">Onset Date</th>
+                <th width="15%">Adverse Event</th>
+                <th width="15%">Grade/Revised Grade/Patient complaint</th>
+                <th width="14%">Attribution</th>
+                <th width="14%">Status</th>
+                <th width="14%">End Date</th>
+                
+            </tr> 
+            <apex:repeat value="{!toxicityDisplayList}" var="toxicity">
+                <tr >
+                    <td >
+                         <apex:outputText value="{0, number, 000}"><apex:param value="{!toxicity.AE_ID__c}" /></apex:outputText>
+                    </td>
+                    <td>
+                         <apex:outputField value="{!toxicity.Onset_Date__c}" />
+                    </td>
+                    <td>
+                         <apex:outputText value="{!toxicity.Toxicity_Master__r.Toxicity_Name__c}" />
+                            <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.Toxicity_Other__c))}">
+                                &nbsp;(<apex:outputText value="{!toxicity.Toxicity_Other__c}" />)
+                            </apex:outputPanel>
+                    </td>
+                    <td>
+                         <apex:outputText value="{!toxicity.Grade__c}" />
+                            <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.Patient_Complaint__c))}">
+                                <br/><br/><apex:outputText value="{!toxicity.Patient_Complaint__c}" />
+                            </apex:outputPanel>
+                    </td>
+                    <td>
+                          <apex:outputText value="{!toxicity.Attribution__c}" />
+                    </td>
+                    <td>
+                           <apex:outputText value="{!toxicity.Toxicity_Status__c}" />
+                    </td>
+                    <td>
+                           <apex:outputField value="{!toxicity.AE_End_Date__c}" />
+                    </td>
+                </tr>  
+            </apex:repeat> 
+  </table> 
+  
+  <br/>
+  <br/>
+        
+  <!--    <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+   </table>  
+    <c:CRFPDFFooter crfFormName="Baseline Symptoms Form , v1"  />            
+</apex:page> -->
+<table   cellpadding="5"> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="CRF Status:" />
+        </td>
+        <td >
+            <apex:outputField value="{!baselineSymptoms.Status__c}"/>
+        </td>
+    
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"   value="DCC Action:" />
+        </td>
+        <td >
+            <apex:outputField value="{!baselineSymptoms.Status__c}"/>
+        </td>
+    </tr> 
+    </tr> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="DCC Comments:" />
+        </td>
+        <td >
+           <!-- <apex:outputField value="{!}"/>-->
+           <c:CRFEventComponentcomments rId="{!baselineSymptoms.Id}"  objectNamec="BaselineSymptomsForm__c" rtId="{!baselineSymptoms.Root_CRF_Id__c}"/>
+        </td>
+    </tr> 
+  </table>
+  <br/>
+  <br/>
+  
+  <apex:pageBlock tabStyle="Account">
+  <!--<apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(baselineSymptoms.Id))}">
+        <c:CRFAttachmentComponent rId="{!baselineSymptoms.Id}" feedCRFName="BaselineSymptomsForm__Feed"/>
+   </apex:pageBlockSection>  -->
+   <c:CRFAttachmentComponentPdf rId="{!baselineSymptoms.Id}" feedCRFNamePdf="BaselineSymptomsForm__Feed" rtId="{!baselineSymptoms.Root_CRF_Id__c}"/>
+  <br/>
+  
+  <div style="background-color:#97C7EC"><b style="margin:10px;color:white">CRF Events</b></div>
+  
+  <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(baselineSymptoms.Id))}">
+        <c:CRFEventComponent rId="{!baselineSymptoms.Id}" objectName="BaselineSymptomsForm__c" rtId="{!baselineSymptoms.Root_CRF_Id__c}"/>
+  </apex:pageBlockSection>
+        
+  </apex:pageBlock>   
+           
+           
+  <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  </apex:form>
+</apex:page>

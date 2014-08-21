@@ -1,0 +1,114 @@
+<apex:page StandardController="No_Longer_lost_to_Followup__c" extensions="NolongLosttoFollowupController" sideBar="false" id="pageId" tabStyle="Patient_Custom__c" renderAs="pdf">
+   <apex:form >
+  <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : No Longer Lost To FollowUp Form" initial="" 
+    instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+    <br/>
+        <b style="font-size:100%"><apex:outputLabel value="No Longer Lost To Follow-Up Summary"></apex:outputLabel></b>
+    <br/><br/>    
+     <table width="600px">                   
+                    <col width="150px"/>                    
+                    <tr>
+                       <td colspan="2"><b style="font-size:80%">Print CRF form after saving</b></td> 
+                      <!-- <td colspan="2"><strong >Print CRF form after saving</strong></td>-->
+                       
+                        
+                        
+                    </tr>
+                    <tr>
+                        <td colspan="2"><b style="font-size:80%">No Longer Lost To Follow-Up Status</b></td>
+                    </tr>                   
+     <br/><br/> 
+                   
+                    <tr height="4px"></tr>
+                    <tr>
+                        <td colspan="2"><apex:outputField value="{!NLLFF.New_Information__c}"></apex:outputField></td>
+                    </tr>     
+                    <tr>
+                        <td> Survival status:</td>
+                        <td>
+                        <apex:outputPanel style="margin-right:180px;">
+                        <apex:outputField value="{!NLLFF.Survial_Status__c}"></apex:outputField>
+                        </apex:outputPanel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Last known status date:</td>
+                        <td><apex:outputField value="{!NLLFF.last_alive_death_date__c}"></apex:outputField></td>
+                    </tr>               
+      </table>
+      <br/>
+        
+   <!--   <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+   </table>  
+    <c:CRFPDFFooter crfFormName="No Longer Lost To FollowUp Form , v1"  />  
+</apex:page>-->
+<table   cellpadding="5"> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="CRF Status:" />
+        </td>
+        <td width="29%">
+            <apex:outputField value="{!NLLFF.Status__c}"/>
+        </td>
+    
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"   value="DCC Action:" />
+        </td>
+        <td >
+            <apex:outputField value="{!NLLFF.Status__c}"/>
+        </td>
+    </tr> 
+    </tr> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="DCC Comments:" />
+        </td>
+        <td >
+           <!-- <apex:outputField value="{!}"/>-->
+           <c:CRFEventComponentcomments rId="{!NLLFF.Id}"  objectNamec="No_Longer_lost_to_Followup__c" rtId="{!NLLFF.Root_CRF_Id__c}"/>
+        </td>
+    </tr> 
+  </table>
+  <br/>
+  <br/>
+  
+  <apex:pageBlock tabStyle="Account">
+ <!-- <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(NLLFF.Id))}">
+        <c:CRFAttachmentComponent rId="{!NLLFF.Id}" feedCRFName="No_Longer_lost_to_Followup__Feed"/>
+  </apex:pageBlockSection> -->
+  <c:CRFAttachmentComponentPdf rId="{!NLLFF.Id}" feedCRFNamePdf="No_Longer_lost_to_Followup__Feed" rtId="{!NLLFF.Root_CRF_Id__c}"/>
+  <br/>
+  
+  <div style="background-color:#97C7EC"><b style="margin:10px;color:white">CRF Events</b></div>
+  
+  <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(NLLFF.Id))}">
+                    <c:CRFEventComponent rId="{!NLLFF.Id}" objectName="No_Longer_lost_to_Followup__c" rtId="{!NLLFF.Root_CRF_Id__c}"/>
+                </apex:pageBlockSection>
+        
+  </apex:pageBlock>   
+           
+           
+  <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  </apex:form>
+</apex:page>

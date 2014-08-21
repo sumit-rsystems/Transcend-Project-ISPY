@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Codes</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Codes</value>
+    </caseValues>
+    <fields>
+        <label><!-- Code Master --></label>
+        <name>Code_Master__c</name>
+        <relationshipLabel><!-- Codes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Code System Version --></label>
+        <name>Code_System_Version__c</name>
+    </fields>
+    <fields>
+        <label><!-- Code System --></label>
+        <name>Code_System__c</name>
+    </fields>
+    <fields>
+        <label><!-- Code Type --></label>
+        <name>Code_Type__c</name>
+        <picklistValues>
+            <masterLabel>CADSR</masterLabel>
+            <translation><!-- CADSR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CTCAE</masterLabel>
+            <translation><!-- CTCAE --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>LOINC</masterLabel>
+            <translation><!-- LOINC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RxNorm (RXCUI)</masterLabel>
+            <translation><!-- RxNorm (RXCUI) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SNOMED</masterLabel>
+            <translation><!-- SNOMED --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SNOMED CT</masterLabel>
+            <translation><!-- SNOMED CT --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Code --></label>
+        <name>Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Value --></label>
+        <name>Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- caIntegrator Value --></label>
+        <name>caIntegrator_Value__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

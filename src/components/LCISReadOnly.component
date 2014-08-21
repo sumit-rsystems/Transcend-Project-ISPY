@@ -1,0 +1,110 @@
+<apex:component controller="LCISController" allowDML="true" id="LCISCompId">
+	<apex:attribute name="subFormLCIS" description="This is the value for on-study pathology" type="String" />
+	<apex:attribute name="key" 
+    type="String" 
+    assignTo="{!Key}" 
+    description="The key given to this component so the page can easily get access to it" />
+
+  <apex:attribute name="pageController" 
+      type="String" 
+      assignTo="{!objId}"
+      required="true" 
+      description="The controller for the page." />
+      
+	<apex:attribute name="pathid"
+		type="String"
+		assignTo="{!pathId}"	
+		required="true"
+		description="Pathology id"/>
+		
+			<apex:inputHidden value="{!onStudyPathologyId}" id="lcisId"/>
+			<apex:inputHidden value="{!lcisPostId}" id="lcisPostId"/>
+
+			<apex:outputPanel rendered="{!IF((subFormLCIS == 'Post Surgery Summary'),true,false)}">
+				<table cellpadding="3" cellspacing="1">
+					<tr>
+						<td>
+							<apex:outputLabel value="LCIS" />
+						</td>
+						<td>
+							<apex:outputField value="{!lcisObj.LCIS__c}" style="width : 40px;"/>%
+						</td>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputField value="{!lcisObj.Unknown_Not_Reported__c}"/><apex:outputLabel value="Unknown/Not Reported" />
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!IF((subFormLCIS == 'Post Surgery Summary'),true,false)}">
+				<table cellpadding="3" cellspacing="1" >
+					<tr>
+						<td>
+							<apex:outputLabel value="total histologic span of In Situ disease:" />
+						</td>
+						<td>
+							<apex:outputField value="{!lcisObj.Total_histological_span__c}" style="width : 40px;"/>
+						</td>
+						<td>
+							<apex:outputField value="{!lcisObj.Total_histological_span_measurement_unit__c}"/>
+						</td>
+					</tr>
+				</table>
+			</apex:outputPanel>
+			<apex:outputPanel >
+				<apex:outputPanel rendered="{!IF((subFormLCIS == 'On-Study Pathology Form'),false,true)}">
+					<table cellpadding="3" cellspacing="1">
+						<tr>
+							<td>
+								<b>Histology type:</b>
+							</td>
+						</tr>
+					</table>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!IF((subFormLCIS == 'On-Study Pathology Form'),true,false)}">
+					<table>
+						<tr>
+							<td>
+								<b>LCIS type:</b>
+							</td>
+						</tr>
+					</table>					
+				</apex:outputPanel>
+				<table>
+					<tr>
+						<td>
+							<apex:outputField value="{!lcisObj.Histological_Type__c}" rendered="{!IF((subFormLCIS == 'On-Study Pathology Form'),true,false)}"/>
+							<apex:outputField value="{!lcisObj.Histological_Type__c}" id="Histological_Type" rendered="{!IF((subFormLCIS == 'Post Surgery Summary'),true,false)}" />
+							<!--<apex:outputPanel rendered="{!IF((subFormLCIS == 'Post Surgery Summary'),true,false)}">
+								<script>showMarginClosed(document.getElementById('{!$Component.Histological_Type}'));</script>
+							</apex:outputPanel>
+						--></td>
+					</tr>
+				</table>
+				<apex:outputPanel rendered="{!IF(AND(subFormLCIS == 'Post Surgery Summary',lcisObj.Histological_Type__c == 'Pleomorphic'),true,false)}" id="marginClosedPanel">
+					<table>
+						<tr>
+							<td>
+								<b>Margins:</b>
+							</td>
+							<td>
+								<apex:outputField value="{!lcisObj.Margins__c}"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Closest margin:</b>
+							</td>
+							<td>
+								<apex:outputField value="{!lcisObj.Closest_Margin__c}"/>
+							</td>
+							<td>
+								<apex:outputField value="{!lcisObj.Specify_No__c}"/>
+							</td>
+							<td>
+								<apex:outputField value="{!lcisObj.Specify_Units__c}"/>
+							</td>
+						</tr>
+					</table>
+				</apex:outputPanel>
+			</apex:outputPanel>
+</apex:component>

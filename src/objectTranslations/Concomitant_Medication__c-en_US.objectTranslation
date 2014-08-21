@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Concomitant Medication</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Concomitant Medications</value>
+    </caseValues>
+    <fields>
+        <label><!-- Chemo Treatment --></label>
+        <name>Chemo_Treatment__c</name>
+        <relationshipLabel><!-- Concomitant Medications --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- DoseValue --></label>
+        <name>DoseValue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dose --></label>
+        <name>Dose__c</name>
+        <picklistValues>
+            <masterLabel>IU</masterLabel>
+            <translation><!-- IU --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NA</masterLabel>
+            <translation><!-- NA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>cc</masterLabel>
+            <translation><!-- cc --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>mL</masterLabel>
+            <translation><!-- mL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>mcg</masterLabel>
+            <translation><!-- mcg --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>mg</masterLabel>
+            <translation><!-- mg --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>other</masterLabel>
+            <translation><!-- other --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- End Day --></label>
+        <name>End_Day__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Month --></label>
+        <name>End_Month__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Year --></label>
+        <name>End_Year__c</name>
+    </fields>
+    <fields>
+        <label><!-- Frequency --></label>
+        <name>Frequency__c</name>
+        <picklistValues>
+            <masterLabel>As needed</masterLabel>
+            <translation><!-- As needed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Once daily</masterLabel>
+            <translation><!-- Once daily --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Thrice daily</masterLabel>
+            <translation><!-- Thrice daily --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Twice daily</masterLabel>
+            <translation><!-- Twice daily --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>q1m</masterLabel>
+            <translation><!-- q1m --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>q1w</masterLabel>
+            <translation><!-- q1w --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>q2w</masterLabel>
+            <translation><!-- q2w --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>q3w</masterLabel>
+            <translation><!-- q3w --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Medication --></label>
+        <name>Medication__c</name>
+        <relationshipLabel><!-- Concomitant Medications --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Other Madication --></label>
+        <name>Other_Madication__c</name>
+    </fields>
+    <fields>
+        <label><!-- Route --></label>
+        <name>Route__c</name>
+    </fields>
+    <fields>
+        <label><!-- Start Day --></label>
+        <name>Start_Day__c</name>
+    </fields>
+    <fields>
+        <label><!-- Start Month --></label>
+        <name>Start_Month__c</name>
+    </fields>
+    <fields>
+        <label><!-- Start Year --></label>
+        <name>Start_Year__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Medication</masterLabel>
+            <translation><!-- Medication --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- pg_concomitant_medication --></label>
+        <name>pg_concomitant_medication__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

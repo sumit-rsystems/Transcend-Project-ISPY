@@ -1,0 +1,3 @@
+<apex:page controller="CRFPendingSubmission_Site" showHeader="false" sidebar="false">
+ {!data}
+</apex:page>

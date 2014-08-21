@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>LCIS</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>LCIS</value>
+    </caseValues>
+    <fields>
+        <label><!-- Closest Margin --></label>
+        <name>Closest_Margin__c</name>
+        <picklistValues>
+            <masterLabel>&lt; 1 mm</masterLabel>
+            <translation><!-- &lt; 1 mm --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt; 1 cm</masterLabel>
+            <translation><!-- &gt; 1 cm --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not reported</masterLabel>
+            <translation><!-- Not reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Specifiy</masterLabel>
+            <translation><!-- Specifiy --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Histological Type --></label>
+        <name>Histological_Type__c</name>
+        <picklistValues>
+            <masterLabel>Classic</masterLabel>
+            <translation><!-- Classic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Large Cell</masterLabel>
+            <translation><!-- Large Cell --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pleomorphic</masterLabel>
+            <translation><!-- Pleomorphic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Small Cell</masterLabel>
+            <translation><!-- Small Cell --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown</masterLabel>
+            <translation><!-- Unknown --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Histology --></label>
+        <name>Histology__c</name>
+        <relationshipLabel><!-- LCIS --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- LCIS --></label>
+        <name>LCIS__c</name>
+    </fields>
+    <fields>
+        <label><!-- Margins --></label>
+        <name>Margins__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- On-Study Pathology Form --></label>
+        <name>On_Study_Pathology_Form__c</name>
+        <relationshipLabel><!-- LCIS --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Post Surgery Summary --></label>
+        <name>Post_Surgery_Summary__c</name>
+        <relationshipLabel><!-- LCIS --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Specify No --></label>
+        <name>Specify_No__c</name>
+    </fields>
+    <fields>
+        <label><!-- Specify Units --></label>
+        <name>Specify_Units__c</name>
+        <picklistValues>
+            <masterLabel>CM</masterLabel>
+            <translation><!-- CM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MM</masterLabel>
+            <translation><!-- MM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Total histological span --></label>
+        <name>Total_histological_span__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total histological span measurement unit --></label>
+        <name>Total_histological_span_measurement_unit__c</name>
+        <picklistValues>
+            <masterLabel>CM</masterLabel>
+            <translation><!-- CM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MM</masterLabel>
+            <translation><!-- MM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Unknown/Not Reported --></label>
+        <name>Unknown_Not_Reported__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_Lcis_Id --></label>
+        <name>pg_Lcis_Id__c</name>
+    </fields>
+    <layouts>
+        <layout>LCIS Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>TrialPatientXML</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>TrialPatientXMLs</value>
+    </caseValues>
+    <fields>
+        <label><!-- Arm --></label>
+        <name>Arm__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Patient XML --></label>
+        <name>Current_Patient_XML__c</name>
+    </fields>
+    <fields>
+        <label><!-- HER2 --></label>
+        <name>HER2__c</name>
+    </fields>
+    <fields>
+        <label><!-- HR --></label>
+        <name>HR__c</name>
+    </fields>
+    <fields>
+        <label><!-- MP --></label>
+        <name>MP__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRI1 Time --></label>
+        <name>MRI1_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRI1 Value --></label>
+        <name>MRI1_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRI2 Time --></label>
+        <name>MRI2_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRI2 Value --></label>
+        <name>MRI2_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRI3 Time --></label>
+        <name>MRI3_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRI3 Value --></label>
+        <name>MRI3_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Start Time --></label>
+        <name>Start_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subject Id --></label>
+        <name>Subject_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trial Patient ID --></label>
+        <name>TrialPatientId__c</name>
+        <relationshipLabel><!-- TrialPatientXMLs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- pCR Time --></label>
+        <name>pCR_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- pCR Value --></label>
+        <name>pCR_Value__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

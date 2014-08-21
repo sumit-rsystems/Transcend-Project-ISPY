@@ -1,0 +1,3 @@
+<apex:page controller="PatientspendingRandomization_Site" sidebar="false" showHeader="false">
+  {!data}
+</apex:page>

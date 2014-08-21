@@ -1,0 +1,95 @@
+<apex:component controller="RegimenAgentController" allowDML="true" id="compId">
+	
+	<apex:attribute name="regimenName" description="This is RegimenName." type="String" required="false" assignTo="{!regimenName}" />
+	<apex:attribute name="trialPatientId" description="Trial Patient Id." type="String" required="false" assignTo="{!trialPatientId}" />
+	<apex:attribute name="key" description="This is Key"  type="String" required="false"  assignTo="{!Key}" /> 
+    <apex:attribute name="pageController" type="PageControllerBase" assignTo="{!pageController}" required="true" description="The controller for the page." />
+    <apex:attribute name="crfId" description="This is chemo treatment record id."  type="String" required="false"  assignTo="{!chemoSummaryId}" /> 
+    <table width="50%">
+		<tr>
+			<td width="30%" valign="top">First Date of {!regimenName} therapy : </td>
+			<td width="60%" valign="top">
+				<apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+					<apex:param value="{!regimenDetailWrapper.firstDate}" />
+   				</apex:outputText>
+			</td>
+		</tr>
+		<tr>
+			<td width="30%" valign="top">Last Date of {!regimenName} therapy : </td> 
+			<td width="60%" valign="top">
+				<apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+					<apex:param value="{!regimenDetailWrapper.lastDate}" />
+   				</apex:outputText>
+			</td>
+		</tr>
+	</table>
+	<br />
+	<font size="4"><b>{!regimenName} Regimens</b></font>
+	<br />
+	<br />
+	<table width="100%">
+		<tr>
+			<th>Agent Name</th>
+			<th>Cycle 1 dose</th>
+			<th># Completed cycles</th>
+			<th>Cumulative Dose (mg)</th>
+			<th>Treatment Schedule</th>
+			<th>Dose Delay</th>
+			<th>Dose Modification</th>
+		</tr>
+		<tr>
+			<td><hr /></td>
+			<td><hr /></td>
+			<td><hr /></td>
+			<td><hr /></td>
+			<td><hr /></td>
+			<td><hr /></td>
+			<td><hr /></td>		
+		</tr>
+		<apex:repeat value="{!regimenDetailWrapper.lstAgentCollectionWrapper}" var="agCollDetail">
+			<tr>
+				<td><apex:outputText >{!agCollDetail.agentName}</apex:outputText></td>
+				<td><apex:outputText >{!agCollDetail.cycle1Dose}</apex:outputText></td>
+				<td><apex:outputText >{!agCollDetail.completedCycle}</apex:outputText></td>
+				<td><apex:outputText >{!agCollDetail.totalDose}</apex:outputText></td>
+				<td><apex:outputText >{!agCollDetail.treatmentSchedule}</apex:outputText></td>
+				<td><apex:outputText >{!agCollDetail.doseDelay}</apex:outputText></td>
+				<td><apex:outputText >{!agCollDetail.doseMod}</apex:outputText></td>		
+			</tr>
+		</apex:repeat>
+	</table>
+	<br />
+	<table width="100%">
+		<tr>
+			<td width="10%" valign="top">Treatment End Reason : </td>
+			<td width="30%">
+				
+				<apex:selectRadio id="endReasonId" value="{!regimenDetailWrapper.reason}" layout="pageDirection" onChange="enableOtherField(this);">
+					<apex:selectOptions value="{!treatmentEndReasonList}" /> 
+				</apex:selectRadio>
+				<apex:inputText value="{!regimenDetailWrapper.otherReason}" id="otherReasonId"/>
+				<br />
+				<script>
+					if("{!regimenDetailWrapper.otherReason}" == "") {
+						document.getElementById('{!$Component.otherReasonId}').style.display="none";
+					}
+					
+					function enableOtherField(obj) {
+						
+						parentObj = obj.parentNode.parentNode.parentNode.parentNode.parentNode;
+						var likeString = parentObj.getElementsByTagName('input');
+						for(var i=0;i<likeString.length;i++) {
+							//alert(likeString[i].id);
+							if(likeString[i].id.indexOf('otherReasonId') != -1 && obj.value == 'Other') {
+								likeString[i].style.display = 'block';	
+							} if(likeString[i].id.indexOf('otherReasonId') != -1 && obj.value != 'Other') {
+								likeString[i].style.display = 'none';
+								likeString[i].value = '';
+							}
+						}
+					}
+				</script>
+			</td>
+		</tr>
+	</table>
+</apex:component>

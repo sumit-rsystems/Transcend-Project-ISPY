@@ -1,0 +1,2 @@
+<apex:page standardController="TrialPatient__c" extensions="TrialPatientFormController" sidebar="false" action="{!showPatientView}">
+</apex:page>

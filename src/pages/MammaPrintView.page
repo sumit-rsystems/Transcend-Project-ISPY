@@ -1,0 +1,68 @@
+<apex:page controller="mammaPrintView" sidebar="false">
+	<style>
+.EventTab{
+	cursor: pointer;
+	/*background-color: #7A9FA0;*/
+	background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+	font-weight: bold;
+	font-size: 12px;
+	height: 20px;
+	width: 115px;
+	vertical-align: middle;
+	/*padding-top: 4px;*/
+	border: none;
+}
+table#tblReport {
+	border: 1px  solid #dce6f2;
+}
+table#tblReport tr td {
+	border-right: 1px  solid #dce6f2;
+	border-bottom: 1px  solid #dce6f2;
+}
+	.View  {width:100px; height:20px; float:left; padding:0; margin-top:5px; }
+	.View a{ width:100px; height:20px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background: #2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;  text-decoration:  none;}
+	.View a:hover{ color: white; text-decoration:  none;}
+	
+	</style>
+	
+	<apex:form >
+		<table width="100%" id="tblReport" cellpadding="0" cellspacing="0">
+	  	   	<tr class="EventTab">      
+				<td style="color: white; padding-left: 5px; width: 10%;height: 25px"> Subject Id</td>
+				<td style="color: white; padding-left: 5px; width: 15%;height: 25px">Institute</td>
+				<td style="color: white; padding-left: 5px; width: 15%;height: 25px">Site</td>
+				<td style="color: white; padding-left: 5px; width: 10%;height: 25px">Trial</td>
+				<td style="color: white; padding-left: 5px; width: 10%;height: 25px">Action</td>
+			</tr>
+   			<apex:repeat value="{!wrapList}" var="wrap">  
+       			<tr>
+       				<td height="25px" style="font-weight: bold; font-size: 12px; padding-left: 10px">
+       					<apex:outputText value="{!wrap.subjectid}"></apex:outputText>
+       				</td>
+       				<td style="font-weight: bold; font-size: 12px; padding-left: 5px;">
+       					<apex:outputText value="{!wrap.instituteName}"></apex:outputText>
+       				</td>
+       				<td style="font-weight: bold; font-size: 12px; padding-left: 5px;">
+       					<apex:outputText value="{!wrap.trialname}"></apex:outputText>
+       				</td>
+       				<td style="font-weight: bold; font-size: 12px; padding-left: 5px;">
+       					<apex:outputText value="{!wrap.siteName}"></apex:outputText>
+       				</td>
+       				<td style="padding-left: 10px;">
+	       				<apex:outputPanel rendered="{!IF((wrap.issubmitTrue == false), true, false)}">
+	       					<apex:commandLink value="Create" action="/apex/MammaPrintNewPage?trialPat={!wrap.trailpationId}" rerender="enablePortal" style="font-weight: bold; font-size: 12px;" immediate="true"> </apex:commandLink>
+	       				</apex:outputPanel>
+	       				
+	       				<apex:outputPanel rendered="{!IF((wrap.issubmitTrue == true), true, false)}" >
+	       					<apex:commandLink action="/apex/MammaPrintNewPage?formId={!wrap.mamaPrintId}&trialPat={!wrap.trailpationId}" value="View" rerender="enablePortal" style="font-weight: bold; font-size: 12px;" immediate="true"> </apex:commandLink>
+	       				</apex:outputPanel>
+
+       				</td>
+       			</tr>
+       			</apex:repeat> 
+       		</table>
+	</apex:form>
+		<style>
+       	#tblReport tr:hover{background-color: #dce6f2; color:black;}
+   	</style>
+</apex:page>

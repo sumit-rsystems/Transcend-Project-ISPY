@@ -1,0 +1,3 @@
+<apex:page controller="eventAcceptClass" action="{!eventAccept}" sidebar="false" showheader="false">
+<p>Your visit is accepted successfully</p>
+</apex:page>

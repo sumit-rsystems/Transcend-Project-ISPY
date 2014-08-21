@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>DCIS</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>DCIS</value>
+    </caseValues>
+    <fields>
+        <label><!-- Anterior/Inferior Size --></label>
+        <name>Anterior_Inferior_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Anterior/Inferior --></label>
+        <name>Anterior_Inferior__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Anterior/Superior Size --></label>
+        <name>Anterior_Superior_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Anterior/Superior --></label>
+        <name>Anterior_Superior__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Apocrine --></label>
+        <name>Apocrine__c</name>
+    </fields>
+    <fields>
+        <label><!-- Calcifications Present --></label>
+        <name>Calcifications_Present__c</name>
+        <picklistValues>
+            <masterLabel>Benign</masterLabel>
+            <translation><!-- Benign --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DCIS</masterLabel>
+            <translation><!-- DCIS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DCIS &amp; Benign</masterLabel>
+            <translation><!-- DCIS &amp; Benign --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Calcifications --></label>
+        <name>Calcifications__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Clinging --></label>
+        <name>Clinging__c</name>
+    </fields>
+    <fields>
+        <label><!-- Closest Margin --></label>
+        <name>Closest_Margin__c</name>
+        <picklistValues>
+            <masterLabel>&lt;1mm</masterLabel>
+            <translation><!-- &lt;1mm --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt;1cm</masterLabel>
+            <translation><!-- &gt;1cm --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Specify</masterLabel>
+            <translation><!-- Specify --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Comedonecrosis --></label>
+        <name>Comedonecrosis__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cribiform --></label>
+        <name>Cribiform__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cruciform --></label>
+        <name>Cruciform__c</name>
+    </fields>
+    <fields>
+        <label><!-- DCIS % --></label>
+        <name>DCIS__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deep Margin Size --></label>
+        <name>Deep_Margin_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deep Margin --></label>
+        <name>Deep_Margin__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- From Slide --></label>
+        <name>From_Slide__c</name>
+    </fields>
+    <fields>
+        <label><!-- Histology --></label>
+        <name>Histology__c</name>
+        <relationshipLabel><!-- DCIS --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Intra-cystic (encysted papillary) --></label>
+        <name>Intra_cystic_encysted_papillary__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lateral Size --></label>
+        <name>Lateral_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lateral --></label>
+        <name>Lateral__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Margin --></label>
+        <name>Margin__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Medical Size --></label>
+        <name>Medical_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Medical --></label>
+        <name>Medical__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation><!-- Negative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation><!-- Positive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Micropapillary --></label>
+        <name>Micropapillary__c</name>
+    </fields>
+    <fields>
+        <label><!-- Microscopic foci upto --></label>
+        <name>Microscopic_foci_upto__c</name>
+    </fields>
+    <fields>
+        <label><!-- Necrosis --></label>
+        <name>Necrosis__c</name>
+    </fields>
+    <fields>
+        <label><!-- Nuclear Grade --></label>
+        <name>Nuclear_Grade__c</name>
+        <picklistValues>
+            <masterLabel>Grade I (low)</masterLabel>
+            <translation><!-- Grade I (low) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Grade II (intermediate)</masterLabel>
+            <translation><!-- Grade II (intermediate) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Grade III (high)</masterLabel>
+            <translation><!-- Grade III (high) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Indeterminate</masterLabel>
+            <translation><!-- Indeterminate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not reported</masterLabel>
+            <translation><!-- Not reported --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- On-Study Pathology Form --></label>
+        <name>On_Study_Pathology_Form__c</name>
+        <relationshipLabel><!-- DCIS --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Other --></label>
+        <name>Other__c</name>
+    </fields>
+    <fields>
+        <help><!-- Other (if other, mention type in textbox given) --></help>
+        <label><!-- Other(if other, mention type in textbox) --></label>
+        <name>Other_if_other_mention_type_in_textb__c</name>
+    </fields>
+    <fields>
+        <label><!-- Papillary --></label>
+        <name>Papillary__c</name>
+    </fields>
+    <fields>
+        <label><!-- Post Surgery Summary --></label>
+        <name>Post_Surgery_Summary__c</name>
+        <relationshipLabel><!-- DCIS --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Present as scattered microscopic foci --></label>
+        <name>Present_as_scattered_microscopic_foci__c</name>
+    </fields>
+    <fields>
+        <label><!-- Present in continous section --></label>
+        <name>Present_in_continous_section__c</name>
+    </fields>
+    <fields>
+        <label><!-- Punctate necrosis --></label>
+        <name>Punctate_necrosis__c</name>
+    </fields>
+    <fields>
+        <label><!-- Solid --></label>
+        <name>Solid__c</name>
+    </fields>
+    <fields>
+        <label><!-- Spanning --></label>
+        <name>Spanning__c</name>
+    </fields>
+    <fields>
+        <label><!-- Specific Closest Margin Measurement Unit --></label>
+        <name>Specific_Closest_Margin_Measurement_Unit__c</name>
+        <picklistValues>
+            <masterLabel>CM</masterLabel>
+            <translation><!-- CM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MM</masterLabel>
+            <translation><!-- MM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Specific Closest Margin --></label>
+        <name>Specific_Closest_Margin__c</name>
+    </fields>
+    <fields>
+        <label><!-- To Slide --></label>
+        <name>To_Slide__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Histological Span Measurement Unit --></label>
+        <name>Total_Histological_Span_Measurement_Unit__c</name>
+        <picklistValues>
+            <masterLabel>CM</masterLabel>
+            <translation><!-- CM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MM</masterLabel>
+            <translation><!-- MM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Total Histological Span --></label>
+        <name>Total_Histological_Span__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tumor Size --></label>
+        <name>Tumor_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unknown/Not Reported --></label>
+        <name>Unknown_Not_Reported__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_dcis_Id --></label>
+        <name>pg_dcis_Id__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

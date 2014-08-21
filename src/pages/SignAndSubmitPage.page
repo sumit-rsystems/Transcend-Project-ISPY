@@ -1,0 +1,24 @@
+<apex:page controller="SignAndSubmitController" >
+    <apex:form >  
+    <apex:pageMessages />
+    <apex:pageBlock title="User Authentication">
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Sign and Submit" action="{!signAndSubmit}" rerender="msgBlock,pwd" status="counterStatus"/>
+            <apex:commandButton value="Resend Secure Code" action="{!resendCode}" rerender="msgBlock,pwd" status="counterStatus"/>
+            <apex:actionStatus id="counterStatus" startText="Processing..." />
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection columns="1" id="msgBlock">
+            <apex:pageMessage summary="{!errorMsg}" severity="error" strength="3" rendered="{!isErrorMsg}" />
+            <apex:pageMessage summary="Code Sent! Please check your Email." severity="info" strength="3" rendered="{!isCodeSent}" />
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="2">
+        <apex:pageBlockSectionItem >
+            <apex:outputLabel value="User Name" /><apex:outputText value="{!$User.Username}" />
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+            <apex:outputLabel value="Secure Code" /><apex:inputSecret value="{!password}" id="pwd"/>
+        </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

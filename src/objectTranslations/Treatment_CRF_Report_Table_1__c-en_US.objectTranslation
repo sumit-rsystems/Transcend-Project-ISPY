@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Treatment CRF Report Table 1</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Treatment CRF Report Table 1</value>
+    </caseValues>
+    <fields>
+        <label><!-- AE Approved --></label>
+        <name>AE_Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- AE Submitted --></label>
+        <name>AE_Submitted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Chemo Treatment Approved --></label>
+        <name>Chemo_Treatment_Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- Chemo Treatment Submitted --></label>
+        <name>Chemo_Treatment_Submitted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mri Volume Early Approved --></label>
+        <name>Mri_Volume_Early_Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mri Volume Early Submitted --></label>
+        <name>Mri_Volume_Early_Submitted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mri Volume Inter Approved --></label>
+        <name>Mri_Volume_Inter_Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mri Volume Inter Submitted --></label>
+        <name>Mri_Volume_Inter_Submitted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mri Volume Pre Surgery Approved --></label>
+        <name>Mri_Volume_Pre_Surgery_Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mri Volume Pre Surgery Submitted --></label>
+        <name>Mri_Volume_Pre_Surgery_Submitted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Post Surgery Approved --></label>
+        <name>Post_Surgery_Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- Post Surgery Submitted --></label>
+        <name>Post_Surgery_Submitted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Request --></label>
+        <name>Report_Request__c</name>
+        <relationshipLabel><!-- Treatment CRF Report Table 1 --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Trial Site Name --></label>
+        <name>Trial_Site_Name__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

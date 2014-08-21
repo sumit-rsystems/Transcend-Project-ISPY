@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>CRFMaster</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>CRFMasters</value>
+    </caseValues>
+    <fields>
+        <label><!-- CRFType --></label>
+        <name>CRFType__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsApprovalRequired --></label>
+        <name>IsApprovalRequired__c</name>
+    </fields>
+    <fields>
+        <label><!-- Object Name --></label>
+        <name>Object_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sharing Level --></label>
+        <name>Sharing_Level__c</name>
+        <picklistValues>
+            <masterLabel>Edit</masterLabel>
+            <translation><!-- Edit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Read</masterLabel>
+            <translation><!-- Read --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>CRFMaster Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

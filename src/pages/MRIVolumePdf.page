@@ -1,0 +1,148 @@
+<apex:page standardController="MRI_Volume__c" renderAs="pdf" extensions="MRIVolumeController" tabStyle="Patient_Custom__c" sidebar="false" title="MRI Volume Form" >
+    <apex:form >
+    <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : MRI Volume Form" initial="" 
+    instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+    <br/>                 
+    <font size="3"><b><apex:outputlabel value="MRI Volume" >
+    </apex:outputlabel></b></font> 
+    <br/><br/>
+    <table width="100%" cellpadding="5">
+    <tr>
+    <td align="right" valign="top">
+    <b>Was MRI Readable?</b>
+    </td>
+    <td  valign="top">
+    <apex:outputField value="{!mriObj.Was_MRI_Readable__c}" />
+    </td>
+    
+    <td  align="right" valign="top">
+    <b>Date of MRI scan</b>
+    </td>
+    <td  valign="top">
+    <apex:outputField value="{!mriObj.MRI_Scan_Date__c}" />
+    </td>
+    </tr>
+    
+    <tr>
+    <td  align="right" valign="top">
+    <b>Time Point</b>
+    </td>
+    <td   valign="top">
+    <apex:outputField value="{!mriObj.Time_Point__c}"/>
+    </td>
+    <td align="right"  valign="top">
+        <b><apex:outputLabel value="MRI Volume"/></b>
+    </td> 
+    <td  valign="top">
+    <apex:outputField value="{!mriObj.MRI_Volume_in_cm3__c}" />
+    </td>
+    </tr>
+   
+    <tr>
+    <td align="right" valign="top">
+    <b>Laterality</b>
+    </td >
+    <td  valign="top">
+    <apex:outputField value="{!mriObj.Laterality__c}"/>
+    </td>
+    <td align="right" width="30%" valign="top">
+    <b>Longest Diameter Of Index Lesion (in cm)</b>
+    </td>
+    <td  valign="top">
+    <apex:outputField value="{!mriObj.Longest_Diameter_Of_Index_Lesion_in_cm__c}" />
+    </td>
+    </tr>
+    
+    <tr style="height:80px;">
+    <td align="right" width="30%" valign="top">
+    <b>Other than the index lesion, Are separate masses or enhancements reported?</b>
+    </td>
+    <td  valign="top">
+    <apex:outputField value="{!mriObj.Seprate_masses_or_enhancements_reported__c}" />
+    </td>
+    </tr>
+    
+    <tr>
+    <td align="right" width="30%" valign="top">
+    <b>CRF Status:</b>
+    </td>
+    <td  valign="top">
+    <apex:outputField value="{!mriObj.Status__c}" />
+    </td>
+    </tr>
+    
+    <tr>
+    <td align="right" width="30%" valign="top">
+    <b>DCC Action:</b>
+    </td>
+    <td  valign="top">
+    <apex:outputField value="{!mriObj.Status__c}" />
+    </td>
+    </tr>
+    
+    
+    <tr>
+    <td align="right" width="30%" valign="top">
+    <b>DCC Comments:</b>
+    </td>
+    <td  valign="top">
+    <c:CRFEventComponentcomments rId="{!mriObj.Id}" objectNamec="MRI_Volume__c" rtId="{!mriObj.Root_CRF_Id__c}"/>
+    </td>
+    </tr>
+    
+    </table>   
+    
+           
+  
+   <!-- <c:CRFAttachmentComponent rId="{!mriObj.Id}" feedCRFName="MRI_Volume__Feed"/>-->
+    
+       <!--       <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+   </table>
+    
+    <c:CRFPDFFooter crfFormName="MRI Volume Form , v1"  />
+</apex:page> -->
+  
+  <br/>
+  <br/>
+  
+  <apex:pageBlock tabStyle="Account">
+ <!--<apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(mriObj.Id))}">
+     <c:CRFAttachmentComponent rId="{!mriObj.Id}" feedCRFName="MRI_Volume__Feed"/>
+ </apex:pageBlockSection> --->
+  <c:CRFAttachmentComponentPdf rId="{!mriObj.Id}" feedCRFNamePdf="MRI_Volume__Feed" rtId="{!mriObj.Root_CRF_Id__c}"/>
+  <br/>
+  
+  <div style="background-color:#97C7EC"><b style="margin:10px;color:white">CRF Events</b></div>
+  
+  <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(mriObj.Id))}">
+                <!--<apex:outputText value="<b>{!mriObj.CreatedDate}</b>" escape="false"/>
+                <apex:outputField value="{!mriObj.CreatedById}" label="Entered by Study Coordinator"/>-->
+                <c:CRFEventComponent rId="{!mriObj.Id}" objectName="MRI_Volume__c" rtId="{!mriObj.Root_CRF_Id__c}"/>
+            </apex:pageBlockSection>
+        
+  </apex:pageBlock>   
+           
+           
+  <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  </apex:form>
+</apex:page>

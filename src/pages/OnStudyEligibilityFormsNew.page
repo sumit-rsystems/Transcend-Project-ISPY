@@ -1,0 +1,677 @@
+<apex:page standardController="On_Study_Eligibility_Form__c" extensions="OnStudyEligibilityFormsNew" title="On Study Eligibility Form" sideBar="false" Id="osePageId" action="{!CRFinsert}" tabStyle="Patient_Custom__c">
+<script type="text/javascript">
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script>
+    
+<style>
+.tableProcedureHeadPage {
+    width: 22%;
+}
+.tableLateralityHeadPage {
+    width: 6%; 
+}
+.tableLocationHeadPage {
+    width: 18%;
+}
+
+.activeTab {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    color: #000000;
+    font-weight: 600;
+    width: 198px; 
+}
+
+.inactiveTab {
+        cursor: pointer;
+        /*background-color: #7A9FA0;*/
+        background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+        color: white; /*#3C3C3C;*/
+        font-weight: bold;
+        font-size: 12px;
+        height: 15px; 
+        width: 195px;
+        vertical-align: middle;
+        /*padding-top: 4px;*/
+        border: none;
+}
+    
+.rich-tab-inactive {
+    background-repeat: repeat-x;
+    border-color: #FFFFFF;
+    border-style: none;
+    border-width: 0;
+    cursor: pointer;
+}
+
+.rich-tabhdr-side-border {
+    background-image:none; 
+    border-radius: 4px 4px 0 0;
+    background-color: none;
+    width: 2px;
+}
+
+.rich-tabhdr-side-cell {
+    box-shadow: 0 -2px 2px #A7A7A8;
+    /*border: 2px solid #056FC1;*/
+    border-top: 2px solid #056FC1;
+    border-left: 2px solid #056FC1;
+    border-right: 2px solid #056FC1;
+    border-radius: 4px 4px 0 0;
+}
+
+.rich-tabpanel-content {
+    background-color: #fff;
+    border-left: 2px solid #056FC1;
+    border-right: 2px solid #056FC1;
+    border-bottom: 2px solid #056FC1;
+}
+
+.rich-tab-bottom-line {
+    border-bottom: 1px solid #056FC1;
+}
+
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+.name {
+        font-size: 1.50em;
+        font-weight: bold;
+}
+.selectbox{
+    background-color: #2F96E4;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    height: 25px;
+    position: relative;
+    width: 152px;
+    border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+    color:#fff;
+    font-size:12px; font-weight: bold;
+    padding:3px 0 3px 10px;
+}
+</style>
+    
+    <script>
+        
+        function enableRow(obj) {
+            parentObj = obj.parentNode.parentNode;
+            var inputString = parentObj.getElementsByTagName('input');
+            if(obj.checked) {
+                for(var i=0;i<inputString.length;i++) {
+                    inputString[i].disabled = false;
+                }
+            } else {
+                for(var i=0;i<inputString.length;i++) {
+                    if(i == 0) continue;
+                    inputString[i].value = '';
+                    inputString[i].disabled = true;
+                }
+            }
+        }
+        
+        function OtherTextBox(){
+            var cancerDetected = document.getElementById('osePageId:oseFormId:pageBlockId1:osePageBlockSectionId:cancerFirstDetectedField').value;
+            //alert(document.getElementById('osePageId:oseFormId:pageBlockId:osePageBlockSectionId:cancerFirstDetectedField').value);
+            if(cancerDetected == 'Other'){
+                document.getElementById('osePageId:oseFormId:pageBlockId1:osePageBlockSectionId:otherTextBoxId').style.display = '';
+            } else {
+                document.getElementById('osePageId:oseFormId:pageBlockId1:osePageBlockSectionId:otherTextBoxId').style.display = 'none';
+            }
+        }
+        
+        function Call_CompContPageCont(){
+            saveComponent();
+        }
+        
+        function showPanel(val){
+        var tbodyObj = val.parentNode.parentNode.parentNode;
+        var trList = tbodyObj.getElementsByTagName('tr');
+        for(var i = 6; i< trList.length; i++) {
+            if(val.checked) {
+                trList[i].style.display = ''
+            } else {
+                trList[i].style.display = 'none'
+            }
+        }
+        
+            /*if(val.checked){
+                document.getElementById('osePageId:oseFormId:pageBlockId:pageBlockSectionId:labValuesPanel').style.display = '';
+                document.getElementById('osePageId:oseFormId:pageBlockId:pageBlockSectionId:AbsoluteId').parentNode.parentNode.style.display = '';
+                document.getElementById('osePageId:oseFormId:pageBlockId:pageBlockSectionId:Total_BilirubinId').parentNode.parentNode.style.display = '';
+                document.getElementById('osePageId:oseFormId:pageBlockId:pageBlockSectionId:CreatinineId').parentNode.parentNode.style.display = '';
+            } else {
+                document.getElementById('osePageId:oseFormId:pageBlockId:pageBlockSectionId:labValuesPanel').style.display = 'none';
+                document.getElementById('osePageId:oseFormId:pageBlockId:pageBlockSectionId:AbsoluteId').parentNode.parentNode.style.display = 'none';
+                document.getElementById('osePageId:oseFormId:pageBlockId:pageBlockSectionId:Total_BilirubinId').parentNode.parentNode.style.display = 'none';
+                document.getElementById('osePageId:oseFormId:pageBlockId:pageBlockSectionId:CreatinineId').parentNode.parentNode.style.display = 'none';
+            }*/
+        }
+        
+        function checkCancel() {
+            if(confirm("Completely cancel and remove?")){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        function checkDelete() {
+            if(confirm("Are you sure you want to Delete this form?")){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        function startSplash() {
+            var divObj = document.getElementById('splashDiv');
+            var msgSplash =document.getElementById('waitMsg');
+            var browserName = navigator.appName;
+            if(browserName == 'Netscape'){
+                divObj.style.display='table-cell'; 
+            } else {
+                divObj.style.display='table-cell';
+            }
+        }
+        
+        function endSplash() {            
+            document.getElementById('splashDiv').style.display='none';
+        }
+    </script>
+    <div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+        <div style="text-align: center; top: 40%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+    </div>
+    <span class ="name">Patient's Details</span>
+    <br/>
+        <c:PatientDetailReadOnly patientId="{!trialPatientObj.Patient_Id__c}"/>
+    <br/>
+    <table width="100%">
+        <tr>
+            
+            <td width="40%" align="left">
+                 <span class ="name"> On-Study Eligibility Form </span>
+            </td>
+            <td width="60%" align="left">
+                <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialPatientObj.Trial_Id__r.Name}" />
+            </td>
+            
+        </tr>
+    </table>
+    <apex:form Id="oseFormId">
+        <apex:pageMessages ></apex:pageMessages>
+        <apex:pageBlock id="menoPageBlockBtn" helpTitle="Help"  helpUrl="/apex/Onstudyeligibilityuserguide" rendered="{!isComplete}" tabStyle="Account">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel" status="splashStatus">
+                    <apex:param name="tabNext" value="saveAndClose"/>
+                </apex:commandButton>
+                <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" immediate="true"/>
+                <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock> 
+        <apex:actionFunction name="next" action="{!next}"  rerender="theTabPanel" status="splashStatus"/>
+        <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+        <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />
+        <apex:outputPanel >
+        <script>
+            function enterToNextTab(val){
+                //alert(val);
+                if('{!isComplete}' != 'false'){
+                    document.getElementById('osePageId:oseFormId:nextTabNameID').value = val;
+                    next();
+                }
+            }
+        </script>
+        </apex:outputPanel>
+        <apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+            <apex:tab label="Study Checklist" name="StudyChecklist" id="tabOne" ontabenter="enterToNextTab('StudyChecklist');" rendered="{!isComplete}">    
+                <apex:pageBlock title="On Study Eligibility Form Edit" id="pageBlockId" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+<!--                    <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();"/>-->
+                        <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel" status="splashStatus">
+                             <apex:param name="tabNext" value="Methodofdetection"/>
+                        </apex:commandButton>
+                        <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                    </apex:pageBlockButtons>
+                    <apex:pageBlockSection columns="1" title="Information" collapsible="false" id="pageBlockSectionId">
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:inputField value="{!ose.No_Clinical_Or_Imaging_Evidence__c}" id="NoClinicalOrImagingEvidenceFieldId"/>
+                            <apex:outputlabel value="Patient has no clinical or imaging evidence of distant metastasis (per protocol 4.1.2 E), but can have regional Stage IV where supraclavicular lymph nodes are the only site of metastasis, per protocol 4.1.2 A" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:inputField value="{!ose.No_Uncontrolled_or_Cardiovascular_Diseas__c}" id="NoUncontrolledorCardiovascularFieldId"/>
+                            <apex:outputlabel value="Patient has no uncontrolled or severe cardiovascular disease; pre-treatment ejection fraction (by nuclear imaging or echocardiography) must be ≥ 50%, per protocol 4.1.2 D" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:inputField value="{!ose.No_history_of_allergic_reactions__c}" id="NohistoryofallergicreactionsFieldId"/>
+                            <apex:outputlabel value="Patient has no history of allergic reactions attributed to compounds of similar chemical or biologic composition to study agents or accompanying supportive medications, per protocol 4.2 B" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:inputField value="{!ose.No_uncontrolled_intercurrent_illness__c}" id="NouncontrolledintercurrentillnessFieldId"/>
+                            <apex:outputlabel value="Patient has no uncontrolled intercurrent illness including but not limited to, ongoing or active infection, diabetes, or psychiatric illness/social situations that would limit compliance with study requirements, per protocol 4.2 C" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:inputField value="{!ose.Not_had_a_sentinel_lymph_node__c}" id="NothadasentinellymphnodeFieldId"/>
+                            <apex:outputlabel value="Patient has not had a sentinel lymph node dissection on the nodes draining from the study index tumor site prior to the start of chemotherapy, per protocol 4.2 D" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;" id="Lab_ValuesItem">
+                            <apex:inputField value="{!ose.Lab_Values__c}" onclick="showPanel(this);" id="fieldId"/>
+                            <apex:outputlabel value="Patient's lab values are within these limits (per protocol 4.1.2 C):" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;" id="LeukocytesItem">
+                            <apex:inputField value="{!ose.Leukocytes_3000_L__c}" id="LeukocytesFieldId"/>
+                            <apex:outputlabel value="Leukocytes ≥ 3000/µL" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;" id="AbsoluteItem">
+                            <apex:inputField value="{!ose.Absolute_Neutrophil_count_1500_L__c}" id="AbsoluteId" />
+                            <apex:outputlabel value="Absolute Neutrophil count ≥ 1500/µL" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;" id="PlateletsItem">
+                            <apex:inputField value="{!ose.Platelets_100_000_L__c}" id="PlateletsId"/>
+                            <apex:outputlabel value="Platelets ≥ 100,000/µL" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;" id="Total_BilirubinItem">
+                            <apex:inputField value="{!ose.Total_Bilirubin_within_institutional__c}" id="Total_BilirubinId"/>
+                            <apex:outputlabel value="Total Bilirubin within institutional normal limits, unless patient has Gilbert's disease, for which Bilirubin must be ≤ 2.0 x ULN" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;" id="ASTItem">
+                            <apex:inputField value="{!ose.AST_SGOT_or_ALT_SGPT_1_5_x_insti__c}" id="ASTId"/>
+                            <apex:outputlabel value="AST (SGOT) or ALT (SGPT) ≤ 1.5 x institutional ULN" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;" id="CreatinineItem">
+                            <apex:inputField value="{!ose.Creatinine_1_5_x_institutional_ULN__c}" id="CreatinineId"/>
+                            <apex:outputlabel value="Creatinine < 1.5 x institutional ULN" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                    </apex:pageBlockSection>
+                    <script>showPanel(document.getElementById('osePageId:oseFormId:pageBlockId:pageBlockSectionId:Lab_ValuesItem:fieldId'));</script>
+                    <apex:pageBlockSection columns="1" title="Investigational Agent Specific Eligibility Criteria:" collapsible="false">
+                        <c:AdditionalQuestionComponent isEdited="false" isReadOnly="false" key="addQues" type="Question" pageController="{!this}" CRFType="00009" armId="" TrialPatientId="{!TrialPatId}" CRFId="{!ose.Id}" SectionTitle="Additional Question Section"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" title="PreEligibility Checklists (Completed in PreEligibility wizard):" collapsible="false" rendered="{!isSigned}">
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Histologically_confirmed_invasive_cancer__c}" />
+                            <apex:outputlabel value="Patient has histologically confirmed invasive cancer of the female breast as confirmed by core needle, fine needle aspirate, or incisional biopsy* (*Incisional biopsy is allowed if residual tumor after biopsy measures at least 2.5cm), per protocol 4.1.1 A" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Clinically_radiologically_measurable__c}" />
+                            <apex:outputlabel value="Patient has clinically or radiologically measurable or non-measurable disease in breast defined as longest diameter ≥ 2.5cm, per protocol 4.1.1 B" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Cytotoxic_Regiments__c}" />
+                            <apex:outputlabel value="Patient has not had prior cytotoxic regimens or other targeted anticancer therapies to the ipsilateral breast for this malignancy, per protocol 4.1.1 C" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].X30_Days_Investigational_Agents__c}" />
+                            <apex:outputlabel value="Patient has not had other investigational agents within 30 days of study enrollment, per protocol 4.2 A" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Not_had_prior_RT__c}" />
+                            <apex:outputlabel value="Patient has not had prior RT to the ipsilateral breast for this malignancy, per protocol 4.1.1 C" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Patient_is_18_years_or_older__c}" />
+                            <apex:outputlabel value="Patient is 18 years or older, per protocol 4.1.1 D" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Non_Pregnant_Not_Lactating__c}" />
+                            <apex:outputlabel value="Patient is non-pregnant and non-lactating, per protocol 4.1.1 G" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Ferromegnatic_Prostheses__c}" />
+                            <apex:outputlabel value="Patient has no ferromagnetic prostheses that are not compatible with an MRI machine, per protocol 4.1.1 H" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Patient_is_willing_to_have_core_biospy__c}" />
+                            <apex:outputlabel value="Patient is willing to have study core biopsy" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <!--<apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Patient_is_willing_to_have_core_biospy__c}" />
+                            <apex:outputlabel value="Patient is willing to have study core biopsy" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem> 
+                           
+                        --><apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Patient_is_willin_to_have_study_MRI__c}" />
+                            <apex:outputlabel value="Patient is willing to have study MRI" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                             
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Patient_is_eligible_to_be_screened_for_t__c}" />
+                            <apex:outputlabel value="Patient is eligible to be screened for the study" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:outputPanel >
+                            <fieldset>
+                                <legend>ECOG Score</legend>
+                                <apex:outputlabel value="ECOG:" Style="color: #4A4A56; font-size: 91%; font-weight: bold; padding-right: 5px;"/>
+                                <apex:outputField value="{!lstPre[0].ECOG_Score__c}"/>
+                            </fieldset>
+                        </apex:outputPanel>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:tab>
+            <apex:tab label="Method of detection" name="Methodofdetection" id="tabTwo" ontabenter="enterToNextTab('Methodofdetection');" rendered="{!isComplete}">
+                <apex:pageBlock title="On Study Eligibility Form Edit" id="pageBlockId1" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+<!--                        <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();"/>-->
+                        <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel" status="splashStatus">
+                            <apex:param name="tabPrevious" value="StudyChecklist"/>
+                        </apex:commandButton>
+                        <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel" status="splashStatus">
+                             <apex:param name="tabNext" value="CommentsAndAttachments"/>
+                        </apex:commandButton>
+                        <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                    </apex:pageBlockButtons>
+                    <apex:pageBlockSection columns="1" id="msgBlock">
+                        <apex:pageMessage summary="{!errorMsg}" severity="error" strength="3" rendered="{!isErrorMsg}" />
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="2" title="Method of detection" collapsible="false" Id="osePageBlockSectionId">
+                        <apex:inputField value="{!ose.How_was_the_cancer_first_detected__c}" Id="cancerFirstDetectedField" onchange="OtherTextBox();"/>
+                        <apex:inputField value="{!ose.Is_mass_palpable__c}" id="isMassPayableField"/>
+                        <apex:outputPanel id="otherTextBoxId" style="display : none; padding-left: 134px;"> 
+                            <b><apex:outputText value="Other Reason" Style="color : #4A4A56; font-size: 91%;"/></b><apex:inputField value="{!ose.Other_Reason_for_Cancer_first_detected__c}" id="otherId" style="margin-left: 22px;"/>
+                        </apex:outputPanel>
+                            <apex:inputField value="{!ose.Mass_Identification_Date__c}" id="massIdentificationDate" />
+                                <script type="text/javascript">
+                                    document.getElementById('{!$Component.massIdentificationDate}').onfocus = function onfocus(event) {
+                                        DatePicker.pickDate(true, '{!$Component.massIdentificationDate}', false); 
+                                        addYearInDateField(''); 
+                                    };
+                                </script>
+        <!--                <apex:outputText value="" />-->
+                        <apex:inputField value="{!ose.Screening_Memogram_Prior_to_Mass_Detect__c}" id="screeningMemogramPriortoMassDetectField"/>
+                       <apex:inputField value="{!ose.Most_Recent_Date__c}" id="mostRecentDate"/>  
+                        <script type="text/javascript">
+                            document.getElementById('{!$Component.mostRecentDate}').onfocus = function onfocus(event) {
+                                DatePicker.pickDate(true, '{!$Component.mostRecentDate}', false); 
+                                addYearInDateField(''); 
+                            };
+                        </script>
+                        <!--<script>
+                            document.getElementById('{!$Component.mostRecentDate}').disabled = true;
+                        </script>
+                    --></apex:pageBlockSection>
+                </apex:pageBlock>   
+            </apex:tab>
+            <apex:tab label="Comments & Attachments" name="CommentsAndAttachments" id="tabThree" ontabenter="enterToNextTab('CommentsAndAttachments');" rendered="{!isComplete}">
+                <apex:pageBlock tabStyle="Account">
+                    <apex:pageBlockButtons location="top" >
+<!--                        <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();"/>-->
+                        <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel" status="splashStatus">
+                            <apex:param name="tabPrevious" value="Methodofdetection"/>
+                        </apex:commandButton>
+                        <apex:commandButton action="{!next}" value="Next" reRender="theTabPanel" status="splashStatus">
+                                <apex:param name="tabNext" value="Complete"/>
+                        </apex:commandButton>
+                        <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                    </apex:pageBlockButtons>
+                    <apex:pageBlockSection columns="1">
+<!--                        <chatter:feedWithFollowers entityId="{!ose.Id}"></chatter:feedWithFollowers>-->
+                        <apex:iframe src="/apex/ChatterPage?recId={!ose.Id}" scrolling="true" id="theIframe"/>
+                        <c:CRFAttachmentComponent rId="{!ose.Id}" feedCRFName="On_Study_Eligibility_Form__Feed" rtId="{!ose.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:tab>
+            <apex:tab label="Complete" name="Complete" id="tabFour" ontabenter="enterToNextTab('Complete');">
+                <apex:pageBlock title="On Study Eligibility Form Edit" tabStyle="Account">
+                <apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!customCancel}" value="Delete" onclick="return checkDelete();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+                      <apex:commandLink target="_blank" style="text-decoration:none;padding:3.3px" styleClass="btn" action="{!redirect}" value="Generate Pdf" rendered="{!ose.Status__c == 'Accepted'}"/> 
+         
+                </apex:pageBlockButtons>
+                <!--<apex:actionFunction name="editCRF" action="{!editCRF}" rerender="theTabPanel" status="processStatus"/>
+                <apex:outputPanel id="dummayPanel">
+                    <script>
+                        //alert("{!openInEditMode}");
+                        if("{!openInEditMode}" == "true") {
+                            editCRF();
+                        }
+                    </script>
+                </apex:outputPanel>-->
+                <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">
+                    <apex:pageBlock tabStyle="Account">
+                        <apex:pageBlockButtons location="top">
+                            <apex:commandButton action="{!editCRF}" value="Edit" reRender="oseFormId" status="splashStatus" rendered="{!IF(AND(ose.Status__c == 'Rejected', isShowEditButton),true,false)}"/>
+        <!--                    <apex:commandButton action="{!customCancel}" value="Cancel" onclick="return checkCancel();" rendered="{!isComplete}"/>-->
+                            <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel" status="splashStatus" rendered="{!isComplete}" >
+                                <apex:param name="tabPrevious" value="CommentsAndAttachments"/>
+                            </apex:commandButton>
+                            <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                        </apex:pageBlockButtons>
+                    </apex:pageBlock>
+                </apex:outputPanel>
+                    <apex:pageBlockSection columns="1" title="Information" collapsible="false" id="pageBlockSectionId1">
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!ose.No_Clinical_Or_Imaging_Evidence__c}" />
+                            <apex:outputlabel value="Patient has no clinical or imaging evidence of distant metastasis (per protocol 4.1.2 E), but can have regional Stage IV where supraclavicular lymph nodes are the only site of metastasis, per protocol 4.1.2 A" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!ose.No_Uncontrolled_or_Cardiovascular_Diseas__c}" />
+                            <apex:outputlabel value="Patient has no uncontrolled or severe cardiovascular disease; pre-treatment ejection fraction (by nuclear imaging or echocardiography) must be ≥ 50%, per protocol 4.1.2 D" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!ose.No_history_of_allergic_reactions__c}" />
+                            <apex:outputlabel value="Patient has no history of allergic reactions attributed to compounds of similar chemical or biologic composition to study agents or accompanying supportive medications, per protocol 4.2 B" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!ose.No_uncontrolled_intercurrent_illness__c}" />
+                            <apex:outputlabel value="Patient has no uncontrolled intercurrent illness including but not limited to, ongoing or active infection, diabetes, or psychiatric illness/social situations that would limit compliance with study requirements, per protocol 4.2 C" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!ose.Not_had_a_sentinel_lymph_node__c}" />
+                            <apex:outputlabel value="Patient has not had a sentinel lymph node dissection on the nodes draining from the study index tumor site prior to the start of chemotherapy, per protocol 4.2 D" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;" >
+                            <apex:outputField value="{!ose.Lab_Values__c}"/>
+                            <apex:outputlabel value="Patient's lab values are within these limits (per protocol 4.1.2 C):" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;" rendered="{!ose.Lab_Values__c}">
+                            <apex:outputField value="{!ose.Leukocytes_3000_L__c}" />
+                            <apex:outputlabel value="Leukocytes ≥ 3000/µL" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;" rendered="{!ose.Lab_Values__c}">
+                            <apex:outputField value="{!ose.Absolute_Neutrophil_count_1500_L__c}" />
+                            <apex:outputlabel value="Absolute Neutrophil count ≥ 1500/µL" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;" rendered="{!ose.Lab_Values__c}">
+                            <apex:outputField value="{!ose.Platelets_100_000_L__c}" />
+                            <apex:outputlabel value="Platelets ≥ 100,000/µL" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;" rendered="{!ose.Lab_Values__c}">
+                            <apex:outputField value="{!ose.Total_Bilirubin_within_institutional__c}" />
+                            <apex:outputlabel value="Total Bilirubin within institutional normal limits, unless patient has Gilbert's disease, for which Bilirubin must be ≤ 2.0 x ULN" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;" rendered="{!ose.Lab_Values__c}">
+                            <apex:outputField value="{!ose.AST_SGOT_or_ALT_SGPT_1_5_x_insti__c}" />
+                            <apex:outputlabel value="AST (SGOT) or ALT (SGPT) ≤ 1.5 x institutional ULN" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;" rendered="{!ose.Lab_Values__c}">
+                            <apex:outputField value="{!ose.Creatinine_1_5_x_institutional_ULN__c}" />
+                            <apex:outputlabel value="Creatinine < 1.5 x institutional ULN" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection> 
+                    <apex:pageBlockSection columns="1" title="Investigational Agent Specific Eligibility Criteria:" collapsible="false">
+                        <c:AdditionalQuestionComponentReadOnly type="Question"  CRFType="00009" CRFId="{!ose.Id}" />
+                    </apex:pageBlockSection>
+                    
+                    
+                    <apex:pageBlockSection columns="1" title="PreEligibility Checklists (Completed in PreEligibility wizard):" collapsible="false" rendered="{!isSigned}">
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Histologically_confirmed_invasive_cancer__c}" />
+                            <apex:outputlabel value="Patient has histologically confirmed invasive cancer of the female breast as confirmed by core needle, fine needle aspirate, or incisional biopsy* (*Incisional biopsy is allowed if residual tumor after biopsy measures at least 2.5cm), per protocol 4.1.1 A" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Clinically_radiologically_measurable__c}" />
+                            <apex:outputlabel value="Patient has clinically or radiologically measurable or non-measurable disease in breast defined as longest diameter ≥ 2.5cm, per protocol 4.1.1 B" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Cytotoxic_Regiments__c}" />
+                            <apex:outputlabel value="Patient has not had prior cytotoxic regimens or other targeted anticancer therapies to the ipsilateral breast for this malignancy, per protocol 4.1.1 C" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].X30_Days_Investigational_Agents__c}" />
+                            <apex:outputlabel value="Patient has not had other investigational agents within 30 days of study enrollment, per protocol 4.2 A" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Not_had_prior_RT__c}" />
+                            <apex:outputlabel value="Patient has not had prior RT to the ipsilateral breast for this malignancy, per protocol 4.1.1 C" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Patient_is_18_years_or_older__c}" />
+                            <apex:outputlabel value="Patient is 18 years or older, per protocol 4.1.1 D" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Non_Pregnant_Not_Lactating__c}" />
+                            <apex:outputlabel value="Patient is non-pregnant and non-lactating, per protocol 4.1.1 G" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Ferromegnatic_Prostheses__c}" />
+                            <apex:outputlabel value="Patient has no ferromagnetic prostheses that are not compatible with an MRI machine, per protocol 4.1.1 H" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Patient_is_willing_to_have_core_biospy__c}" />
+                            <apex:outputlabel value="Patient is willing to have study core biopsy" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <!--<apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Patient_is_willing_to_have_core_biospy__c}" />
+                            <apex:outputlabel value="Patient is willing to have study core biopsy" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                           
+                        --><apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Patient_is_willin_to_have_study_MRI__c}" />
+                            <apex:outputlabel value="Patient is willing to have study MRI" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 3%;">
+                            <apex:outputField value="{!lstPre[0].Patient_is_eligible_to_be_screened_for_t__c}" />
+                            <apex:outputlabel value="Patient is eligible to be screened for the study" Style="color: #4A4A56; font-size: 91%; font-weight: bold;"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:outputPanel >
+                            <fieldset>
+                                <legend>ECOG Score</legend>
+                                <apex:outputlabel value="ECOG:" Style="color: #4A4A56; font-size: 91%; font-weight: bold; padding-right: 5px;"/>
+                                <apex:outputField value="{!lstPre[0].ECOG_Score__c}"/>
+                            </fieldset>
+                        </apex:outputPanel>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <apex:pageBlock title="Method of detection" tabStyle="Account">
+                    <apex:pageBlockSection columns="2" collapsible="false" Id="osePageBlockSectionId2">
+                        <apex:outputField value="{!ose.How_was_the_cancer_first_detected__c}" Id="cancerFirstDetectedField" />
+                        <apex:outputField value="{!ose.Is_mass_palpable__c}" id="isMassPayableField1"/>
+                        <apex:outputPanel id="otherTextBoxId" style="display : block; padding-left: 134px;">    
+                            <b><apex:outputText value="Other Reason" Style="color : #4A4A56; font-size: 91%;"/></b><apex:outputField value="{!ose.Other_Reason_for_Cancer_first_detected__c}" id="otherId1" style="margin-left: 22px;"/>
+                        </apex:outputPanel> 
+                        <apex:outputField value="{!ose.Mass_Identification_Date__c}" id="massIdentificationDate1"/>
+        <!--                <apex:outputText value="" />-->
+                        <apex:outputField value="{!ose.Screening_Memogram_Prior_to_Mass_Detect__c}" id="screeningMemogramPriortoMassDetectField1"/>
+                        <apex:outputField value="{!ose.Most_Recent_Date__c}" id="mostRecentDate1"/>  
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(ose.Id))}">
+                        <c:CRFAttachmentComponent rId="{!ose.Id}" feedCRFName="On_Study_Eligibility_Form__Feed" rtId="{!ose.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(ose.Id))}">
+                        <c:CRFEventComponent rId="{!ose.Id}" objectName="On_Study_Eligibility_Form__c" rtId="{!ose.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <apex:outputPanel id="msgPanelId" layout="block" style="width: 100%;">
+                    <table width="100%">
+                        <tr>
+                            <td colspan="2" width="100%" align="center">
+                                <br /> 
+                                <font color="{!msgColor}">{!errorMsg1}&nbsp;</font>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">&nbsp;</td>
+                            <td width="70%">
+                                <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!isComplete}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <apex:outputLabel value="Secure Code :"  style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!isComplete}"/>&nbsp;&nbsp;
+                                <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" rerender="theTabPanel" status="counterStatus" rendered="{!isComplete}" />
+                                <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" rendered="{!isComplete}"/>
+                                <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                            </td>
+                        </tr>
+                    </table> 
+                </apex:outputPanel> 
+            </apex:tab>
+        </apex:tabPanel>
+    </apex:form>
+</apex:page>

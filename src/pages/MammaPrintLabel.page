@@ -1,0 +1,3 @@
+<apex:page standardController="MammaPrintDetail__c" >
+	<H1>MammaPrint results are not to be used for treatment decisions outside of the I-SPY 2 TRIAL per FDA IND# 105, 139</H1>
+</apex:page>

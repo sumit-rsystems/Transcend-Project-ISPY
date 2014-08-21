@@ -1,0 +1,33 @@
+<apex:page controller="PatientSummaryReport" sidebar="false" tabStyle="Administration__tab">
+	<apex:form id="formId">
+	<apex:pageBlock title="Patient Summary Report">
+		<apex:outputPanel rendered="{!isShowConfirmation}">
+			<apex:pageMessage summary="Report request submitted successfully." severity="confirm" strength="3" />
+		</apex:outputPanel>
+		<apex:pageBlockButtons location="bottom">
+			<apex:commandButton action="{!reportRequestAction}" value="Report Request" reRender="formId" status="counterStatus"/>
+			<apex:actionStatus id="counterStatus" startText="Processing..." />
+		</apex:pageBlockButtons>
+		<apex:pageBlockSection title="Select Trials">
+			<!--<apex:outputLabel style="font-style:bold; font-weight:bold; font-size:18px; font-family:Helvetica" value="Trial" />-->
+			<c:MultiselectCounsellorComponent leftLabel="Available" rightLabel="Selected" size="4" width="20" leftOptions="{!lstTrialOption}" rightOptions="{!lstSelectedTrialOption}" />	
+		</apex:pageBlockSection>
+		<apex:pageBlockSection title="Select Institutions">
+			<!--<apex:outputLabel style="font-style:bold; font-weight:bold; font-size:18px; font-family:Helvetica" value="Institution" /><br />	-->
+			<c:MultiselectCounsellorComponent leftLabel="Available" rightLabel="Selected" size="4" width="80" leftOptions="{!lstInstituteOption}" rightOptions="{!lstSelectedInstituteOption}" />	
+		</apex:pageBlockSection>
+		<!--<apex:pageBlockSection columns="1" title="Patient Summary Report">
+			<apex:commandLink action="{!generateSearchReport}" value="View HTML">
+				<apex:param name="reportType" value="HTML"/>
+			</apex:commandLink>
+			<apex:commandLink action="{!generateSearchReport}" value="View PDF">
+				<apex:param name="reportType" value="PDF"/>
+			</apex:commandLink>
+			<apex:commandLink action="{!generateSearchReport}" value="View CSV">
+				<apex:param name="reportType" value="CSV"/>
+			</apex:commandLink>
+		</apex:pageBlockSection>
+	-->
+	</apex:pageBlock>
+	</apex:form>
+</apex:page>

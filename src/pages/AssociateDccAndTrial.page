@@ -1,0 +1,47 @@
+<apex:page controller="AssociateDccAndTrial" tabStyle="Account" sidebar="false">
+	<script>
+		function unCheckWholeRow (obj,isChecked) {
+			if(!isChecked) {
+				parentObj = obj.parentNode;
+				var likeString = parentObj.getElementsByTagName('input');
+				for(var i=0;i<likeString.length;i++) {
+					likeString[i].checked = false;
+				}
+			}
+		}
+	</script>
+	<apex:form >
+		<apex:pageMessage summary="{!pageInfoMsg}" severity="Info" strength="3" rendered="{!isInfo}" />
+		<apex:pageBlock >
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!Submit}" value="Submit"/>
+				<apex:actionStatus id="counterStatus" startText="Processing..." />
+			</apex:pageBlockButtons>
+			<center>
+				<apex:pageBlockSection columns="1" id="pbSectionId">
+					<apex:pageBlockTable value="{!wrapClass}" var="dcc" >
+						 <apex:column style="width: 2%;">
+						 	<apex:facet name="header">
+                        		-
+                    		</apex:facet>
+						 	<apex:inputCheckbox value="{!dcc.ischecked}" onClick="unCheckWholeRow(this.parentNode, this.checked); "/>
+						 </apex:column>
+						 <apex:column value="{!dcc.wrapDCC.Name}" style="width: 30%;">
+						 	<apex:facet name="header">
+                        		DCC Name
+                    		</apex:facet>
+						 </apex:column>
+						 <apex:column style="width: 67%;">
+						 	<apex:facet name="header">
+                        		Trials
+                    		</apex:facet>
+	                        <apex:repeat value="{!dcc.wrapTrial}" var="t" >
+	                        	{!t.trialLabel}<apex:inputCheckbox value="{!t.isTrail}"/>&nbsp;&nbsp;&nbsp;
+	                        </apex:repeat>
+                        </apex:column> 
+					</apex:pageBlockTable>
+				</apex:pageBlockSection>
+			</center>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

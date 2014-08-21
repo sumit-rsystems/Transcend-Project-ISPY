@@ -1,0 +1,1175 @@
+<apex:page standardController="Response_Evaluation_Form__c" extensions="ResponseEvaluationFormController" sideBar="false" id="pageId" tabStyle="Patient_Custom__c" action="{!saveMainCRF}">
+    <script type="text/javascript">
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script>
+    
+    
+    <style>
+        .tableHead 
+        {
+            background-color: #cf00f8;     
+        }
+        .mystyle 
+        { 
+            background-color: #cf00f8;
+        }   
+        .activeTab {
+            background: none repeat scroll 0 0 #FFFFFF;
+            border-bottom: 2px solid #FFFFFF;
+            color: #000000;
+            font-weight: 600;
+            width: 180px;
+        }
+        
+        .inactiveTab {
+          cursor: pointer;
+          background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+          color: white; /*#3C3C3C;*/
+          font-weight: bold;
+          font-size: 12px;
+          height: 15px;
+          width: 180px;
+          vertical-align: middle;
+          border: none;
+        }
+         
+        .rich-tab-inactive {
+         background-repeat: repeat-x;
+         border-color: #FFFFFF;
+         border-style: none;
+         border-width: 0;
+         cursor: pointer;
+        }
+        
+        .rich-tabhdr-side-border {
+         background-image:none; 
+         border-radius: 4px 4px 0 0;
+         background-color: none;
+         width: 2px;
+        }
+        
+        .rich-tabhdr-side-cell {
+         box-shadow: 0 -2px 2px #A7A7A8;
+         border-top: 2px solid #056FC1;
+         border-left: 2px solid #056FC1;
+         border-right: 2px solid #056FC1;
+         border-radius: 4px 4px 0 0;
+        }
+        
+        .rich-tabpanel-content {
+         background-color: #fff;
+         border-left: 2px solid #056FC1;
+         border-right: 2px solid #056FC1;
+         border-bottom: 2px solid #056FC1;
+        }
+        
+        .rich-tab-bottom-line {
+         border-bottom: 1px solid #056FC1;
+        }
+        
+        .accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+         background-color: #97C7EC;
+        }
+        
+        body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+         background-color: #fff;
+        }
+        .name 
+        {
+        font-size: 1.50em;
+        font-weight: bold;
+        }
+        .selectbox{
+            background-color: #2F96E4;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            height: 25px;
+            position: relative;
+            width: 152px;
+            border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+            color:#fff;
+            font-size:12px; font-weight: bold;
+            padding:3px 0 3px 10px;
+        }
+    </style>
+    <script>
+        function enablePalpableNodes(obj) {
+            if(obj.value == 'No' || obj.value == '') {
+                document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:mattedNodeItem:mattedNode').disabled = true;
+                document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:nodeFixedItem:nodeFixed').disabled = true;
+                document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:typeLymphItem:typeLymph_selected').disabled = true;
+                document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:typeLymphItem:typeLymph_unselected').disabled = true;
+                document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:sizeLargestNodeItem:sizeLargestNode').disabled = true;
+            } else {
+                document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:mattedNodeItem:mattedNode').disabled = false;
+                document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:nodeFixedItem:nodeFixed').disabled = false;
+                document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:typeLymphItem:typeLymph_selected').disabled = false;
+                document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:typeLymphItem:typeLymph_unselected').disabled = false;
+                document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:sizeLargestNodeItem:sizeLargestNode').disabled = false;
+            }
+        }
+        
+        function enableCSPFields(obj) {
+            if(obj.value == 'No' || obj.value == '') {
+                document.getElementById('pageId:formId:pageBlockId:ClinicalStagingSecId:cspTItem:cspTId').disabled = true;
+                document.getElementById('pageId:formId:pageBlockId:ClinicalStagingSecId:cspNItem:cspNId').disabled = true;
+                document.getElementById('pageId:formId:pageBlockId:ClinicalStagingSecId:cspMItem:cspMId').disabled = true;
+            } else {
+                document.getElementById('pageId:formId:pageBlockId:ClinicalStagingSecId:cspTItem:cspTId').disabled = false;
+                document.getElementById('pageId:formId:pageBlockId:ClinicalStagingSecId:cspNItem:cspNId').disabled = false;
+                document.getElementById('pageId:formId:pageBlockId:ClinicalStagingSecId:cspMItem:cspMId').disabled = false;
+            }//pageId:formId:pageBlockId:T4SecId:T4ItemId:T4FieldId
+            
+        }
+        
+        function enableT4TumorField(repPeriodId, clinicalStagingID, csTId) {
+            repPeriod = document.getElementById(repPeriodId);
+            clinicalStaging = document.getElementById(clinicalStagingID);
+            csT = document.getElementById(csTId);
+            //alert(repPeriod.value+' '+clinicalStaging.value+' '+csT.value);
+            if(repPeriod.value == 'Baseline' && clinicalStaging.value == 'Yes' && csT.value.indexOf('T4') != -1) {
+                document.getElementById('pageId:formId:pageBlockId:T4SecId:T4ItemId:T4FieldId').disabled = false;
+            } else {
+                document.getElementById('pageId:formId:pageBlockId:T4SecId:T4ItemId:T4FieldId').disabled = true;
+            } 
+        }
+        
+        function enableOtherReason(obj) {
+            if(obj.value == 'Other') {
+                document.getElementById('pageId:formId:pageBlockId:reasonSecId:otherReasonItemId:otherReasonFieldId').disabled = false;
+            } else {
+                document.getElementById('pageId:formId:pageBlockId:reasonSecId:otherReasonItemId:otherReasonFieldId').disabled = true;
+            } 
+        }
+        
+        function enableResponseStatusDateFields(obj, id) {
+            //alert(obj.checked); 
+            if(obj.checked ) {
+                document.getElementById(id).disabled = false;
+            }else {
+                document.getElementById(id).value = '';
+                document.getElementById(id).disabled = true;
+            } 
+        }
+        function enableLocalRegionalList(chkbox){
+            
+            /*if(chkbox.checked){ 
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:ipsilaeralBreastItemId:ipsilaeralBreastId').disabled = false;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:axillaryItemId:axillaryId').disabled = false;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:internalmamItemId:internalmamId').disabled = false;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:supraclavicularItemId:supraclavicularId').disabled = false;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:infraclavicularItemId:infraclavicularId').disabled = false;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:chestWallItemId:chestWallIId').disabled = false;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:localregionaskinItemId:localregionaskinId').disabled = false;     
+           }else{   
+                document.getElementById('pageId:formId:rStatusBlockId:rpSecId:RRDateItemId:RRDateId').value = '';
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:ipsilaeralBreastItemId:ipsilaeralBreastId').disabled = true;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:ipsilaeralBreastItemId:ipsilaeralBreastId').checked = false;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:axillaryItemId:axillaryId').disabled = true;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:axillaryItemId:axillaryId').checked = false;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:internalmamItemId:internalmamId').disabled = true;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:internalmamItemId:internalmamId').checked = false;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:supraclavicularItemId:supraclavicularId').disabled = true;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:supraclavicularItemId:supraclavicularId').checked = false;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:infraclavicularItemId:infraclavicularId').disabled = true;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:infraclavicularItemId:infraclavicularId').checked = false;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:chestWallItemId:chestWallIId').disabled = true;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:chestWallItemId:chestWallIId').checked = false;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:localregionaskinItemId:localregionaskinId').disabled = true;      
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:localregionaskinItemId:localregionaskinId').checked = false;
+           } */
+        }
+        function enableMultipickList(obj, id1, id2) {      
+            //alert(obj.checked);
+            //alert(id1+ '    ' +id2);
+            //======id1 is for unselect picklist
+            //======id2 is for select picklist
+            if(obj.checked) {
+                
+                document.getElementById(id1).disabled = false;
+                document.getElementById(id2).disabled = false;
+                var distantList = document.getElementById(id2);
+                for (var i = 0; i < distantList.length; i++) 
+                {
+                    if(distantList.options[i].text == 'Other') {
+                        document.getElementById('pageId:formId:rStatusBlockId:newProId:distantSectionId:otherDistantItemId:otherDistantId').disabled = false;
+                        break;
+                    } else {
+                        document.getElementById('pageId:formId:rStatusBlockId:newProId:distantSectionId:otherDistantItemId:otherDistantId').disabled = true;
+                        
+                    }  
+                } 
+            } else {
+                document.getElementById(id1).disabled = true;
+                document.getElementById(id2).disabled = true;
+                document.getElementById('pageId:formId:rStatusBlockId:rpSecId:newDistantDateItemId:newDistantDateId').value = '';
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:distantSectionId:otherDistantItemId:otherDistantId').disabled = true;
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:distantSectionId:otherDistantItemId:otherDistantId').value = '';
+            } 
+        }
+        
+        function enableReasonNotForSurgury(obj) {
+            if(obj.value == 'No') {
+                document.getElementById('pageId:formId:pageBlockId:reasonSecId:reasonItemId:reasonFieldId').disabled = false;
+            } else {
+                document.getElementById('pageId:formId:pageBlockId:reasonSecId:reasonItemId:reasonFieldId').disabled = true;
+            } 
+        }
+        
+        function executePreConditionsForFirstTab() {
+            //alert('called');
+            enablePalpableNodes(document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:palpableItemId:palpableNodeFieldId'));
+            enableCSPFields(document.getElementById('pageId:formId:pageBlockId:ClinicalStagingSecId:cspItem:ClinicalStagingFieldId'));
+            enableT4TumorField('pageId:formId:pageBlockId:rpSectionId:rpItemId1:reportingFieldId','pageId:formId:pageBlockId:ClinicalStagingSecId:cspItem:ClinicalStagingFieldId','pageId:formId:pageBlockId:ClinicalStagingSecId:cspTItem:cspTId');
+            enableOtherReason(document.getElementById('pageId:formId:pageBlockId:reasonSecId:reasonItemId:reasonFieldId'));
+            enableReasonNotForSurgury(document.getElementById('pageId:formId:pageBlockId:T4SecId:cfcsItemId:cfcsFieldId'));
+        }
+        
+        function executePreConditionForSecondTab() {
+            //alert('called');
+            enableResponseStatusDateFields(document.getElementById('pageId:formId:rStatusBlockId:rpSecId:crItemId:crId'), 'pageId:formId:rStatusBlockId:rpSecId:crDateItemId:crDateId');
+            enableResponseStatusDateFields(document.getElementById('pageId:formId:rStatusBlockId:rpSecId:prItemId:prId'), 'pageId:formId:rStatusBlockId:rpSecId:prDateItemId:prDateId');
+            enableResponseStatusDateFields(document.getElementById('pageId:formId:rStatusBlockId:rpSecId:RRItemId:RRId'), 'pageId:formId:rStatusBlockId:rpSecId:RRDateItemId:RRDateId');
+            enableResponseStatusDateFields(document.getElementById('pageId:formId:rStatusBlockId:rpSecId:newDistantItemId:newDistantId'), 'pageId:formId:rStatusBlockId:rpSecId:newDistantDateItemId:newDistantDateId');
+            enableMultipickList(document.getElementById('pageId:formId:rStatusBlockId:rpSecId:newDistantItemId:newDistantId'), 'pageId:formId:rStatusBlockId:newProId:distantSectionId:distantItemId:ldistantId_unselected', 'pageId:formId:rStatusBlockId:newProId:distantSectionId:distantItemId:ldistantId_selected');
+            enableMultipickList(document.getElementById('pageId:formId:rStatusBlockId:rpSecId:RRItemId:RRId'), 'pageId:formId:rStatusBlockId:newProId:locRegSectionId:locRegItemId:locRegFieldId_unselected', 'pageId:formId:rStatusBlockId:newProId:locRegSectionId:locRegItemId:locRegFieldId_selected');
+            enableDistantOtherField();
+        }
+        
+        function enableDistantOtherField() {
+            //alert(distantList.length);
+                                                                
+            var otherdis = document.getElementById('pageId:formId:rStatusBlockId:newProId:distantSectionId:otherDistantItemId:otherDistantId');
+            var distantList = document.getElementById('pageId:formId:rStatusBlockId:newProId:distantSectionId:distantItemId:ldistantId_selected');
+            for (var i = 0; i < distantList.length; i++) 
+            {
+                if(distantList.options[i].text == 'Other') {
+                    document.getElementById('pageId:formId:rStatusBlockId:newProId:distantSectionId:otherDistantItemId:otherDistantId').disabled = false;
+                    break;
+                } else {
+                    document.getElementById('pageId:formId:rStatusBlockId:newProId:distantSectionId:otherDistantItemId:otherDistantId').disabled = true;
+                    
+                }  
+            }  
+            if(distantList.length <= 0) {
+                document.getElementById('pageId:formId:rStatusBlockId:newProId:distantSectionId:otherDistantItemId:otherDistantId').disabled = true;
+            }
+        } 
+        
+    function cancelConfirm() {
+            if(confirm('Completely Cancel and Remove?')) {
+                return true;
+            } else {
+                return false;
+            }
+    }
+    
+    function checkDelete() {
+            if(confirm('Are you sure you want to Delete this form?')) {
+                return true;
+            } else {
+                return false;
+            }
+    }
+    
+    function startSplash() {
+        var divObj = document.getElementById('splashDiv');
+        var msgSplash =document.getElementById('waitMsg');
+        var browserName = navigator.appName;
+        if(browserName == 'Netscape'){
+            divObj.style.display='table-cell'; 
+        } else {
+            divObj.style.display='table-cell';
+        }
+    }
+    function endSplash() {            
+        document.getElementById('splashDiv').style.display='none';
+    }
+    /*function validateFields1(currentTab) {
+        alert(currentTab);
+         if(currentTab == 'DiseaseAssessmetTab') {  
+          alert("ok");
+            //alert(document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:mattedNodeItem:mattedNode').value);
+            if(document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:palpableItemId:palpableNodeFieldId').value == 'Yes') {
+                if(document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:mattedNodeItem:mattedNode').value == '') {
+                    document.getElementById('errorMsg1').innerHTML = '<b>Matted Node is Required</b>';
+                    return false;
+                }
+                
+                if(document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:nodeFixedItem:nodeFixed').value == '') {
+                     
+                    document.getElementById('errorMsg1').innerHTML = '<b>Nodes Fixed To Chest Wall is Required</b>';
+                    return false;
+                }
+                
+                var selectObj = document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:typeLymphItem:typeLymph_selected');
+                if(selectObj.options.length <= 0) {
+                    document.getElementById('errorMsg1').innerHTML = '<b>Type of Lymph Node Involvement is Required</b>';
+                    return false;
+                }
+                
+                if(document.getElementById('pageId:formId:pageBlockId:palpableNodeSecId:sizeLargestNodeItem:sizeLargestNode').value == '') {
+                     
+                    document.getElementById('errorMsg1').innerHTML = '<b>Size of Largest Node is Required</b>';
+                    return false;
+                }
+            }
+            
+            //alert(document.getElementById('pageId:formId:pageBlockId:ClinicalStagingSecId:cspItem:ClinicalStagingFieldId'));
+            if(document.getElementById('pageId:formId:pageBlockId:ClinicalStagingSecId:cspItem:ClinicalStagingFieldId').value == 'Yes') {
+                
+                if(document.getElementById('pageId:formId:pageBlockId:ClinicalStagingSecId:cspTItem:cspTId').value == '') {
+                    document.getElementById('errorMsg1').innerHTML = '<b>Clinical Staging Period "T" is Required</b>';
+                    return false;
+                }
+                
+                if(document.getElementById('pageId:formId:pageBlockId:ClinicalStagingSecId:cspNItem:cspNId').value == '') {
+                    document.getElementById('errorMsg1').innerHTML = '<b>Clinical Staging Period "N" is Required</b>';
+                    return false;
+                }
+                
+                if(document.getElementById('pageId:formId:pageBlockId:ClinicalStagingSecId:cspMItem:cspMId').value == '') {
+                    document.getElementById('errorMsg1').innerHTML = '<b>Clinical Staging Period "M" is Required</b>';
+                    return false;
+                }
+            }
+            
+            var repPeriod = document.getElementById('pageId:formId:pageBlockId:rpSectionId:rpItemId1:reportingFieldId');
+            var csT = document.getElementById('pageId:formId:pageBlockId:ClinicalStagingSecId:cspTItem:cspTId');
+            var t4Tumor = document.getElementById('pageId:formId:pageBlockId:T4SecId:T4ItemId:T4FieldId');
+            
+            if(repPeriod.value == 'Baseline' && csT.value.indexOf('T4') != -1 && t4Tumor.value == '') {
+                document.getElementById('errorMsg1').innerHTML = '<b>Status of T4 tumor is Required</b>';
+                    return false;
+            }
+            
+            var cfcs = document.getElementById('pageId:formId:pageBlockId:T4SecId:cfcsItemId:cfcsFieldId');
+            var reason = document.getElementById('pageId:formId:pageBlockId:reasonSecId:reasonItemId:reasonFieldId');
+            var otherReason = document.getElementById('pageId:formId:pageBlockId:reasonSecId:otherReasonItemId:otherReasonFieldId');
+            if(cfcs.value == 'No' && reason.value == '') {
+                document.getElementById('errorMsg1').innerHTML = '<b>If the patient is not a candidate for breast conservation surgury, choose the principal reason.</b>';
+                return false;
+            }
+            
+            if(reason.value == 'Other' && otherReason.value == '') {
+                document.getElementById('errorMsg1').innerHTML = '<b>Please provide other reason.</b>';
+                return false; 
+            }
+            return true;
+            
+        } else if(currentTab == 'responseStatus') {
+        alert("ok 2");
+            return validateFields2();  
+        }
+    }
+    function validateFields2() {
+            var cr = document.getElementById('pageId:formId:rStatusBlockId:rpSecId:crItemId:crId');
+            var crDate = document.getElementById('pageId:formId:rStatusBlockId:rpSecId:crDateItemId:crDateId');
+                                              
+            var pr = document.getElementById('pageId:formId:rStatusBlockId:rpSecId:prItemId:prId');
+            var prDate = document.getElementById('pageId:formId:rStatusBlockId:rpSecId:prDateItemId:prDateId');
+            
+            var rr = document.getElementById('pageId:formId:rStatusBlockId:rpSecId:RRItemId:RRId');
+            var rrDate = document.getElementById('pageId:formId:rStatusBlockId:rpSecId:RRDateItemId:RRDateId');
+            
+            var dp = document.getElementById('pageId:formId:rStatusBlockId:rpSecId:newDistantItemId:newDistantId');
+            var dpDate = document.getElementById('pageId:formId:rStatusBlockId:rpSecId:newDistantDateItemId:newDistantDateId');
+            
+            //var lrText = document.getElementById('pageId:formId:rStatusBlockId:newProId:locRegItemId:locRegFieldId_selected');
+            var distantText = document.getElementById('pageId:formId:rStatusBlockId:newProId:distantSectionId:distantItemId:ldistantId_selected');
+            
+            if(cr.checked && crDate.value == '') { 
+                document.getElementById('errorMsg2').innerHTML = '<b>Complete Response Date is Required.</b>';
+                return false;
+            }
+            
+            if(pr.checked && prDate.value == '') { 
+                document.getElementById('errorMsg2').innerHTML = '<b>Partial Response Date is required.</b>';
+                return false;
+            }
+            //alert(rr.checked +' and   '+ rrDate.value);
+            if(rr.checked) {
+                if(rrDate.value == '') { 
+                    document.getElementById('errorMsg2').innerHTML = '<b>New Local - Regional Recurrence Date is Required.</b>';
+                    return false;
+                } 
+                //pageId:formId:rStatusBlockId:newProId:localSectionId:ipsilaeralBreastItemId:ipsilaeralBreastId
+                //pageId:formId:rStatusBlockId:newProId:localSectionId:axillaryItemId:axillaryId
+                //pageId:formId:rStatusBlockId:newProId:localSectionId:internalmamItemId:internalmamId
+                //pageId:formId:rStatusBlockId:newProId:localSectionId:supraclavicularItemId:supraclavicularId
+                //pageId:formId:rStatusBlockId:newProId:localSectionId:infraclavicularItemId:infraclavicularId
+                //pageId:formId:rStatusBlockId:newProId:localSectionId:chestWallItemId:chestWallIId
+                //pageId:formId:rStatusBlockId:newProId:localSectionId:localregionaskinItemId:localregionaskinId
+                var ipsilaeralBreastId = document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:ipsilaeralBreastItemId:ipsilaeralBreastId');
+                var axillaryId = document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:axillaryItemId:axillaryId');
+                var internalmamId = document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:internalmamItemId:internalmamId');
+                var supraclavicularId = document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:supraclavicularItemId:supraclavicularId');
+                var infraclavicularId = document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:infraclavicularItemId:infraclavicularId');
+                var chestWallIId = document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:chestWallItemId:chestWallIId');
+                var localregionaskinId = document.getElementById('pageId:formId:rStatusBlockId:newProId:localSectionId:localregionaskinItemId:localregionaskinId');
+                if(!(ipsilaeralBreastId.checked || axillaryId.checked || internalmamId.checked || supraclavicularId.checked || infraclavicularId.checked || chestWallIId.checked || localregionaskinId.checked)) {
+                    document.getElementById('errorMsg2').innerHTML = '<b>Please select at least Local-Regional.</b>';
+                    return false;
+                }
+            }  
+            
+            if(dp.checked) {
+                if(dpDate.value == '') { 
+                    document.getElementById('errorMsg2').innerHTML = '<b>New Distant Progression Date is Required.</b>';
+                    return false;
+                }
+                
+                if(distantText.options.length <= 0) {
+                    document.getElementById('errorMsg2').innerHTML = '<b>Please provide Distant.</b>';
+                    return false;
+                }       
+            }
+            return true;
+    }*/ 
+    </script>
+    <div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+        <div style="text-align: center; top: 50%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+    </div> 
+    <span class ="name">Patient's Details</span>
+    <br/>
+        <c:PatientDetailReadOnly patientId="{!trialPatientObj.Patient_Id__c}"/>
+    <br/>  
+    <table width="100%">
+        <tr>
+            <td width="40%" align="left">
+                 <span class ="name"> Response Evaluation Form  </span>
+            </td>
+            <td width="60%" align="left">
+                <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialPatientObj.Trial_Id__r.Name}" />
+            </td>
+        </tr>
+    </table>
+    <apex:form id="formId">
+        <apex:pageMessages ></apex:pageMessages>
+        <apex:pageBlock tabStyle="Account" helpTitle="Help"  helpUrl="/apex/ResponseEvaluationUserGuide" rendered="{!isComplete}">
+            <apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel,JSPanel" status="splashStatus">
+                    <apex:param name="tabNext" value="saveAndClose"/>
+                </apex:commandButton>
+                <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>  
+        <apex:actionFunction name="next" action="{!next}"  rerender="theTabPanel,JSPanel,errMsg" status="splashStatus"/>
+            <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/> 
+        <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />
+        <apex:pageMessages id="errMsg"/>
+    <apex:outputPanel >
+    <script>
+        function enterToNextTab(val){
+            //alert(val);
+            if('{!isComplete}' != 'false'){
+                document.getElementById('pageId:formId:nextTabNameID').value = val;
+                next();
+            }
+         } 
+    </script>
+    </apex:outputPanel> 
+    <apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+        <apex:tab label="Disease Assessment" name="DiseaseAssessmetTab" id="diseaseAssessmetId" ontabenter="enterToNextTab('DiseaseAssessmetTab'); "  rendered="{!isComplete}">
+            <!--<apex:form id="formId" onSubmit="return validateFields1();"> -->
+            <div align="center"><label id="errorMsg1" style="color: red;"></label></div>
+                <apex:pageBlock title="Response Evaluation Form" id="pageBlockId" tabStyle="Account"> 
+                    <apex:pageBlockButtons location="top">
+                    <!--<apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/> --> 
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel,errMsg" status="splashStatus">
+                            <apex:param name="tabNext" value="responseStatus"/>
+                        </apex:commandButton>                           
+                    </apex:pageBlockButtons>
+                    
+                    <apex:pageBlockSection title="Reporting Period" id="rpSectionId">
+                        <!--<apex:pageBlockSectionItem id="trialPatientItemId">
+                            <apex:outputLabel value="Trial Patient" />
+                            <apex:outputText value="{!trialPatient}" id="trialPatientFieldId"/>
+                        </apex:pageBlockSectionItem>
+                        --><apex:pageBlockSectionItem id="rpItemId1">
+                            <apex:outputLabel value="Reporting Period" />
+                            <apex:inputField value="{!responseEval.Reporting__c}" id="reportingFieldId" onChange="enableT4TumorField('pageId:formId:pageBlockId:rpSectionId:rpItemId1:reportingFieldId','pageId:formId:pageBlockId:ClinicalStagingSecId:cspItem:ClinicalStagingFieldId','pageId:formId:pageBlockId:ClinicalStagingSecId:cspTItem:cspTId');"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="rpItemId2">
+                            <apex:outputLabel value="Date of Clinical Assessment" />
+                            <apex:outputPanel >
+                            <apex:inputField value="{!responseEval.Date_of_clinical_assessment__c}" id="dateClinicalId"/>
+                            <script type="text/javascript">
+                                document.getElementById('{!$Component.dateClinicalId}').onfocus = function onfocus(event) {
+                                    DatePicker.pickDate(true, '{!$Component.dateClinicalId}', false); 
+                                    addYearInDateField(''); 
+                                };
+                                </script>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="diseaseExtentItemId">
+                            <apex:outputLabel value="Disease Extent" />
+                            <apex:inputField value="{!responseEval.Disease_Extent__c}" id="diseaseExtentFieldId"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection id="diseaseAssessmentSecId" title="Disease Assessment" />
+                    <apex:actionRegion >
+                        <apex:pageBlockTable value="{!lstDiseaseAssessmentWrapper}" var="daWrapper" id="tableId">
+                            <apex:column headerClass="tableHead" width="10%">
+                                <apex:facet name="header">Action</apex:facet>
+                                <apex:outputPanel rendered="{!IF(daWrapper.isReadOnly == true, false, true)}">
+                                    <apex:commandLink action="{!cancel}" value="Cancel" style="color: blue;" reRender="tableId, DAoutputPanelId, sumOfLDId" status="addingStatus">
+                                        <apex:param name="recordId" value="{!daWrapper.diseaseAssessment.Id}"/>
+                                        <apex:param name="cancelIndex" value="{!daWrapper.targetLesion}"/>
+                                    </apex:commandLink>
+                                    <apex:outputPanel rendered="{!daWrapper.isUpdateVisible}">&nbsp;|&nbsp;</apex:outputPanel>
+                                    <apex:commandLink action="{!updateRecord}" value="Update" style="color: blue;" reRender="tableId, sumOfLDId" status="addingStatus" rendered="{!daWrapper.isUpdateVisible}">
+                                        <apex:param name="recordId" value="{!daWrapper.diseaseAssessment.Id}"/> 
+                                    </apex:commandLink>
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!daWrapper.isReadOnly}">
+                                    <apex:commandLink action="{!editDAssessment}" value="Edit" style="color: blue;" reRender="tableId" status="addingStatus">
+                                        <apex:param name="recordId" value="{!daWrapper.diseaseAssessment.Id}"/>
+                                    </apex:commandLink>
+                                    &nbsp;|&nbsp;
+                                    <apex:commandLink action="{!remove}" value="Remove" style="color: blue;" reRender="tableId, sumOfLDId" status="addingStatus">
+                                        <apex:param name="cancelIndex" value="{!daWrapper.targetLesion}"/>
+                                        <apex:param name="recordId" value="{!daWrapper.diseaseAssessment.Id}"/>
+                                    </apex:commandLink>
+                                </apex:outputPanel>
+                            </apex:column>
+                            <apex:column headerClass="tableHead" width="7%" >
+                                <apex:facet name="header">Target Lesion</apex:facet>
+                                <apex:outputText value="{!daWrapper.targetLesion}" />
+                            </apex:column>
+                            <apex:column headerClass="tableHead" width="7%" >
+                                <apex:facet name="header">O'Clock Position From</apex:facet>
+                                <apex:inputField value="{!daWrapper.diseaseAssessment.O_Clock_Position_From__c}" rendered="{!IF(daWrapper.isReadOnly == true, false, true)}"/>
+                                <apex:outputField value="{!daWrapper.diseaseAssessment.O_Clock_Position_From__c}" rendered="{!daWrapper.isReadOnly}" />
+                            </apex:column>
+                            <apex:column headerClass="tableHead" width="7%" >
+                                <apex:facet name="header">O'Clock Position To</apex:facet>
+                                <apex:inputField value="{!daWrapper.diseaseAssessment.O_Clock_Position_To__c}" rendered="{!IF(daWrapper.isReadOnly == true, false, true)}"/>
+                                <apex:outputField value="{!daWrapper.diseaseAssessment.O_Clock_Position_To__c}" rendered="{!daWrapper.isReadOnly}" />
+                            </apex:column>
+                            <apex:column headerClass="tableHead" width="7%" >
+                                <apex:facet name="header">Distance from nipple (cm)</apex:facet>
+                                <apex:inputField value="{!daWrapper.diseaseAssessment.Distance_from_nipple__c}" rendered="{!IF(daWrapper.isReadOnly == true, false, true)}"/>
+                                <apex:outputField value="{!daWrapper.diseaseAssessment.Distance_from_nipple__c}" rendered="{!daWrapper.isReadOnly}" />
+                            </apex:column>
+                            <apex:column headerClass="tableHead" width="7%">
+                                <apex:facet name="header">Longest Diameter (cm)</apex:facet>
+                                <apex:inputField value="{!daWrapper.diseaseAssessment.Longest_Diameter__c}" rendered="{!IF(daWrapper.isReadOnly == true, false, true)}"/>
+                                <apex:outputField value="{!daWrapper.diseaseAssessment.Longest_Diameter__c}" rendered="{!daWrapper.isReadOnly}" />
+                            </apex:column>
+                            <apex:column headerClass="tableHead" width="7%"> 
+                                <apex:facet name="header">Clip placed</apex:facet>
+                                <apex:inputField value="{!daWrapper.diseaseAssessment.Clip_placed__c}" rendered="{!IF(daWrapper.isReadOnly == true, false, true)}"/>
+                                <apex:outputField value="{!daWrapper.diseaseAssessment.Clip_placed__c}" rendered="{!daWrapper.isReadOnly}" />
+                            </apex:column>
+                        </apex:pageBlockTable>                    
+                        <apex:outputPanel id="DAoutputPanelId">
+                            <apex:commandButton action="{!addLesion}" value="Add Lesion" reRender="tableId, DAoutputPanelId, rpSectionId" status="addingStatus"> 
+                            </apex:commandButton>
+                            <apex:commandButton action="{!saveDiseaseAssessment}" value=" Save " reRender="tableId, sumOfLDId" status="addingStatus" rendered="{!isSaveVisible}">
+                            </apex:commandButton>
+                            <apex:actionStatus id="addingStatus" startText="Processing..." onstop=""/>
+                            Sum of LD(cm) : <apex:outputText value="{!sumOfLD}" id="sumOfLDId"/> 
+                        </apex:outputPanel>
+                    </apex:actionRegion>
+                    <apex:outputPanel layout="block" id="diseaseExtentItemId">
+                            <apex:outputLabel value="Disease Extent(cm)" />  
+                            <apex:inputField value="{!responseEval.Disease_Extent__c}" id="diseaseExtentFieldId"/>
+                        </apex:outputPanel>
+                    
+                    <apex:pageBlockSection title="Palpable Nodes" id="palpableNodeSecId">
+                        <apex:pageBlockSectionItem id="palpableItemId">
+                            <apex:outputLabel value="Palpable Nodes" />
+                            <apex:inputField value="{!responseEval.Palpable_nodes__c}" id="palpableNodeFieldId" onChange="enablePalpableNodes(this);"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="mattedNodeItem">
+                            <apex:outputLabel value="Matted Nodes" />
+                            <apex:inputField value="{!responseEval.Matted_nodes__c}" id="mattedNode"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><br/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="nodeFixedItem">
+                            <apex:outputLabel value="Nodes Fixed To Chest Wall" />
+                            <apex:inputField value="{!responseEval.Nodes_fixed_to_chest_wall__c}" id="nodeFixed"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><br/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="typeLymphItem">
+                            <apex:outputLabel value="Type of Lymph Node Involvement" />
+                            <apex:inputField value="{!responseEval.Type_of_lymph_node_involvement__c}" id="typeLymph"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><br/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="sizeLargestNodeItem">
+                            <apex:outputLabel value="Size of Largest Node" />
+                            <apex:inputField value="{!responseEval.Size_of_largest_node__c}" id="sizeLargestNode"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><br/></apex:pageBlockSectionItem>               
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="Clinical Staging Period" id="ClinicalStagingSecId">
+                        <apex:pageBlockSectionItem id="cspItem">
+                            <apex:outputLabel value="Clinical Staging Period" />
+                            <apex:inputField value="{!responseEval.Clinical_Staging_Period__c}" id="ClinicalStagingFieldId" onChange="enableCSPFields(this);enableT4TumorField('pageId:formId:pageBlockId:rpSectionId:rpItemId1:reportingFieldId','pageId:formId:pageBlockId:ClinicalStagingSecId:cspItem:ClinicalStagingFieldId','pageId:formId:pageBlockId:ClinicalStagingSecId:cspTItem:cspTId');"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="cspTItem">
+                            <apex:outputLabel value="T" />
+                            <apex:inputField value="{!responseEval.Clinically_staging_period_T__c}" id="cspTId" onChange="enableT4TumorField('pageId:formId:pageBlockId:rpSectionId:rpItemId1:reportingFieldId','pageId:formId:pageBlockId:ClinicalStagingSecId:cspItem:ClinicalStagingFieldId','pageId:formId:pageBlockId:ClinicalStagingSecId:cspTItem:cspTId');"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><br/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="cspNItem">
+                            <apex:outputLabel value="N" />
+                            <apex:inputField value="{!responseEval.Clinically_staging_period_N__c}" id="cspNId"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><br/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="cspMItem">
+                            <apex:outputLabel value="M" />
+                            <apex:inputField value="{!responseEval.Clinically_staging_period_M__c}" id="cspMId"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><br/></apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection id="T4SecId">
+                        <apex:pageBlockSectionItem id="T4ItemId">
+                            <apex:outputLabel value="If patient diagnosed with T4 at baseline, indicate current status of T4 tumor" />
+                            <apex:inputField value="{!responseEval.Current_status_of_T4_tumor__c}" id="T4FieldId"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="cfcsItemId">
+                            <apex:outputLabel value="Is the Patient is not a candidate for breast conservation surgery now?" />
+                            <apex:inputField value="{!responseEval.IsCandidateForConservationSurgery__c}" id="cfcsFieldId" required="true" onChange="enableReasonNotForSurgury(this);"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection id="reasonSecId">
+                        <apex:pageBlockSectionItem id="reasonItemId">
+                            <apex:outputLabel value="If the patient is not a candidate for breast conservation surgury, choose the principal reason why" />
+                            <apex:inputField value="{!responseEval.ReasonNotConservationSurgeryCandidate__c}" id="reasonFieldId" onChange="enableOtherReason(this);"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="otherReasonItemId">
+                            <apex:outputLabel value="Other Reason" />
+                            <apex:inputField value="{!responseEval.OtherReason__c}" id="otherReasonFieldId" />
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                </apex:pageBlock>
+            <!-- </apex:form>  -->
+            
+            <script>
+                executePreConditionsForFirstTab();
+            </script>
+        </apex:tab>
+        <apex:tab label="Response Status" name="responseStatus" id="responseStatusId" ontabenter="enterToNextTab('responseStatus');" rendered="{!isComplete}" >
+            <!--<apex:form id="formId" onSubmit="return validateFields2();"> -->   
+            <div align="center"><label id="errorMsg2" style="color: red;"></label></div> 
+                <apex:pageBlock title="Response Status" id="rStatusBlockId" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+                        <!--<apex:commandButton action="{!cancelCRF}" value="  Cancel  " />-->
+                        <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel,errMsg" status="splashStatus">
+                            <apex:param name="tabPrevious" value="DiseaseAssessmetTab"/>
+                        </apex:commandButton> 
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel,errMsg" status="splashStatus">
+                            <apex:param name="tabNext" value="CommentsAndAttachments"/>
+                        </apex:commandButton>
+                        <!--<apex:commandButton action="{!submitCRF}" value="  Submit  " rendered="{!isLastTab}" />-->
+                        <apex:actionStatus id="tabChangeStatus" startText="Processing..."/> 
+                    </apex:pageBlockButtons>
+                    <apex:pageBlockSection id="bestOverallId" columns="1">
+                        <apex:pageBlockSectionItem id="bestOverallItemId">
+<!--                            <apex:outputLabel value="Best Overall Response To Date" />-->
+<!--                            <apex:inputField value="{!responseEval.Best_overall_Response_to_date__c}" id="bestOverallFieldId" />-->
+                                <apex:selectRadio id="bestOverallFieldId" value="{!responseEval.Best_overall_Response_to_date__c}" layout="pageDirection" >
+                                    <apex:selectOptions value="{!lstBestOverAllResponse}" />  
+                                </apex:selectRadio>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection id="rpSecId" title="If any of the following occurred during this reporting period, complete below">
+                        <apex:pageBlockSectionItem id="crItemId">
+                            <apex:outputLabel value="Complete Response (CR)" />
+                            <apex:inputField value="{!responseEval.Complete_response_CR__c}" id="crId" onChange="enableResponseStatusDateFields(this, 'pageId:formId:rStatusBlockId:rpSecId:crDateItemId:crDateId');"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem id="crDateItemId">
+                            <apex:outputLabel value="Complete Response Date" />
+                            <apex:outputPanel >
+                            <apex:inputField value="{!responseEval.Complete_response_CR_Date__c}" id="crDateId" />
+                            <script type="text/javascript">
+                                document.getElementById('{!$Component.crDateId}').onfocus = function onfocus(event) {
+                                    DatePicker.pickDate(true, '{!$Component.crDateId}', false); 
+                                    addYearInDateField(''); 
+                                };
+                            </script>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem id="prItemId">
+                            <apex:outputLabel value="Partial Response (PR)" />
+                            <apex:inputField value="{!responseEval.Partial_response_PR__c}" id="prId" onChange="enableResponseStatusDateFields(this, 'pageId:formId:rStatusBlockId:rpSecId:prDateItemId:prDateId');"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem id="prDateItemId">
+                            <apex:outputLabel value="Partial Response Date" />
+                            <apex:outputPanel >
+                            <apex:inputField value="{!responseEval.Partial_response_PR_Date__c}" id="prDateId" />
+                                <script type="text/javascript">
+                                    document.getElementById('{!$Component.prDateId}').onfocus = function onfocus(event) {
+                                        DatePicker.pickDate(true, '{!$Component.prDateId}', false); 
+                                        addYearInDateField(''); 
+                                    };
+                                </script>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem id="RRItemId">
+                            <apex:outputLabel value="New Local - Regional Recurrence" />
+                            <apex:inputField value="{!responseEval.New_local_regional_recurrence__c}" id="RRId" onChange="enableResponseStatusDateFields(this, 'pageId:formId:rStatusBlockId:rpSecId:RRDateItemId:RRDateId');enableLocalRegionalList(this);enableMultipickList(this, 'pageId:formId:rStatusBlockId:newProId:locRegSectionId:locRegItemId:locRegFieldId_unselected', 'pageId:formId:rStatusBlockId:newProId:locRegSectionId:locRegItemId:locRegFieldId_selected');"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem id="RRDateItemId">
+                            <apex:outputLabel value="New Local - Regional Recurrence Date" />
+                            <apex:outputPanel >
+                            <apex:inputField value="{!responseEval.New_local_regional_recurrence_Date__c}" id="RRDateId" />
+                            <script type="text/javascript">
+                                    document.getElementById('{!$Component.RRDateId}').onfocus = function onfocus(event) {
+                                        DatePicker.pickDate(true, '{!$Component.RRDateId}', false); 
+                                        addYearInDateField(''); 
+                                    };
+                            </script>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem id="newDistantItemId">
+                            <apex:outputLabel value="New Distant Progression" />
+                            <apex:inputField value="{!responseEval.New_distant_progression__c}" id="newDistantId" onChange="enableResponseStatusDateFields(this, 'pageId:formId:rStatusBlockId:rpSecId:newDistantDateItemId:newDistantDateId');enableMultipickList(this, 'pageId:formId:rStatusBlockId:newProId:distantSectionId:distantItemId:ldistantId_unselected', 'pageId:formId:rStatusBlockId:newProId:distantSectionId:distantItemId:ldistantId_selected');"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem id="newDistantDateItemId">
+                            <apex:outputLabel value="New Distant Progression Date" />
+                            <apex:outputPanel >
+                            <apex:inputField value="{!responseEval.New_distant_progression_Date__c}" id="newDistantDateId" />
+                                <script type="text/javascript">
+                                    document.getElementById('{!$Component.newDistantDateId}').onfocus = function onfocus(event) {
+                                        DatePicker.pickDate(true, '{!$Component.newDistantDateId}', false); 
+                                        addYearInDateField(''); 
+                                    };
+                                </script>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection id="newProId" title="Sites of new progression (check all that apply)">
+                        <apex:pageBlockSection columns="1" title="Local-Regional" collapsible="false" id="locRegSectionId">
+                            <apex:pageBlockSectionItem id="locRegItemId" dataStyle="width: 40%;" labelStyle="width: 10%">
+                                <!--<apex:outputLabel value="Local-Regional" />
+                                --><apex:inputField value="{!responseEval.Local_Regional__c}" id="locRegFieldId" />
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                        
+                    <!-- <apex:pageBlockSection columns="1" title="Local-Regional" collapsible="false" id="localSectionId">       
+                        <apex:pageBlockSectionItem id="ipsilaeralBreastItemId">           
+                            <apex:outputLabel value="Ipsilateral Breast" />
+                            <apex:inputField value="{!responseEval.Ipsilateral_Breast__c}" id="ipsilaeralBreastId"/>
+                        </apex:pageBlockSectionItem>    
+                        <apex:pageBlockSectionItem id="axillaryItemId">  
+                            <apex:outputLabel value="Axillary Nodes" />
+                            <apex:inputField value="{!responseEval.Axillary_Nodes__c}" id="axillaryId"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="internalmamItemId">
+                            <apex:outputLabel value="Internal mammary nodes" />
+                            <apex:inputField value="{!responseEval.Internal_mammary_nodes__c}" id="internalmamId"/>             
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="supraclavicularItemId">
+                            <apex:outputLabel value="Supraclavicular nodes" />
+                            <apex:inputField value="{!responseEval.Supraclavicular_nodes__c}" id="supraclavicularId"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="infraclavicularItemId">
+                            <apex:outputLabel value="Infraclavicular nodes" />  
+                            <apex:inputField value="{!responseEval.Infraclavicular_nodes__c}" id="infraclavicularId"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="chestWallItemId">
+                            <apex:outputLabel value="Chest Wall" />
+                            <apex:inputField value="{!responseEval.Chest_Wall__c}" id="chestWallIId" />
+                        </apex:pageBlockSectionItem>                
+                        <apex:pageBlockSectionItem id="localregionaskinItemId" labelStyle="width:50%"> 
+                            <apex:outputLabel value=" local-regional skin and subcutaneous tissue" />  
+                            <apex:inputField value="{!responseEval.local_regional_skin_and__c}" id="localregionaskinId" />
+                        </apex:pageBlockSectionItem>
+                        <script>
+                            enableLocalRegionalList(document.getElementById('pageId:formId:rStatusBlockId:rpSecId:RRItemId:RRId'));
+                        </script>      
+                  </apex:pageBlockSection>                  
+                   --> 
+                   <apex:pageBlockSection columns="1" title="Distant" collapsible="false" id="distantSectionId">
+                        <apex:pageBlockSectionItem id="distantItemId" dataStyle="width: 40%;" labelStyle="width: 10%">
+                            <!--<apex:outputLabel value="Distant" />
+                            --><apex:inputField value="{!responseEval.Distant__c}" id="ldistantId" onchange="enableDistantOtherField();"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="otherDistantItemId" dataStyle="width: 40%;" labelStyle="width: 10%">
+                            <!--<apex:outputLabel value="Other" />
+                            --><apex:inputField value="{!responseEval.Other__c}" id="otherDistantId" />
+                        </apex:pageBlockSectionItem>        
+                  </apex:pageBlockSection>
+             </apex:pageBlockSection>    
+                </apex:pageBlock>  
+                 
+            <!-- </apex:form> -->
+            <script>
+                executePreConditionForSecondTab();
+            </script>
+        </apex:tab>
+        <apex:tab label="Comments & Attachments" name="CommentsAndAttachments" id="tabFour" ontabenter="enterToNextTab('CommentsAndAttachments');" rendered="{!isComplete}">
+            <!-- <apex:form> -->
+                <apex:pageBlock tabStyle="Account">
+                    <apex:pageBlockButtons location="top" >
+                        <!--<apex:commandButton action="{!cancelCRF}" value=" Cancel " onclick="return checkCancel();"/> -->
+                        <apex:commandButton action="{!previous}" value="  Previous  " reRender="theTabPanel,errMsg" status="splashStatus">
+                            <apex:param name="tabPrevious" value="responseStatus"/>
+                        </apex:commandButton>
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel,JSPanel,errMsg" status="splashStatus">
+                            <apex:param name="tabNext" value="Complete"/>
+                        </apex:commandButton>
+                        <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                    </apex:pageBlockButtons>
+                    <apex:pageMessage summary="Please redact all PHI information from attachments." severity="info" strength="3"/>
+                    <apex:pageBlockSection columns="1">
+<!--                        <chatter:feedWithFollowers entityId="{!responseEval.Id}"></chatter:feedWithFollowers>-->
+                        <apex:iframe src="/apex/ChatterPage?recId={!responseEval.Id}" scrolling="true" id="theIframe"/>
+                        <c:CRFAttachmentComponent rId="{!responseEval.Id}" feedCRFName="Response_Evaluation_Form__Feed" rtId="{!responseEval.Root_CRF_Id__c}" />
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            <!--</apex:form> -->
+        </apex:tab> 
+        <apex:tab label="Complete" name="Complete" id="tabFive" ontabenter="enterToNextTab('Complete');">
+            <!-- <apex:form > --> 
+                <apex:pageBlock title="Response Evaluation Summary" tabStyle="Account">
+                <!-----  delete button fuctionlity- start    ---------------------------------->
+                <apex:pageBlockButtons location="top" >
+                    <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel,errMsg" status="splashStatus" rendered="{!isComplete}">&nbsp;&nbsp;
+                        <apex:param name="tabPrevious" value="CommentsAndAttachments"/>
+                    </apex:commandButton>
+                    <apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+                      <apex:commandButton action="{!cancelCRF}" value="Delete" onClick="return checkDelete();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+                    <apex:commandLink style="text-decoration:none;" rendered="{!responseEval.Status__c == 'Accepted'}" styleClass="btn" target="_blank" action="{!redirect}" value="Generate Pdf"  /> 
+                </apex:pageBlockButtons>
+                <!-----  delete button fuctionlity- end   -------------------------------------> 
+                <!--<apex:actionFunction name="editCRF" action="{!editCRF}" rerender="theTabPanel" status="splashStatus"/>
+                <apex:outputPanel id="dummayPanel">
+                    <script> 
+                        //alert("{!openInEditMode}");
+                        if("{!openInEditMode}" == "true") {
+                            editCRF();
+                        }
+                    </script>
+                </apex:outputPanel>-->
+                <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">
+                    <apex:pageBlock tabStyle="Account">
+                        <center>
+                        <apex:commandButton action="{!editCRF}" value=" Edit " reRender="formId" status="processStatus" rendered="{!IF(AND(responseEval.Status__c == 'Rejected', isShowEditButton),true,false)}"/>
+                        <apex:actionStatus id="processStatus" startText="Processing..."/>
+                        </center>
+                    </apex:pageBlock>
+                </apex:outputPanel>
+                    <table>
+                        <tr>
+                            <td colspan="2"><h4>Disease Assessment</h4></td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Reporting Period:</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputField value="{!responseEval.Reporting__c}" />
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Date of Clinical Assessment:</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!responseEval.Date_of_clinical_assessment__c}"/>
+                                    </apex:outputText>
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <br />
+                    <apex:outputPanel >
+                        <b><font size="3">Target Lesions</font></b>
+                    </apex:outputPanel>
+                    <br />
+                    <apex:messages />
+                    <br />
+                    <apex:pageBlockTable value="{!lstDiseaseAssessmentWrapper}" var="daWrapper1" id="tableId2">
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">Lesion</apex:facet>
+                            <apex:outputText value="{!daWrapper1.targetLesion}" />
+                        </apex:column>
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">From</apex:facet>
+                            <apex:outputText value="{!daWrapper1.diseaseAssessment.O_Clock_Position_From__c}" />
+                        </apex:column>
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">To</apex:facet>
+                            <apex:outputText value="{!daWrapper1.diseaseAssessment.O_Clock_Position_To__c}" />
+                        </apex:column>
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">Distance from nipple</apex:facet>
+                            <apex:outputText value="{!daWrapper1.diseaseAssessment.Distance_from_nipple__c}" />
+                        </apex:column>
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">Longest diameter</apex:facet>
+                            <apex:outputText value="{!daWrapper1.diseaseAssessment.Longest_Diameter__c}" />
+                        </apex:column>
+                        <apex:column headerClass="tableHead" width="7%" >
+                            <apex:facet name="header">Clip placed</apex:facet>
+                            <apex:outputText value="{!daWrapper1.diseaseAssessment.Clip_placed__c}" />
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    <br />   
+                    <br />
+                    <table>
+                        <tr>
+                            <td width="70%">Sum of LD(cm):</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputText value="{!sumOfLD}" />
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Disease Extent(cm):</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputField value="{!responseEval.Disease_Extent__c}" />
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Palpable nodes:</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputField value="{!responseEval.Palpable_nodes__c}" />
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                        
+                            <td width="70%">Type of lymph node involvement:</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputField value="{!responseEval.Type_of_lymph_node_involvement__c}" />
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Nodes fixed to chest wall:</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputField value="{!responseEval.Nodes_fixed_to_chest_wall__c}" />
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Matted nodes:</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputField value="{!responseEval.Matted_nodes__c}" />
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Size of largest node:</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputField value="{!responseEval.Size_of_largest_node__c}" />
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Clinically staging period:</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputField value="{!responseEval.Clinically_staging_period_T__c}" />
+                                    <apex:outputField value="{!responseEval.Clinically_staging_period_N__c}" />
+                                    <apex:outputField value="{!responseEval.Clinically_staging_period_M__c}" />
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Breast conservation surgery:</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputField value="{!responseEval.IsCandidateForConservationSurgery__c}" />
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Reason for Non candidates:</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputField value="{!responseEval.ReasonNotConservationSurgeryCandidate__c}" />
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><h4>Response Status</h4></td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%">Best response to date:</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputField value="{!responseEval.Best_overall_Response_to_date__c}" />
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><h4>Sites of new progression</h4></td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="70%"><apex:outputPanel rendered="{!if(responseEval.New_local_regional_recurrence__c, true,false)}">Local-Regional:</apex:outputPanel></td>
+                            
+                            <td> <apex:outputPanel rendered="{!if(responseEval.New_local_regional_recurrence__c, true,false)}"><apex:outputField value="{!responseEval.New_local_regional_recurrence__c}" /> </apex:outputPanel></td>
+                                 
+                        </tr>  
+                        
+                        <tr>
+                            <td width="70%"><apex:outputPanel rendered="{!if(responseEval.New_distant_progression__c, true,false)}">Distant:</apex:outputPanel></td>
+                            
+                            <td> <apex:outputPanel rendered="{!if(responseEval.New_distant_progression__c, true,false)}"><apex:outputField value="{!responseEval.New_distant_progression__c}" /> </apex:outputPanel></td>
+                                 
+                        </tr>              
+                           
+                    </table>
+                    <br />
+                    <br />
+                    <apex:pageBlockSection title="Response This Period">
+                        <apex:pageBlockSectionItem rendered="{!responseEval.Complete_response_CR__c}">
+                            <apex:outputLabel value="Complete Response (CR)" />
+                            <apex:outputField value="{!responseEval.Complete_response_CR__c}" />
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!responseEval.Complete_response_CR__c}">
+                            <apex:outputLabel value="Complete Response Date" />
+                            <apex:outputField value="{!responseEval.Complete_response_CR_Date__c}"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!responseEval.Partial_response_PR__c}">
+                            <apex:outputLabel value="Partial Response (PR)" />
+                            <apex:outputField value="{!responseEval.Partial_response_PR__c}"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!responseEval.Partial_response_PR__c}">
+                            <apex:outputLabel value="Partial Response Date" />
+                            <apex:outputField value="{!responseEval.Partial_response_PR_Date__c}" />
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!responseEval.New_local_regional_recurrence__c}">
+                            <apex:outputLabel value="New Local - Regional Recurrence" />
+                            <apex:outputField value="{!responseEval.New_local_regional_recurrence__c}"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!responseEval.New_local_regional_recurrence__c}">
+                            <apex:outputLabel value="New Local - Regional Recurrence Date" />
+                            <apex:outputField value="{!responseEval.New_local_regional_recurrence_Date__c}" />
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!responseEval.New_distant_progression__c}">
+                            <apex:outputLabel value="New Distant Progression" />
+                            <apex:outputField value="{!responseEval.New_distant_progression__c}"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!responseEval.New_distant_progression__c}">
+                            <apex:outputLabel value="New Distant Progression Date" />
+                            <apex:outputField value="{!responseEval.New_distant_progression_Date__c}"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection columns="2" title="Sites of new progression">
+                        <apex:pageBlockSection columns="1" title="Local-Regional" collapsible="false" id="locRegSectionId">
+                            <apex:pageBlockSectionItem id="locRegItemId" dataStyle="width: 40%;" labelStyle="width: 10%">
+                                <apex:outputField value="{!responseEval.Local_Regional__c}"/>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                        <apex:pageBlockSection columns="1" title="Distant" collapsible="false" id="distantSectionId">
+                            <apex:pageBlockSectionItem id="distantItemId" dataStyle="width: 40%;" labelStyle="width: 10%">
+                                <apex:outputField value="{!responseEval.Distant__c}"/>
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem id="otherDistantItemId" dataStyle="width: 40%;" labelStyle="width: 10%">
+                                <apex:outputField value="{!responseEval.Other__c}"/>
+                            </apex:pageBlockSectionItem>        
+                        </apex:pageBlockSection>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(responseEval.Id))}">
+                        <c:CRFAttachmentComponent rId="{!responseEval.Id}" feedCRFName="Response_Evaluation_Form__Feed" rtId="{!responseEval.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(responseEval.Id))}">
+                        <c:CRFEventComponent rId="{!responseEval.Id}" objectName="Response_Evaluation_Form__c" rtId="{!responseEval.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                
+                <apex:outputPanel id="msgPanelId" layout="block" style="width: 100%;">
+                    <table width="100%">
+                        <tr>
+                            <td colspan="2" width="100%" align="center">
+                                <br /> 
+                                <font color="{!msgColor}">{!errorMsg}&nbsp;</font>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">&nbsp;</td>
+                            <td width="70%">
+                                <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!isComplete}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!isComplete}"/>&nbsp;&nbsp;
+                                <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" reRender="theTabPanel,errMsg" rendered="{!isComplete}" status="splashStatus"/>
+                                <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" rendered="{!isComplete}"/>
+                                <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                            </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>  
+            <!-- </apex:form>-->
+        </apex:tab>
+    </apex:tabPanel>
+    <script>
+        executePreConditionsForFirstTab();
+        //executePreConditionsForSecondTab();
+    </script>
+    </apex:form>
+</apex:page>

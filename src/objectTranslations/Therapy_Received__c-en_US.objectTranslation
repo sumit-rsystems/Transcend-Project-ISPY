@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Therapy Received</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Therapy Receiveds</value>
+    </caseValues>
+    <fields>
+        <label><!-- Detail --></label>
+        <name>Detail__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Date --></label>
+        <name>End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Followup Form --></label>
+        <name>Followup_Form__c</name>
+        <relationshipLabel><!-- Therapy Receiveds --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Start Date/Date Performed --></label>
+        <name>Start_Date_Date_Performed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Therapy --></label>
+        <name>Therapy__c</name>
+        <picklistValues>
+            <masterLabel>Aromatase inhibitor</masterLabel>
+            <translation><!-- Aromatase inhibitor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Non-protocol chemotherapy</masterLabel>
+            <translation><!-- Non-protocol chemotherapy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other non-protocol therapy</masterLabel>
+            <translation><!-- Other non-protocol therapy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ovarian ablation</masterLabel>
+            <translation><!-- Ovarian ablation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ovarian suppression</masterLabel>
+            <translation><!-- Ovarian suppression --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tamoxifen</masterLabel>
+            <translation><!-- Tamoxifen --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trastuzumab</masterLabel>
+            <translation><!-- Trastuzumab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- pg_therapyreceived_Id --></label>
+        <name>pg_therapyreceived_Id__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>End_Date_Cannot_be_a_future_date</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Start_date_performed_cannot_be_future</name>
+    </validationRules>
+</CustomObjectTranslation>

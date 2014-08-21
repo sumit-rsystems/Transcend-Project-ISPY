@@ -1,0 +1,1 @@
+<apex:page standardController="TissueSpecimenDetail__c" extensions="TissueSpecimenFormController" sideBar="false" showHeader="false" id="pageId" cache="true" contentType="text/html">{!xmlOutput}</apex:page>

@@ -1,0 +1,10 @@
+<apex:page Controller="AllPatientSummaryReport" sideBar="false" showHeader="false" id="pageId" tabStyle="Account" cache="true" contentType="application/vnd.ms-excel#AllPatientSummaryReport.csv">
+"","","","ALL PATIENT SUMMARY REPORT","","",""
+"Study:","{!trialName}"
+"As of:","<apex:outputText value="{0,date,MMMM, dd yyyy}"><apex:param value="{!asOfDate}" /></apex:outputText>"
+"Participant Status Report"
+"Trial","I-SPY 2 ID","Trial Site","Screening Consent Date","Registration Date","Treatment Consent Date","Reason Not Signed Consent","Gender","Race","Ethnicity","Zip","DOB",
+<apex:repeat value="{!lstReportWrapper}" var="reportWrapper">
+"{!reportWrapper.trial}","{!reportWrapper.ispy2_id}","{!reportWrapper.trial_site}",<apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!reportWrapper.screening_consent_date}" /></apex:outputText>,<apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!reportWrapper.reg_date}" /></apex:outputText>,"{!reportWrapper.treatment_consent_date}","{!reportWrapper.reason_not_signed_consent}","{!reportWrapper.gender}","{!reportWrapper.race}","{!reportWrapper.ethnicity}","{!reportWrapper.zip}","<apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!reportWrapper.dob}" /></apex:outputText>"
+</apex:repeat>
+</apex:page>

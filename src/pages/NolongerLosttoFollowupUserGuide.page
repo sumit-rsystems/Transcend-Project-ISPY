@@ -1,0 +1,44 @@
+<apex:page showHeader="false" sidebar="false" >
+<style>
+	.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h1>How to complete No Longer Lost to Follow Up form?</h1>
+		</apex:outputPanel>
+		<p>The No Longer Lost to Follow-Up Form is used when new information becomes available on a patient who is Lost to Follow-Up that changes their survival or clinical status.  This information is used to help document a patient's survival status.</p>
+		<p>The information used to complete this form comes from contact with the patient, a documented clinic visit with a physician, or a Social Security Death Index search.</p>
+		<p>Entering the No Longer Lost to Follow-Up Form generates the need to complete additional CRFs. A Follow-Up Case Report Form must be completed, documenting the time period since the last previous Follow-Up Form was completed to the new date of last contact or proof of death. Additionally, if the patient has died, an Off-Study Form must be completed.</p>
+		<p><i>To open No Longer Lost to Follow Up Form, select the patient from the 'Patient' Tab; select 'Trial'; Select ‘Follow Up’ tab and select ‘Submit New’ for ‘No Longer Lost to Follow Up Form’.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.NolongerLosttoFollowupScreenshot, 'NolongerLosttoFollowup1.png')}" width="115%" height="115%"/></p>
+		<ul>      
+			<li>Select the type of new information that is available for the previously lost to follow-up patient [<i>Survival status only OR Clinical &amp; survival status</i>].</li>
+			<p Class="redColor"><b>NOTE: Survival status only means that the patient has been found but no clinical notes are available for the patient at this time.</b></p>
+			<li>Select the survival status for the patient [<i>Alive OR Dead</i>].</li>
+			<li>Select the date the patient was last known to be alive or the date the patient died using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+			<ul> 
+       			<li>Report the type of new information that is now available.  Survival status only is selected if you have made direct contact with the patient.  Clinical and survival status is selected if there is a new documented clinic visit from a physician.</li>
+       			<li>Select the updated survival status based upon the new information that is available.</li>
+       			<li>Report the new date of contact with the patient or date of death.</li>
+    		</ul>
+		</ul>
+		<p><i>Select 'Next' to advance to the 'Comments &amp; Attachments' tab</i></p>
+		<p>Attach all relevant de-identified pathology reports, clinical notes, laboratory notes, and imaging reports (source documents) that document the data that is listed on this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+		<p>Provide any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+		<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.NolongerLosttoFollowupScreenshot, 'NolongerLosttoFollowup2.png')}" width="115%" height="115%"/></p>
+		<ul>
+			<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the screen to update the incorrect information.</li>
+			<li>When you are ready to send the CRF to the DCC for verification, enter your password and select 'Sign and Submit.'</li>
+		</ul>	 
+	</apex:outputPanel>
+</apex:page>

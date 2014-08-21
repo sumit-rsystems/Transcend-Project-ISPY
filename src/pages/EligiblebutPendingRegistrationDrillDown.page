@@ -1,0 +1,3 @@
+<apex:page controller="EligiblebutPendingRegistrationDrillDown" showHeader="false" sidebar="false"> 
+  {!data}
+</apex:page>

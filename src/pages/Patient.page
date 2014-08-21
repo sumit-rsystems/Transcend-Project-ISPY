@@ -1,0 +1,415 @@
+<!--<apex:page standardController="Patient_Custom__c" extensions="PatientClass" action="{!redirect}" id="pageId" tabStyle="Patient_Custom__c">-->
+<apex:page standardController="Patient_Custom__c" extensions="PatientClass" id="pageId" tabStyle="Patient_Custom__c">
+<script>
+	function focusOnDuplicate() {
+	
+		//alert("ok");
+		document.getElementById('pageId:editForm:duplicateBlock:dupSection:dupSectionItem:dupCheckBox').focus();
+		
+	}
+</script>
+<style>
+.bPageBlock .detailList .labelCol {
+    width: auto;
+}
+.bEditBlock .detailList .dataCol, .data2Col {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: auto;
+	padding-right: auto;
+}
+</style>
+<apex:form id="editForm">
+<apex:inputHidden value="{!rTypeId}" id="rType"/>
+<apex:inputHidden value="{!retURL}" id="retURL"/>
+
+<apex:outputPanel id="outputForm">
+<apex:pageBlock id="demoBlock" title="Search For Patient" mode="edit" rendered="{!IF((isShowLastScreen==false), true, false)}">
+
+	<apex:pageBlockButtons location="bottom" >
+<!--        <apex:commandButton action="{!checkDuplicate}" value="Next" reRender="outputForm" status="counterStatus" rendered="{!IF((isShowDuplicateScreen==false), true, false)}"/>-->
+		<apex:commandButton action="{!redirectAddPage}" value="Skip Duplicate Search"/>
+		<apex:commandButton action="{!checkDuplicate}" value="Search" reRender="outputForm" status="counterStatus"/>
+        <apex:actionStatus id="counterStatus" startText="Processing..." onstop="focusOnDuplicate()"/>
+    </apex:pageBlockButtons>
+            
+	<apex:pageBlockSection columns="2"> 
+				
+			<!--<apex:pageBlockSectionItem >
+                <apex:outputLabel value="First Name" for="patient__FirstName"/>
+                <apex:outputPanel id="thePanel">
+	                <apex:inputField value="{!patientObj.Salutation}" />
+	                <apex:inputField value="{!patientObj.First_Name__c}" id="patient__FirstName" /> 
+	            </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            --><apex:pageBlockSectionItem >
+                <apex:outputLabel value="Last Name" for="patient__LastName"/>
+                <apex:inputField value="{!patientObj.Last_Name__c}" id="patient__LastName"/> 
+            </apex:pageBlockSectionItem>
+            
+	<!--</apex:pageBlockSection>
+	
+	<apex:pageBlockSection title="Gender" columns="1">
+		<apex:pageBlockSection showHeader="false" columns="2">-->
+			<!--<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Gender" for="patient__Gender"/>
+				<apex:inputField value="{!patientObj.Gender__c}" id="patient__Gender" required="true"/>
+			</apex:pageBlockSectionItem>
+		--><!--</apex:pageBlockSection>
+	</apex:pageBlockSection>
+	
+	<apex:pageBlockSection title="Date Of Birth" columns="1">
+		<apex:pageBlockSection showHeader="false" columns="2">-->
+			<!--<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Birthdate" for="patient__Birthdate"/>
+				<apex:inputField value="{!patientObj.Birthdate__c}" id="patient__Birthdate" required="true"/>
+			</apex:pageBlockSectionItem>
+		--><!--</apex:pageBlockSection>-->
+		
+		<!--<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Institution" for="patient__Institution"/>
+			<apex:inputField value="{!patientObj.Institution__c}" id="patient__Institution" required="true"/>
+			<apex:outputField value="{!patientObj.Institution__c}" id="patient__Institution"/>
+		</apex:pageBlockSectionItem>
+		
+--><!--		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Site" for="patient__Site"/>
+			<apex:inputField value="{!patientObj.Site__c}" id="patient__Site" required="true"/>
+			<apex:outputField value="{!patientObj.Site__c}" id="patient__Site"/>
+		</apex:pageBlockSectionItem>-->
+		
+	</apex:pageBlockSection>
+	
+	<!--<apex:pageBlockSection title="Address" columns="2">
+		<apex:pageBlockSection title="Home Address" columns="2">
+		
+			<apex:pageBlockSectionItem >
+                <apex:outputLabel value="Address Line 1" for="patient__MailingStreet"/>
+                <apex:inputField value="{!patientObj.Address_Line_1__c}" id="patient__MailingStreet"/> 
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Address Line 2" for="patient__OtherStreet"/>
+                <apex:inputField value="{!patientObj.Address_Line_2__c}" id="patient__OtherStreet"/> 
+            </apex:pageBlockSectionItem>
+            
+           <apex:pageBlockSectionItem >
+                <apex:outputLabel value="City" for="patient__MailingCity"/>
+                <apex:inputField value="{!patientObj.City__c}" id="patient__MailingCity"/> 
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="State" for="patient__MailingState"/>
+                <apex:inputField value="{!patientObj.State__c}" id="patient__MailingState"/> 
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Zip" for="patient__MailingPostalCode"/>
+                <apex:inputField value="{!patientObj.Zip__c}" id="patient__MailingPostalCode"/> 
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Country" for="patient__MailingCountry"/>
+                <apex:inputField value="{!patientObj.Country__c}" id="patient__MailingCountry"/> 
+            </apex:pageBlockSectionItem>
+		</apex:pageBlockSection>
+	</apex:pageBlockSection>
+	
+	--><!--<apex:pageBlockSection title="Additional Details">
+	
+		<apex:pageBlockSectionItem dataStyle="width: 40%">
+			<apex:outputLabel value="Race" for="patient__Race"/>
+			<apex:inputField value="{!patientObj.Race__c}" id="patient__Race" required="true"/>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem labelStyleClass="">
+			<apex:outputLabel value="Ethnicity" for="patient__Ethnicity"/>
+			<apex:inputField value="{!patientObj.Ethnicity__c}" id="patient__Ethnicity" required="true"/>
+		</apex:pageBlockSectionItem>
+		
+		--><!--<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Trial" for="patient__Trial"/>
+			<apex:inputField value="{!patientObj.Trial__c}" id="patient__Trial"/>
+		</apex:pageBlockSectionItem>-->
+		
+		<!--<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Country of Birth" for="patient__Country_of_Birth"/>
+			<apex:inputField value="{!patientObj.Country_of_Birth__c}" id="patient__Country_of_Birth"/>
+		</apex:pageBlockSectionItem>
+		
+	</apex:pageBlockSection>
+	
+	--><!--<apex:pageBlockSection title="Patient Identifier" id="indentifierSection" columns="1">
+		
+		<apex:pageMessage summary="This <b>Medical Record Number</b> already in use. Please try another number." severity="error" strength="3" rendered="{!isShowMRNError}" escape="false"/>
+		
+		<apex:pageBlockSection showHeader="false" id="fieldSection">
+			<apex:pageBlockSectionItem id="numberItem">
+				<apex:outputLabel value="Medical Record Number" for="patient__Medical_Record_Number"/>
+				<apex:inputField value="{!patientObj.Medical_Record_Number__c}" id="patient__Medical_Record_Number"/>
+			</apex:pageBlockSectionItem>
+			
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Study Registration Eligibility" for="patient__Study_Registration_Eligibility"/>
+				<apex:inputField value="{!patientObj.Study_Registration_Eligibility__c}" id="patient__Study_Registration_Eligibility"/>
+			</apex:pageBlockSectionItem>
+			
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="SSN" for="patient__SSN"/>
+				<apex:inputField value="{!patientObj.SSN__c}" id="patient__SSN"/>
+			</apex:pageBlockSectionItem>
+			
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="MRN" for="patient__MRN"/>
+				<apex:inputField value="{!patientObj.MRN__c}" id="patient__MRN"/>
+			</apex:pageBlockSectionItem>
+		</apex:pageBlockSection>
+		<apex:outputPanel rendered="{!isShowMRNError}">
+			<script>
+				document.getElementById('pageId:editForm:demoBlock:indentifierSection:fieldSection:numberItem:patient__Medical_Record_Number').focus();
+			</script>
+		</apex:outputPanel>
+	</apex:pageBlockSection>
+	
+	<apex:pageBlockSection title="Physicians">
+	
+		<apex:pageBlockSectionItem labelStyle="width: 17.5%;">
+			<apex:outputLabel value="Primary MD" for="patient__Primary_MD"/>
+			<apex:inputField value="{!patientObj.Primary_MD__c}" id="patient__Primary_MD"/>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Surgeon" for="patient__Surgeon"/>
+			<apex:inputField value="{!patientObj.Surgeon__c}" id="patient__Surgeon"/>
+		</apex:pageBlockSectionItem>
+		
+	</apex:pageBlockSection>
+
+--></apex:pageBlock>
+
+
+<!-- Duplicate Page of Patient Registration -->
+<apex:pageBlock id="duplicateBlock" title="Duplicate" mode="edit" rendered="{!isShowDuplicateScreen}">
+
+	<apex:pageBlockButtons location="top" id="buttonBlock">
+<!--		<apex:commandButton action="{!checkDuplicate}" value="Previous"/>-->
+<!--        <apex:commandButton action="{!addPatient}" value="Submit" id="submitButton" reRender="outputForm" status="dupBlockStatus"/>-->
+<!--        <apex:actionStatus id="dupBlockStatus" startText="Processing..." onstop="focusOnDuplicate()"/>-->
+		<!--<apex:commandButton action="{!redirectAddPage}" value="{!IF((isDuplicate=true), 'Ignore Duplicate Add New Patient', 'No Duplicate Add New Patient')}" id="submitButton" reRender="outputForm" status="dupBlockStatus"/>
+		<apex:actionStatus id="dupBlockStatus" startText="Processing..."/>-->
+		<apex:outputText rendered="{!IF((isDuplicate=false), true, false)}" value="{!IF((isDuplicate=false), 'No Duplicate Found','')}">
+		</apex:outputText>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<apex:commandButton rendered="{!IF((isDuplicate=false), true, false)}" action="{!redirectAddPage}" value="Add New Patient"/>
+    </apex:pageBlockButtons>
+    
+	<apex:pageBlockSection title="Similar People" rendered="{!isDuplicate}" >
+	
+		<apex:pageBlockTable value="{!patientList}" var="pL">
+      <!--  ==============================make last Name column=============================    -->
+		    <apex:column style="text-align:center;">
+		        <apex:facet name="header">Last Name</apex:facet>
+		        <apex:outputText style="text-align:center;" value="{!pL.Last_Name__c}"/>
+		    </apex:column>
+		    
+	<!--  ==============================make first Name column=============================    -->
+		    <apex:column style="text-align:center;">
+		        <apex:facet name="header">Name</apex:facet>
+		        <apex:outputText style="text-align:center;" value="{!pL.First_Name__c}"/>
+		    </apex:column>
+		    
+	<!--  ==============================make DOB column=============================    -->
+		    <apex:column style="text-align:center;">
+		        <apex:facet name="header">Date Of Birth</apex:facet>
+		        <apex:outputText value="{0,date,  dd'/'MM'/'yyyy}">
+                   <apex:param value="{!pL.Birthdate__c}" /> 
+                </apex:outputText>
+		    </apex:column>
+		    
+	<!--  ==============================make Gender column=============================    -->
+		    <apex:column style="text-align:center;">
+		        <apex:facet name="header">Gender</apex:facet>
+		        <apex:outputText style="text-align:center;" value="{!pL.Gender__c}"/>
+		    </apex:column>
+		    
+	<!--  ==============================make merge column=============================    -->
+		    <apex:column style="text-align:center;">
+		        <apex:facet name="header">&nbsp;</apex:facet>
+		        <!--<apex:commandLink action="{!updatePatient}" value="Merge" id="theCommandLink">
+		        	<apex:param name="patientId" value="{!pL.Id}"/>
+		        </apex:commandLink>-->
+		        
+		    	<apex:commandButton action="{!redirectEditPage}" value="Edit" reRender="duplicateBlock">
+		        	<apex:param name="patientId" value="{!pL.Id}"/>
+		        </apex:commandButton>
+		    	</apex:column>
+		    
+        </apex:pageBlockTable> 
+		
+	</apex:pageBlockSection>
+	
+	<!--<apex:pageBlockSection title="Disposition" columns="1" id="dupSection">
+ 		
+		<apex:pageMessage summary="Please select checkbox for add new patient or click on merge for update patient record." severity="error" strength="3" rendered="{!isShowAddError}"/>
+ <apex:pageMessages />
+		<apex:pageBlockSectionItem id="dupSectionItem">
+			<apex:inputCheckbox value="{!isNewPatient}" id="dupCheckBox"/>
+			<apex:outputText value="This is a new patient" />
+		</apex:pageBlockSectionItem>
+	</apex:pageBlockSection>-->
+	
+</apex:pageBlock>
+
+<!-- Last Page of Patient Registration -->
+<!--<apex:pageBlock title="Complete" mode="edit" rendered="{!isShowLastScreen}">
+
+	<apex:pageBlockButtons location="top">
+		<apex:commandButton action="{!checkDuplicate}" value="Previous"/>
+        <apex:commandButton action="{!addPatient}" value="Submit"/>
+    </apex:pageBlockButtons>
+
+	<apex:pageBlockSection title="Patient Personal Details" columns="2"> 
+		
+			<apex:pageBlockSectionItem >
+                <apex:outputLabel value="First Name" for="patient__FirstName"/>
+                <apex:outputPanel id="thePanel">
+	                <apex:outputText value="{!patientObj.Salutation}" />
+	                <apex:outputText value="{!patientObj.First_Name__c}" id="patient__FirstName"/> 
+	            </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Last Name" for="patient__LastName"/>
+                <apex:outputText value="{!patientObj.Last_Name__c}" id="patient__LastName"/> 
+            </apex:pageBlockSectionItem>
+            
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Gender" />
+				<apex:outputText value="{!patientObj.Gender__c}" />
+			</apex:pageBlockSectionItem>
+			
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Date Of Birth" />
+				<apex:outputText value="{0,date,  dd'/'MM'/'yyyy}">
+                   <apex:param value="{!patientObj.Birthdate__c}" /> 
+                </apex:outputText>
+			</apex:pageBlockSectionItem>
+			
+	</apex:pageBlockSection>
+	
+	<apex:pageBlockSection title="Address" columns="2">
+		
+			<apex:pageBlockSectionItem >
+                <apex:outputLabel value="Address" for="patient__MailingStreet"/>
+                <apex:outputText value="{!patientObj.Address_Line_1__c}" id="patient__MailingStreet"/> 
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Address Line 2" for="patient__OtherStreet"/>
+                <apex:outputText value="{!patientObj.Address_Line_2__c}" id="patient__OtherStreet"/> 
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="City" for="patient__MailingCity"/>
+                <apex:outputText value="{!patientObj.City__c}" id="patient__MailingCity"/> 
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="State" for="patient__MailingState"/>
+                <apex:outputText value="{!patientObj.State__c}" id="patient__MailingState"/> 
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Zip" for="patient__MailingPostalCode"/>
+                <apex:outputText value="{!patientObj.Zip__c}" id="patient__MailingPostalCode"/> 
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Country" for="patient__MailingCountry"/>
+                <apex:outputText value="{!patientObj.Country__c}" id="patient__MailingCountry"/> 
+            </apex:pageBlockSectionItem>
+		
+	</apex:pageBlockSection>
+	
+	<apex:pageBlockSection title="Additional Details">
+	
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Race" for="patient__Race"/>
+			<apex:outputText value="{!patientObj.Race__c}" id="patient__Race"/>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Ethnicity" for="patient__Ethnicity"/>
+			<apex:outputText value="{!patientObj.Ethnicity__c}" id="patient__Ethnicity"/>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Account Name" for="Contact__AccountName"/>
+			<apex:outputText value="{!contactObj.AccountId}" id="Contact__AccountName"/>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Institution" for="Contact__Institution"/>
+			<apex:inputField value="{!contactObj.Institution__c}" id="Contact__Institution"/>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Site" for="Contact__Site"/>
+			<apex:inputField value="{!contactObj.Site__c}" id="Contact__Site"/>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Trial" for="Contact__Trial"/>
+			<apex:inputField value="{!contactObj.Trial__c}" id="Contact__Trial"/>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Country of Birth" for="patient__Country_of_Birth"/>
+			<apex:outputText value="{!patientObj.Country_of_Birth__c}" id="patient__Country_of_Birth"/>
+		</apex:pageBlockSectionItem>
+		
+	</apex:pageBlockSection>
+	
+	<apex:pageBlockSection title="Patient Indentifier">
+	
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Medical Record Number" for="patient__Medical_Record_Number"/>
+			<apex:outputText value="{!patientObj.Medical_Record_Number__c}" id="patient__Medical_Record_Number"/>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Study Registration Eligibility" for="patient__Study_Registration_Eligibility"/>
+			<apex:outputText value="{!patientObj.Study_Registration_Eligibility__c}" id="patient__Study_Registration_Eligibility"/>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="SSN" for="patient__SSN"/>
+			<apex:outputText value="{!patientObj.SSN__c}" id="patient__SSN"/>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="MRN" for="patient__MRN"/>
+			<apex:outputText value="{!patientObj.MRN__c}" id="patient__MRN"/>
+		</apex:pageBlockSectionItem>
+		
+	</apex:pageBlockSection>
+	
+	<apex:pageBlockSection title="Physicians">
+	
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Primary MD" for="patient__Primary_MD"/>
+			<apex:outputText value="{!patientObj.Primary_MD__c}" id="patient__Primary_MD"/>
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+			<apex:outputLabel value="Surgeon" for="patient__Surgeon"/>
+			<apex:outputText value="{!patientObj.Surgeon__c}" id="patient__Surgeon"/>
+		</apex:pageBlockSectionItem>
+		
+	</apex:pageBlockSection>
+	
+</apex:pageBlock>
+--></apex:outputPanel>
+
+</apex:form>
+</apex:page>

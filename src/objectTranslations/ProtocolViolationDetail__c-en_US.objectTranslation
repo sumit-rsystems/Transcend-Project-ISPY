@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Protocol Violation Detail</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Protocol Violation Details</value>
+    </caseValues>
+    <fields>
+        <label><!-- ApprovalURL --></label>
+        <name>ApprovalURL__c</name>
+    </fields>
+    <fields>
+        <label><!-- CRFId --></label>
+        <name>CRFId__c</name>
+        <relationshipLabel><!-- Protocol Violation Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- CompletedDate --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date of Protocol Violation --></label>
+        <name>DateOfProtocolViolation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Eligibility criteria exception --></label>
+        <name>Eligibility_criteria_exception__c</name>
+    </fields>
+    <fields>
+        <label><!-- Enrollment of ineligeligibleible patient --></label>
+        <name>Enrollment_of_ineligeligibleible_patient__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Save and Close --></label>
+        <name>First_Save_and_Close__c</name>
+    </fields>
+    <fields>
+        <label><!-- Incorrect therapy given to patient --></label>
+        <name>Incorrect_therapy_given_to_patient__c</name>
+    </fields>
+    <fields>
+        <help><!-- Was the local IRB notified? --></help>
+        <label><!-- Local IRB Notified --></label>
+        <name>Local_IRB_Notified__c</name>
+        <picklistValues>
+            <masterLabel>NO</masterLabel>
+            <translation><!-- NO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>YES</masterLabel>
+            <translation><!-- YES --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Medication non-compliance --></label>
+        <name>Medication_non_complicance__c</name>
+    </fields>
+    <fields>
+        <help><!-- Narrative description of potocol violation. --></help>
+        <label><!-- Narrative description --></label>
+        <name>Narrative_description__c</name>
+    </fields>
+    <fields>
+        <help><!-- On-study procedure required by protocol not completed. --></help>
+        <label><!-- On-study procedure required by protocol --></label>
+        <name>On_study_procedure_required_by_protocol__c</name>
+    </fields>
+    <fields>
+        <label><!-- OriginalCRF --></label>
+        <name>OriginalCRF__c</name>
+        <relationshipLabel><!-- Protocol Violation Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Other Action Checkbox --></label>
+        <name>Other_Action_Checkbox__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Action Taken --></label>
+        <name>Other_Action__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other (Type of Violation) --></label>
+        <name>Other_Type_of_Violation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other_Violation_Checkbox --></label>
+        <name>Other_Violation_Checkbox__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient Remains on Study but data analysis will be modified. --></help>
+        <label><!-- Patient Remains on Study --></label>
+        <name>Patient_Remains_on_Study__c</name>
+    </fields>
+    <fields>
+        <label><!-- Patient --></label>
+        <name>Patient__c</name>
+        <relationshipLabel><!-- Protocol Violation Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Patient became pregnant prior to surgery --></label>
+        <name>Patient_became_pregnant_prior_to_surgery__c</name>
+    </fields>
+    <fields>
+        <label><!-- Patient withdrawn --></label>
+        <name>Patient_withdrawn__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pg_Status --></label>
+        <name>Pg_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Follow-up</masterLabel>
+            <translation><!-- Follow-up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening</masterLabel>
+            <translation><!-- Screening --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment</masterLabel>
+            <translation><!-- Treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Root CRF Id --></label>
+        <name>Root_CRF_Id__c</name>
+    </fields>
+    <fields>
+        <help><!-- Screening and on-study test/lab done outside the protocol required time. --></help>
+        <label><!-- Screening and on-study test/lab done --></label>
+        <name>Screening_and_on_study_test_lab_done__c</name>
+    </fields>
+    <fields>
+        <help><!-- Screening procedure required by protocol not done. --></help>
+        <label><!-- Screening procedure required --></label>
+        <name>Screening_procedure_required__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Not Required</masterLabel>
+            <translation><!-- Approval Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Pending</masterLabel>
+            <translation><!-- Approval Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cloned</masterLabel>
+            <translation><!-- Cloned --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Submitter --></label>
+        <name>Submitter__c</name>
+        <relationshipLabel><!-- Protocol Violation Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- Protocol Violation CRF --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Visit non-complicance --></label>
+        <name>Visit_non_complicance__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_ProtocolViolation_Id --></label>
+        <name>pg_ProtocolViolation_Id__c</name>
+    </fields>
+    <layouts>
+        <layout>Approval Pending</layout>
+        <sections>
+            <label><!-- Action taken --></label>
+            <section>Action taken</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Type of Protocol Violation --></label>
+            <section>Type of Protocol Violation</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Live</layout>
+        <sections>
+            <label><!-- Action taken --></label>
+            <section>Action taken</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Type of Protocol Violation --></label>
+            <section>Type of Protocol Violation</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Protocol Violation Detail Layout</layout>
+        <sections>
+            <label><!-- Action taken --></label>
+            <section>Action taken</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Type of Protocol Violation --></label>
+            <section>Type of Protocol Violation</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- AdHoc --></label>
+        <name>AdHoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>DateOfProtocolViolation_date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select at-least one Action taken --></errorMessage>
+        <name>Validate_Action_Taken</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Cancel --></label>
+        <name>Cancel</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Complete --></label>
+        <name>Complete</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Sign_and_Submit --></label>
+        <name>Sign_and_Submit</name>
+    </webLinks>
+</CustomObjectTranslation>

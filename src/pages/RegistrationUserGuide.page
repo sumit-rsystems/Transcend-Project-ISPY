@@ -1,0 +1,43 @@
+<apex:page showHeader="false" sidebar="false">
+<style>
+	.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to Complete Registration Form for I-SPY 2?</h2>
+		</apex:outputPanel>
+		<p>All patients that have signed a Screening Consent Form and HIPAA release need to have the  Registration Form completed (after the Pre-Eligibility Checklist) before any other Case Report Form can be filled out.  IF the patient doesn't meet all of the Pre-Eligibility Checklist requirements, the patient is NOT eligible to be Registered to the study.</p>
+		<p>Since the Registration Form registers the patient to the I-SPY 2 TRIAL and assigns them their unique I-SPY 2 Patient ID, complete the Registration CRF before any other CRF.</p>
+		<p><i>To open the Registration Form, select the patient from the 'Patient' Tab, select 'Trial’, scroll down to ‘Registration Form' and click “Submit New”.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.RegistrationScreenShot, 'registration1.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>The patient's name, gender, race, ethnicity, MRN, and zip code are automatically populated from the data entered when you created a new patient in the eCHR and are displayed here.</li>
+			<li>Complete the form by entering in the patient's country of birth (if known), the last 4-digits of the patient's social security number (if known).</li>
+		</ul>
+		<p><i>Select 'Next' to advance to the 'Registration' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.RegistrationScreenShot, 'registration2.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>The Institution is automatically completed and cannot be changed. Select the Site.</li>
+			<li>The Registration Date defaults to the date you are completing this form. If you need to change the date, use the calendar button to the right of the data field.  You can also manually enter the data in mm/dd/yyyy format.</li>
+			<li>Select the Study Coordinator that is registering this patient from the drop down list, this is optional</li>
+			<li>Select the patient's study staff: Oncologist, Surgeon, Clinical Coordinator, and Radiology Coordinator.</li>
+			<li>Select the most recent date your IRB has approved this trial using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+			<li>Select the date the patient signed the Screening Consent Form and HIPAA release using the calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+		</ul>
+		<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.RegistrationScreenShot, 'registration3.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the previous screen to update the incorrect information. If the information on the 'Complete' screen is correct, enter your password and select 'Sign and Submit'.</li>
+			<li>Once the Registration Form is completed (Signed and Submitted), it will appear on the patient's CRF Screen as ‘Approval Not Required.'</li>
+		</ul>
+	</apex:outputPanel>
+</apex:page>

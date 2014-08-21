@@ -1,0 +1,1187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>OnStudyEligibilityFormsNew</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>OnStudyEligibilityFormsNew</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>AST_SGOT_or_ALT_SGPT_1_5_x_insti__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>AST (SGOT) or ALT (SGPT) ≤ 1.5 x institutional ULN.</inlineHelpText>
+        <label>AST(SGOT)or ALT(SGPT)≤1.5 x institut ULN</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Absolute_Neutrophil_count_1500_L__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Absolute Neutrophil count ≥ 1500/µL</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ApprovalURL__c</fullName>
+        <externalId>false</externalId>
+        <label>ApprovalURL</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>CRF__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CRF</label>
+        <referenceTo>CRF__c</referenceTo>
+        <relationshipLabel>On Study Eligibility Forms</relationshipLabel>
+        <relationshipName>On_Study_Eligibility_Forms</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Clinically_or_radiologically_measurable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has clinically or radiologically measurable or non-measurable disease in breast defined as longest diameter ≥ 2.5cm, per protocol 4.1.1 B.</inlineHelpText>
+        <label>Clinically or radiologically measurable</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CompletedDate__c</fullName>
+        <externalId>false</externalId>
+        <label>CompletedDate</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Creatinine_1_5_x_institutional_ULN__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Creatinine &lt; 1.5 x institutional ULN</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Creatinine_clearance_40_mL__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has a creatinine clearance &gt; 40 mL/min per 24-hours urine collection or calculated according to the Cockcroft-Gault formula (see appendix C, table 2 for either formula that can be used).</inlineHelpText>
+        <label>Has Creatinine clearance &gt; 40 mL/min</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Diastolic_blood_pressure_100_mm_Hg__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has a diastolic blood pressure &lt; 100 mm Hg and systolic blood pressure &lt; 160 mm Hg on at least one of three sequential blood pressure determinations performed during their clinic visit or within the week during the screening process.</inlineHelpText>
+        <label>Has diastolic blood pressure &lt; 100 mm Hg</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ECOG_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>ECOG Score</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-Asymplomatic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-Symplomatic but ambulatory</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2-Symplomatic, &lt;50% in bed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3-Symplomatic, &gt;= 50% in bed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4-Bedbound</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-Death</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Effective_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Effective Time</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Eligible_to_be_screened_for_the_study__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient is eligible to be screened for the study.</inlineHelpText>
+        <label>Eligible to be screened for the study</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>First_Save_and_Close__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>First Save and Close</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Has_HgbA1c_8__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has HgbA1c ≤8%. Patients with diabetes who meet the HbgA1C criteria are eligibile (including insulin-dependednt diabetics).</inlineHelpText>
+        <label>Has HgbA1c ≤8%</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Histologically_confirmed_invasive_cancer__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has histologically confirmed invasive cancer of the female breast as confirmed by core needle, fine needle aspirate, or incisional biopsy*(*Incisional biopsy is allowed if residual tumor after biopsy measures at least 2.5cm), per protocol 4.1.1 A.</inlineHelpText>
+        <label>Histologically confirmed invasive cancer</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>How_was_the_cancer_first_detected__c</fullName>
+        <externalId>false</externalId>
+        <label>How was the cancer first detected?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Self exam</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Clinical exam</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Screening mammogram</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Screening MRI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Is_mass_palpable__c</fullName>
+        <externalId>false</externalId>
+        <label>Is mass palpable?</label>
+        <picklist>
+            <controllingField>How_was_the_cancer_first_detected__c</controllingField>
+            <picklistValues>
+                <fullName>No</fullName>
+                <controllingFieldValues>Screening MRI</controllingFieldValues>
+                <controllingFieldValues>Screening mammogram</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <controllingFieldValues>Screening MRI</controllingFieldValues>
+                <controllingFieldValues>Screening mammogram</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unknown</fullName>
+                <controllingFieldValues>Screening MRI</controllingFieldValues>
+                <controllingFieldValues>Screening mammogram</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Is_willing_to_have_study_core_biopsy__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient is willing to have study core biopsy.</inlineHelpText>
+        <label>Is willing to have study core biopsy</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Lab_Values__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient&apos;s lab values are within these limits (per protocol 4.1.2 C).</inlineHelpText>
+        <label>Lab Values are within these limits</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Leukocytes_3000_L__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Leukocytes ≥ 3000/µL</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Mass_Identification_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Mass Identification Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Most_Recent_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If a specific date is not given, provide the best estimated date.</inlineHelpText>
+        <label>Most Recent Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>No_Clinical_Or_Imaging_Evidence__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has no clinical or imaging evidence of distant metastasis (per protocol 4.1.2 E), but can have regional Stage IV where supraclavicular lymph nodes are the only site of metastasis, per protocol 4.1.2 A.</inlineHelpText>
+        <label>No Clinical Or Imaging Evidence</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>No_Uncontrolled_or_Cardiovascular_Diseas__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has no uncontrolled or severe cardiovascular disease; pre-treatment ejection fraction (by nuclear imaging or echocardiography) must be ≥ 50%, per protocol 4.1.2 D.</inlineHelpText>
+        <label>No Uncontrolled or Cardiovascular Diseas</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>No_ferromagnetic_prostheses__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has no ferromagnetic prostheses that are not compatible with an MRI machine, per protocol 4.1.1 H.</inlineHelpText>
+        <label>No ferromagnetic prostheses?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>No_history_of_abdominal_fistula__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has no history of abdominal fistula, GI perforation, or intra-abdominal abscess within 6 months prior to screening.</inlineHelpText>
+        <label>No history of abdominal fistula</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>No_history_of_allergic_reactions__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has no history of allergic reactions attributed to compounds of similar chemical or biologic composition to study agents or accompanying supportive medications, per protocol 4.2 B.</inlineHelpText>
+        <label>No history of allergic reactions</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>No_history_of_clinically_bleeding__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has no history of clinically significant bleeding with in 6 months prior to enrollement in the screening phase.</inlineHelpText>
+        <label>No history of clinically bleeding</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>No_history_of_deep_venous_thrombosis_DVT__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has no history of deep venous thrombosis (DVT), arterial thromboembolism, or pulmonary thromboembolism within 12 months prior to screening.</inlineHelpText>
+        <label>No history of deep venous thrombosis DVT</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>No_history_of_hypertensive_crisis__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has no history of hypertensive crisis or hypertensive encephalopathy within 6 months prior to enrollment in the screening phase.</inlineHelpText>
+        <label>No history of hypertensive crisis</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>No_history_of_stroke_transient_ischemic__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has no history of stroke (cerebrovascular accident), or transient ischemic attack (TIA) within 12 months prior to screening.</inlineHelpText>
+        <label>No history of stroke/transient ischemic</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>No_major_surgery_within_28_days__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has had no major surgery within 28 days prior to enrollment in the screening phase or has a persistent open wound.</inlineHelpText>
+        <label>No major surgery within 28 days</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>No_minor_surgical_procedure_within_3days__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has had no minor surgical procedure within 3 days prior to enrollment in the screening phase (placement of tunneled central venous access device is acceptable).</inlineHelpText>
+        <label>No minor surgical procedure within 3days</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>No_serious_non_healing_wound__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has no serious non-healing wound, ulcer (including gastrointestinal), or bone fracture.</inlineHelpText>
+        <label>No serious non-healing wound</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>No_uncontrolled_intercurrent_illness__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has no uncontrolled intercurrent illness including but not limited to, ongoing or active infection, diabetes, or psychiatric illness/social situations that would limit compliance with study requirements, per protocol 4.2 C.</inlineHelpText>
+        <label>No uncontrolled intercurrent illness</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Non_pregnant_and_non_lactating__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient is non-pregnant and non-lactating, per protocol 4.1.1 G.</inlineHelpText>
+        <label>Non-pregnant and non-lactating</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Not_been_treated_with_immune_modulators__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has not been treated with immune modulators such as systemic cyclosporine or tacrolimus within 30 days prior to study treatment.</inlineHelpText>
+        <label>Not been treated with immune modulators</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Not_had_a_sentinel_lymph_node__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has not had a sentinel lymph node dissection on the nodes draining from the study index tumor site prior to the start of chemotherapy, per protocol 4.2 D.</inlineHelpText>
+        <label>Not had a sentinel lymph node</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Not_had_other_investigational_agents__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has not had other investigational agents within 30 days of study enrollment, per protocol 4.2 A.</inlineHelpText>
+        <label>Not had other investigational agents?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Not_had_prior_RT_to_the_ipsilateral__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has not had prior RT to the ipsilateral breast for this malignancy, per protocol 4.1.1 C.</inlineHelpText>
+        <label>Not had prior RT to the ipsilateral</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Not_had_prior_cytotoxic_regimens__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has not had prior cytotoxic regimens or other targeted anticancer therapies to the ipsilateral breast for this malignancy, per protocol 4.1.1 C.</inlineHelpText>
+        <label>Not had prior cytotoxic regimens</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Not_taking_a_therapentic_anticoagulant__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient is not taking a therapentic anticoagulant (e.g. warfarin or LMWH).</inlineHelpText>
+        <label>Not taking a therapentic anticoagulant</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>OriginalCRF__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>OriginalCRF</label>
+        <referenceTo>On_Study_Eligibility_Form__c</referenceTo>
+        <relationshipLabel>On Study Eligibility Forms</relationshipLabel>
+        <relationshipName>On_Study_Eligibility_Forms</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Other_Reason_for_Cancer_first_detected__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Reason for Cancer first detected</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PTT_or_APTT_1_5_x_ULN__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has PTT or APTT ≤ 1.5 x ULN per institutional laboratory range and INR ≤ 1.5.</inlineHelpText>
+        <label>PTT or APTT ≤ 1.5 x ULN</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Patient__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Patient</label>
+        <referenceTo>Patient_Custom__c</referenceTo>
+        <relationshipLabel>On Study Eligibility Forms</relationshipLabel>
+        <relationshipName>On_Study_Eligibility_Forms</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Patient_is_18_years_or_older__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient is 18 years or older, per protocol 4.1.1 D.</inlineHelpText>
+        <label>Patient is 18 years or older?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Patient_is_willing_to_have_study_MRI__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient is willing to have study MRI.</inlineHelpText>
+        <label>Patient is willing to have study MRI</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Phase__c</fullName>
+        <externalId>false</externalId>
+        <label>Phase</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Screening</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Platelets_100_000_L__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Platelets ≥ 100,000/µL</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PreEligibility_Checklist__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>PreEligibility Checklist</label>
+        <referenceTo>PreEligibility_Checklist__c</referenceTo>
+        <relationshipLabel>On Study Eligibility Forms</relationshipLabel>
+        <relationshipName>On_Study_Eligibility_Forms</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Root_CRF_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Root CRF Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Screening_Memogram_Prior_to_Mass_Detect__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Screening Memogram Prior to Mass Detection.</inlineHelpText>
+        <label>Screening Memogram Prior to Mass Detect</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Submitter__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The user who is sign and submitting the record</description>
+        <externalId>false</externalId>
+        <label>Submitter</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>On_Study_Eligibility_Forms</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Total_Bilirubin_within_institutional__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Total Bilirubin within institutional normal limits, unless patient has Gilbert&apos;s disease, for which Bilirubin must be ≤ 2.0 x ULN.</inlineHelpText>
+        <label>Total Bilirubin within institutional</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>TrialPatient__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>TrialPatient</label>
+        <referenceTo>TrialPatient__c</referenceTo>
+        <relationshipLabel>On Study Eligibility CRF</relationshipLabel>
+        <relationshipName>On_Study_Eligibility_Forms</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>pg_OnStudyEligibility_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_OnStudyEligibility_Id</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>pg_status__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_status</label>
+        <length>75</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>urinary_protein_quantitative_30mg__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Patient has a urinary protein quantitative value of ≤ 30 mg/dL in urnalysis or ≤ 1+ on dipstick (if criteria cannot be met a 24-hour urine collection can be done to calculate total protein excretion and must be &lt; 1000 mg).</inlineHelpText>
+        <label>Has urinary protein quantitative ≤ 30mg</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <label>On Study Eligibility Form</label>
+    <nameField>
+        <displayFormat>{00000}</displayFormat>
+        <label>On Study Eligibility Form Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>On Study Eligibility Forms</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypes>
+        <fullName>AdHoc</fullName>
+        <active>true</active>
+        <label>AdHoc</label>
+        <picklistValues>
+            <picklist>ECOG_Score__c</picklist>
+            <values>
+                <fullName>0-Asymplomatic</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>1-Symplomatic but ambulatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2-Symplomatic%2C %3C50%25 in bed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3-Symplomatic%2C %3E%3D 50%25 in bed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4-Bedbound</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5-Death</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>How_was_the_cancer_first_detected__c</picklist>
+            <values>
+                <fullName>Clinical exam</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening MRI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening mammogram</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self exam</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Is_mass_palpable__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Approval_Pending</fullName>
+        <active>true</active>
+        <label>Approval Pending</label>
+        <picklistValues>
+            <picklist>ECOG_Score__c</picklist>
+            <values>
+                <fullName>0-Asymplomatic</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>1-Symplomatic but ambulatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2-Symplomatic%2C %3C50%25 in bed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3-Symplomatic%2C %3E%3D 50%25 in bed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4-Bedbound</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5-Death</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>How_was_the_cancer_first_detected__c</picklist>
+            <values>
+                <fullName>Clinical exam</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening MRI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening mammogram</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self exam</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Is_mass_palpable__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Live</fullName>
+        <active>true</active>
+        <label>Live</label>
+        <picklistValues>
+            <picklist>ECOG_Score__c</picklist>
+            <values>
+                <fullName>0-Asymplomatic</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>1-Symplomatic but ambulatory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2-Symplomatic%2C %3C50%25 in bed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3-Symplomatic%2C %3E%3D 50%25 in bed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4-Bedbound</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5-Death</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>How_was_the_cancer_first_detected__c</picklist>
+            <values>
+                <fullName>Clinical exam</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening MRI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening mammogram</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self exam</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Is_mass_palpable__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Phase__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Not Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted by Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>How_was_the_cancer_first_detected</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND(OR(ISPICKVAL( How_was_the_cancer_first_detected__c , &apos;Screening mammogram&apos;) ,ISPICKVAL( How_was_the_cancer_first_detected__c , &apos;Screening MRI&apos;) )  ,  ISPICKVAL(Is_mass_palpable__c,&apos;&apos;) )</errorConditionFormula>
+        <errorDisplayField>Is_mass_palpable__c</errorDisplayField>
+        <errorMessage>Please select mass palpable</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Mass_Identification_should_not_be_future</fullName>
+        <active>true</active>
+        <description>The Date field should not be a future date.</description>
+        <errorConditionFormula>Mass_Identification_Date__c &gt; TODAY()</errorConditionFormula>
+        <errorDisplayField>Mass_Identification_Date__c</errorDisplayField>
+        <errorMessage>You have entered a future date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Most_Recent_Date</fullName>
+        <active>false</active>
+        <errorConditionFormula>Screening_Memogram_Prior_to_Mass_Detect__c = true &amp;&amp;  ISNULL( Most_Recent_Date__c )</errorConditionFormula>
+        <errorDisplayField>Most_Recent_Date__c</errorDisplayField>
+        <errorMessage>Please provide Most Recent Date for Memogram</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Most_Recent_Date_Cannot_be_Future_Date</fullName>
+        <active>true</active>
+        <description>The Date field should not be a future date.</description>
+        <errorConditionFormula>Most_Recent_Date__c &gt;  TODAY()</errorConditionFormula>
+        <errorDisplayField>Most_Recent_Date__c</errorDisplayField>
+        <errorMessage>You have entered a future date</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Complete</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Complete</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/ChangeAdhocToLive?rid={!On_Study_Eligibility_Form__c.Id}&amp;type=submit&amp;sharingwith=Site,Lab</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Delete</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Cancel</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if(confirm(&quot;Completely cancel and remove?&quot;)) {
+window.location.href=&quot;/apex/CustomDelete?objApi=On_Study_Eligibility_Form__c&amp;id={!On_Study_Eligibility_Form__c.Id}&amp;triPat={!On_Study_Eligibility_Form__c.TrialPatientId__c}&quot;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Delete_Button</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Delete Button</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>https://c.cs14.visual.force.com/apex/TranscendPage?id=a0Sc0000000UjEm&amp;sfdc.override=1</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Edit</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Edit</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if( {!ISPICKVAL( On_Study_Eligibility_Form__c.Status__c , &apos;Approval Pending&apos;)}){
+  alert(&apos;Record is Locked you can not edit the record.&apos;);
+} else {
+   window.location.href=&quot;/apex/OnStudyEligibilityFormsNew?retURL=%2F&quot;+&quot;{!On_Study_Eligibility_Form__c.Id}&quot;+&quot;&amp;scontrolCaching=1&amp;sfdc.override=1&amp;id=&quot;+&quot;{!On_Study_Eligibility_Form__c.Id}&quot;;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Sign_and_Submit</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Sign and Submit</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/SignAndSubmitPage?id={!On_Study_Eligibility_Form__c.Id}&amp;form_code=00009</url>
+    </webLinks>
+</CustomObject>

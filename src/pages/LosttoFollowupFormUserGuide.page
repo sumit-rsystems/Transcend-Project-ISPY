@@ -1,0 +1,42 @@
+<apex:page showHeader="false" sidebar="false" >
+<style>
+	.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h1>How to complete Lost to Follow Up form?</h1>
+		</apex:outputPanel>
+		<p>The Lost to Follow-Up Form is used when no further clinical or survival information can be obtained for a patient after 2 years from last contact.  This information is used to help document a patient's survival and clinical status.</p>
+		<p>The information used to complete this form comes from documentation of failed attempts to contact the patient, no known visits with the patient's physicians, and no information is listed for the patient in the Social Security Death Index after 2 years from last contact.</p>
+		<p><i>To open Lost to Follow Up Form, select the patient from the 'Patient' Tab; select 'Trial'; Select ‘Follow Up’ tab and select ‘Submit New’ for ‘Lost to Follow Up’.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.LosttoFollowupFormScreenshot, 'LosttoFollowupForm1.png')}" width="100%" height="100%"/></p>
+		<ul>      
+			<li>Answer the question about whether it has been at least 2 years since you were able to last contact the patient [<i>Yes OR No</i>].</li>
+			<li>Select the date of last contact using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+			<li>Report if a social security death index search was performed by checking the checkbox.  An unchecked checkbox indicates this has not been done. </li>
+			<li>Select the date of the most recent search using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+			<li>Report if a certified or registered letter was sent to the patient's last known address by checking the checkbox.  An unchecked checkbox indicates this has not been done. </li>
+			<li>Select the date the most recent letter was sent using the blue calendar button to the right of the data field. You can also manually enter the date in mm/dd/yyyy format.</li>
+			<li>Select the outcome of the most recent letter that was sent [<i>Letter returned OR No response after 1 month</i>].</li>
+		</ul>
+		
+		<p><i>Select 'Next' to advance to the 'Comments &amp; Attachments' tab.</i></p>
+		<p>Attach all relevant de-identified pathology reports, clinical notes, laboratory notes, and imaging reports (source documents) that document the data that is listed on this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+		<p>Provide any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+		<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.LosttoFollowupFormScreenshot, 'LosttoFollowupForm3.png')}" width="100%" height="100%"/></p>
+		<ul>
+			<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the screen to update the incorrect information.</li>
+			<li>When you are ready to send the CRF to the DCC for verification, enter your password and select 'Sign and Submit.'</li>
+		</ul>	
+	</apex:outputPanel>
+</apex:page>

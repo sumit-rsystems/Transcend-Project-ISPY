@@ -1,0 +1,250 @@
+<apex:page StandardController="Followup_Form__c" extensions="FollowupFormController" sideBar="false" id="pageId" showHeader="false" tabStyle="Account">
+<style>
+	.mystyle{
+		background-color: #cf00f8; 
+	}
+	
+	.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+	    background-color: #97C7EC;
+	}
+	
+	body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+	    background-color: #fff;
+	}
+</style>
+<apex:form >
+	<apex:pageBlock title="Complete" tabStyle="Account">
+		<table width="1000px">
+			<col width="75px"/>
+			<col width="75px"/>
+			<col width="850px"/>
+	 	 	<tr>
+	 			<td style="width:400px"><b>Followup Form</b></td>
+	 			<td style="width:400px">&nbsp;</td>
+	 			<td></td>
+	 		</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td><apex:commandLink value="Attach Pdf" action="{!attachPdf}" rendered="{IF({$Profile.Name} != 'DCC User')}"/></td>
+	 			<td></td>		        		
+	 		</tr>
+	 		<tr>
+	 			<td><b>Survival Status</b></td>
+	 			<td></td>
+	 			<td></td>
+	 		</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td>Reporting period:</td>
+	 			<td>
+	 				<apex:outputField value="{!FF.Start_Date__c}"> 
+	 				</apex:outputField>&nbsp;to&nbsp;<apex:outputField value="{!FF.End_Date__c}"> </apex:outputField>
+	 			</td>
+	 	 	</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td>Survival Status:</td>
+	 			<td>
+	 				<apex:outputField value="{!FF.Survival_Status__c}"></apex:outputField> 
+	 			</td>
+	 		</tr>
+	 	    <tr>
+	 			<td></td>
+	 			<td>New Cancer:</td>
+	 			<td>
+	 				<apex:outputText value="{!FF.Patient_diagnose_with_new__c}" ></apex:outputText>&nbsp;:&nbsp;
+	 				<apex:outputField value="{!FF.Date__c}"></apex:outputField> 
+	 			</td>
+	 		</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td valign="baseline">Treatment(s) for new cancer:</td>
+	 			<td><apex:outputText value="{!FF.Surgery__c}" rendered="{!FF.Surgery__c}"> </apex:outputText>&nbsp;&nbsp;
+	 				<apex:outputField value="{!FF.Surgery_Details__c}" /><br></br>
+	 				<apex:outputText value="{!FF.Chemotherapy__c}" rendered="{!FF.Chemotherapy__c}"> </apex:outputText>&nbsp;&nbsp;
+	 				<apex:outputField value="{!FF.Chemotherapy_Details__c}" /><br></br>
+	 				<apex:outputText value="{!FF.Radiation_Therapy__c}" rendered="{!FF.Radiation_Therapy__c}"> </apex:outputText>&nbsp;&nbsp;
+	 				<apex:outputField value="{!FF.Radiation_Therapy_Details__c}" /><br></br>
+	 				<apex:outputText value="{!FF.Hormone_Therapy__c}" rendered="{!FF.Hormone_Therapy__c}"> </apex:outputText>&nbsp;&nbsp;
+	 				<apex:outputField value="{!FF.Hormone_Therapy_Details__c}"  /><br></br>
+	 			</td>
+	 		</tr>
+
+	 		<tr>
+	 			<td></td>
+	 			<td>Cause of death:</td>
+	 			<td>
+	 				<apex:outputField value="{!FF.Causeof_Death__c}"></apex:outputField> 
+	 				
+	 			</td>
+	 		</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td>Cause of death description:</td>
+	 			<td>
+	 				<apex:outputField value="{!FF.Describe_Cause_of_Death__c}"  ></apex:outputField> 
+	 			</td>
+	 		</tr>
+
+			<tr>
+	 			<td></td>
+	 			<td>Documented assessment:</td>
+	 			<td>
+			 		<apex:outputText value="{!FF.Patient_doc_clinial_assessment__c}" ></apex:outputText>&nbsp;:&nbsp;
+	 				<apex:outputField value="{!FF.Clinical_assessment_Date__c}"></apex:outputField> 
+	 			</td>
+	 		</tr>
+	 		<tr height="2px"></tr>
+			<tr>
+	 			<td><b>Notice of Progression</b></td>
+	 			<td></td>
+	 			<td></td>
+	 		</tr>
+	    	<tr>
+	 			<td></td>
+	 			<td>Local/regional progression:</td>
+	 			<td>
+	 				<apex:outputText value="{!FF.patient_diagnosed_local_progression__c}" ></apex:outputText>&nbsp;:&nbsp;
+	 				<apex:outputField value="{!FF.Local_progression_Date__c}"></apex:outputField> 
+	 			</td>
+	 		</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td>Sites:</td>
+	 			<td>
+	 				<apex:outputField value="{!FF.Local__c}" ></apex:outputField> 
+	 			</td>
+	 		</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td>Distant progression:</td>
+	 			<td>
+	 				<apex:outputText value="{!FF.patient_diagnosed_distant_progression__c}" ></apex:outputText>&nbsp;:&nbsp;
+	 				<apex:outputField value="{!FF.Distant_progression_Date__c}"></apex:outputField> 
+	 			</td>
+	 		</tr>
+	    	<tr>
+	 			<td></td>
+	 			<td>Sites:</td>
+	 			<td>
+	 				<apex:outputField value="{!FF.Distant__c}" ></apex:outputField>&nbsp;:&nbsp;
+	 				<apex:outputField value="{!FF.Other__c}" ></apex:outputField>
+	 			</td>
+	 		</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td>Information Obtained:</td>
+	 			<td> 
+	 				<apex:outputField value="{!FF.Recurrence_progression_information__c}" ></apex:outputField> 
+	 			</td>
+	 		</tr>
+	 		<tr height="2px"></tr>
+	 		<tr>
+	 			<td><b>Radiation Therapy</b></td>
+	 			<td></td>
+	 			<td></td>
+	 		</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td>Adjuvant Radiation therapy</td>
+	 			<td>
+	 				<apex:outputText value="{!FF.Patient_received_adjuvant_therapy__c}" ></apex:outputText>&nbsp;:&nbsp;
+	 				<apex:outputField value="{!FF.Radiation_Therapy_Start_Date__c}"></apex:outputField>&nbsp;to&nbsp;
+	 				<apex:outputField value="{!FF.Radiation_Therapy_End_Date__c}"></apex:outputField>
+	 			</td>
+	 		</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td valign="baseline">Sites Irradiated</td>
+	 			<td><apex:repeat value="{!IRSWrapperList}" var="IRSWrapper" id="IRSRepeat">
+	 			        <apex:outputField value="{!IRSWrapper .IRDSite.Site__c}" id="IRSsite"/>(
+	 			        <apex:outputField value="{!IRSWrapper .IRDSite.Laterality__c}" id="IRSlaterality"/>)&nbsp;:&nbsp;
+	 			        <apex:outputField value="{!IRSWrapper .IRDSite.Dose_per_FX_cGy__c}" id="IRSdose"/> cGy/FX&nbsp;* &nbsp; 
+	 			        <apex:outputField value="{!IRSWrapper .IRDSite.Total_FX__c}" id="IRStotalFX"/>FX&nbsp;(Total dose=
+	 			        <apex:outputField value="{!IRSWrapper .IRDSite.Total_dose_cGy_AP__c}" id="IRStotaldose"/>cGy)<br/>
+  						</apex:repeat>
+	 			</td>
+	 		</tr>
+	 		<tr height="2px"></tr>
+	 		<tr>
+	 			<td><b>Long term Therapy</b></td>
+	 			<td></td>
+	 			<td></td>
+	 		</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td>Long term Therapy</td>
+	 			<td>
+	 				<apex:outputText value="{!FF.Long_Term_Therapy_for_primary_Trial__c }" ></apex:outputText>
+	 			</td>
+	 		</tr>
+	 		<tr>
+		 		<td></td>
+		 		<td>Therapy:</td>
+		 		<td><apex:repeat value="{!THRWrapperList}" var="THRWrapper" id="THRRepeat">
+	 			        <apex:outputField value="{!THRWrapper.THRecvd.Therapy__c}" id="THRecvdTherapy"/>&nbsp;:&nbsp;
+	 			        <apex:outputField value="{!THRWrapper.THRecvd.Start_Date_Date_Performed__c}" id="THRecvdStartDate"/>&nbsp;to&nbsp;  
+	 			        <apex:outputField value="{!THRWrapper.THRecvd.End_Date__c}" id="THRecvdEndDate"/><br/> 
+  						</apex:repeat>
+  					</td>
+	 		</tr>
+	 		<tr height="2px"></tr>
+	 	  <tr>
+		 		<td><b>Menopausal Status</b></td>
+	 			<td></td>
+	 			<td></td>
+	 		</tr>
+	 		<tr>
+		 		<td></td>
+	 			<td>Patient age:</td>
+	 			<td><apex:outputText value="{!Age}"></apex:outputText></td>
+	 		</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td>Date of LMP:</td>
+	 			<td>
+	 				<apex:outputField value="{!FF.Date_of_Last_Menstrual_period__c}"></apex:outputField>
+	 			</td>
+	 		</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td>Estrogen Replacement</td>
+	 			<td>
+	 				<apex:outputText value="{!FF.On_Estrogen_Replacement__c}"></apex:outputText>&nbsp;:&nbsp;
+	 				<apex:outputField value="{!FF.On_Estrogen_Replacement_Months__c}"></apex:outputField>&nbsp;months&nbsp;
+	 				<apex:outputField value="{!FF.On_Estrogen_Replacement_Years__c}"></apex:outputField>&nbsp;years
+	 			</td>
+	 		</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td>Bilateral oophorectomy:</td>
+	 			<td>
+	 				<apex:outputText value="{!FF.Bilateral_oophorectomy__c}"> </apex:outputText>&nbsp;:&nbsp;
+	 				<apex:outputField value="{!FF.Bilateral_oophorectomy_Date__c}"> </apex:outputField>
+	 			</td>
+	 		</tr>
+	 		<tr>
+	 			<td></td>
+	 			<td>Hysterectomy:</td>
+	 			<td>
+	 				<apex:outputText value="{!FF.Hysterectomy__c}"> </apex:outputText>&nbsp;:&nbsp;
+	 				<apex:outputField value="{!FF.Hysterectomy_Date__c}"> </apex:outputField>
+	 			</td>
+	 		</tr>
+	 		<tr>
+		 		<td></td>
+		 		<td>Menopausal_status:</td>
+	 			<td>
+	 				<apex:outputField value="{!FF.Menopausal_status__c}"> </apex:outputField>
+	 			</td>
+	 		</tr> 
+		</table>
+		<apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(FF.Id))}">
+			<c:CRFAttachmentComponent rId="{!FF.Id}" feedCRFName="Followup_Form__Feed" rtId="{!FF.Root_CRF_Id__c}"/>
+		</apex:pageBlockSection>
+		<apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(FF.Id))}">
+	    	<c:CRFEventComponent rId="{!FF.Id}" objectName="Followup_Form__c" rtId="{!FF.Root_CRF_Id__c}"/>
+	    </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:form>
+</apex:page>

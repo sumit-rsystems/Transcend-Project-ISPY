@@ -1,0 +1,884 @@
+<apex:page StandardController="Followup_Form__c" extensions="FollowupFormController" sideBar="false" id="pageId" tabStyle="Account" action="{!saveMainCRF}" >
+
+	<style>
+		.mystyle{
+			background-color: #cf00f8; 
+		}
+		
+		.activeTab {
+		 	background: none repeat scroll 0 0 #FFFFFF;
+		    border-bottom: 2px solid #FFFFFF;
+		    color: #000000;
+		    font-weight: 600;
+		    width: 180px;
+		}
+		
+		.inactiveTab {
+			cursor: pointer;
+			background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+		  	color: white; /*#3C3C3C;*/
+		  	font-weight: bold;
+		  	font-size: 12px;
+		  	height: 15px;
+		  	width: 180px;
+		  	vertical-align: middle;
+		  	border: none;
+		}
+		 
+		.rich-tab-inactive {
+		 	background-repeat: repeat-x;
+		 	border-color: #FFFFFF;
+		 	border-style: none;
+		 	border-width: 0;
+		 	cursor: pointer;
+		}
+		
+		.rich-tabhdr-side-border {
+		 	background-image:none; 
+		 	border-radius: 4px 4px 0 0;
+		 	background-color: none;
+		 	width: 2px;
+		}
+		
+		.rich-tabhdr-side-cell {
+			box-shadow: 0 -2px 2px #A7A7A8;
+		 	border-top: 2px solid #056FC1;
+		 	border-left: 2px solid #056FC1;
+		 	border-right: 2px solid #056FC1;
+		 	border-radius: 4px 4px 0 0;
+		}
+		
+		.rich-tabpanel-content {
+			background-color: #fff;
+		 	border-left: 2px solid #056FC1;
+		 	border-right: 2px solid #056FC1;
+		 	border-bottom: 2px solid #056FC1;
+		}
+		
+		.rich-tab-bottom-line {
+			border-bottom: 1px solid #056FC1;
+		}
+		
+		.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+		 	background-color: #97C7EC;
+		}
+		
+		body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+		 	background-color: #fff;
+		}
+	</style>
+	<script>
+		
+		function cancelConfirm() {
+			if(confirm('Completely Cancel and Remove?')) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		
+	</script>
+	<apex:form >
+		<apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+		 
+			<apex:tab label="Survival Status" name="survstatTab" id="survstatTabId">
+			<apex:pageMessages />
+				<apex:pageBlock id="SurviStId">
+					<apex:pageBlockButtons >
+							<apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>
+							<apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="tabChangeStatus"/>
+							<apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+					</apex:pageBlockButtons>
+					<br></br>
+					<table>
+						<tr>
+							<td><b> Reporting Period </b></td>
+							<td></td>
+							<td></td>
+							<td></td> 
+						</tr>
+						<tr>
+							<td>From (last previous contact) &nbsp;&nbsp; <apex:inputField value="{!FF.Start_Date__c}" /> </td>
+							<td></td>
+							<td> To ( last contact or death)</td> <td><apex:inputField value="{!FF.End_Date__c}" /> </td> 
+							<td></td>
+						</tr>
+						<tr>
+							<td><b> Survival Status </b></td>
+							<td></td>
+							<td></td>
+							<td></td> 
+						</tr>
+						<tr>
+							<td>
+								<apex:selectRadio id="survstatusId" value="{!FF.Survival_Status__c}" onChange="changePanel(this);" >
+									<apex:selectOptions value="{!survivalStatusOptions}" /> 
+								</apex:selectRadio>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr height="3px"></tr>
+						<tr>
+							<td>
+								Has the patient had a documented clinical assessment for this 
+								<br></br>
+								cancer since submission of the previous follow-up form?	
+							</td>
+							<td> <apex:selectRadio id="clinicassesId" value="{!FF.Patient_doc_clinial_assessment__c}" onClick="" >
+									  	<apex:selectOption itemValue="false" itemLabel="No"  />
+									    <apex:selectOption itemValue="true" itemLabel="Yes"  />
+								</apex:selectRadio>
+							</td>
+							<td align="right">Date</td> 
+							<td><apex:inputField value="{!FF.Clinical_assessment_Date__c}" /></td>
+						</tr>
+					</table>
+										
+					<apex:outputPanel id="aPanel"  style="display:none" ><br></br>
+						<table width="865px">
+							<tr>
+								<td><b> New Cancer </b></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td width="575px">Has the patient been diagnosed with a new primary cancer?</td>
+								<td width="140px" align="left">
+									<apex:selectRadio id="diagnosId" value="{!FF.Patient_diagnose_with_new__c}" onClick="" >
+									       <apex:selectOption itemValue="false" itemLabel="No"  />
+									       <apex:selectOption itemValue="true" itemLabel="Yes"  />
+									</apex:selectRadio>
+								</td>
+								<td width="145px" align="right">Date</td>
+								<td><apex:inputField value="{!FF.Date__c}" /></td> 
+							</tr>
+						</table>
+						<table width="900px" style="margin-left: 15px">
+							<tr>
+								<td><b> Treatment(s) for this new primary cancer </b></td>
+								<td></td>
+								<td></td>
+								<td></td> 
+							</tr>
+							<tr>
+								<td>Surgery </td>
+								<td><apex:selectRadio id="surgId" value="{!FF.Surgery__c}" onChange="showOtherField(this);" >
+									    <apex:selectOption itemValue="false" itemLabel="No"  />
+									    <apex:selectOption itemValue="true" itemLabel="Yes"  />
+									</apex:selectRadio></td>
+							
+								<td>Details</td>
+								<td><apex:inputField id="sdetId" value="{!FF.Surgery_Details__c}" /></td> 
+							</tr>
+							<tr>
+								<td>Chemotherapy </td>
+								<td><apex:selectRadio id="chemoId" value="{!FF.Chemotherapy__c}" onClick="showOtherField(this);" >
+									    <apex:selectOption itemValue="false" itemLabel="No"  />
+									    <apex:selectOption itemValue="true" itemLabel="Yes"  />
+									</apex:selectRadio></td>
+								<td>Details</td>
+								<td><apex:inputField id="cdetId" value="{!FF.Chemotherapy_Details__c}" />  </td> 
+							</tr>
+							<tr>
+								<td>Radiation therapy</td>
+								<td><apex:selectRadio id="radioId" value="{!FF.Radiation_Therapy__c}" onClick="showOtherField(this);" >
+								       <apex:selectOption itemValue="false" itemLabel="No"  />
+								       <apex:selectOption itemValue="true" itemLabel="Yes"  />
+								    </apex:selectRadio></td>
+								<td>Details</td>
+								<td><apex:inputField id="rdetId" value="{!FF.Radiation_Therapy_Details__c}" />  </td> 
+							</tr>
+							<tr>
+								<td>Harmone therapy</td>
+								<td><apex:selectRadio id="harId" value="{!FF.Hormone_Therapy__c}" onClick="showOtherField(this);" >
+								    	<apex:selectOption itemValue="false" itemLabel="No"  />
+									    <apex:selectOption itemValue="true" itemLabel="Yes"  />
+									</apex:selectRadio></td>
+								<td>Details</td>
+								<td><apex:inputField id="hdetId" value="{!FF.Hormone_Therapy_Details__c}" />  </td> 
+							</tr>
+						</table>
+								<script>								
+								if('{!FF.Surgery__c}' == 'false')document.getElementById('{!$Component.sdetId}').disabled = true;
+								if('{!FF.Chemotherapy__c}' == 'false')document.getElementById('{!$Component.cdetId}').disabled = true;
+								if('{!FF.Radiation_Therapy__c}' == 'false')document.getElementById('{!$Component.rdetId}').disabled = true;
+								if('{!FF.Hormone_Therapy__c}' == 'false')document.getElementById('{!$Component.hdetId}').disabled = true;	
+										
+								</script>
+						
+					</apex:outputPanel>
+					
+					<apex:outputPanel id="dPanel"  style="display:none" ><br></br>
+						<fieldset style="border:1px solid grey;height:150px;width:500px">
+							<legend style="margin-left:10px"><b>Death Details</b></legend>
+								<table style="margin-left:10px;width:500px">
+									<tr>
+										<td>Cause of Death </td>
+										<td>Details</td>
+									</tr>
+									<tr>
+										<td><apex:selectRadio id="codId" value="{!FF.Causeof_Death__c}" onClick="" layout="pageDirection">
+										  		<apex:selectOption itemValue="Due to this disease" itemLabel="Due to this disease"  />
+										       	<apex:selectOption itemValue="Due to protocol treatment" itemLabel="Due to protocol treatment"  />
+										       	<apex:selectOption itemValue="Due to other causes" itemLabel="Due to other cause"  />
+										       	<apex:selectOption itemValue="Unknown" itemLabel="Unknown"  />
+											</apex:selectRadio>
+										</td>
+										<td><apex:inputTextArea id="coddetId" value="{!FF.Describe_Cause_of_Death__c}" cols="40" rows="6"/></td> 
+									</tr>
+								</table>
+						</fieldset>
+					</apex:outputPanel>
+					<script>
+										if('{!FF.Survival_Status__c}' == 'Alive') {
+											document.getElementById('{!$Component.aPanel}').style.display = 'block';
+											document.getElementById('{!$Component.dPanel}').style.display = 'none';
+										} else if('{!FF.Survival_Status__c}' == 'Dead'){
+											document.getElementById('{!$Component.aPanel}').style.display = 'none';
+											document.getElementById('{!$Component.dPanel}').style.display = 'block';
+										}
+					</script>
+				</apex:pageBlock>
+				<div align="center">
+					<apex:outputLabel value="User Id :" style="font-weight: bold;" />&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+					<apex:outputLabel value="Password :"  style="font-weight: bold;"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" />&nbsp;&nbsp;
+					<apex:commandButton value="Sign and Submit" action="{!signAndSubmit}" />
+				</div>
+			</apex:tab>
+				
+			<apex:tab label="Notice of progression " name="noticeProgTab" id="noticeProgTabId">
+			
+			<apex:pageBlock id="noticeProgId">
+					<apex:pageBlockButtons >
+						<apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>
+						<apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="tabChangeStatus"  />
+						<apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="tabChangeStatus"/>
+						<apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+					</apex:pageBlockButtons>
+					<div><b>Notice of Progression</b></div><br></br>
+					<table width="900px">
+						<tr>
+							<td>Has the patient been diagnosed with first local-regional
+								<br></br>
+								progression since submission of last follow-up form? 
+							</td>
+							<td> <apex:selectRadio id="localprogId" value="{!FF.patient_diagnosed_local_progression__c}"  >
+									  	<apex:selectOption itemValue="false" itemLabel="No"  />
+									    <apex:selectOption itemValue="true" itemLabel="Yes"  />
+								</apex:selectRadio>
+							</td>
+							<td align="right">Date</td> 
+							<td><apex:inputField value="{!FF.Local_progression_Date__c}" /></td>
+						</tr>
+						<tr>
+							<td>Has the patient been diagnosed with first distant
+								<br></br>
+								progression since submission of last follow-up form? 
+							</td>
+							<td><apex:selectRadio id="distprogId" value="{!FF.patient_diagnosed_distant_progression__c}"  >
+									<apex:selectOption itemValue="false" itemLabel="No"  />
+									<apex:selectOption itemValue="true" itemLabel="Yes"  />
+								</apex:selectRadio>
+							</td>
+							<td align="right">Date</td> 
+							<td><apex:inputField value="{!FF.Distant_progression_Date__c}" /></td>
+						</tr>
+					</table>
+					<br></br>
+					<br></br>
+					
+					        	
+					       
+					<table width="800px">
+						<tr>
+							<td><b>How was recurrence / progression information obtained ? </b></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>	
+								<apex:selectCheckboxes value="{!recurrenceProgressChoice}" layout="pageDirection">
+					            	<apex:selectOptions value="{!recurrenceProgressOptions}" /> 
+					        	</apex:selectCheckboxes>
+				        	</td>
+        				</tr>
+        				<tr height="3px"></tr>
+        				<tr>
+							<td><b>Sites of new progression </b></td>
+							<td></td>
+							<td></td>
+						</tr>
+        			    <tr>
+							<td><b>Local </b><hr/></td>
+							<td><b>Distant</b><hr/></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td valign="baseline">
+								<apex:selectCheckboxes value="{!progressionLocalChoice}" layout="pageDirection">
+					            	<apex:selectOptions value="{!progressionLocalOptions}" /> 
+					     		</apex:selectCheckboxes><br/>
+					        </td>
+							<td><apex:selectCheckboxes value="{!progressionDistantChoice}" layout="pageDirection">
+					            	<apex:selectOptions value="{!progressionDistantOptions}" /> 
+					        	</apex:selectCheckboxes><br/>
+					        	<apex:inputField id="DisOthId" value="{!FF.Other__c}" />	
+					        </td>			
+							<td></td>
+						</tr>
+						
+        			</table>
+					
+				</apex:pageBlock>
+				<div align="center">
+					<apex:outputLabel value="User Id :" style="font-weight: bold;" />&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+					<apex:outputLabel value="Password :"  style="font-weight: bold;"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" />&nbsp;&nbsp;
+					<apex:commandButton value="Sign and Submit" action="{!signAndSubmit}" />
+				</div>
+			</apex:tab>
+			
+			<apex:tab label="Radiation Therapy " name="radiTherapyTab" id="radiTherapyTabId">
+				<apex:pageBlock id="radiTherapyId">
+					<apex:pageBlockButtons >
+						<apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>
+						<apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="tabChangeStatus"/>
+						<apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="tabChangeStatus"/>
+						<apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+					</apex:pageBlockButtons><br></br>
+					<table>
+						<tr>
+							<td><b>Radiation Therapy </b></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td width="400px">Has the patient received adjuvant radiation therapy for the <br />
+								primary trial cancer (prior to treatment failure or second<br />
+								primary cancer) during this reporting period ?
+							</td>
+							<td width="200px"> 
+								<apex:selectRadio id="radiotheId" value="{!FF.Long_Term_Therapy_for_primary_Trial__c }"  >
+									<apex:selectOption itemValue="false" itemLabel="No"  />
+									<apex:selectOption itemValue="true" itemLabel="Yes"  />
+								</apex:selectRadio>
+							</td>
+							<td></td>
+							<td width="350px">Start Date <apex:inputField id="rtstartId" value="{!FF.Radiation_Therapy_Start_Date__c}" /><br />
+								End Date&nbsp;<apex:inputField id="rtendId" value="{!FF.Radiation_Therapy_End_Date__c}" /><br />
+							</td> 
+						</tr>
+						<tr height="3px"></tr>
+					</table><br></br>
+					<apex:pageBlockSection title="Sites Irradidated" id="SitesIrradSection" columns="1">
+						<apex:actionRegion >
+							<apex:pageBlockTable value="{!IRSWrapperList}" var="IRSWrapper" id="SitesIrradTableId" columnsWidth="150px,250px, 250px, 150px, 150px,200px">
+								<apex:column headerClass="tableHead ActionHead" style="vertical-align: top; padding-top: 15px;">
+									<apex:facet name="header">Action</apex:facet>
+									<apex:outputPanel rendered="{!IF(IRSWrapper.isReadOnly == true, false, true)}">
+										<apex:commandLink action="{!cancelIrradiatedSite}" value="Cancel" style="color: blue;" reRender="SitesIrradSection" status="processingStatus">
+											<apex:param name="recordId" value="{!IRSWrapper.IRDSite.Id}"/>
+											<apex:param name="cancelIndex" value="{!IRSWrapper.sno}"/>
+							           	</apex:commandLink>
+						           		<apex:outputPanel rendered="{!IRSWrapper.isUpdateVisible}">&nbsp;|&nbsp;</apex:outputPanel>
+							           		<apex:commandLink action="{!updateIrradiatedSite}" value="Update" style="color: blue;" rendered="{!IRSWrapper.isUpdateVisible}" reRender="SitesIrradSection, cconMedTabId" status="processingStatus">
+												<apex:param name="recordId" value="{!IRSWrapper.IRDSite.Id}"/>
+							           		</apex:commandLink>
+							       		</apex:outputPanel>
+						        		<apex:outputPanel rendered="{!IRSWrapper.isReadOnly}">
+						        			<apex:commandLink action="{!editIrradiatedSite}" value="Edit" style="color: blue;" reRender="SitesIrradSection" status="processingStatus">
+												<apex:param name="recordId" value="{!IRSWrapper.IRDSite.Id}"/>
+							           		</apex:commandLink>
+							           		&nbsp;|&nbsp;
+						                	<apex:commandLink action="{!removeIrradiatedSite}" value="Remove" style="color: blue;" reRender="SitesIrradSection" status="processingStatus">
+						                		<apex:param name="cancelIndex" value="{!IRSWrapper.sno}"/>
+						                		<apex:param name="recordId" value="{!IRSWrapper.IRDSite.Id}"/>
+						                	</apex:commandLink>
+						        	</apex:outputPanel>
+								</apex:column>
+								<apex:column headerClass="tableHead TypeHead" style="vertical-align: top; padding-top: 15px;width:10%;">
+									<apex:facet name="header">Site</apex:facet>
+									<apex:inputField value="{!IRSWrapper.IRDSite.Site__c}" rendered="{!IF(IRSWrapper.isReadOnly == true, false, true)}" id="typeId" onChange="changeMedType(this);"/>
+									<apex:outputField value="{!IRSWrapper.IRDSite.Site__c}" rendered="{!IRSWrapper.isReadOnly}"/>
+								</apex:column>
+								<apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;width:35%;">
+									<apex:facet name="header">Laterality</apex:facet> 
+									<apex:inputField value="{!IRSWrapper.IRDSite.Laterality__c}" rendered="{!IF(IRSWrapper.isReadOnly == true, false, true)}"/>
+									<apex:outputField value="{!IRSWrapper.IRDSite.Laterality__c}" rendered="{!IRSWrapper.isReadOnly}"/>
+								</apex:column>
+								<apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;">
+									<apex:facet name="header">Dose per FX cGy</apex:facet> 
+									<apex:inputField value="{!IRSWrapper.IRDSite.Dose_per_FX_cGy__c}" rendered="{!IF(IRSWrapper.isReadOnly == true, false, true)}"/>
+									<apex:outputField value="{!IRSWrapper.IRDSite.Dose_per_FX_cGy__c}" rendered="{!IRSWrapper.isReadOnly}"/>
+								</apex:column>
+								<apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;">
+									<apex:facet name="header">Total FX</apex:facet> 
+									<apex:inputField value="{!IRSWrapper.IRDSite.Total_FX__c}" rendered="{!IF(IRSWrapper.isReadOnly == true, false, true)}"/>
+									<apex:outputField value="{!IRSWrapper.IRDSite.Total_FX__c}" rendered="{!IRSWrapper.isReadOnly}"/>
+								</apex:column>
+									<apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;">
+									<apex:facet name="header">Total dose cG AP</apex:facet> 
+									<apex:inputField value="{!IRSWrapper.IRDSite.Total_dose_cGy_AP__c}" rendered="{!IF(IRSWrapper.isReadOnly == true, false, true)}"/>
+									<apex:outputField value="{!IRSWrapper.IRDSite.Total_dose_cGy_AP__c}" rendered="{!IRSWrapper.isReadOnly}"/>
+								</apex:column>
+							</apex:pageBlockTable>
+							<apex:outputPanel >
+								<apex:commandButton action="{!addIrradiatedSite}" value="Add Site" reRender="SitesIrradSection" status="processingStatus"/>
+								<apex:commandButton action="{!saveIrradiatedSite}" value=" Save " reRender="SitesIrradSection" status="savingStatus" />
+								<apex:actionStatus startText="Saving...." id="savingStatus" />
+								<apex:actionStatus startText="Processing...." id="processingStatus" />
+							</apex:outputPanel>
+						</apex:actionRegion>
+					</apex:pageBlockSection> 
+				</apex:pageBlock>
+				<div align="center">
+					<apex:outputLabel value="User Id :" style="font-weight: bold;" />&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+					<apex:outputLabel value="Password :"  style="font-weight: bold;"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" />&nbsp;&nbsp;
+					<apex:commandButton value="Sign and Submit" action="{!signAndSubmit}" />
+				</div>
+			</apex:tab>
+			<apex:tab label="Long Term Therapy " name="ltTherapyTab" id="ltTherapyTabId">
+				<apex:pageBlock id="ltTherapyId">
+					<apex:pageBlockButtons >
+							<apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>
+							<apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="tabChangeStatus"/>
+							<apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="tabChangeStatus"/>
+							<apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+					</apex:pageBlockButtons>
+					
+					<br></br>
+					<table>
+						<tr>
+							<td><b>Long Term Therapy </b></td>
+							<td> </td>
+							<td></td>
+							<td>  </td> 
+						</tr>
+						<tr>
+							<td width="400px">Did the patient receive any long term  therapy for the primary trial <br />
+							 cancer, after protocol therapy during this reporting period ?</td>
+							<td width="200px"> <apex:selectRadio id="radiotheId" value="{!FF.Patient_received_adjuvant_therapy__c}"  >
+									  	<apex:selectOption itemValue="false" itemLabel="No"  />
+									    <apex:selectOption itemValue="true" itemLabel="Yes"  />
+								</apex:selectRadio>
+							</td>
+							<td></td>
+							<td></td> 
+						</tr>
+						<tr height="3px"></tr>
+						<tr>
+							<td><b>Therapies received</b> </td>
+							<td></td>
+							<td></td>
+							<td></td>
+					   </tr>
+					</table>
+					
+					<apex:pageBlockSection title="Therapies received" id="TherapyRecvdSection" columns="1">
+					<apex:actionRegion >
+							<apex:pageBlockTable value="{!THRWrapperList}" var="THRWrapper" id="therapiesTableId" columnsWidth="100px, 300px, 300px, 150px,150px">
+								<apex:column headerClass="tableHead ActionHead" style="vertical-align: top; padding-top: 15px;">
+									<apex:facet name="header">Action</apex:facet>
+										<apex:outputPanel rendered="{!IF(THRWrapper.isReadOnly == true, false, true)}">
+											<apex:commandLink action="{!cancelTherapyReceived}" value="Cancel" style="color: blue;" reRender="TherapyRecvdSection" status="processingStatus">
+												<apex:param name="recordId" value="{!THRWrapper.THRecvd.Id}"/>
+												<apex:param name="cancelIndex" value="{!THRWrapper.sno}"/>
+							           		</apex:commandLink>
+							           		<apex:outputPanel rendered="{!THRWrapper.isUpdateVisible}">&nbsp;|&nbsp;</apex:outputPanel>
+							           		<apex:commandLink action="{!updateTherapyReceived}" value="Update" style="color: blue;" rendered="{!THRWrapper.isUpdateVisible}" reRender="TherapyRecvdSection, cconMedTabId" status="processingStatus">
+												<apex:param name="recordId" value="{!THRWrapper.THRecvd.Id}"/>
+							           		</apex:commandLink>
+							       		</apex:outputPanel>
+						        		<apex:outputPanel rendered="{!THRWrapper.isReadOnly}">
+						        			<apex:commandLink action="{!editTherapyReceived}" value="Edit" style="color: blue;" reRender="TherapyRecvdSection" status="processingStatus">
+												<apex:param name="recordId" value="{!THRWrapper.THRecvd.Id}"/>
+							           		</apex:commandLink>
+							           		&nbsp;|&nbsp;
+						                	<apex:commandLink action="{!removeTherapyReceived}" value="Remove" style="color: blue;" reRender="TherapyRecvdSection" status="processingStatus">
+						                		<apex:param name="cancelIndex" value="{!THRWrapper.sno}"/>
+						                		<apex:param name="recordId" value="{!THRWrapper.THRecvd.Id}"/>
+						                	</apex:commandLink>
+						        		</apex:outputPanel>
+								</apex:column>
+								<apex:column headerClass="tableHead TypeHead" style="vertical-align: top; padding-top: 15px;width:10%;">
+									<apex:facet name="header">Therapy</apex:facet>
+									<apex:inputField value="{!THRWrapper.THRecvd.Therapy__c}" rendered="{!IF(THRWrapper.isReadOnly == true, false, true)}" id="typeId" onChange="changeMedType(this);"/>
+									<apex:outputField value="{!THRWrapper.THRecvd.Therapy__c}" rendered="{!THRWrapper.isReadOnly}"/>
+								</apex:column>
+								<apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;width:35%;">
+									<apex:facet name="header">Detail</apex:facet> 
+									<apex:inputField value="{!THRWrapper.THRecvd.Detail__c}" rendered="{!IF(THRWrapper.isReadOnly == true, false, true)}"/>
+									<apex:outputField value="{!THRWrapper.THRecvd.Detail__c}" rendered="{!THRWrapper.isReadOnly}"/>
+								</apex:column>
+								<apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;">
+									<apex:facet name="header">Start Date</apex:facet> 
+									<apex:inputField value="{!THRWrapper.THRecvd.Start_Date_Date_Performed__c}" rendered="{!IF(THRWrapper.isReadOnly == true, false, true)}"/>
+									<apex:outputField value="{!THRWrapper.THRecvd.Start_Date_Date_Performed__c}" rendered="{!THRWrapper.isReadOnly}"/>
+								</apex:column>
+								<apex:column headerClass="tableHead SeverityHead" style="vertical-align: top; padding-top: 15px;">
+									<apex:facet name="header">End Date</apex:facet> 
+									<apex:inputField value="{!THRWrapper.THRecvd.End_Date__c}" rendered="{!IF(THRWrapper.isReadOnly == true, false, true)}"/>
+									<apex:outputField value="{!THRWrapper.THRecvd.End_Date__c}" rendered="{!THRWrapper.isReadOnly}"/>
+								</apex:column>
+							</apex:pageBlockTable>
+							<apex:outputPanel >
+								<apex:commandButton action="{!addTherapyReceived}" value="Add Therapy" reRender="TherapyRecvdSection" status="processingStatus"/>
+								<apex:commandButton action="{!saveTherapyReceived}" value=" Save " reRender="TherapyRecvdSection" status="savingStatus" />
+								<apex:actionStatus startText="Saving...." id="savingStatus" />
+								<apex:actionStatus startText="Processing...." id="processingStatus" />
+							</apex:outputPanel>
+						</apex:actionRegion>
+					</apex:pageBlockSection> 
+				</apex:pageBlock>
+				<div align="center">
+					<apex:outputLabel value="User Id :" style="font-weight: bold;" />&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+					<apex:outputLabel value="Password :"  style="font-weight: bold;"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" />&nbsp;&nbsp;
+					<apex:commandButton value="Sign and Submit" action="{!signAndSubmit}" />
+				</div>
+			</apex:tab>
+	 
+			<apex:tab label="Menopausal Status" name="MPStatusTab" id="ltMPStatusTabId">
+				<apex:pageBlock id="MPStatusId"><br></br>
+					<table>
+						<tr>
+							<td style="width:396px">Did the patient have a menstrual period during this reporting period?</td>
+							<td align="center">
+								<apex:selectRadio id="mperiodId" value="{!FF.patient_have_a_menstrual_period__c}"  >
+									<apex:selectOption itemValue="false" itemLabel="No"  />
+									<apex:selectOption itemValue="true" itemLabel="Yes"  />
+								</apex:selectRadio>
+							</td>
+						</tr>
+					</table>
+					<table style="width:1000px" >
+						<tr>
+							<td>Patient Age</td>
+							<td></td>
+							<td><apex:outputText value=""> </apex:outputText></td>
+							<td></td> 
+						</tr>
+						<tr>
+							<td>Date of Last  Menstrual period   &nbsp;&nbsp;&nbsp;</td>
+							<td style="width:90px"><apex:inputField value="{!FF.Date_of_Last_Menstrual_period__c}" /></td>
+							<td><apex:selectRadio id="lmperiodId" value="{!FF.Date_of_Last_Menstrual_period_UKData__c}" layout="pageDirection" >
+								  	<apex:selectOption itemValue="true" itemLabel="Unknown Date"  />
+								    <apex:selectOption itemValue="false" itemLabel="Unknown Date, but > 12 months ago"  />
+								</apex:selectRadio> </td> 
+							<td></td>
+						</tr>
+						<tr>
+							<td>On Estrogen Replacement ?</td>
+							<td style="width:150px"> 
+								<apex:selectRadio id="EstRepId" value="{!FF.On_Estrogen_Replacement__c}"  >
+									<apex:selectOption itemValue="false" itemLabel="No"  />
+									<apex:selectOption itemValue="true" itemLabel="Yes"  />
+								</apex:selectRadio>&nbsp;&nbsp;
+							</td>
+							<td colspan="2">Duration&nbsp;
+								<apex:inputField style="width:50px" value="{!FF.On_Estrogen_Replacement_Months__c}" />Months &nbsp; 
+								<apex:inputField style="width:50px" value="{!FF.On_Estrogen_Replacement_Years__c}" /> Years
+							</td> 
+						</tr>
+						<tr>
+							<td>Bilateral oophorectomy ?</td>
+							<td><apex:selectRadio id="BioophId" value="{!FF.Bilateral_oophorectomy__c}"  >
+									<apex:selectOption itemValue="false" itemLabel="No"  />
+								    <apex:selectOption itemValue="true" itemLabel="Yes"  />
+								</apex:selectRadio>
+							</td>
+							<td>Date   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!FF.Bilateral_oophorectomy_Date__c}" /> </td>
+							<td></td> 
+						</tr>
+						<tr>
+							<td>Hysterectomy   ?</td>
+							<td> <apex:selectRadio id="hystrecId" value="{!FF.Hysterectomy__c}"  >
+								  	<apex:selectOption itemValue="false" itemLabel="No"  />
+								    <apex:selectOption itemValue="true" itemLabel="Yes"  />
+								</apex:selectRadio>
+							</td>
+							<td>Date   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputField value="{!FF.Hysterectomy_Date__c}" /></td>
+							<td></td> 
+						</tr>
+						<tr height="3px"></tr>	
+						
+						<tr>
+							<td valign="baseline"><b>Menopausal status </b></td>
+							<td colspan="3">
+								<apex:selectCheckboxes value="{!menopausalStatusChoice}" layout="pageDirection">
+					             	<apex:selectOptions value="{!menopausalStatusOptions}" />
+					            </apex:selectCheckboxes>
+					        </td>
+							<td></td>
+							<td></td> 
+						</tr>
+					</table>
+					<apex:pageBlockButtons >
+						<apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>
+						<apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="tabChangeStatus"/>
+						<apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="tabChangeStatus"/>
+						<apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+					</apex:pageBlockButtons><br></br>
+				</apex:pageBlock>
+				<div align="center">
+					<apex:outputLabel value="User Id :" style="font-weight: bold;" />&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+					<apex:outputLabel value="Password :"  style="font-weight: bold;"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" />&nbsp;&nbsp;
+					<apex:commandButton value="Sign and Submit" action="{!signAndSubmit}" />
+				</div>
+			</apex:tab>
+		
+			<apex:tab label="Comments & Attachments" name="attachmentTab" id="attachmentTabId" >
+				<apex:pageBlock title="Comments & Attachments">
+					<apex:pageBlockButtons >
+						<apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>
+						<apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="tabChangeStatus"/> 
+						<apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="tabChangeStatus"/>
+						<apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+					</apex:pageBlockButtons>
+					<apex:pageBlockSection >
+						<chatter:feedWithFollowers entityId="{!FF.Id}" />
+					</apex:pageBlockSection>
+				</apex:pageBlock>
+			</apex:tab>
+			
+			<apex:tab label="Complete" name="completeTab" id="completeTabId">
+				<table width="700px">
+				<col width="200px" />
+				<col width="500px" />
+			 	 	<tr>
+			 			<td><b>Followup Form</b></td>
+			 			<td></td>
+			 		</tr>
+			 		<tr>
+			 			<td>Print CRF form after saving</td>
+			 			<td></td>
+			 		</tr>
+			 		<tr>
+			 			<td><b>Survival Status</b></td>
+			 			<td></td>
+			 		</tr>
+			 		<tr>
+			 			<td>Reporting Period</td>
+			 			<td>
+			 				<apex:outputField value="{!FF.Start_Date__c}"> 
+			 				</apex:outputField>&nbsp;To&nbsp;<apex:outputField value="{!FF.End_Date__c}"> </apex:outputField>
+			 			</td>
+			 	 	</tr>
+			 		<tr>
+			 			<td>Survival Status</td>
+			 			<td>
+			 				<apex:outputField value="{!FF.Survival_Status__c}"></apex:outputField> 
+			 			</td>
+			 		</tr>
+
+			 	    <tr>
+			 			<td>New Cancer</td>
+			 			<td>
+			 				<apex:outputText value="{!FF.Patient_diagnose_with_new__c}" ></apex:outputText>&nbsp;:&nbsp;
+			 				<apex:outputField value="{!FF.Date__c}"></apex:outputField> 
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td>Treatment(s) for new cancer</td>
+			 			<td></td>
+			 		</tr>
+
+			 		<tr>
+			 			<td>Cause of death</td>
+			 			<td>
+			 				<apex:outputField value="{!FF.Causeof_Death__c}"  ></apex:outputField> 
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td>Cause of death description</td>
+			 			<td>
+			 				<apex:outputField value="{!FF.Describe_Cause_of_Death__c}"  ></apex:outputField> 
+			 			</td>
+			 		</tr>
+	
+					<tr>
+			 			<td>Documented assessment</td>
+			 			<td>
+					 		<apex:outputText value="{!FF.Patient_doc_clinial_assessment__c}" ></apex:outputText>&nbsp;:&nbsp;
+			 				<apex:outputField value="{!FF.Clinical_assessment_Date__c}"></apex:outputField> 
+			 			</td>
+			 		</tr>
+			 		<tr height="2px"></tr>
+			 		<tr>
+			 			<td><b>Notice of Progression</b></td>
+			 			<td></td>
+			 		</tr>
+			    	<tr>
+			 			<td>Local/regional progression</td>
+			 			<td>
+			 				<apex:outputText value="{!FF.patient_diagnosed_local_progression__c}" ></apex:outputText>&nbsp;:&nbsp;
+			 				<apex:outputField value="{!FF.Local_progression_Date__c}"></apex:outputField> 
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td>Sites</td>
+			 			<td>
+			 				<apex:outputField value="{!FF.Local__c}" ></apex:outputField> 
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td>Distant progression</td>
+			 			<td>
+			 				<apex:outputText value="{!FF.patient_diagnosed_distant_progression__c}" ></apex:outputText>&nbsp;:&nbsp;
+			 				<apex:outputField value="{!FF.Distant_progression_Date__c}"></apex:outputField> 
+			 			</td>
+			 		</tr>
+			    	<tr>
+			 			<td>Sites</td>
+			 			<td>
+			 				<apex:outputField value="{!FF.Distant__c}" ></apex:outputField> 
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td>Information obtained</td>
+			 			<td> 
+			 				<apex:outputField value="{!FF.Recurrence_progression_information__c}" ></apex:outputField> 
+			 			</td>
+			 		</tr>
+			 		<tr height="2px"></tr>
+			 		<tr>
+			 			<td><b>Radiation Therapy</b></td>
+			 			<td></td>
+			 		</tr>
+			 		<tr>
+			 			<td>Adjuvant radiation therapy</td>
+			 			<td>
+			 				<apex:outputText value="{!FF.Patient_received_adjuvant_therapy__c}" ></apex:outputText>&nbsp;:&nbsp;
+			 				<apex:outputField value="{!FF.Radiation_Therapy_Start_Date__c}"></apex:outputField>&nbsp;to&nbsp;
+			 				<apex:outputField value="{!FF.Radiation_Therapy_End_Date__c}"></apex:outputField>
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td>Sites Irradiated</td>
+			 			<td></td>
+			 		</tr>
+			 		<tr height="2px"></tr>
+			 		<tr>
+			 			<td><b>Long term Therapy</b></td>
+			 			<td></td>
+			 		</tr>
+			 		<tr>
+			 			<td>Long term Therapy</td>
+			 			<td>
+			 				<apex:outputText value="{!FF.Long_Term_Therapy_for_primary_Trial__c }" ></apex:outputText>
+			 			</td>
+			 		</tr>
+			 		<tr>
+				 		<td>Therapy</td>
+			 			<td></td>
+			 		</tr>
+			 		<tr height="2px"></tr>
+			 		<tr>
+				 		<td><b>Menopausal Status</b></td>
+			 			<td></td>
+			 		</tr>
+			 		<tr>
+				 		<td>Patient Age</td>
+			 			<td></td>
+			 		</tr>
+			 		<tr>
+			 			<td>Date of LMP</td>
+			 			<td>
+			 				<apex:outputText value="{!FF.Date_of_Last_Menstrual_period_UKData__c}"></apex:outputText>
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td>Estrogen Replacement</td>
+			 			<td>
+			 				<apex:outputText value="{!FF.On_Estrogen_Replacement__c}"></apex:outputText>
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td>Bilateral oophorectomy</td>
+			 			<td>
+			 				<apex:outputText value="{!FF.Bilateral_oophorectomy__c}"> </apex:outputText>
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td>Hysterectomy</td>
+			 			<td>
+			 				<apex:outputText value="{!FF.Hysterectomy__c}"> </apex:outputText>
+			 			</td>
+			 		</tr>
+			 		<tr>
+				 		<td>Menopausal Status</td>
+			 			<td>
+			 				<apex:outputField value="{!FF.Menopausal_status__c}"> </apex:outputField>
+			 			</td>
+			 		</tr>
+				</table>
+				<div align="center">
+					<apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>&nbsp;&nbsp;
+					<apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel, pageBlockId, pageBlockId1, pageBlockId2, pageBlockId3" status="tabChangeStatus"/>&nbsp;&nbsp; 
+					<apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+					<br />
+					<font color="Red">{!errorMsg}</font>
+					<br />
+					<apex:outputLabel value="User Id :" style="font-weight: bold;" />&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+					<apex:outputLabel value="Password :"  style="font-weight: bold;"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" />&nbsp;&nbsp;
+					<apex:commandButton value="Sign and Submit" action="{!signAndSubmit}" />
+				</div>
+			</apex:tab>
+		</apex:tabPanel>
+		<script>
+		
+		</script>
+	</apex:form>
+	<script>
+		function changePanel(obj) {
+		 //alert('obj.value : '+obj.value);
+	      var sstatus = obj.value;
+        	if(sstatus == 'Alive') {       
+        		document.getElementById('pageId:j_id1:SurviStId:aPanel').style.display = 'block';
+            	document.getElementById('pageId:j_id1:SurviStId:dPanel').style.display = 'none';
+        	}
+        	else if(sstatus == 'Dead') {
+        		document.getElementById('pageId:j_id1:SurviStId:dPanel').style.display = 'block';
+            	document.getElementById('pageId:j_id1:SurviStId:aPanel').style.display = 'none';
+        	}
+		}
+		
+		function showOtherField(obj) {
+			
+			var elemName = obj.getAttribute('name');
+			var elemValue = obj.value;
+			
+			
+			if ( elemValue == 'true'){
+			//	alert(elemName + ' ' + elemValue);
+			if 		 (elemName == 'pageId:j_id1:SurviStId:surgId')  document.getElementById('pageId:j_id1:SurviStId:sdetId').disabled = false;
+			else if  (elemName == 'pageId:j_id1:SurviStId:chemoId')  document.getElementById('pageId:j_id1:SurviStId:cdetId').disabled = false;
+			else if  (elemName == 'pageId:j_id1:SurviStId:radioId')  document.getElementById('pageId:j_id1:SurviStId:rdetId').disabled = false;			
+			else if  (elemName == 'pageId:j_id1:SurviStId:harId')  document.getElementById('pageId:j_id1:SurviStId:hdetId').disabled = false;
+			
+			}
+			
+			else if ( elemValue == 'false') {
+			//alert(elemName + ' f' + elemValue);
+			
+			if 		 (elemName == 'pageId:j_id1:SurviStId:surgId')  document.getElementById('pageId:j_id1:SurviStId:sdetId').disabled = true;
+			else if  (elemName == 'pageId:j_id1:SurviStId:chemoId')  document.getElementById('pageId:j_id1:SurviStId:cdetId').disabled = true;
+			else if  (elemName == 'pageId:j_id1:SurviStId:radioId')  document.getElementById('pageId:j_id1:SurviStId:rdetId').disabled = true;			
+			else if  (elemName == 'pageId:j_id1:SurviStId:harId')  document.getElementById('pageId:j_id1:SurviStId:hdetId').disabled = true;
+			
+			}
+			
+			//alert(elemName + ' c' + elemValue);
+			
+		}
+		
+	
+	
+	</script>
+	
+	
+	
+</apex:page>

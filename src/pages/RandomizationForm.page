@@ -1,0 +1,462 @@
+<apex:page standardController="Randomization_Form__c" extensions="RandomizationFormController" sidebar="false" id="pageId" action="{!saveMainCRF}" tabStyle="Patient_Custom__c">
+<script type="text/javascript">
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script> 
+    <style>
+        .mystyle
+        {
+            background-color: #cf00f8;
+        }
+        
+        .activeTab {
+            background: none repeat scroll 0 0 #FFFFFF;
+            border-bottom: 2px solid #FFFFFF;
+            color: #000000;
+            font-weight: 600;
+            width: 180px;
+        }
+        
+        .inactiveTab {
+          cursor: pointer;
+          background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+          color: white; /*#3C3C3C;*/
+          font-weight: bold;
+          font-size: 12px;
+          height: 15px;
+          width: 180px;
+          vertical-align: middle;
+          border: none;
+        }
+         
+        .rich-tab-inactive {
+         background-repeat: repeat-x;
+         border-color: #FFFFFF;
+         border-style: none;
+         border-width: 0;
+         cursor: pointer;
+        }
+        
+        .rich-tabhdr-side-border {
+         background-image:none; 
+         border-radius: 4px 4px 0 0;
+         background-color: none;
+         width: 2px;
+        }
+        
+        .rich-tabhdr-side-cell {
+         box-shadow: 0 -2px 2px #A7A7A8;
+         border-top: 2px solid #056FC1;
+         border-left: 2px solid #056FC1;
+         border-right: 2px solid #056FC1;
+         border-radius: 4px 4px 0 0;
+        }
+        
+        .rich-tabpanel-content {
+         background-color: #fff;
+         border-left: 2px solid #056FC1;
+         border-right: 2px solid #056FC1;
+         border-bottom: 2px solid #056FC1;
+        }
+        
+        .rich-tab-bottom-line {
+         border-bottom: 1px solid #056FC1;
+        }
+        
+        .accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+         background-color: #97C7EC;
+        }
+        
+        body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+         background-color: #fff;
+        }
+        .name 
+        {
+        font-size: 1.50em;
+        font-weight: bold;
+        }
+        .selectbox{
+            background-color: #2F96E4;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            height: 25px;
+            position: relative;
+            width: 152px;
+            border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+            color:#fff;
+            font-size:12px; font-weight: bold;
+            padding:3px 0 3px 10px;
+        }
+    </style>
+    <script>
+    function cancelConfirm() {
+        if(confirm('Completely Cancel and Remove?')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function changeSignStatus(obj) {
+        
+        if(obj.value == 'true') {
+            var reasontd = document.getElementById('reasontd');
+            var inputNodes = reasontd.getElementsByTagName('input');
+            for(var i=0;i<inputNodes.length;i++) {
+                inputNodes[i].checked = false;
+                inputNodes[i].disabled = true;
+                document.getElementById('pageId:formId:pageBlockId:OtherId').style.display = 'none';
+            }
+            
+            var textNodes = reasontd.getElementsByTagName('textarea');
+            
+            for(var i=0;i<textNodes.length;i++) {
+                textNodes[i].value = '';
+                textNodes[i].disabled = true;
+            }
+            document.getElementById('pageId:formId:pageBlockId:signDateId').disabled = false;
+        } else {
+            
+            var reasontd = document.getElementById('reasontd');
+            var inputNodes = reasontd.getElementsByTagName('input');
+            for(var i=0;i<inputNodes.length;i++) {
+                inputNodes[i].disabled = false;
+            }
+            
+            var textNodes = reasontd.getElementsByTagName('textarea');
+            for(var i=0;i<textNodes.length;i++) {
+                textNodes[i].disabled = false;
+            }
+            document.getElementById('pageId:formId:pageBlockId:signDateId').disabled = true;
+        }
+    }
+    
+    function enableOtherField(obj) {
+        if(obj.value == 'Other') {
+            document.getElementById('pageId:formId:pageBlockId:OtherId').style.display = 'block';
+        } else {
+            document.getElementById('pageId:formId:pageBlockId:OtherId').style.display = 'none';
+        }
+    }
+    function enterToNextTab(val){
+        //alert(val); 
+        if('{!isComplete}' != 'false'){
+            document.getElementById('pageId:formId:nextTabNameID').value = val;
+            next();
+        }
+    } 
+    function startSplash() {
+        var divObj = document.getElementById('splashDiv');
+        var msgSplash =document.getElementById('waitMsg');
+        var browserName = navigator.appName;
+        if(browserName == 'Netscape'){
+            divObj.style.display='table-cell'; 
+        } else {
+            divObj.style.display='table-cell';
+        }
+    }
+    function endSplash() {            
+        document.getElementById('splashDiv').style.display='none';
+    }
+    </script>
+    <div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+        <div style="text-align: center; top: 50%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+    </div>
+    <span class ="name">Patient's Details</span>
+    <br/>
+        <c:PatientDetailReadOnly patientId="{!trialPatientObj.Patient_Id__c}"/>
+    <br/>   
+    
+    <table width="100%">
+        <tr>
+            <td width="40%" align="left">
+                 <span class ="name"> Randomization Form </span>
+            </td>
+            <td width="60%" align="left">
+                <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialPatientObj.Trial_Id__r.Name}" />
+            </td>
+        </tr>
+    </table>
+    <apex:form id="formId" >
+    	<apex:pageMessages ></apex:pageMessages>
+        <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User', false, true)}">  
+            <apex:pageblock id="pageBlockIdBtn" tabStyle="Account" helpTitle="Help"  helpUrl="/apex/RandomizationFormUserGuide" rendered="{!isComplete}">
+                <apex:pageMessages />
+                <apex:pageBlockButtons location="top">
+                            <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel" status="splashStatus">
+                                <apex:param name="nextTab" value="saveAndClose"/>
+                            </apex:commandButton>
+                        <apex:outputPanel rendered="{!armNOTAssigned}">
+                            <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>
+                        </apex:outputPanel>
+                </apex:pageBlockButtons>
+            </apex:pageblock>
+        </apex:outputPanel>
+        <apex:actionFunction name="next" action="{!next}"  rerender="formId" status="splashStatus"/>
+            <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+        <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " /> 
+        <apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+            <apex:tab label="Randomization" name="firstTab" id="firstTabId" ontabenter="enterToNextTab('firstTab');" rendered="{!IF(randObj.Status__c = 'Approval Not Required', false, true)}">   
+            <apex:pageblock id="pageBlockId" tabStyle="Account">   
+                <apex:pageMessages />     
+                <apex:pageBlockButtons location="top">
+                    <apex:outputPanel rendered="{!isRandomized}"> 
+                        <!--<apex:outputPanel rendered="{!armNOTAssigned}">
+                                <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>
+                            </apex:outputPanel> -->
+                            <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus">
+                                <apex:param name="nextTab" value="SecondTab"/>
+                            </apex:commandButton> 
+                            <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />
+                    </apex:outputPanel> 
+                </apex:pageBlockButtons>
+                <apex:dataTable style="border: 1px solid #d8d8d8;" cellpadding="3" cellspacing="1" value="{!lstCRFStatusWrapper}" var="crfStatus" id="dataTable" width="50%" rowClasses="odd,even" styleClass="tableClass">
+                    <apex:column headerClass="tableHead">
+                        <apex:facet name="header">CRF</apex:facet>
+                        <apex:outputLabel value="{!crfStatus.CRFType}" />
+                    </apex:column>
+                    <apex:column headerClass="tableHead">
+                        <apex:facet name="header">Submitted</apex:facet>
+                        <apex:outputLabel value="{!crfStatus.IsSubmitted}" />
+                    </apex:column>
+                    <apex:column headerClass="tableHead">
+                        <apex:facet name="header">Approved</apex:facet>
+                        <apex:outputLabel value="{!crfStatus.IsApproved}" />
+                    </apex:column>
+                </apex:dataTable>
+                <b>{!randomizeMessage}</b>&nbsp;&nbsp;&nbsp;<font color="red">{!eligibleMessage}</font>
+                <br />
+                <b></b>
+                <br />
+                <apex:outputPanel >
+                    <table width="100%" id="tableId">
+                        <tr>
+                            <td colspan="2">
+                                Treatment patient has been randomized to: &nbsp;&nbsp;&nbsp;&nbsp;
+                                <b><apex:outputField value="{!randObj.Randomization_Result__c}" id="randResId"/></b>
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td colspan="2">
+                        		<apex:outputPanel rendered="{! (showAdminData && randObj.Not_Randomized_Reason__c != null)}">
+                            		Not&nbsp;Randomized&nbsp;Reason:&nbsp;
+                            		<b><apex:outputField value="{!randObj.Not_Randomized_Reason__c}" id="notRandomizedReason"/></b>
+                            	</apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td colspan="2">
+                        		<apex:outputPanel rendered="{! (showAdminData)}">
+                            		Test&nbsp;Case&nbsp;Number:&nbsp;
+                            		<b><apex:outputField value="{!randObj.Test_Case_Number__c}" id="testCaseNumber"/></b>
+                            	</apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="35%">Did patient sign treatment consent form for their randomized treatment?&nbsp;</td>
+                            <td width="65%">
+                                <table width="100%">
+                                    <tr>
+                                        <td width="30%">
+                                            <apex:selectRadio id="endReasonId" value="{!Selectedsign}" onchange="changeSignStatus(this);">
+                                                <apex:selectOptions value="{!lstSign}" /> 
+                                            </apex:selectRadio>
+                                        </td>
+                                        
+                                        <td width="30%">Date: &nbsp;<apex:inputField value="{!randObj.Consent_Signed_Date__c}" id="signDateId"/>
+                                            <script type="text/javascript">
+                                            document.getElementById('{!$component.signDateId}').onfocus = function onfocus(event) {
+                                                DatePicker.pickDate(true, '{!$component.signDateId}', false); 
+                                                addYearInDateField(''); 
+                                            };
+                                            </script>
+                                        </td>
+                                        
+                                    </tr>
+                                </table>
+                                <script>
+                                    if("{!isRandomized}" == "true") {
+                                        document.getElementById('pageId:formId:pageBlockId:endReasonId:0').disabled=false;
+                                    } else {
+                                        document.getElementById('pageId:formId:pageBlockId:endReasonId:0').disabled=true;
+                                    }
+                                </script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="35%">&nbsp;</td>
+                            <td width="65%" id="reasontd">
+                                 <apex:selectRadio id="ReasonId" value="{!randObj.Why_Patient_Not_Signed_Consent_Form__c}" layout="pageDirection" onchange="enableOtherField(this);">
+                                        <apex:selectOptions value="{!lstReason}" /> 
+                                 </apex:selectRadio>
+                                 <apex:inputField value="{!randObj.Other_Reason_Did_Not_Sign_Consent_Form__c}" id="OtherId" style="display: none;"/>
+                                  <script>
+                                    
+                                    if("{!randObj.Why_Patient_Not_Signed_Consent_Form__c}" == "Other") {
+                                        document.getElementById('{!$Component.OtherId}').style.display = 'block';
+                                    }
+                                    if("{!Selectedsign}" == "true") {
+                                        var reasontd = document.getElementById('reasontd');
+                                        var inputNodes = reasontd.getElementsByTagName('input');
+                                        for(var i=0;i<inputNodes.length;i++) {
+                                            inputNodes[i].disabled = true;
+                                        }
+                                        
+                                        var textNodes = reasontd.getElementsByTagName('textarea');
+                                        
+                                        for(var i=0;i<textNodes.length;i++) {
+                                            textNodes[i].disabled = true;
+                                        }
+                                        document.getElementById('pageId:formId:pageBlockId:signDateId').disabled = false;
+                                    } else {
+                                        
+                                        var reasontd = document.getElementById('reasontd');
+                                        var inputNodes = reasontd.getElementsByTagName('input');
+                                        for(var i=0;i<inputNodes.length;i++) {
+                                            inputNodes[i].disabled = false;
+                                        }
+                                        
+                                        var textNodes = reasontd.getElementsByTagName('textarea');
+                                        for(var i=0;i<textNodes.length;i++) {
+                                            textNodes[i].disabled = false;
+                                        }
+                                        document.getElementById('pageId:formId:pageBlockId:signDateId').disabled = true;
+                                    }
+                                    
+                                 </script>
+                            </td>
+                        </tr>
+                    </table>
+                    <script>
+                    /*  var tableObj = document.getElementById('pageId:formId:pageBlockId:randResId').parnetNode.parnetNode.parnetNode;
+                        alert(tableObj);
+                        var likeString = tableObj.getElementsByTagName('input');
+                        alert("{!isRandomized}");
+                        if("{!isRandomized}" == "false") {
+                            for(var i=0;i<likeString.length;i++) {
+                                likeString[i].disabled = true;
+                            }
+                        } else {
+                            for(var i=0;i<likeString.length;i++) {
+                                likeString[i].disabled = false;
+                            }
+                        } */
+                    </script>
+                </apex:outputPanel>
+            </apex:pageblock>
+            </apex:tab>
+                                                                      
+            <apex:tab label="Complete" name="SecondTab" id="SecondTabId" ontabenter="enterToNextTab('SecondTab');">             
+            <apex:pageblock tabStyle="Account">
+            
+            <apex:pageBlockButtons location="top"> 
+                <!--<apex:outputPanel rendered="{!armNOTAssigned}">
+                    <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true" rendered="{!isComplete}" />
+                </apex:outputPanel> -->
+                <apex:commandLink target="_blank" style="text-decoration:none;" styleClass="btn" action="{!redirect}" value="Generate Pdf" rendered="{! randObj.status__c == 'Approval Not Required'}"/> 
+                    <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus" rendered="{!isComplete}"/> 
+            </apex:pageBlockButtons>
+            <font size="3"><b><apex:outputlabel value="Randomization Summary" >
+                </apex:outputlabel></b></font> <br /><br />
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <apex:dataTable style="border: 1px solid #d8d8d8;" cellpadding="3" cellspacing="1" value="{!lstCRFStatusWrapper}" var="crfStatus" id="dataTable" width="50%" rowClasses="odd,even" styleClass="tableClass">
+                                <apex:column headerClass="tableHead">
+                                    <apex:facet name="header">CRF</apex:facet>
+                                    <apex:outputLabel value="{!crfStatus.CRFType}" />
+                                </apex:column>
+                                <apex:column headerClass="tableHead">
+                                    <apex:facet name="header">Submitted</apex:facet>
+                                    <apex:outputLabel value="{!crfStatus.IsSubmitted}" />
+                                </apex:column>
+                                <apex:column headerClass="tableHead">
+                                    <apex:facet name="header">Approved</apex:facet>
+                                    <apex:outputLabel value="{!crfStatus.IsApproved}" />
+                                </apex:column>
+                            </apex:dataTable>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>
+                                Randomization Result:
+                                &nbsp;&nbsp;<apex:outputField value="{!randObj.Randomization_Result__c}"/>
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><b>Treatment Consent Form</b></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Signed&nbsp;:&nbsp;
+                            <apex:outputPanel rendered="{!randObj.Did_Patient_Sign_Treatment_Consent_Form__c}">
+                                <apex:outputField value="{!randObj.Consent_Signed_Date__c}" />
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(randObj.Did_Patient_Sign_Treatment_Consent_Form__c, false, true)}">
+                                No&nbsp;-&nbsp;<apex:outputField value="{!randObj.Why_Patient_Not_Signed_Consent_Form__c}" />&nbsp;(<apex:outputField value="{!randObj.Other_Reason_Did_Not_Sign_Consent_Form__c}" />)
+                            </apex:outputPanel>
+                            
+                        </td> 
+                    </tr>
+                </table>    
+            </apex:pageblock>
+            <apex:outputPanel id="msgPanelId" layout="block" style="width: 100%;">
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" width="100%" align="center">
+                                    <br /> 
+                                    <font color="{!msgColor}">{!errorMsg}&nbsp;</font>
+                                    <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%">&nbsp;</td>
+                                <td width="70%">
+                                    <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!isComplete}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!isComplete}"/>&nbsp;&nbsp;
+                                    <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" rendered="{!isComplete}"/>
+                                    <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" rendered="{!isComplete}"/>
+                                    <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                                </td>
+                            </tr>
+                        </table>
+                </apex:outputPanel> 
+            </apex:tab>
+        </apex:tabPanel>
+    </apex:form>
+    
+ </apex:page>

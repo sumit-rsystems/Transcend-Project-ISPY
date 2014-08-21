@@ -1,0 +1,492 @@
+<apex:page StandardController="ProtocolViolationDetail__c" extensions="ProtocolViolationController" sideBar="false" id="pageId" tabStyle="Patient_Custom__c" action="{!saveMainCRF}">
+<apex:messages />
+<script type="text/javascript">
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script>
+    <style>
+        .mystyle
+        {
+            background-color: #cf00f8;
+        }
+          
+        .activeTab {
+            background: none repeat scroll 0 0 #FFFFFF;
+            border-bottom: 2px solid #FFFFFF;
+            color: #000000;
+            font-weight: 600;   
+            width: 180px; 
+        }
+        
+        .inactiveTab {
+          cursor: pointer;
+          background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+          color: white; /*#3C3C3C;*/
+          font-weight: bold;
+          font-size: 12px;
+          height: 15px;
+          width: 180px;
+          vertical-align: middle;
+          border: none;
+        }
+         
+        .rich-tab-inactive {
+         background-repeat: repeat-x;
+         border-color: #FFFFFF;
+         border-style: none;
+         border-width: 0;
+         cursor: pointer;
+        }
+        
+        .rich-tabhdr-side-border {
+         background-image:none; 
+         border-radius: 4px 4px 0 0;
+         background-color: none;
+         width: 2px;
+        }
+        
+        .rich-tabhdr-side-cell {
+         box-shadow: 0 -2px 2px #A7A7A8;
+         border-top: 2px solid #056FC1;
+         border-left: 2px solid #056FC1;
+         border-right: 2px solid #056FC1;
+         border-radius: 4px 4px 0 0;
+        }
+        
+        .rich-tabpanel-content {
+         background-color: #fff;
+         border-left: 2px solid #056FC1;
+         border-right: 2px solid #056FC1;
+         border-bottom: 2px solid #056FC1;
+        }
+        
+        .rich-tab-bottom-line {
+         border-bottom: 1px solid #056FC1;
+        }
+        
+        .accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+         background-color: #97C7EC;
+        }
+        
+        body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+         background-color: #fff;
+        }
+        .name 
+        {
+        font-size: 1.50em;
+        font-weight: bold;
+        }
+        .selectbox{
+            background-color: #2F96E4;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            height: 25px;
+            position: relative;
+            width: 152px;
+            border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+            color:#fff;
+            font-size:12px; font-weight: bold;
+            padding:3px 0 3px 10px;
+        }
+    </style>
+    <script>
+    function cancelConfirm() {
+        if(confirm('Completely Cancel and Remove?')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function checkDelete() {
+        if(confirm('Are you sure you want to Delete this form?')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+        function showOther(val) { 
+            if(val.checked == true) {
+                document.getElementById('pageId:formId:proVioBlockId:otherId').style.display='';
+            } else {
+                document.getElementById('pageId:formId:proVioBlockId:otherId').style.display='none';
+                document.getElementById('pageId:formId:proVioBlockId:otherId').value = '';
+            }
+        }
+        
+        function showOther1(val) { 
+            if(val.checked == true) {
+                document.getElementById('pageId:formId:proVioBlockId:otherId1').style.display='';
+            } else {
+                document.getElementById('pageId:formId:proVioBlockId:otherId1').style.display='none';
+                document.getElementById('pageId:formId:proVioBlockId:otherId1').value = '';
+            }
+        }
+        function startSplash() {
+            var divObj = document.getElementById('splashDiv');
+            var msgSplash =document.getElementById('waitMsg');
+            var browserName = navigator.appName;
+            if(browserName == 'Netscape'){
+                divObj.style.display='table-cell'; 
+            } else {
+                divObj.style.display='table-cell';
+            }
+        }
+        
+        function endSplash() {            
+            document.getElementById('splashDiv').style.display='none';
+        }
+    </script>
+    <div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+        <div style="text-align: center; top: 40%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+    </div>
+    <span class ="name">Patient's Details</span>
+    <br/>
+        <c:PatientDetailReadOnly patientId="{!trialPatientObj.Patient_Id__c}"/>
+    <br/>   
+    
+    <table width="100%">
+    <tr>
+        <td width="40%" align="left">
+             <span class ="name"> Protocol Violation  </span>
+        </td>
+        <td width="60%" align="left">
+            <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialPatientObj.Trial_Id__r.Name}" />
+        </td>
+    </tr>
+</table>
+    <apex:form id="formId">
+        <apex:pageMessages ></apex:pageMessages>
+    <apex:pageBlock id="protocolViolationBtn" helpTitle="Help"  helpUrl="/apex/ProtocolViolationUserGuide"  tabStyle="Account" rendered="{!isComplete}">
+        <apex:pageBlockButtons location="top" >
+            <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel" status="splashStatus">
+                <apex:param name="nextTab" value="saveAndClose"/>
+            </apex:commandButton>
+            <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+    <apex:pageBlock rendered="{!isDelete}">
+          <apex:pageBlockButtons location="top" >
+              <apex:commandButton action="{!cancelCRF}" value="Delete" onClick="return checkDelete();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+       <apex:commandLink target="_blank" style="text-decoration:none;padding:3.3px;" styleClass="btn" action="{!redirect}" value="Generate Pdf" rendered="{!protocolViolation.Status__c =='Accepted'}" /> 
+               
+          </apex:pageBlockButtons>
+         <!--  <apex:pageBlockButtons location="bottom" >
+           <apex:commandLink target="_blank" style="text-decoration:none;padding:3.3px;" styleClass="btn" action="{!redirect}" value="Generate Pdf" rendered="{!protocolViolation.Status__c =='Accepted'}" /> 
+          </apex:pageBlockButtons> -->
+    </apex:pageBlock>
+        <apex:actionFunction name="next" action="{!next}"  rerender="theTabPanel" status="splashStatus"/>
+        <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+        <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " /> 
+        <apex:outputPanel >
+        <script>
+            function enterToNextTab(val){
+                //alert(val);
+                if('{!isComplete}' != 'false'){
+                    document.getElementById('pageId:formId:nextTabNameID').value = val;
+                    next();
+                }
+            }
+        </script>
+        </apex:outputPanel>
+        <apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+            <apex:tab label="Protocol Violation" name="firstTab" id="firstTabId" ontabenter="enterToNextTab('firstTab');" rendered="{!isComplete}">
+                <apex:pageMessage summary="{!errorMsg}" severity="error" strength="3" rendered="{!isActionTaken}"/>
+                <apex:pageBlock id="proVioBlockId" title="Protocol Violation" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+                        <!--<apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/> -->
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus">
+                            <apex:param name="nextTab" value="SecondTab"/>
+                        </apex:commandButton>
+                    </apex:pageBlockButtons>
+                    <table width="100%">
+                        <tr>  
+                            <td width="50%">   
+                                <table>
+                                    <tr>
+                                        <td>
+                                            Date of protocol violation:&nbsp;
+                                            <apex:inputField value="{!protocolViolation.DateOfProtocolViolation__c}" required="true" id="protocolViolationDate"/>
+                                            <script type="text/javascript">
+                                                document.getElementById('{!$component.protocolViolationDate}').onfocus = function onfocus(event) {
+                                                    DatePicker.pickDate(true, '{!$component.protocolViolationDate}', false); 
+                                                    addYearInDateField(''); 
+                                                };
+                                            </script>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Type of Protocol Violation</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <apex:inputField value="{!protocolViolation.Medication_non_complicance__c}" />
+                                            &nbsp;Medication non-complicance
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <apex:inputField value="{!protocolViolation.Visit_non_complicance__c}" />
+                                            &nbsp;Visit non-complicance
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <apex:inputField value="{!protocolViolation.On_study_procedure_required_by_protocol__c}" />
+                                            &nbsp; On-study procedure required by protocol not completed
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <apex:inputField value="{!protocolViolation.Incorrect_therapy_given_to_patient__c}" />
+                                            &nbsp;Incorrect therapy given to patient
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <apex:inputField value="{!protocolViolation.Screening_and_on_study_test_lab_done__c}" />
+                                            &nbsp;Screening and on-study test/lab done outside the protocol required time
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <apex:inputField value="{!protocolViolation.Screening_procedure_required__c}" />
+                                            &nbsp;Screening procedure required by protocol not done
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <apex:inputField value="{!protocolViolation.Eligibility_criteria_exception__c}" />
+                                            &nbsp;Eligibility criteria exception
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <apex:inputField value="{!protocolViolation.Enrollment_of_ineligeligibleible_patient__c}" />
+                                            &nbsp;Enrollment of ineligible patient
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <apex:inputField value="{!protocolViolation.Patient_became_pregnant_prior_to_surgery__c}" />
+                                            &nbsp;Patient became pregnant prior to surgery
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <apex:inputField value="{!protocolViolation.Other_Violation_Checkbox__c}" onclick="showOther(this);" id="violationChk"/>
+                                            &nbsp;Other&nbsp;&nbsp;&nbsp;
+                                            <apex:inputField value="{!protocolViolation.Other_Type_of_Violation__c}" id="otherId" style="display: none;"/>
+                                            <script>
+                                                if("{!protocolViolation.Other_Violation_Checkbox__c}" == "true") {
+                                                    document.getElementById('{!$Component.otherId}').style.display = "";
+                                                } 
+                                            </script>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Action taken</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <apex:inputField value="{!protocolViolation.Patient_Remains_on_Study__c}" />
+                                            &nbsp;Patient remains on study but data analysis will be modified
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <apex:inputField value="{!protocolViolation.Patient_withdrawn__c}" />
+                                            &nbsp;Patient withdrawn
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <apex:inputField value="{!protocolViolation.Other_Action_Checkbox__c}" onclick="showOther1(this);"/>
+                                            &nbsp;Other&nbsp;&nbsp;&nbsp;
+                                            <apex:inputField value="{!protocolViolation.Other_Action__c}" id="otherId1" style="display: none;"/>
+                                            <script>
+                                                //alert("{!protocolViolation.Other_Action_Checkbox__c}");
+                                                if("{!protocolViolation.Other_Action_Checkbox__c}" == "true") {
+                                                    document.getElementById('{!$Component.otherId1}').style.display = "";
+                                                } 
+                                            </script>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Was the local IRB notified?&nbsp;
+                                            <apex:inputField value="{!protocolViolation.Local_IRB_Notified__c}" required="true"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="50%" valign="top">
+                                <b>Narrative description of protocol violation:</b><br/>
+                                <apex:inputField value="{!protocolViolation.Narrative_description__c}" style="width : 500px; height : 300px;"/>
+                            </td>
+                        </tr>
+                    </table>
+                </apex:pageBlock>
+            </apex:tab>
+            <apex:tab label="Comments & Attachments" name="SecondTab" id="SecondTabId" ontabenter="enterToNextTab('SecondTab');" rendered="{!isComplete}">
+                <apex:pageBlock title="Comments & Attachments" tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+                        <!--<apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/> -->
+                        <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel" status="splashStatus">
+                            <apex:param name="prevTab" value="firstTab"/>
+                        </apex:commandButton> 
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus">
+                            <apex:param name="nextTab" value="ThirdTab"/>
+                        </apex:commandButton> 
+                    </apex:pageBlockButtons>
+                    <apex:pageMessage summary="Please redact all PHI information from attachments." severity="info" strength="3"/>
+                    <apex:pageBlockSection columns="1">
+<!--                        <chatter:feedWithFollowers entityId="{!protocolViolation.Id}" />-->
+                        <apex:iframe src="/apex/ChatterPage?recId={!protocolViolation.Id}" scrolling="true" id="theIframe"/>
+                        <c:CRFAttachmentComponent rId="{!protocolViolation.Id}" feedCRFName="ProtocolViolationDetail__Feed" rtId="{!protocolViolation.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:tab>
+            <apex:tab label="Complete" name="ThirdTab" id="ThirdTabId" ontabenter="enterToNextTab('ThirdTab');">
+                <apex:pageBlock tabStyle="Account">
+                <apex:pageBlockButtons location="top" >
+                   </apex:pageBlockButtons>
+                   <!-- <apex:pageBlockButtons location="top" >
+                      <apex:commandButton action="{!cancelCRF}" value="Delete" onClick="return cancelConfirm();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+                    </apex:pageBlockButtons> -->
+                    <!--<apex:actionFunction name="editCRF" action="{!editCRF}" rerender="theTabPanel" status="processStatus"/>
+                    <apex:outputPanel id="dummayPanel">
+                        <script>
+                            //alert("{!openInEditMode}");
+                            if("{!openInEditMode}" == "true") {
+                                editCRF();
+                            }
+                        </script>
+                    </apex:outputPanel>-->
+                    <apex:outputPanel layout="block" style="text-align : center;" rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">
+                        <apex:commandButton action="{!editCRF}" value=" Edit " reRender="formId" status="counterStatus" rendered="{!IF(AND(protocolViolation.Status__c == 'Rejected', isShowEditButton),true,false)}"/>
+                        <!-- <apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true" rendered="{!isComplete}"/>&nbsp;&nbsp; -->
+                        <apex:commandButton action="{!previous}" value=" Previous " reRender="theTabPanel, pageBlockId, pageBlockId1, pageBlockId2, pageBlockId3" status="splashStatus" rendered="{!isComplete}">&nbsp;&nbsp;
+                            <apex:param name="prevTab" value="SecondTab"/>
+                            
+                        </apex:commandButton>
+                        <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                    </apex:outputPanel>     
+                    <table>
+                        <tr>
+                            <td>Date of protocol violation:&nbsp;</td>
+                            <td>
+                                <apex:outputField value="{!protocolViolation.DateOfProtocolViolation__c}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Type of Protocol Violation:&nbsp;</td>
+                            <td>
+                                <apex:outputLabel value="Medication non-complicance" rendered="{!protocolViolation.Medication_non_complicance__c}"/>
+                                <apex:outputLabel value=", Visit non-complicance" rendered="{!protocolViolation.Visit_non_complicance__c}"/>
+                                <apex:outputLabel value=", On-study procedure required by protocol not completed" rendered="{!protocolViolation.On_study_procedure_required_by_protocol__c}"/>
+                                <apex:outputLabel value=", Incorrect therapy given to patient" rendered="{!protocolViolation.Incorrect_therapy_given_to_patient__c}"/>
+                                <apex:outputLabel value=", Screening and on-study test/lab done outside the protocol required time" rendered="{!protocolViolation.Screening_and_on_study_test_lab_done__c}"/>
+                                <apex:outputLabel value=", Screening procedure required by protocol not done" rendered="{!protocolViolation.Screening_procedure_required__c}"/>
+                                <apex:outputLabel value=", Eligibility criteria exception" rendered="{!protocolViolation.Eligibility_criteria_exception__c}"/>
+                                <apex:outputLabel value=", Enrollment of ineligible patient" rendered="{!protocolViolation.Enrollment_of_ineligeligibleible_patient__c}"/>
+                                <apex:outputLabel value=", Patient became pregnant prior to surgery" rendered="{!protocolViolation.Patient_became_pregnant_prior_to_surgery__c}"/>
+                                <apex:outputLabel value=", {!protocolViolation.Other_Type_of_Violation__c}" rendered="{!protocolViolation.Other_Violation_Checkbox__c}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Action taken:&nbsp;</td>
+                            <td>
+                                <apex:outputLabel value="Patient remains on study but data analysis will be modified" rendered="{!protocolViolation.Patient_Remains_on_Study__c}"/>
+                                <apex:outputLabel value=", Patient withdrawn" rendered="{!protocolViolation.Patient_withdrawn__c}"/>
+                                <apex:outputLabel value=", {!protocolViolation.Other_Action__c}" rendered="{!protocolViolation.Other_Action_Checkbox__c}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Was the local IRB notified?</td>
+                            <td>
+                                <apex:outputField value="{!protocolViolation.Local_IRB_Notified__c}" />
+                            </td>
+                        </tr>
+                    </table>
+                    <apex:pageBlockSection columns="1" title="Narrative description of protocol violation:">
+                        <apex:pageBlockSectionItem labelStyle="width: 1%;">
+                            <apex:outputLabel value=""/>
+                            <apex:outputField value="{!protocolViolation.Narrative_description__c}" />
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(protocolViolation.Id))}">
+                        <c:CRFAttachmentComponent rId="{!protocolViolation.Id}" feedCRFName="ProtocolViolationDetail__Feed" rtId="{!protocolViolation.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(protocolViolation.Id))}">
+                        <c:CRFEventComponent rId="{!protocolViolation.Id}" objectName="ProtocolViolationDetail__c" rtId="{!protocolViolation.Root_CRF_Id__c}"/>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <apex:outputPanel id="msgPanelId" layout="block" style="width: 100%;">
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" width="100%" align="center">
+                                    <br /> 
+                                    <font color="{!msgColor}">{!errorMsg}&nbsp;</font>
+                                    <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%">&nbsp;</td>
+                                <td width="70%">
+                                    <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!isComplete}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!isComplete}"/>&nbsp;&nbsp;
+                                    <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" rendered="{!isComplete}"/>
+                                    <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" rendered="{!isComplete}"/>
+                                    <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                                </td>
+                            </tr>
+                        </table>
+                </apex:outputPanel> 
+            </apex:tab>
+        </apex:tabPanel>
+    </apex:form>
+</apex:page>

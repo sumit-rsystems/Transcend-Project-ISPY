@@ -1,0 +1,440 @@
+<apex:component controller="AddToxicityComponent" allowDML="true">
+<script type="text/javascript">
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script>
+    <script>
+        /*function changeSymptomsStatus(obj) {
+            
+            trObj = obj.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+            var anchorList = trObj.getElementsByTagName('a');
+            //alert(anchorList.length);
+            var nextTr = trObj.parentNode.rows[ trObj.rowIndex + 1 ];
+            
+            for(var i=0;i<anchorList.length;i++) {
+                if(obj.value == 'Yes') {
+                    anchorList[i].style.display = '';
+                } else {
+                    anchorList[i].style.display = 'none';
+                    //nextTr.style.display = 'none';
+                }
+            }
+        }
+        */
+        function showContent(img1, img2, trObj) {
+            //alert(img1);
+            imgObj1 = document.getElementById(img1);
+            imgObj2 = document.getElementById(img2);
+            imgObj2.style.display = '';
+            imgObj1.style.display = 'none';
+            
+        }
+        
+        function showToxicityDetail(obj) {
+            var trObj = obj.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+            var tbodyObj = obj.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+            var tbodyTrList = tbodyObj.getElementsByTagName('tr');
+            for(var i=2; i<tbodyTrList.length; i++) {
+                if(obj.value == 'Yes') {
+                    tbodyTrList[i].style.display = '';
+                } else {
+                    tbodyTrList[i].style.display = 'none';
+                }
+            }
+            
+            /*var trSelectList = trObj.getElementsByTagName('select');
+            var tdList = trObj.getElementsByTagName('td');
+            var tdSelectList = tdList[0].getElementsByTagName('select');
+            //var tdLabelList = tdList[0].getElementsByTagName('label');
+            
+            for(var i=0; i<tdSelectList.length; i++) {
+                if(obj.value == 'Yes') {
+                    tdSelectList[i].disabled = true;
+                } else {
+                    tdSelectList[i].disabled = false;
+                }
+            }*/
+        }
+        
+        function enableEndDate(obj) {
+            trObj = obj.parentNode.parentNode.parentNode;
+            currentTdObj = obj.parentNode.parentNode;
+            var tdList = trObj.getElementsByTagName('td');
+            var tdNumber = '';
+            var nextTdObj = '';
+            
+            for(var i = 0; i<tdList.length; i++) {
+                if(currentTdObj == tdList[i]) {
+                    tdNumber = i;
+                    nextTdObj = tdList[i+1];
+                    break;
+                }
+            }
+            var nextTdInputList = nextTdObj.getElementsByTagName('input');
+            
+            for(var i=0; i<nextTdInputList.length; i++) {
+                if(obj.checked) {
+                    nextTdInputList[i].disabled = false;
+                } else {
+                    nextTdInputList[i].disabled = true;
+                }
+            }
+        }
+        
+        function updateSAE(obj) {
+            var tbodyObj = obj.parentNode.parentNode.parentNode.parentNode;
+            var trList = tbodyObj.getElementsByTagName('tr');
+            
+            if(obj.checked) {
+                for(var i = 0; i<trList.length; i++) {
+                    if(i == 12) {
+                        secondTdLabelList = trList[i].getElementsByTagName('td')[1].getElementsByTagName('label');
+                        secondTdInputList = trList[i].getElementsByTagName('td')[1].getElementsByTagName('input');
+                        
+                        secondTdLabelList[0].innerHTML = 'Yes';
+                        secondTdInputList[0].value = 'Yes';
+                    }
+                }
+            } else {
+                for(var i = 0; i<trList.length; i++) {
+                    if(i == 12) {
+                        secondTdLabelList = trList[i].getElementsByTagName('td')[1].getElementsByTagName('label');
+                        secondTdInputList = trList[i].getElementsByTagName('td')[1].getElementsByTagName('input');
+                        
+                        secondTdLabelList[0].innerHTML = 'No';
+                        secondTdInputList[0].value = 'No';
+                    }
+                }
+            }
+        }
+        
+        /*function showQuestion(obj) {
+            //alert(obj.value.substring(0,1));
+            var tbodyObj = obj.parentNode.parentNode.parentNode.parentNode;
+            var trList = tbodyObj.getElementsByTagName('tr');
+            
+            if(obj.value.substring(0,1) == 4 || obj.value.substring(0,1) == 3) {
+                for(var i = 0; i<trList.length; i++) {
+                    if(i >= 3 && i <= 8) {
+                        trList[i].style.display = ''; 
+                    }
+                }
+            } else {
+                for(var i = 0; i<trList.length; i++) {
+                    if(i >= 3 && i <= 8) {
+                        trList[i].style.display = 'none'; 
+                        tdInputList = trList[i].getElementsByTagName('td')[0].getElementsByTagName('input')[0].checked = false;
+                        
+                    }
+                    
+                    if(i == 9) {
+                        secondTdLabelList = trList[i].getElementsByTagName('td')[1].getElementsByTagName('label');
+                        secondTdInputList = trList[i].getElementsByTagName('td')[1].getElementsByTagName('input');
+                        
+                        secondTdLabelList[0].innerHTML = 'No';
+                        secondTdInputList[0].value = 'No';
+                    }
+                }
+            }
+        }*/
+    </script>
+    <apex:actionRegion >
+    <apex:outputPanel title="" id="mainPageBlock">
+        <table style="width: 100%">
+            <apex:repeat value="{!lstSymptomsWrapper}" var="symptomsWrapper">
+                <tr>
+                    <td style="width: 34%">
+                        <img id="rightImg" src="{!$Resource.right}" onClick="showContent('rightImg','downImg',document.getElementById('symptomsContentId'));"/><img id="downImg" src="{!$Resource.down}" onClick="showContent('downImg','rightImg',document.getElementById('symptomsContentId'));" style="display: none;"/>&nbsp;{!symptomsWrapper.symptomMaster.Name}
+                    </td>
+                    <td style="width: 34%">
+                        <apex:selectRadio id="symptomStatusId" value="{!symptomsWrapper.symptomStatus}" >
+                            <apex:selectOptions value="{!symptomStatusOptions}" />
+                            <apex:actionSupport event="onchange" action="{!changeToxicitySymptomStatus}" rerender="mainPageBlock" status="addToxicityStatus">
+                                <apex:param name="symptomId" value="{!symptomsWrapper.symptomMaster.Id}"/>
+                            </apex:actionSupport>
+                        </apex:selectRadio>
+                    </td>
+                    <td style="width: 34%">
+                        <apex:commandLink action="{!addToxicity}" id="addToxicityLink" rendered="{!symptomsWrapper.isShowLink}" value="add toxicity" style="color: blue;" reRender="toxicityPanel" status="addToxicityStatus" >
+                            <apex:param name="symptomId" value="{!symptomsWrapper.symptomMaster.Id}"/> 
+                        </apex:commandLink>
+                        &nbsp;<apex:actionStatus startText="Processing..." id="addToxicityStatus"/>
+                    </td>
+                </tr>
+                <tr id="symptomsContentId">
+                    <td colspan="3">
+                        <apex:outputPanel id="toxicityPanel" rendered="{!symptomsWrapper.isShowLink}">
+                        <apex:pageMessages />
+                        <apex:repeat value="{!symptomsWrapper.lstToxicityWrapper}" var="toxicityWrap">
+<!--                            <script>alert('inside repeat');</script>-->
+                            <table style="border: 1px solid #ccc; width: 850px; margin-left: 55px;" >
+                                <tr>
+                                    <td colspan="4">
+                                        <apex:outputPanel id="toxicityError">
+                                            <apex:pageMessage summary="{!toxicityWrap.isToxiErrorMsg}" severity="error" strength="1" rendered="{!toxicityWrap.isToxiError}"/>
+                                        </apex:outputPanel>
+                                        </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <apex:outputPanel rendered="{!OR(toxicityWrap.isReadOnly, toxicityWrap.isEditOnly)}">
+                                            <b>AE ID:</b>&nbsp;[<apex:outputField value="{!toxicityWrap.toxicity.AE_ID__c}" />]
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" valign="top" width="348px">
+<!--                                        <apex:outputLabel value="{!toxicityWrap.selectedtoxicityName}" style="display: none;"/>-->
+                                        <apex:outputPanel rendered="{!OR(toxicityWrap.isAddOnly, toxicityWrap.isEditOnly)}">
+                                            <apex:selectList value="{!toxicityWrap.selectedtoxicityName}" size="1">
+                                                <apex:selectOptions value="{!toxicityWrap.toxicityNameOptions}"/>
+                                                <apex:actionSupport event="onchange"  action="{!addGrade}" rerender="GradePanel,toxicityError,otherToxicityPanel" status="addGradeStatus">
+<!--                                                    <apex:param name="symptomName" value="{!symptomsWrapper.symptomMaster.Name}"/>-->
+                                                    <apex:param name="symptomId" value="{!symptomsWrapper.symptomMaster.Id}"/> 
+<!--                                                    <apex:param name="toxicityName" value="{!toxicityWrap.selectedtoxicityName}"/>-->
+                                                    <apex:param name="toxiNum" value="{!toxicityWrap.toxiNumber}"/>
+    <!--                                                <apex:param name="toxicityStatus" value="{!toxicityWrap.selectedToxicityStatus}"/>-->
+                                                </apex:actionSupport>
+                                            </apex:selectList>
+                                            <apex:outputPanel id="otherToxicityPanel">
+                                                <apex:inputField value="{!toxicityWrap.toxicity.Toxicity_Other__c}" rendered="{!toxicityWrap.isOtherSelected}"/>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!toxicityWrap.isReadOnly}">
+                                            <b>Toxicity:</b>&nbsp;<apex:outputField value="{!toxicityWrap.toxicity.Name}"/>
+                                            <apex:outputPanel rendered="{!NOT(ISNULL(toxicityWrap.toxicity.Toxicity_Other__c))}">
+                                                &nbsp;(<apex:outputField value="{!toxicityWrap.toxicity.Toxicity_Other__c}"/>)
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td colspan="1" align="center" valign="top" width="321px">
+                                        <apex:outputPanel rendered="{!OR(toxicityWrap.isAddOnly, toxicityWrap.isEditOnly)}">
+                                        <apex:selectRadio id="symptomStatusId" value="{!toxicityWrap.selectedToxicityStatus}" onchange="showToxicityDetail(this);">
+                                            <apex:selectOptions value="{!toxicityWrap.toxicityStatusOptions}" />
+                                        </apex:selectRadio>
+                                        </apex:outputPanel>
+<!--                                        <apex:actionStatus startText="Loading Grades..." id="addGradeStatus"/>-->
+                                        <apex:outputPanel rendered="{!toxicityWrap.isReadOnly}">
+                                            <b>Status:</b>&nbsp;<apex:outputField value="{!toxicityWrap.toxicity.Toxicity_Status__c}"/>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" valign="top">
+                                        <b>Grade:</b>&nbsp;<apex:outputPanel id="GradePanel" rendered="{!OR(toxicityWrap.isAddOnly, toxicityWrap.isEditOnly)}">
+                                            <apex:selectList value="{!toxicityWrap.selectedGrade}" size="1" style="width: 340px" id="gradeList">
+                                                <apex:selectOptions value="{!toxicityWrap.gradeOptions}"/>
+                                            </apex:selectList><apex:actionStatus startText="Loading Grades..." id="addGradeStatus"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!toxicityWrap.isReadOnly}">                                            
+                                            <apex:outputField value="{!toxicityWrap.toxicity.Grade__c}"/>                                            
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td colspan="1" valign="top">
+                                        <table width="100%">
+                                            <tr>
+                                                <td width="20%"><b>Attribute:</b></td>
+                                                <td>
+                                                    <apex:outputPanel id="AttributePanel" rendered="{!OR(toxicityWrap.isAddOnly, toxicityWrap.isEditOnly)}">
+                                                        <div class="requiredInput"><div class="requiredBlock"></div>
+                                                            <apex:inputField value="{!toxicityWrap.toxicity.Attribution__c}"/>
+                                                        </div>
+                                                    </apex:outputPanel>
+                                                    <apex:outputPanel rendered="{!toxicityWrap.isReadOnly}">
+                                                        <apex:outputField value="{!toxicityWrap.toxicity.Attribution__c}"/>
+                                                    </apex:outputPanel>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <b>Was event life threatening at time of event?</b>&nbsp;
+                                        <apex:outputPanel rendered="{!OR(toxicityWrap.isAddOnly, toxicityWrap.isEditOnly)}">
+                                            <apex:inputField value="{!toxicityWrap.toxicity.Was_event_life_threatning__c}" onchange="updateSAE(this);"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!toxicityWrap.isReadOnly}">
+                                            <apex:outputField value="{!toxicityWrap.toxicity.Was_event_life_threatning__c}"/>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <b>Did event require inpatient hospitalization or prolongation of existing hospitalization?</b>&nbsp;
+                                        <apex:outputPanel rendered="{!OR(toxicityWrap.isAddOnly, toxicityWrap.isEditOnly)}">
+                                            <apex:inputField value="{!toxicityWrap.toxicity.Did_event_required_hospitalization__c}" onchange="updateSAE(this);"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!toxicityWrap.isReadOnly}">
+                                            <apex:outputField value="{!toxicityWrap.toxicity.Did_event_required_hospitalization__c}"/>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <b>Did event result in persistent or significant disability/incapacity or substantial disruption of the ability to perform life functions?</b>&nbsp;
+                                        <apex:outputPanel rendered="{!OR(toxicityWrap.isAddOnly, toxicityWrap.isEditOnly)}">
+                                            <apex:inputField value="{!toxicityWrap.toxicity.Result_persistent_significant_disability__c}" onchange="updateSAE(this);"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!toxicityWrap.isReadOnly}">
+                                            <apex:outputField value="{!toxicityWrap.toxicity.Result_persistent_significant_disability__c}"/>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <b>Did event result in congenital abnormality/birth defect?</b>&nbsp;
+                                        <apex:outputPanel rendered="{!OR(toxicityWrap.isAddOnly, toxicityWrap.isEditOnly)}">
+                                            <apex:inputField value="{!toxicityWrap.toxicity.Result_conginental_abnormality_defect__c}" onchange="updateSAE(this);"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!toxicityWrap.isReadOnly}">
+                                            <apex:outputField value="{!toxicityWrap.toxicity.Result_conginental_abnormality_defect__c}"/>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <b>Did the investigator find this event very unusual and/or potentially serious, but didn't meet any of the above criteria?</b>&nbsp;
+                                        <apex:outputPanel rendered="{!OR(toxicityWrap.isAddOnly, toxicityWrap.isEditOnly)}">
+                                            <apex:inputField value="{!toxicityWrap.toxicity.Did_the_investigator_find_event_unusual__c}" onchange="updateSAE(this);"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!toxicityWrap.isReadOnly}">
+                                            <apex:outputField value="{!toxicityWrap.toxicity.Did_the_investigator_find_event_unusual__c}"/>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <b>Did event result in death?</b>&nbsp;
+                                        <apex:outputPanel rendered="{!OR(toxicityWrap.isAddOnly, toxicityWrap.isEditOnly)}">
+                                            <apex:inputField value="{!toxicityWrap.toxicity.Did_event_result_in_death__c}" onchange="updateSAE(this);"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!toxicityWrap.isReadOnly}">
+                                            <apex:outputField value="{!toxicityWrap.toxicity.Did_event_result_in_death__c}"/>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+                                        <b>AE Onset Date:</b>&nbsp;<apex:outputPanel id="OnsetDatePanel" rendered="{!OR(toxicityWrap.isAddOnly, toxicityWrap.isEditOnly)}">
+                                        <apex:inputField value="{!toxicityWrap.toxicity.Onset_Date__c}" id="toxicityOnsetDate"/>
+                                        <script type="text/javascript">
+                                            document.getElementById('{!$Component.toxicityOnsetDate}').onfocus = function onfocus(event) {
+                                            DatePicker.pickDate(true, '{!$Component.toxicityOnsetDate}', false); 
+                                            addYearInDateField(''); 
+                                            };
+                                        </script>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!toxicityWrap.isReadOnly}">
+                                            <apex:outputField value="{!toxicityWrap.toxicity.Onset_Date__c}"/>
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td valign="top">
+                                        <b>SAE:</b>&nbsp;<apex:outputPanel id="SAEPanel">
+                                        <apex:outputLabel value="{!IF((toxicityWrap.toxicity.SAE__c = 'Yes'), 'Yes', 'No')}" id="SAELabel"/><apex:inputHidden value="{!toxicityWrap.toxicity.SAE__c}" />
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td valign="top" align="center" width="150px">
+                                        <b>Resolved:</b>&nbsp;<apex:outputPanel id="ResolvedPanel" rendered="{!OR(toxicityWrap.isAddOnly, toxicityWrap.isEditOnly)}">
+                                        <apex:inputField value="{!toxicityWrap.toxicity.Resolved__c}" id="Resolved" onchange="enableEndDate(this);"/>
+                                        <script>enableEndDate(document.getElementById('{!$Component.Resolved}'));</script>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!toxicityWrap.isReadOnly}">
+                                            <apex:outputField value="{!toxicityWrap.toxicity.Resolved__c}"/>
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td valign="top">
+                                        <b>AE End Date:</b>&nbsp;<apex:outputPanel id="EndDatePanel" rendered="{!OR(toxicityWrap.isAddOnly, toxicityWrap.isEditOnly)}">
+                                        <apex:inputField value="{!toxicityWrap.toxicity.AE_End_Date__c}" id="toxicotyAEEndDate"/>
+                                        <script type="text/javascript">
+                                            document.getElementById('{!$Component.toxicotyAEEndDate}').onfocus = function onfocus(event) {
+                                            DatePicker.pickDate(true, '{!$Component.toxicotyAEEndDate}', false); 
+                                            addYearInDateField(''); 
+                                            };
+                                        </script>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!toxicityWrap.isReadOnly}">
+                                            <apex:outputField value="{!toxicityWrap.toxicity.AE_End_Date__c}"/>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" valign="top">
+                                        <b>Patient Complaint:</b>&nbsp;<apex:outputPanel id="PatientComplaintPanel" rendered="{!OR(toxicityWrap.isAddOnly, toxicityWrap.isEditOnly)}">
+                                        <apex:inputField value="{!toxicityWrap.toxicity.Patient_Complaint__c}" required="true" style="width:80%; height:15px"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!toxicityWrap.isReadOnly}">
+                                            <apex:outputField value="{!toxicityWrap.toxicity.Patient_Complaint__c}"/>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <apex:commandButton action="{!saveToxicity}" value="Save" rerender="toxicityPanel" status="counterStatus" rendered="{!toxicityWrap.isAddOnly}">
+                                            <apex:param name="toxiNum" value="{!toxicityWrap.toxiNumber}"/>
+                                            <apex:param name="symptomId" value="{!symptomsWrapper.symptomMaster.Id}"/>
+                                        </apex:commandButton>
+                                        &nbsp;<apex:commandButton action="{!cancelToxicity}" value="Cancel" rerender="toxicityPanel" status="counterStatus" rendered="{!toxicityWrap.isAddOnly}">
+<!--                                            <apex:param name="symptomName" value="{!symptomsWrapper.symptomMaster.Name}"/>-->
+                                            <apex:param name="symptomId" value="{!symptomsWrapper.symptomMaster.Id}"/>
+                                            <apex:param name="toxiNum" value="{!toxicityWrap.toxiNumber}"/>
+                                        </apex:commandButton>
+                                        <apex:commandButton action="{!EditToxicity}" value="Edit" rerender="toxicityPanel" status="counterStatus" rendered="{!toxicityWrap.isReadOnly}">
+                                            <apex:param name="toxiNum" value="{!toxicityWrap.toxiNumber}"/>
+<!--                                            <apex:param name="symptomName" value="{!symptomsWrapper.symptomMaster.Name}"/>-->
+                                            <apex:param name="symptomId" value="{!symptomsWrapper.symptomMaster.Id}"/>
+                                        </apex:commandButton>
+                                        &nbsp;<apex:commandButton action="{!removeToxicity}" value="Remove" rerender="toxicityPanel,mainPageBlock" status="counterStatus" rendered="{!toxicityWrap.isReadOnly}">
+                                            <apex:param name="toxiNum" value="{!toxicityWrap.toxiNumber}"/>
+                                            <apex:param name="symptomId" value="{!symptomsWrapper.symptomMaster.Id}"/>
+                                        </apex:commandButton>
+                                        <apex:commandButton action="{!updateToxicity}" value="Update" rerender="toxicityPanel" status="counterStatus" rendered="{!toxicityWrap.isEditOnly}">
+                                            <apex:param name="toxiNum" value="{!toxicityWrap.toxiNumber}"/>
+                                            <apex:param name="symptomId" value="{!symptomsWrapper.symptomMaster.Id}"/>
+                                        </apex:commandButton>
+                                        &nbsp;<apex:commandButton action="{!updateCancelToxicity}" value="Cancel" rerender="toxicityPanel" status="counterStatus" rendered="{!toxicityWrap.isEditOnly}">
+                                            <apex:param name="toxiNum" value="{!toxicityWrap.toxiNumber}"/>
+                                            <apex:param name="symptomId" value="{!symptomsWrapper.symptomMaster.Id}"/>
+                                        </apex:commandButton>
+                                        &nbsp;<apex:actionStatus startText="Processing..." id="counterStatus"/>
+                                    </td>
+                                </tr>
+                            </table> <br/>
+                        </apex:repeat>
+                        </apex:outputPanel>
+                    </td>
+                    
+                </tr>
+            </apex:repeat>
+        </table>
+    </apex:outputPanel>
+</apex:actionRegion>
+</apex:component>

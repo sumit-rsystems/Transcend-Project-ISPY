@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Proposed Rescheduling</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Proposed Rescheduling</value>
+    </caseValues>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- DurationInMinutes --></label>
+        <name>DurationInMinutes__c</name>
+    </fields>
+    <fields>
+        <label><!-- EndDate --></label>
+        <name>EndDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Eventid --></label>
+        <name>Eventid__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hours --></label>
+        <name>Hours__c</name>
+    </fields>
+    <fields>
+        <label><!-- Minutes --></label>
+        <name>Minutes__c</name>
+    </fields>
+    <fields>
+        <label><!-- PatientId --></label>
+        <name>PatientId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Proposed New Date --></label>
+        <name>Proposed_New_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reschedule reason --></label>
+        <name>Reschedule_reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- StartDateTime --></label>
+        <name>StartDateTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trial --></label>
+        <name>Trial__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Clinic Visit</masterLabel>
+            <translation><!-- Clinic Visit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lab Visit</masterLabel>
+            <translation><!-- Lab Visit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pre-Surgery Visit</masterLabel>
+            <translation><!-- Pre-Surgery Visit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Radiology Visit</masterLabel>
+            <translation><!-- Radiology Visit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Surgery Visit</masterLabel>
+            <translation><!-- Surgery Visit --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- WhatId --></label>
+        <name>WhatId__c</name>
+        <relationshipLabel><!-- Proposed Rescheduling --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- refId --></label>
+        <name>refId__c</name>
+    </fields>
+    <fields>
+        <label><!-- status --></label>
+        <name>status__c</name>
+        <picklistValues>
+            <masterLabel>Confirmed</masterLabel>
+            <translation><!-- Confirmed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Waiting</masterLabel>
+            <translation><!-- Waiting --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- studyStaff --></label>
+        <name>studyStaff__c</name>
+    </fields>
+    <fields>
+        <label><!-- subject --></label>
+        <name>subject__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

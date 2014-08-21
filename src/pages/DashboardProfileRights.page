@@ -1,0 +1,44 @@
+<apex:page standardController="Profile_Right__c" extensions="ProfileRightController">
+<style type="text/css">
+#divlab{
+color: rgb(92, 156, 92);
+font-size: 14px;
+}
+</style>
+
+    <apex:form >
+       <apex:message />
+    <apex:pageBlock >
+    <apex:pageBlockButtons location="bottom">
+         <apex:commandButton action="{!save}" value="Save"/>
+    </apex:pageBlockButtons>
+     <apex:pageBlockSection title="Select Profiles ">
+    
+        <apex:panelGrid columns="3" id="abcd" >
+          
+            <apex:selectList id="sel1" value="{!leftselected}"  multiselect="true" style="width:300px" size="15">
+             <div id="divlab"><strong>Available Profiles</strong></div>
+                <apex:selectOptions value="{!unselectedvalues}" />
+            </apex:selectList>
+                <apex:panelGroup >
+                <br/><br/>
+
+                <br/>
+                    <apex:image value="{!$Resource.multiselected}">
+                        <apex:actionSupport event="onclick" action="{!selectclick}" reRender="abcd"/>
+                    </apex:image>
+                    <br/><br/>
+                    <apex:image value="{!$Resource.multiunselected}">
+                        <apex:actionSupport event="onclick" action="{!unselectclick}" reRender="abcd"/>
+                    </apex:image>
+                </apex:panelGroup>
+            <apex:selectList id="sel2" value="{!rightselected}" multiselect="true" style="width:300px" size="15">
+            <div id="divlab"><strong>Selected Profiles</strong></div>
+                <apex:selectOptions value="{!SelectedValues}" />
+            </apex:selectList>
+        </apex:panelGrid>
+      
+       </apex:pageBlockSection>
+      </apex:pageBlock>
+    </apex:form>
+</apex:page>

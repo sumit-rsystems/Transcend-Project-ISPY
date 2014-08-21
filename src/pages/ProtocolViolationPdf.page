@@ -1,0 +1,107 @@
+<apex:page StandardController="Off_Study_Detail__c" extensions="OffStudyPdfGenerator" standardStylesheets="false" renderAs="pdf">
+     <head>
+        <style type="text/css" media="print">
+            @page {
+                @bottom-left {
+                    content: "page" counter(page) "of" counter(pages);
+                }
+            }
+            
+            div.footer {
+                display: block;
+                padding: 5px;
+                position: running(footer);
+            }
+            
+            .pagenumber:before {
+                content: counter(page);
+            }
+            
+            .pagecount:before {
+                content: counter(pages);
+            }
+        </style>
+      </head>
+      <div>
+      <table width="100%" border="1px" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#F2F2F2">
+            <td style="border-style:none;" >
+                <apex:image url="{!$Resource.Logo}" height="75px" />
+            </td>
+          
+            <td style="border-style:none;" >
+                <apex:outputLabel style="vertical-align:center;" value="I-SPY 2 Trail : Protocol Violation Form "/> 
+            </td>
+          
+            <td style="border-style:none">
+                 <table width="100%">
+                     <tr>
+                         <td>
+                             I-SPY 2 Subject ID:
+                         </td>
+                          <td>
+                             {!trialPatientObj.Subject_Id__c}
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                             I-SPY 2 Intials:
+                         </td>
+                         <td>
+                           {!Patient.Initials__c}
+                             
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                             Institutions:
+                         </td>
+                          <td>
+                             {!Patient.Institute_Text__c}
+                         </td>
+                     </tr>
+                 </table>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    
+    <table style="margin:15px" >
+            
+            
+            <tr>
+                <td><apex:outputLabel value="Date of protocol violation  : " /></td> 
+            </tr>   
+            <tr>
+                <td><apex:outputLabel value="Type of Protocol Violation : " /></td> 
+            </tr> 
+            <tr>
+                <td><apex:outputLabel value="Action taken : " /></td> 
+            </tr> 
+            <tr>
+                <td><apex:outputLabel value="Was the local IRB notified? : " /></td> 
+            </tr> 
+            <br/>
+                <b >Narrative description of protocol violation:</b>
+    </table>
+    <br/>
+    <br/>
+               <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+   </table>
+       </div>
+       <!-- 
+             
+         <div class="footer">
+                <div>Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+         </div>
+   
+    -->   
+    <c:CRFPDFFooter crfFormName="Protocol Violation Form , v1"  />           
+</apex:page>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Dashboard</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Dashboards</value>
+    </caseValues>
+    <fields>
+        <label><!-- Profile Filter --></label>
+        <name>Profile_Filter__c</name>
+    </fields>
+    <layouts>
+        <layout>Dashboard Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- View_Dashboard --></label>
+        <name>View_Dashboard</name>
+    </webLinks>
+</CustomObjectTranslation>

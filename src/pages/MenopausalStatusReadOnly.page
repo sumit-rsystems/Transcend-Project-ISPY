@@ -1,0 +1,95 @@
+<apex:page standardController="Menopausal_Status_Detail__c" extensions="MenopausalStatusDetailController" sidebar="false" showHeader="false">
+<style>
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+</style> 
+    <apex:pageBlock tabStyle="Account" id="pageBlockId1">
+        <apex:pageBlockSection columns="1" title="Menopausal Status Detail" id="pageBlockSectionId">
+            <apex:pageBlockSectionItem >
+                <apex:outputText value="Patient Age" />
+                <apex:outputField value="{!msd.Patient_age__c}" id="ageId" />   
+            </apex:pageBlockSectionItem>  
+            <apex:pageBlockSectionItem >
+                <apex:outputText value="Date of last menstrual period (Enter as much as is known)" />
+                <apex:outputPanel >
+                    <table width="100%">
+                        <tr height="30px">
+                            <td height="30px">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <apex:outputField value="{!msd.Last_Menstrual_Year__c}" style="width : 40px;"/>&nbsp; <br/>Year
+                                        </td>
+                                        <td>
+                                            <apex:outputField value="{!msd.Last_Menstrual_Month__c}" style="width : 40px;"/>&nbsp; <br/>Month
+                                        </td>
+                                        <td>
+                                            <apex:outputField value="{!msd.Last_Menstrual_Day__c}" style="width : 40px;"/>&nbsp; <br/>Day
+                                        </td>
+                                        <td>
+                                            / &nbsp; <apex:outputField value="{!msd.Date_of_Last_Menstrual_Period__c}" />
+                                        </td>
+                                    </tr> 
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <apex:outputField value="{!msd.Unknown_Date__c}" />
+                                            <apex:outputText value="Unknown Date" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <apex:outputField value="{!msd.Unknown_Date_but_12_Months_Ago__c}" />
+                                            <apex:outputText value="Unknown Date but >12 Months Ago" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputText value="On estrogen replacement?:" />
+                <apex:outputPanel >
+                    <apex:outputField value="{!msd.On_Estrogen_Replacement__c}" /> &nbsp;&nbsp;&nbsp; Duration:
+                    <apex:outputField value="{!msd.Enstrogent_Replacement_Duration_Months__c}" style="width : 40px;"/>&nbsp; Months
+                    <apex:outputField value="{!msd.Enstrogent_Replacement_Duration_Years__c}" style="width : 40px;"/>&nbsp; Years
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputText value="Bilateral oophorectomy?:" />
+                <apex:outputPanel >
+                    <apex:outputField value="{!msd.Bilateral_oophorectomy__c}" /> &nbsp;&nbsp;&nbsp; 
+                    Date: &nbsp;<apex:outputField value="{!msd.Bilateral_Oophorectomy_Date__c}" />
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputText value="Hysterectomy?:" />
+                <apex:outputPanel >
+                    <apex:outputField value="{!msd.Hysterectomy__c}" /> &nbsp;&nbsp;&nbsp; 
+                    Date: &nbsp;<apex:outputField value="{!msd.Hysterectomy_Date__c}" />
+                </apex:outputPanel> 
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputText value="Menopausal Status:" />
+                <apex:outputField value="{!msd.Menopausal_Status__c}" />
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(msd.Id))}">
+			<c:CRFAttachmentComponent rId="{!msd.Id}" feedCRFName="Menopausal_Status_Detail__Feed" rtId="{!msd.Root_CRF_Id__c}"/>
+		</apex:pageBlockSection>
+		
+		<apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(msd.Id))}">
+	    	<c:CRFEventComponent rId="{!msd.Id}" objectName="Menopausal_Status_Detail__c" rtId="{!msd.Root_CRF_Id__c}"/>
+	    </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,12 @@
+<apex:page sidebar="false" id="pageId">
+	<apex:pageBlock title="Adverse Event Report">
+		<apex:pageBlockSection columns="2">
+			<apex:pageBlockSectionItem >
+				<a href="/apex/AdverseEventReportWeekwise" target="_blank">Download Report</a>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<a href="/apex/AdverseEventReportBySubjectId" target="_blank">Generate Report</a>
+			</apex:pageBlockSectionItem>
+		</apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

@@ -1,0 +1,59 @@
+<apex:page StandardController="Lost_to_Follow_Up__c" extensions="LosttoFollowupController" sideBar="false" id="pageId" showHeader="false" tabStyle="Account">
+<style>
+	.mystyle{
+		background-color: #cf00f8; 
+	}
+	.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+	    background-color: #97C7EC;
+	}
+	
+	body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+	    background-color: #fff;
+	}
+</style>
+<apex:pageBlock tabStyle="Account">
+	<table width="800px">
+		<col width="300px" />
+		<col width="500px" />
+ 		<tr>
+ 			<td><b> Lost to Followup Form</b></td>
+ 			<td></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Print CRF form after saving</td>
+ 			<td></td>
+ 		</tr>
+ 		<tr>
+ 			<td><b>Criteria for Lost to Followup status</b></td>
+ 			<td></td>
+ 		</tr>
+ 		<tr>
+ 			<td>At least 2 years since: able to contact?: </td>
+ 			<td><apex:outputText value="{!LFF.Last_contact_before_2_yrs__c}"></apex:outputText></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Date of last contact prior to this confirmation: </td>
+ 			<td><apex:outputField value="{!LFF.Date_of_last_contact__c}"></apex:outputField></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Researched Social Security Death Index and<br/>found no information for this patient</td>
+ 			<td><apex:outputText value="{!LFF.Social_Sec_Death_Index_Research__c}"></apex:outputText> :&nbsp;(<apex:outputField value="{!LFF.Social_Sec_Death_Index_Research_Date__c}"></apex:outputField>) 
+ 			</td>
+ 		</tr>
+ 		<tr>
+ 			<td>Send certified or registered letter to last known address: </td>
+ 			<td><apex:outputText value="{!LFF.Send_certified_registered_ltr_to_known__c}"></apex:outputText> :&nbsp;(
+ 			<apex:outputField value="{!LFF.Send_certified_registered_ltr_DATE__c}"></apex:outputField>)&nbsp;-&nbsp;
+ 			<apex:outputField value="{!LFF.Send_certified_registered_ltr_Responce__c}"></apex:outputField> 
+ 			</td>
+ 		</tr>
+ 	</table><br></br>
+	<apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(LFF.Id))}">
+		<c:CRFAttachmentComponent rId="{!LFF.Id}" feedCRFName="Lost_to_Follow_Up__Feed" rtId="{!LFF.Root_CRF_Id__c}"/>
+	</apex:pageBlockSection>
+	
+	<apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(LFF.Id))}">
+    	<c:CRFEventComponent rId="{!LFF.Id}" objectName="Lost_to_Follow_Up__c" rtId="{!LFF.Root_CRF_Id__c}"/>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+</apex:page>

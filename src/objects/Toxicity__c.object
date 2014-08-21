@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>AE_Detail__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>AE Detail</label>
+        <referenceTo>AE_Detail__c</referenceTo>
+        <relationshipLabel>Toxicities</relationshipLabel>
+        <relationshipName>Toxicities</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AE_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>AE End Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>AE_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>AE ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attribution__c</fullName>
+        <externalId>false</externalId>
+        <label>Attribute</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 - Unrelated</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 - Unlikely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 - Possible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 - Probable</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5 - Definite</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>0 - Baseline</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Baseline_Symptoms_Form__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Baseline Symptoms Form</label>
+        <referenceTo>BaselineSymptomsForm__c</referenceTo>
+        <relationshipLabel>Toxicities</relationshipLabel>
+        <relationshipName>Toxicities</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CTCAE_Code__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CTCAE Code</label>
+        <referenceTo>CTCAE_Code__c</referenceTo>
+        <relationshipLabel>Toxicities</relationshipLabel>
+        <relationshipName>Toxicities</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Did_event_required_hospitalization__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Did event required hospitalization?</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Did_event_result_in_death__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Did event result in death?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Did event result in death?</inlineHelpText>
+        <label>Did event result in death?</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Did_the_investigator_find_event_unusual__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Did the investigator find this event very unusual and/or potentially serious, but didn&apos;t meet any of the above criteria?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Did the investigator find this event very unusual and/or potentially serious, but didn&apos;t meet any of the above criteria?</inlineHelpText>
+        <label>Did the investigator find event unusual</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Effective_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Effective Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Grade__c</fullName>
+        <externalId>false</externalId>
+        <label>Grade</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Onset_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Onset Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Patient_Complaint__c</fullName>
+        <externalId>false</externalId>
+        <label>Patient Complaint</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Resolved__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Resolved</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Result_conginental_abnormality_defect__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Resulted in conginental abnormality/birth defect</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Resulted in conginental abnormality/birth defect</inlineHelpText>
+        <label>Result conginental abnormality defect</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Result_persistent_significant_disability__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Did event result in persistent or significant disability/incapacity or substantial disruption of the ability to perform life functions?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Did event result in persistent or significant disability/incapacity or substantial disruption of the ability to perform life functions?</inlineHelpText>
+        <label>Result persistent/significant disability</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>SAE__c</fullName>
+        <externalId>false</externalId>
+        <label>SAE</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Symptom_Masters__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Symptom Masters</label>
+        <referenceTo>SymptomMaster__c</referenceTo>
+        <relationshipLabel>Toxicities</relationshipLabel>
+        <relationshipName>Toxicities</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Symptom_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Symptom Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not assessed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Toxicity_Agent__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Toxicity Agent</label>
+        <referenceTo>Toxicity_Agent__c</referenceTo>
+        <relationshipLabel>Toxicities</relationshipLabel>
+        <relationshipName>Toxicities</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Toxicity_Master__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Toxicity Master</label>
+        <referenceTo>Toxicity_Master__c</referenceTo>
+        <relationshipLabel>Toxicities</relationshipLabel>
+        <relationshipName>Toxicities</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Toxicity_Other__c</fullName>
+        <externalId>false</externalId>
+        <label>Toxicity Other</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Toxicity_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Toxicity Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Assessed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TrialPatient__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>TrialPatient</label>
+        <referenceTo>TrialPatient__c</referenceTo>
+        <relationshipLabel>Toxicities</relationshipLabel>
+        <relationshipName>Toxicities</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Was_event_life_threatning__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Was event life threatning at the time of event</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Was event life threatning at the time of event</inlineHelpText>
+        <label>Was event life threatning</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>pg_toxicity_id__c</fullName>
+        <externalId>false</externalId>
+        <label>pg_toxicity_id</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Toxicity</label>
+    <nameField>
+        <label>Toxicity Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Toxicities</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>AE_End_Date_Cannot_be_a_future_date</fullName>
+        <active>true</active>
+        <errorConditionFormula>AE_End_Date__c &gt;  TODAY()</errorConditionFormula>
+        <errorDisplayField>AE_End_Date__c</errorDisplayField>
+        <errorMessage>You have entered a future date.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Onset_Date_Cannot_be_a_future_date</fullName>
+        <active>true</active>
+        <errorConditionFormula>Onset_Date__c &gt;  TODAY()</errorConditionFormula>
+        <errorDisplayField>Onset_Date__c</errorDisplayField>
+        <errorMessage>You have entered a future date.</errorMessage>
+    </validationRules>
+</CustomObject>

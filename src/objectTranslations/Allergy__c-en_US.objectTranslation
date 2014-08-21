@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Allergy</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Allergies</value>
+    </caseValues>
+    <fields>
+        <label><!-- Allergies --></label>
+        <name>Allergies__c</name>
+        <relationshipLabel><!-- Allergies --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Allergy Type --></label>
+        <name>Allergy_Type__c</name>
+        <picklistValues>
+            <masterLabel>Drug</masterLabel>
+            <translation><!-- Drug --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Non-Drug</masterLabel>
+            <translation><!-- Non-Drug --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Baseline Symptoms Form --></label>
+        <name>BaselineSymptomsForm__c</name>
+        <relationshipLabel><!-- Allergies --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Form Name --></label>
+        <name>Form_Name__c</name>
+        <picklistValues>
+            <masterLabel>Baseline Symptoms Form(Allergies)</masterLabel>
+            <translation><!-- Baseline Symptoms Form(Allergies) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Baseline Symptoms Form(Baseline Condition)</masterLabel>
+            <translation><!-- Baseline Symptoms Form(Baseline Condition) --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Other Allergy --></label>
+        <name>Other_Allergy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Reactions --></label>
+        <name>Other_Reactions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reactions --></label>
+        <name>Reactions__c</name>
+        <picklistValues>
+            <masterLabel>Anaphylaxis</masterLabel>
+            <translation><!-- Anaphylaxis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Diarrhea</masterLabel>
+            <translation><!-- Diarrhea --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Difficulty in breathing</masterLabel>
+            <translation><!-- Difficulty in breathing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fainting</masterLabel>
+            <translation><!-- Fainting --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Headache</masterLabel>
+            <translation><!-- Headache --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hives</masterLabel>
+            <translation><!-- Hives --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Itching eyes</masterLabel>
+            <translation><!-- Itching eyes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Itching skin (without rash or hives)</masterLabel>
+            <translation><!-- Itching skin (without rash or hives) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nausea</masterLabel>
+            <translation><!-- Nausea --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pain or stuffiness in ears</masterLabel>
+            <translation><!-- Pain or stuffiness in ears --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rash</masterLabel>
+            <translation><!-- Rash --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Runny nose</masterLabel>
+            <translation><!-- Runny nose --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Shock</masterLabel>
+            <translation><!-- Shock --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sneezing</masterLabel>
+            <translation><!-- Sneezing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sore throat</masterLabel>
+            <translation><!-- Sore throat --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Swelling of ankles</masterLabel>
+            <translation><!-- Swelling of ankles --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Swelling of lips</masterLabel>
+            <translation><!-- Swelling of lips --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tightness in throat</masterLabel>
+            <translation><!-- Tightness in throat --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vomiting</masterLabel>
+            <translation><!-- Vomiting --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Wheezing</masterLabel>
+            <translation><!-- Wheezing --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Severity --></label>
+        <name>Severity__c</name>
+        <picklistValues>
+            <masterLabel>1-Mild</masterLabel>
+            <translation><!-- 1-Mild --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2-Moderate</masterLabel>
+            <translation><!-- 2-Moderate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3-Severe</masterLabel>
+            <translation><!-- 3-Severe --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4-Life threatening or Disabling</masterLabel>
+            <translation><!-- 4-Life threatening or Disabling --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5-Fatal</masterLabel>
+            <translation><!-- 5-Fatal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Controlled</masterLabel>
+            <translation><!-- Controlled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Reported</masterLabel>
+            <translation><!-- Not Reported --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- Allergies --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Year first seen --></label>
+        <name>Year_first_seen__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_Allergy_id --></label>
+        <name>pg_Allergy_id__c</name>
+    </fields>
+    <layouts>
+        <layout>Allergy Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

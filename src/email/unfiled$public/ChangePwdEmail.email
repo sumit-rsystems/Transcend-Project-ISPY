@@ -1,0 +1,11 @@
+Dear {!Contact.FirstName},
+
+Thank you for contacting customer support.  Your new partner portal password can be found below.
+
+Thank you,
+
+
+{!User_Name}
+{!Organization.Name} Customer Support
+
+login into partner portal: https://cs14.salesforce.com/secur/login_portal.jsp?orgId=00Dc0000001JUC6&portalId=060E0000000PkCG

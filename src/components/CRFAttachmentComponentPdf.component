@@ -1,0 +1,20 @@
+<apex:component controller="CRFAttachmentComponentController" allowDML="true">
+<apex:attribute name="rId" description="This is the value for the component." type="String" required="true" assignTo="{!recordId}"/>
+<apex:attribute name="feedCRFNamePdf" description="This is the value for the component." type="String" required="true" assignTo="{!feedCRFName}"/>
+<apex:attribute name="rtId" description="This is the value for the component." type="String" required="true" assignTo="{!rootId}"/>
+    <apex:dataTable cellpadding="5" cellspacing="1" width="100%" value="{!lstWrapFeed}" var="wf" rowClasses="odd,even" styleClass="list" headerClass="headerRow">
+    <!--    ==============================make Content column=============================    -->
+            <apex:column style="" headerClass="tableHead" width="7%">
+                <apex:facet name="header">Content</apex:facet>  
+              <!--  <apex:outputLink value="{!wf.fileLink}" target="_blank" rendered="{!IF($Profile.Name != 'Dcc User',true,false)}" >{!wf.fileName}</apex:outputLink>-->
+                <apex:outputText value="{!wf.fileName}"  rendered="{!IF($Profile.Name != 'Dcc User',true,false)}" ></apex:outputText>
+        <!--    <apex:outputtext value="{!wf.fileName}" rendered="{!IF(profileName == 'Dcc User')}"/>     -->
+            </apex:column>
+            
+    <!--    ==============================make Description column=============================    -->
+            <apex:column style="" headerClass="tableHead" width="7%">
+                <apex:facet name="header">Description</apex:facet>
+                <apex:outputText value="{!wf.description}"/>
+            </apex:column>
+    </apex:dataTable>
+</apex:component>

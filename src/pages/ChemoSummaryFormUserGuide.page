@@ -1,0 +1,63 @@
+<apex:page showHeader="false" sidebar="false" >
+<style>
+	.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+	}
+	.redColor{
+		color:red;
+	}
+</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h1>How to complete Chemo Summary form?</h1>
+		</apex:outputPanel>
+		<p>The Chemo Summary Form is used to report the total doses and frequency for all of the neoadjuvant treatment a patient received while on this study and the reasons for ending therapy.  This CRF is completed after the patient has completed all of their neoadjuvant chemotherapy and after all of the Chemo Treatment Forms have been completed AND approved by the DCC.  This CRF will auto-compile all the cycles and doses from all completed and approved Chemo Treatment Forms.</p>
+		<p>The information used to complete this form comes from all prior completed and DCC-verified Chemo Treatment Forms.</p>
+		<p><i>To open the Chemo Summary Form, select the patient from the 'Patient' Tab; select 'Trial'; Select ‘Treatment’ tab and select ‘Submit New’ for ‘Chemo Summary Form’.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.ChemoSummaryFormScreenshot, 'ChemoSummaryForm1.png')}" width="115%" height="115%"/></p>
+		<ul>      
+			<li>Date of first and last taxane therapy is auto-populated from completed and DCC approved Chemo Treatment CRFs. If no taxane therapy was given, no dates will display.</li>
+			<li>Agent name(s), cycle 1 dose, completed cycles, cumulative dose, treatment schedule, dose delay, and dose modification fields are auto-populated from completed and DCC approved Chemo Treatment CRFs. If no anthracycline therapy was given, no information will display.</li>
+			<li>Select the reason the patient completed their treatment, even if no therapy was given [<i>Treatment completed per protocol criteria; Disease progression, relapse during active treatment; Toxicity/side effects/complications; Patient withdrawal or refusal after beginning protocol therapy; Patient withdrawal or refusal prior to beginning protocol therapy; Other complicating disease; Death during treatment; Alternative therapy; Patient declared ineligible; Other-specify in text box</i>].</li>
+		</ul>
+		
+		<p><i>Select 'Next' to advance to the 'Anthracycline Regimen' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.ChemoSummaryFormScreenshot, 'ChemoSummaryForm2.png')}" width="115%" height="115%"/></p>
+		<ul>
+			<li>Date of first and last anthracycline therapy is auto-populated from completed and DCC approved Chemo Treatment CRFs.  If no anthracycline therapy was given, no dates will display.</li>
+			<li>Agent name(s), cycle 1 dose, completed cycles, cumulative dose, treatment schedule, dose delay, and dose modification fields are auto-populated from completed and DCC approved Chemo Treatment CRFs. If no anthracycline therapy was given, no information will display.</li>
+			<li>Select the reason the patient completed their treatment, even if no therapy was given [<i>Treatment completed per protocol criteria; Disease progression, relapse during active treatment; Toxicity/side effects/complications; Patient withdrawal or refusal after beginning protocol therapy; Patient withdrawal or refusal prior to beginning protocol therapy; Other complicating disease; Death during treatment; Alternative therapy; Patient declared ineligible; Other-specify in text box</i>].</li>		
+		</ul>	
+	
+		<p><i>Select 'Next' to advance to the 'Investigational Drug' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.ChemoSummaryFormScreenshot, 'ChemoSummaryForm3.png')}" width="115%" height="115%"/></p>
+		<ul>
+			<li>Date of first and last investigational therapy is auto-populated from completed and DCC approved Chemo Treatment CRFs.  If no investigational therapy was given, no dates will display.</li>
+			<li>Agent name(s), cycle 1 dose, completed cycles, cumulative dose, treatment schedule, dose delay, and dose modification fields are auto-populated from completed and DCC approved Chemo Treatment CRFs. If no investigational therapy was given, no information will display.</li>
+			<li>Select the reason the patient completed their investigational treatment, only if they were randomized to receive an investigational agent [<i>Treatment completed per protocol criteria; Disease progression, relapse during active treatment; Toxicity/side effects/complications; Patient withdrawal or refusal after beginning protocol therapy; Patient withdrawal or refusal prior to beginning protocol therapy; Other complicating disease; Death during treatment; Alternative therapy; Patient declared ineligible; Other- specify in text box</i>].</li>
+		</ul>
+
+		<p><i>Select 'Next' to advance to the 'Other Drug' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.ChemoSummaryFormScreenshot, 'ChemoSummaryForm4.png')}" width="115%" height="115%"/></p>
+		<ul>
+			<li>Date of first and last investigational therapy is auto-populated from completed and DCC approved Chemo Treatment CRFs.  If no investigational therapy was given, no dates will display.</li>
+			<li>Agent name(s), cycle 1 dose, completed cycles, cumulative dose, treatment schedule, dose delay, and dose modification fields are auto-populated from completed and DCC approved Chemo Treatment CRFs. If no investigational therapy was given, no information will display.</li>
+			<li>Select the reason the patient completed their investigational treatment, only if they were randomized to receive an investigational agent [<i>Treatment completed per protocol criteria; Disease progression ,relapse during active treatment; Toxicity/side effects/complications; Patient withdrawal or refusal after beginning protocol therapy; Patient withdrawal or refusal prior to beginning protocol therapy; Other complicating disease; Death during treatment; Alternative therapy; Patient declared ineligible; Other- specify in text box</i>].</li>
+		</ul>
+		 
+		<p><i>Select 'Next' to advance to the 'Comments &amp; Attachments' tab</i></p>
+		<p>Attach all relevant de-identified pathology reports, clinical notes, laboratory notes, and imaging reports (source documents) that document the data that is listed on this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+		<p>Provide any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+		
+		<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+		<p><apex:image url="{!URLFOR($Resource.ChemoSummaryFormScreenshot, 'ChemoSummaryForm5.png')}" width="115%" height="115%"/></p>
+		<ul>
+			<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the screen to update the incorrect information.</li>
+			<li>When you are ready to send the CRF to the DCC for verification, enter your password and select 'Sign and Submit.'</li>	
+	   </ul>
+	</apex:outputPanel>
+</apex:page>

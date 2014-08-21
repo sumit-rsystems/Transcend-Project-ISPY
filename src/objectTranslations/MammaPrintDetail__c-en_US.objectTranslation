@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>MammaPrint Microarray Form</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>MammaPrint Details</value>
+    </caseValues>
+    <fields>
+        <label><!-- CRF --></label>
+        <name>CRF__c</name>
+        <relationshipLabel><!-- MammaPrint Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- CompletedDate --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Save and Close --></label>
+        <name>First_Save_and_Close__c</name>
+    </fields>
+    <fields>
+        <label><!-- H1 H2 status Snomed --></label>
+        <name>H1_H2_status_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- H1 H2 status Val Snomed --></label>
+        <name>H1_H2_status_Val_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- H1 H2 status --></label>
+        <name>H1_H2_status__c</name>
+    </fields>
+    <fields>
+        <label><!-- MPrintRisk Snomed --></label>
+        <name>MPrintRisk_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- MammaPrint Index Snomed --></label>
+        <name>MammaPrint_Index_Snomed__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter MammaPrint Index Value. --></help>
+        <label><!-- MammaPrint Index --></label>
+        <name>MammaPrint_Index__c</name>
+    </fields>
+    <fields>
+        <label><!-- MammaPrint Risk Snomed --></label>
+        <name>MammaPrint_Risk_Snomed__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select any. --></help>
+        <label><!-- MammaPrint Risk --></label>
+        <name>MammaPrint_Risk__c</name>
+        <picklistValues>
+            <masterLabel>High Risk</masterLabel>
+            <translation><!-- High Risk --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Low risk</masterLabel>
+            <translation><!-- Low risk --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quality not sufficient</masterLabel>
+            <translation><!-- Quality not sufficient --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quantity not sufficient</masterLabel>
+            <translation><!-- Quantity not sufficient --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- MammaPrint Risk val Snomed --></label>
+        <name>MammaPrint_Risk_val_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- OriginalCRF --></label>
+        <name>OriginalCRF__c</name>
+        <relationshipLabel><!-- MammaPrint Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Pg_Status --></label>
+        <name>Pg_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Follow-up</masterLabel>
+            <translation><!-- Follow-up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening</masterLabel>
+            <translation><!-- Screening --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment</masterLabel>
+            <translation><!-- Treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Enter the date of report. --></help>
+        <label><!-- Report Date --></label>
+        <name>Report_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Risk Category --></label>
+        <name>Risk_Category__c</name>
+    </fields>
+    <fields>
+        <label><!-- Specimen Collection Dates --></label>
+        <name>Specimen_Collection_Dates__c</name>
+    </fields>
+    <fields>
+        <label><!-- Specimen Used --></label>
+        <name>Specimen_Used__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Not Required</masterLabel>
+            <translation><!-- Approval Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Pending</masterLabel>
+            <translation><!-- Approval Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- TargetPrint Her2_OS Snomed --></label>
+        <name>TargetPrint_Her2_OS_Snomed__c</name>
+    </fields>
+    <fields>
+        <label><!-- TargetPrint Her2_Val Snomed --></label>
+        <name>TargetPrint_Her2_Val_Snomed__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter Value up to three decimal. --></help>
+        <label><!-- TargetPrint Her 2 Index --></label>
+        <name>TargetPrint_Her_2_Index__c</name>
+    </fields>
+    <fields>
+        <label><!-- TargetPrint Her 2 Status --></label>
+        <name>TargetPrint_Her_2_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tissue Specimen Detail --></label>
+        <name>Tissue_Specimen_Detail__c</name>
+        <relationshipLabel><!-- MammaPrint Details --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- MammaPrint CRF --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- pg_MammaPrintMicroArray_Id --></label>
+        <name>pg_MammaPrintMicroArray_Id__c</name>
+    </fields>
+    <layouts>
+        <layout>Approval Pending</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- MammaPrint Risk --></label>
+            <section>MammaPrint Risk</section>
+        </sections>
+        <sections>
+            <label><!-- Report Details --></label>
+            <section>Report Details</section>
+        </sections>
+        <sections>
+            <label><!-- Target HER 2 Index --></label>
+            <section>Target HER 2 Index</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Live</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- MammaPrint Risk --></label>
+            <section>MammaPrint Risk</section>
+        </sections>
+        <sections>
+            <label><!-- Report Details --></label>
+            <section>Report Details</section>
+        </sections>
+        <sections>
+            <label><!-- Target HER 2 Index --></label>
+            <section>Target HER 2 Index</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>LiveForLabTech</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- MammaPrint Risk --></label>
+            <section>MammaPrint Risk</section>
+        </sections>
+        <sections>
+            <label><!-- Report Details --></label>
+            <section>Report Details</section>
+        </sections>
+        <sections>
+            <label><!-- Target HER 2 Index --></label>
+            <section>Target HER 2 Index</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>MammaPrint Detail Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- MammaPrint Risk --></label>
+            <section>MammaPrint Risk</section>
+        </sections>
+        <sections>
+            <label><!-- Report Details --></label>
+            <section>Report Details</section>
+        </sections>
+        <sections>
+            <label><!-- Target HER 2 Index --></label>
+            <section>Target HER 2 Index</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Adhoc --></label>
+        <name>Adhoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Specimen_Collection_date_validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The MammaPrint score value will be a number between -1 and 1. --></errorMessage>
+        <name>Validate_MammaPrint_Index</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Report date should not be future date --></errorMessage>
+        <name>Validate_ReportDate</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The MammaPrint score value will be a number between -1 and 1. --></errorMessage>
+        <name>Validate_TargetPrint_Her_2_Index</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Cancel --></label>
+        <name>Cancel</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Complete --></label>
+        <name>Complete</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Sign_and_Submit --></label>
+        <name>Sign_and_Submit</name>
+    </webLinks>
+</CustomObjectTranslation>

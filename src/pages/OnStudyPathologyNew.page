@@ -1,0 +1,3 @@
+<apex:page standardController="On_Study_Pathology_Form__c" extensions="OnStudyPathologyNew" action="{!customeNew}">
+
+</apex:page>

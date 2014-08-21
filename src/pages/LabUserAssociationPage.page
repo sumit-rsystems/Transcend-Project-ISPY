@@ -1,0 +1,55 @@
+<apex:page controller="LabUserAssociationController" sideBar="false">
+	<apex:form id="formId">
+		<apex:pageBlock title="Lab User Association" id="pageBlockId">
+			<apex:pageBlockButtons id="blkBtnId">
+            	<apex:commandButton action="{!save}" value="Save" rerender="pageBlockId" status="counterStatus"/>
+                <apex:actionStatus id="counterStatus" startText="Processing..." />
+            </apex:pageBlockButtons>
+            <table style="padding-left: 10px;">
+				<tr>
+					<td>Select Lab: </td>
+					<td>
+						<apex:selectList value="{!selectedLab}" size="1" id="selLstId1"> 
+							<apex:selectOptions value="{!lstLabValues}"/>
+							<apex:actionSupport event="onchange" action="{!getLabUsers}" rerender="pageBlockId" status="loadStatus"/>
+						</apex:selectList>
+					</td>
+					<td>
+						<apex:actionStatus id="loadStatus" startText="Loading..." />
+					</td>
+				</tr>
+			</table>
+			<apex:pageBlockSection columns="1" id="blkSecId2" rendered="{!pageMsgFlag}"> 
+				<apex:pageMessage summary="{!pageMsg}" severity="info" strength="3"  />				
+			</apex:pageBlockSection>
+			<apex:pageBlockSection columns="1" id="blkSecId3" rendered="{!isUserAvl}">
+				<apex:outputPanel style="width: 100%; overflow-x: auto; overflow-y: scroll;" layout="block">
+					<apex:pageBlockTable value="{!lstUserWrapper}" var="userWrapper">
+						<apex:column >
+							<apex:facet name="header"/>
+							<apex:inputCheckbox value="{!userWrapper.isChecked}"/>
+						</apex:column>
+						<apex:column >
+							<apex:facet name="header">Full Name</apex:facet>
+							<apex:outputPanel >
+								<apex:outputText value="{!userWrapper.user.LastName}"/>
+								&nbsp;
+								<apex:outputText value="{!userWrapper.user.FirstName}"/>
+							</apex:outputPanel>
+						</apex:column>
+						<apex:column value="{!userWrapper.user.Username}"/>
+						<apex:column value="{!userWrapper.user.Email}" />
+						<apex:column >
+							<apex:facet name="header">User Role</apex:facet>
+							<apex:outputText value="{!userWrapper.user.UserRole.Name}"/>
+						</apex:column>
+						<apex:column >
+							<apex:facet name="header">User Profile</apex:facet>
+							<apex:outputText value="{!userWrapper.user.Profile.Name}"/>
+						</apex:column>
+					</apex:pageBlockTable>
+				</apex:outputPanel>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

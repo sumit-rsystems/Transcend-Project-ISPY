@@ -1,0 +1,75 @@
+<apex:page controller="ViewFailedRegistrationController" >
+ <style>
+
+        .tableStyle {border-collapse: collapse; border-spacing: 0px 0px; }
+        .colStyle1 { width: 10%; text-align:right;padding-top:3px;}
+        .colStyle2 { width: 10%;}
+        .colStyle3 { width: 10%;text-align:right;padding-top:3px;}
+        .colStyle4 { width: 10%; }
+        .colStyle5 { width: 10%;text-align:right;padding-top:3px;}
+        .colStyle6 { width: 10%; }
+        .colStyle7 { width: 10%;text-align:right;padding-top:3px; }
+        .colStyle8 { width: 10%; }
+        .colStyle9 { width: 10%; text-align:center;}
+        .rowstyle { border-bottom-style:solid; border-bottom-width:1px;border-bottom-color:#E8E8E8 }
+    </style>
+<apex:form >
+<script>function setFocusOnLoad() {}</script>
+<apex:pageBlock title="Review Failed Transactions" id="frPageBlock">
+<br/>
+<br/>
+<apex:pageBlockSection columns="1">
+ <apex:panelGrid columns="8" border="0"  width="100%" columnClasses="colStyle1,colStyle2,colStyle3,colStyle4,colStyle5,colStyle6,colStyle7,colStyle8">
+<apex:outputLabel >From Date</apex:outputLabel>
+<apex:inputField value="{!filter.From_Date__c}"/>
+<apex:outputLabel >To Date</apex:outputLabel>
+<apex:inputField value="{!filter.To_Date__c}"/>
+<apex:outputLabel value="Error Code" ></apex:outputLabel>
+<apex:selectList value="{!errorCode}" size="1">
+<apex:selectOptions value="{!errorCodes}"/>
+</apex:selectList>
+<apex:outputLabel >Last Status</apex:outputLabel>
+<apex:selectList value="{!lastStatus}" size="1">
+<apex:selectOptions value="{!statusList}"/>
+</apex:selectList>
+
+</apex:panelGrid>
+<apex:panelGrid columns="5" width="60%" columnClasses="colStyle1,colStyle2,colStyle3,colStyle4,colStyle5">
+<apex:outputLabel >CRF Name</apex:outputLabel>
+<apex:selectList value="{!CRFName}" size="1">
+<apex:selectOptions value="{!CRFNames}"/>
+</apex:selectList>
+<apex:outputLabel >System Name</apex:outputLabel>
+<apex:selectList value="{!systemName}" size="1">
+<apex:selectOptions value="{!systemNames}"/>
+</apex:selectList>
+<apex:commandButton value="Filter" action="{!doFilter}"/>
+</apex:panelGrid>
+
+</apex:pageBlockSection>
+<br/>
+<br/>
+<!--<apex:outputPanel layout="block" style="{!if(renderGoToListLink=='true','overflow:auto;height:200px;align:bottom;width:100%','overflow:auto;height:900px;align:bottom;width:100%')}"  >-->
+<apex:pageBlockTable value="{!recLst}" var="rItem" rendered="true" id="frTable">
+ <apex:repeat value="{!fields}" var="f">
+        <apex:column headerClass="headerStyle" headerValue="{!f.Label}" value="{!rItem.failedRegistration[f.fieldPath]}" style="{!IF(rItem.disabled, 'background-color:grey', '')}">
+            <apex:facet name="header">
+            <apex:commandLink action="{!doSort}" value="{!f.Label}{!IF(sortExpression==f.FieldPath,IF(sortDirection='DESC','▼','▲'),'')}" id="cmdSort" reRender="frTable">
+            <apex:param value="{!f.FieldPath}" name="column" assignTo="{!sortExpression}" ></apex:param>
+           </apex:commandLink>
+            </apex:facet>
+        </apex:column>
+ </apex:repeat>
+ <apex:column headerClass="headerStyle" headerValue="" style="{!IF(rItem.disabled, 'background-color:grey', '')}">
+     <apex:commandLink value="More Details" style="color:blue" onClick="window.open('/apex/ReviewFailedTransactionDetails?id={!rItem.failedRegistration['ID']}')"/>
+ </apex:column>
+</apex:pageBlockTable>
+</apex:pageBlock>
+<apex:panelGrid columns="4" id="frLinks">
+    <apex:commandLink action="{!first}" reRender="frTable,frLinks" status="renderMeStatus">First</apex:commandlink>
+    <apex:commandLink action="{!previous}" reRender="frTable,frLinks" status="renderMeStatus" rendered="{!hasPrevious}">Previous</apex:commandlink>
+    <apex:commandLink action="{!next}" reRender="frTable,frLinks" status="renderMeStatus" rendered="{!hasNext}">Next</apex:commandlink>
+    <apex:commandLink action="{!last}" reRender="frTable,frLinks" status="renderMeStatus" >Last</apex:commandlink>
+</apex:panelGrid> 
+</apex:form>
+</apex:page>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Phase CRFs</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Phases CRFs</value>
+    </caseValues>
+    <fields>
+        <label><!-- CRF --></label>
+        <name>CRF__c</name>
+        <relationshipLabel><!-- Phases CRFs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Next Due on --></label>
+        <name>Next_Due_on__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order --></label>
+        <name>Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phase Cycle --></label>
+        <name>Phase_Cycle__c</name>
+        <relationshipLabel><!-- Phases CRFs --></relationshipLabel>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

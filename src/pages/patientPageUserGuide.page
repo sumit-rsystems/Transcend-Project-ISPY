@@ -1,0 +1,50 @@
+<apex:page showHeader="false" sidebar="false">
+<style>
+	.headingDiv {
+		border-bottom: 1px solid #000;
+		/*width: 100%;*/
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;
+		/*text-align: center;*/
+	}
+	.redColor{
+		color:red;
+	}
+</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to create a patient?</h2>
+		</apex:outputPanel>
+		<p>To create a patient, click “<b>Patient</b>” tab on the header bar and click “<b>New</b>”.</p>
+		<p><apex:image url="{!URLFOR($Resource.patientScreenShot, 'patient/patientList.png')}" width="100%" height="100%"/></p>
+		<p>Now the system asks for the “<b>Last name</b>” for duplicate search. Enter the name and click “<b>Search</b>”. It means that system will check if the person with this “<b>Last name</b>” is present in the system or not. You can skip this check by clicking “<b>Skip Duplicate Search</b>”.</p>
+		<p><apex:image url="{!URLFOR($Resource.patientScreenShot, 'patient/skipDuplicate.png')}" width="100%" height="100%"/></p>
+		<p>If there is any person with same last name, it will appear on the screen as shown below. If the person is same you can edit the details or you can create a new patient by clicking “<b>Skip Duplicate Search</b>”.</p>
+		<p><apex:image url="{!URLFOR($Resource.patientScreenShot, 'patient/duplicateResult.png')}" width="100%" height="100%"/></p>
+		<p>If there is no match found, then click “<b>Add new Patient</b>”.</p>
+		<p><apex:image url="{!URLFOR($Resource.patientScreenShot, 'patient/addPatient.png')}" width="100%" height="100%"/></p>
+		<p>The screen below will open with Institution, last name and gender pre-populated in the “<b>Personal Info</b>” tab. The remaining details need to be filled.</p>
+		<p><apex:image url="{!URLFOR($Resource.patientScreenShot, 'patient/personalInfo.png')}" width="100%" height="100%"/></p>
+		<p class="redColor"><b><i>Note:  The person needs to check “Signed Screening Form” to get eligible for this trial.</i></b></p>
+		<p>Below is the screenshot of “<b>Address</b>” tab.</p>
+		<p><apex:image url="{!URLFOR($Resource.patientScreenShot, 'patient/address.png')}" width="100%" height="100%"/></p>
+		<p>In the “<b>Additional Info</b>” tab, the race and ethnicity details are required.</p>
+		<p><apex:image url="{!URLFOR($Resource.patientScreenShot, 'patient/additionalInfo.png')}" width="100%" height="100%"/></p>
+		<p class="redColor"><b><i>Note:  Race and Ethnicity are required.</i></b></p>
+		<p class="redColor"><b><i>Race is multi-select, patients can identify with any or all of the choices. The Ethnicity choices are either Hispanic or Latino or Not Hispanic or Latino.  These choices follow the standard on the US Census.</i></b></p>
+		<p>In the “<b>Patient Identifier</b>” tab, Enter the Medical Record Number at your institution, this is optional. Do NOT change the Internal ID as that is specific to the system.</p>
+		<p><apex:image url="{!URLFOR($Resource.patientScreenShot, 'patient/patientIdentifier.png')}" width="100%" height="100%"/></p>
+		<p><apex:image url="{!URLFOR($Resource.patientScreenShot, 'patient/physician.png')}" width="100%" height="100%"/></p>
+		<p><apex:image url="{!URLFOR($Resource.patientScreenShot, 'patient/completePatient.png')}" width="100%" height="100%"/></p>
+		<p>You do not have to record the patient's physicians as shown in the above screen. “<b>Save</b>” the details and “<b>complete</b>”.</p>
+		<p><apex:image url="{!URLFOR($Resource.patientScreenShot, 'patient/afterComplete.png')}" width="100%" height="100%"/></p>
+		<p>“<b>Sign and Submit</b>” button will appear on the screen. Clicking it will ask for the security code of the user as shown below.</p>
+		<p><apex:image url="{!URLFOR($Resource.patientScreenShot, 'patient/signAndSubmit.png')}" width="100%" height="100%"/></p>
+		<p>Once the patient is created, “<b>Please Select Trial</b>” dropdown is visible on the screen.</p>
+		<p><apex:image url="{!URLFOR($Resource.patientScreenShot, 'patient/selectTrial.png')}" width="100%" height="100%"/></p>
+		<p>Selecting the trial will open the phases and CRFs associated with the trial as shown below.</p>
+		<p><apex:image url="{!URLFOR($Resource.patientScreenShot, 'patient/CRFlist.png')}" width="100%" height="100%"/></p>
+	</apex:outputPanel>
+</apex:page>

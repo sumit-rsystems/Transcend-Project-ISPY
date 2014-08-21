@@ -1,0 +1,350 @@
+<apex:page standardController="Patient_Custom__c" extensions="PatientAddController" sidebar="false" tabStyle="Patient_Custom__c">
+<script type="text/javascript">
+	function addYearInDateField(relatedYearShow) {
+		//alert(document.getElementById('datePicker').innerHTML);
+		 var currentYear = new Date().getFullYear();
+		 var startYear;
+		 var endYear;
+		 
+		 if(relatedYearShow == 'past'){
+		 	 startYear= 1900;
+		 	 endYear=currentYear;
+		 }else if(relatedYearShow == 'future'){
+		 	startYear= currentYear;
+		 	endYear= currentYear + 30;
+		 }else{
+		 	 startYear= 1950;
+			 endYear=currentYear + 20;
+		 }
+		 
+		 var htmlStr='';
+		 if(startYear<endYear){
+		 	for(i=startYear;i<endYear+1;i++){
+		 		if(i == currentYear) {
+		 			htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+		 		} else {
+			 		htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+		 		}
+		 	}
+		}
+		//alert(htmlStr);
+		document.getElementById('calYearPicker').innerHTML = htmlStr; 
+	}
+</script>
+	<style>
+		.tableProcedureHeadPage {
+			width: 22%;
+		}
+		.tableLateralityHeadPage {
+			width: 6%;
+		}
+		.tableLocationHeadPage {
+			width: 18%;
+		}
+		
+		.activeTab {
+			background: none repeat scroll 0 0 #FFFFFF;
+		    border-bottom: 2px solid #FFFFFF;
+		    color: #000000;
+		    font-weight: 600;
+		    width: 115px;
+		}
+		
+		.inactiveTab {
+				cursor: pointer;
+				/*background-color: #7A9FA0;*/
+				background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+				color: white; /*#3C3C3C;*/
+				font-weight: bold;
+				font-size: 12px;
+				height: 15px;
+				width: 115px;
+				vertical-align: middle;
+				/*padding-top: 4px;*/
+				border: none;
+		}
+			
+		.rich-tab-inactive {
+			background-repeat: repeat-x;
+			border-color: #FFFFFF;
+			border-style: none;
+			border-width: 0;
+			cursor: pointer;
+		}
+		
+		.rich-tabhdr-side-border {
+			background-image:none; 
+			border-radius: 4px 4px 0 0;
+			background-color: none;
+			width: 2px;
+		}
+		
+		.rich-tabhdr-side-cell {
+			box-shadow: 0 -2px 2px #A7A7A8;
+			/*border: 2px solid #056FC1;*/
+			border-top: 2px solid #056FC1;
+			border-left: 2px solid #056FC1;
+			border-right: 2px solid #056FC1;
+			border-radius: 4px 4px 0 0;
+		}
+		
+		.rich-tabpanel-content {
+			background-color: #fff;
+			border-left: 2px solid #056FC1;
+			border-right: 2px solid #056FC1;
+			border-bottom: 2px solid #056FC1;
+		}
+		
+		.rich-tab-bottom-line {
+			border-bottom: 1px solid #056FC1;
+		}
+		
+		.requiredfield {
+			border-left: 3px solid #CC0000;
+		}
+		
+		.errorMsg {
+			font-weight: normal;
+		}
+		
+		* {padding:0; margin:0;}
+		.noSidebarCell {vertical-align: top;}
+		a{ text-decoration:none;}
+		a:hover {text-decoration:none;}
+		p, h3 { 
+			margin-bottom:15px;
+		}
+		
+		h3 { 
+			font-size: 14px;
+			font-family: sans-serif;
+			display: block;
+		}
+		
+		#tabsection{width:800px; height:auto; float:left; padding:0; margin-top:5px; }
+		#tablelabel{ width:200px; height:20px; font-size:12px; color:#0f7ed3; float:left;padding:0;padding-top:3px; font-weight:600; }
+		/*#createnew {width:100px; height:20px; margin-left:10px; float:left; padding:0; margin-top:5px; }*/
+		#createnew {width:100px; height:20px; float:left; padding:0; margin-top:5px; }
+		#createnew a{ width:100px; height:20px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d; }
+		/*#view_past{width:100px; height:20px; float:left; margin-left:10px; }*/
+		#view_past{width:100px; height:20px; float:left; margin-left:100px; }
+		#view_past select{width:100px; height:25px;  float:left; padding:0;  border:1px solid #5d6e7b; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px;}
+		#page_content{ width:1000px; height:auto; float:left;}
+		#page_title{ width:1000px; height:30px; background-color:#9dd3fc; border:1px solid #87c5f5;}
+		#page_title span{ float:left; margin-top:6px; margin-left:10px; font-size:14px; font-weight:600; }
+		#page_title span.btn1{ float:right; margin-left:0px; margin-right:10px; margin-top:1px;}
+		#page_title span a{ float:left; color:#fff; margin-top:3px; font-size:12px; font-weight:600; padding:3px 10px 3px 10px; border:1px solid #fff; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;}
+		#content_area{ float:left; width:1000px;}
+		#content_area fieldset{ width:980px; height:auto; padding:10px;  margin-top:10px; border:2px solid #056fc1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px;}
+		#content_area fieldset legend{ width:150px; height:19px; background-color:#ecf5fc; text-indent:10px; padding-top:3px; margin-left:20px; color:#000000; font-size:13px; font-weight:600; border:2px solid #056fc1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px;} 
+		#tab_area{ width:100%; float:left; }
+		
+		#tab_area{ float:left; margin-top:10px;}
+		#div_tbl{float:left; width:390px;  font-size:12px; font-weight:600;}
+		#div_tbl table tr td.label{ width:220px; color:#333333; text-align:right; height:20px; padding-right: 5px;}
+		div.tabdiv h3{ color:#333333}
+		/*#nextdue{ float:left; color:#0f7ed3 ; font-size:12px; font-weight:600; margin-left:10px;}*/
+		#nextdue{ float:left; color:#0f7ed3 ; font-size:12px; font-weight:600; margin-left:90px;}
+		#nextdue span{ float:left;}
+		/*#cdate{ width:100px; height:20px; color:#333333; font-weight:normal; float:left; margin-left:10px; text-align:center;  border:1px solid #9faeba; background-color:#d4dce2; padding:0;padding-top:3px; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; }
+		#cdate{ width:100px; color:#333333; font-weight:normal; float:left; margin-left:10px; text-align:center;  border:1px solid #9faeba; background-color:#d4dce2; padding:0;padding-top:3px; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; }*/
+		#cdate{ width:198px; color:#333333; font-weight:normal; float:left; margin-left:10px; text-align:center;  border:1px solid #9faeba; background-color:#d4dce2; padding:0;padding-top:3px; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; }
+		
+		
+		#warp{ width:1000px; height:auto; margin:0 auto;}
+	</style>
+	<apex:form id="PatientAddForm">
+		<br/><br/>
+		<table width="100%">
+			<tr>
+				<td width="95%" align="center">
+					<apex:commandButton action="{!redirectPage}" value="  Save  " rerender="PatientAddForm">
+						<apex:param name="paramAtt" value="save"/>
+					</apex:commandButton>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<apex:commandButton action="{!redirectPage}" value="Cancel" rerender="PatientAddForm">
+						<apex:param name="paramAtt" value="cancel"/>
+					</apex:commandButton>
+				</td>
+				<td class="pbHelp" align="right">
+					<span title="Help" class="help">
+						<a class="linkCol" href="javascript:openPopupFocusEscapePounds('/apex/patientPageUserGuide?showSplash=true',%20'Help',%201024,%20768,%20'width=1024,height=768,resizable=yes,toolbar=yes,status=yes,scrollbars=yes,menubar=yes,directories=no,location=yes,dependant=no',%20false,%20false);"><span class="linkSpan">Help </span><img title="Help (New Window)" class="helpIcon" alt="Help (New Window)" src="/s.gif" /></a>
+					</span>
+				</td> 
+			</tr>   
+		</table>
+		<br/><br/>
+		<apex:outputPanel id="messagePanel">
+       		<apex:pageMessage summary="{!errorMsg}" severity="error" strength="3" rendered="{!isShowError}" escape="false"/>
+       	</apex:outputPanel>
+       	<div id="content_area">
+	       	<apex:tabPanel height="300px" switchType="client" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+	       		<apex:tab label="Personal Info" name="PersonalInfo" id="PersonalInfoTab">
+	       			<table><tr><td height="25px"></td></tr></table>
+	       			<div id="div_tbl">
+		                <table border="0" cellspacing="2" cellpadding="0">
+		                  <tr height="12px">
+		                    <td class="label" >First Name: </td>
+		                    <td class="info" ><apex:inputField value="{!patientObj.First_Name__c}" /></td>
+		                  </tr>
+		                  <tr>
+		                    <td class="label" valign="top">Last Name:</td>
+		                    <td class="info requiredfield">
+		                    	<apex:inputField value="{!patientObj.Last_Name__c}"/>
+		                    	<apex:outputPanel rendered="{!isLastName}" styleClass="errorMsg" layout="block" style="font-weight: normal;"><strong>Error: </strong>Please enter last name</apex:outputPanel>
+		                    </td>
+		                  </tr>
+		                  <tr>
+		                    <td class="label" >Gender: </td>
+		                    <td class="info requiredfield" >
+		                    	<apex:inputField value="{!patientObj.Gender__c}" />
+		                    	<apex:outputPanel rendered="{!isGender}" styleClass="errorMsg" layout="block" style="font-weight: normal;"><strong>Error: </strong>Please select gender</apex:outputPanel>
+		                    </td>
+		                  </tr>
+		                  <tr>
+		                    <td class="label" valign="top">Institution: </td>
+		                    <td class="info" >
+		                    	<apex:outputPanel rendered="{!AND(userAssociatedWithMultipleInstitute, ISNULL(patientObj.Id))}">
+			                    	<table>
+			                    		<tr>
+			                    			<td class="requiredfield" >
+												<apex:selectList value="{!selectedInstitution}" size="1" >
+													<apex:selectOptions value="{!institutions}"/>
+												</apex:selectList>
+			                    			</td>
+			                    		</tr>
+			                    	</table>
+		                    	</apex:outputPanel>
+								<apex:outputField value="{!patientObj.Institution__c}" rendered="{!NOT(AND(userAssociatedWithMultipleInstitute, ISNULL(patientObj.Id)))}"/>		                    	
+		                    </td>
+		                  </tr>
+		                </table>
+		            </div>
+		            <div id="div_tbl" style=" margin-right:5px;">
+		                <table border="0" cellspacing="2" cellpadding="0">
+		                  <tr>
+		                    <td class="label" >Middle Name:</td>
+		                    <td class="info" ><apex:inputField value="{!patientObj.Middle_Name__c}" /></td>
+		                  </tr>
+		                  <tr> 
+		                    <td class="label" >Suffix:</td>
+		                    <td class="info" ><apex:inputField value="{!patientObj.Suffix__c}" /></td>
+		                  </tr>
+		                  <tr>
+		                    <td class="label" >Birthdate:</td>
+		                    <td class="info requiredfield" >
+		                    	<apex:inputField id="birthdate" value="{!patientObj.Birthdate__c}"/>
+		                    	<script type="text/javascript">
+								document.getElementById('{!$component.birthdate}').onfocus = function onfocus(event) {
+									DatePicker.pickDate(true, '{!$component.birthdate}', false); 
+								    addYearInDateField('past'); 
+								};
+								</script>
+		                    	<apex:outputPanel rendered="{!isBirthday}" styleClass="errorMsg" layout="block" style="font-weight: normal;"><strong>Error: </strong>{!errorMsgBirthday}</apex:outputPanel>
+		                    </td>
+		                  </tr>
+		                  <tr> 
+							<!--   <td class="label">Signed Screening Form: </td>   -->
+							<!--   <td class="info" ><apex:inputField value="{!patientObj.Signed_Screening__c}" /></td>   -->
+		                  </tr>
+		                </table>
+		            </div>
+	       		</apex:tab>
+	       		<apex:tab label="Address" name="Address" id="AddressTab">
+	       			<table><tr><td height="25px"></td></tr></table>
+	       			<div id="div_tbl">
+	                    <table border="0" cellspacing="2" cellpadding="0">
+	                      <tr>
+	                        <td class="label" >Address Line 1: </td>
+	                        <td class="info" ><apex:inputField value="{!patientObj.Address_Line_1__c}" /></td>
+	                      </tr>
+	                      <tr>
+	                        <td class="label" >City: </td>
+	                        <td class="info" ><apex:inputField value="{!patientObj.City__c}" /></td>
+	                      </tr>
+	                      <tr>
+	                        <td class="label" >Country: </td>
+	                        <td class="info" ><apex:inputField value="{!patientObj.Country__c}" /></td>
+	                      </tr>
+	                    </table>
+	                </div>
+	                <div id="div_tbl" style=" margin-right:5px;">
+	                    <table border="0" cellspacing="2" cellpadding="0">
+	                      <tr>
+	                        <td class="label" >Address Line 2: </td>
+	                        <td class="info" ><apex:inputField value="{!patientObj.Address_Line_2__c}" /></td>
+	                      </tr>
+	                      <tr>
+	                        <td class="label" >State: </td>
+	                        <td class="info" ><apex:inputField value="{!patientObj.State__c}" /></td>
+	                      </tr>
+	                      <tr>
+	                        <td class="label" >Zip: </td>
+	                        <td class="info" ><apex:inputField value="{!patientObj.Zip__c}" /></td>
+	                      </tr>
+	                    </table>
+	                </div>
+	       		</apex:tab>
+	       		<apex:tab label="Additional Details" name="AdditionalDetails" id="AdditionalDetailsTab">
+	       			<table><tr><td height="25px"></td></tr></table>
+	       			<div id="div_tbl" style="width: 598px;">
+	                	<table border="0" cellspacing="2" cellpadding="0" width="100%">
+							<tr>
+	                          <td class="label" style="width:20%">Race:</td>
+	                          <td class="info requiredfield">
+	                          	<apex:inputField value="{!patientObj.Race__c}" />
+	                          	<apex:outputPanel rendered="{!isRace}" styleClass="errorMsg" layout="block" style="font-weight: normal;"><strong>Error: </strong>Please select race</apex:outputPanel>
+	                          </td>
+							</tr>
+						</table>
+	                 </div>
+	                 <div id="div_tbl" style="margin-right: 5px; width: 300px;">
+	                     <table border="0" cellspacing="2" cellpadding="0">
+	                       <tr>
+	                         <td class="label" >Ethnicity:</td>
+	                         <td class="info requiredfield">
+	                         	<apex:inputField value="{!patientObj.Ethnicity__c}"/>
+	                         	<apex:outputPanel rendered="{!isEthnicity}" styleClass="errorMsg" layout="block" style="font-weight: normal;"><strong>Error: </strong>Please select ethnicity</apex:outputPanel>
+	                         </td>
+	                       </tr>
+	                  <!--      <tr>
+	                         <td class="label" >VIP: </td>
+	                         <td class="info" ><apex:inputField value="{!patientObj.VIP__c}"/></td>
+	                       </tr>  -->  
+	                     </table>
+	                 </div>
+	       		</apex:tab>
+	       		<apex:tab label="Patient Identifier" name="PatientIdentifier" id="PatientIdentifierTab">
+	       			<table><tr><td height="25px"></td></tr></table>
+	       			<div id="div_tbl">
+                        <table border="0" cellspacing="2" cellpadding="0">
+                          <tr>
+                            <td class="label" >Medical Record Number: </td>
+                            <td class="info" ><apex:inputField value="{!patientObj.Medical_Record_Number__c}" /></td>
+                          </tr>
+                        </table>
+                    </div>
+	       		</apex:tab>
+	       		<apex:tab label="Physicians" name="Physicians" id="PhysiciansTab">
+	       			<table><tr><td height="25px"></td></tr></table>
+	                <div id="div_tbl">
+	                    <table border="0" cellspacing="2" cellpadding="0">
+	                      <tr>
+	                        <td class="label" ><span id="01IE0000000RFRC.00NE00000028FLJ-_help" class="helpButton">Primary MD: <img title="" class="helpOrb" alt="" src="/s.gif" /><script type="text/javascript">sfdcPage.setHelp('01IE0000000RFRC.00NE00000028FLJ', 'If you doesn\'t found MD in lookup list then click on "New" button in lookup.');</script></span></td>
+	                        <td class="info" ><apex:inputField value="{!patientObj.Primary_MD__c}" /></td>
+	                      </tr>
+	                    </table>
+	                </div>
+	                <div id="div_tbl" style=" margin-right:5px;">
+	                    <table border="0" cellspacing="2" cellpadding="0">
+	                      <tr>
+	                        <td class="label" ><span id="01IE0000000RFRC.00NE00000028FLP-_help" class="helpButton">Surgeon: <img title="" class="helpOrb" alt="" src="/s.gif" /><script type="text/javascript">sfdcPage.setHelp('01IE0000000RFRC.00NE00000028FLP', 'If you doesn\'t found Surgeon in lookup list then click on "New" button in lookup.');</script></span></td>
+	                        <td class="info" ><apex:inputField value="{!patientObj.Surgeon__c}" /></td>
+	                      </tr>
+	                    </table>
+	                </div>
+	            </apex:tab>
+	       	</apex:tabPanel>
+		</div>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,35 @@
+<apex:page controller="FileUploader" sidebar="false" showHeader="false">
+	<style>
+		body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+ 			background-color: #fff;
+		}
+		.styletd { 
+			height:20px;
+			padding:3px 10px 3px 10px;
+			padding-left: 10px;
+			font-weight: bold;
+			border:1px solid #e8edf1;
+			-moz-border-radius: 4px; 
+			-webkit-border-radius:4px; 
+			-khtml-border-radius: 4px; 
+			border-radius:4px; 
+			color:#fff; 
+			background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; 
+			-moz-box-shadow: 0px 0px 21px #4d4d4d; 
+			-webkit-box-shadow: 0px 0px 2px #4d4d4d; 
+			box-shadow: 0px 0px 2px #4d4d4d;
+		}      
+		
+	</style>
+	<apex:messages />
+	<apex:form id="formId">
+		<apex:pageMessage summary="{!msg}" severity="{!severity}" strength="3" rendered="{!showMsg}"/>
+		<table width="100%" style="background: #fff; padding: 15px; border:1px solid #2E84C5; -moz-border-radius: 10px 10px 10px 10px; -webkit-border-radius: 18px;position: fixed; z-index: 81;">
+			<tr>
+				<td width="20%" class="styletd">Upload File : </td>           
+				<td valign="top" width="10%"><apex:inputFile value="{!fileBody}" filename="{!fileName}" /></td>
+				<td valign="top" width="10%"><apex:commandButton value="Upload" action="{!uploadCSV}" style=" width:70px; height:25px; padding:3px 10px 3px 10px; text-align:center; border:1px solid #e8edf1; -moz-border-radius: 4px; -webkit-border-radius:4px; -khtml-border-radius: 4px; border-radius:4px; color:#fff; background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x; -moz-box-shadow: 0px 0px 21px #4d4d4d; -webkit-box-shadow: 0px 0px 2px #4d4d4d; box-shadow: 0px 0px 2px #4d4d4d;"/></td>
+			</tr>
+		</table>
+	</apex:form>
+</apex:page>

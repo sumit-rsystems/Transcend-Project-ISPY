@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>On Study Eligibility Form</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>On Study Eligibility Forms</value>
+    </caseValues>
+    <fields>
+        <help><!-- AST (SGOT) or ALT (SGPT) ≤ 1.5 x institutional ULN. --></help>
+        <label><!-- AST(SGOT)or ALT(SGPT)≤1.5 x institut ULN --></label>
+        <name>AST_SGOT_or_ALT_SGPT_1_5_x_insti__c</name>
+    </fields>
+    <fields>
+        <label><!-- Absolute Neutrophil count ≥ 1500/µL --></label>
+        <name>Absolute_Neutrophil_count_1500_L__c</name>
+    </fields>
+    <fields>
+        <label><!-- ApprovalURL --></label>
+        <name>ApprovalURL__c</name>
+    </fields>
+    <fields>
+        <label><!-- CRF --></label>
+        <name>CRF__c</name>
+        <relationshipLabel><!-- On Study Eligibility Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Patient has clinically or radiologically measurable or non-measurable disease in breast defined as longest diameter ≥ 2.5cm, per protocol 4.1.1 B. --></help>
+        <label><!-- Clinically or radiologically measurable --></label>
+        <name>Clinically_or_radiologically_measurable__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- CompletedDate --></label>
+        <name>CompletedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Creatinine &lt; 1.5 x institutional ULN --></label>
+        <name>Creatinine_1_5_x_institutional_ULN__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has a creatinine clearance &gt; 40 mL/min per 24-hours urine collection or calculated according to the Cockcroft-Gault formula (see appendix C, table 2 for either formula that can be used). --></help>
+        <label><!-- Has Creatinine clearance &gt; 40 mL/min --></label>
+        <name>Creatinine_clearance_40_mL__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has a diastolic blood pressure &lt; 100 mm Hg and systolic blood pressure &lt; 160 mm Hg on at least one of three sequential blood pressure determinations performed during their clinic visit or within the week during the screening process. --></help>
+        <label><!-- Has diastolic blood pressure &lt; 100 mm Hg --></label>
+        <name>Diastolic_blood_pressure_100_mm_Hg__c</name>
+    </fields>
+    <fields>
+        <label><!-- ECOG Score --></label>
+        <name>ECOG_Score__c</name>
+        <picklistValues>
+            <masterLabel>0-Asymplomatic</masterLabel>
+            <translation><!-- 0-Asymplomatic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1-Symplomatic but ambulatory</masterLabel>
+            <translation><!-- 1-Symplomatic but ambulatory --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2-Symplomatic, &lt;50% in bed</masterLabel>
+            <translation><!-- 2-Symplomatic, &lt;50% in bed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3-Symplomatic, &gt;= 50% in bed</masterLabel>
+            <translation><!-- 3-Symplomatic, &gt;= 50% in bed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4-Bedbound</masterLabel>
+            <translation><!-- 4-Bedbound --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5-Death</masterLabel>
+            <translation><!-- 5-Death --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient is eligible to be screened for the study. --></help>
+        <label><!-- Eligible to be screened for the study --></label>
+        <name>Eligible_to_be_screened_for_the_study__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Save and Close --></label>
+        <name>First_Save_and_Close__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has HgbA1c ≤8%. Patients with diabetes who meet the HbgA1C criteria are eligibile (including insulin-dependednt diabetics). --></help>
+        <label><!-- Has HgbA1c ≤8% --></label>
+        <name>Has_HgbA1c_8__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has histologically confirmed invasive cancer of the female breast as confirmed by core needle, fine needle aspirate, or incisional biopsy*(*Incisional biopsy is allowed if residual tumor after biopsy measures at least 2.5cm), per protocol 4.1.1 A. --></help>
+        <label><!-- Histologically confirmed invasive cancer --></label>
+        <name>Histologically_confirmed_invasive_cancer__c</name>
+    </fields>
+    <fields>
+        <label><!-- How was the cancer first detected? --></label>
+        <name>How_was_the_cancer_first_detected__c</name>
+        <picklistValues>
+            <masterLabel>Clinical exam</masterLabel>
+            <translation><!-- Clinical exam --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening MRI</masterLabel>
+            <translation><!-- Screening MRI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening mammogram</masterLabel>
+            <translation><!-- Screening mammogram --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Self exam</masterLabel>
+            <translation><!-- Self exam --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown</masterLabel>
+            <translation><!-- Unknown --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Is mass palpable? --></label>
+        <name>Is_mass_palpable__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown</masterLabel>
+            <translation><!-- Unknown --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Patient is willing to have study core biopsy. --></help>
+        <label><!-- Is willing to have study core biopsy --></label>
+        <name>Is_willing_to_have_study_core_biopsy__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient&apos;s lab values are within these limits (per protocol 4.1.2 C). --></help>
+        <label><!-- Lab Values are within these limits --></label>
+        <name>Lab_Values__c</name>
+    </fields>
+    <fields>
+        <label><!-- Leukocytes ≥ 3000/µL --></label>
+        <name>Leukocytes_3000_L__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mass Identification Date --></label>
+        <name>Mass_Identification_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- If a specific date is not given, provide the best estimated date. --></help>
+        <label><!-- Most Recent Date --></label>
+        <name>Most_Recent_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has no clinical or imaging evidence of distant metastasis (per protocol 4.1.2 E), but can have regional Stage IV where supraclavicular lymph nodes are the only site of metastasis, per protocol 4.1.2 A. --></help>
+        <label><!-- No Clinical Or Imaging Evidence --></label>
+        <name>No_Clinical_Or_Imaging_Evidence__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has no uncontrolled or severe cardiovascular disease; pre-treatment ejection fraction (by nuclear imaging or echocardiography) must be ≥ 50%, per protocol 4.1.2 D. --></help>
+        <label><!-- No Uncontrolled or Cardiovascular Diseas --></label>
+        <name>No_Uncontrolled_or_Cardiovascular_Diseas__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has no ferromagnetic prostheses that are not compatible with an MRI machine, per protocol 4.1.1 H. --></help>
+        <label><!-- No ferromagnetic prostheses? --></label>
+        <name>No_ferromagnetic_prostheses__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has no history of abdominal fistula, GI perforation, or intra-abdominal abscess within 6 months prior to screening. --></help>
+        <label><!-- No history of abdominal fistula --></label>
+        <name>No_history_of_abdominal_fistula__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has no history of allergic reactions attributed to compounds of similar chemical or biologic composition to study agents or accompanying supportive medications, per protocol 4.2 B. --></help>
+        <label><!-- No history of allergic reactions --></label>
+        <name>No_history_of_allergic_reactions__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has no history of clinically significant bleeding with in 6 months prior to enrollement in the screening phase. --></help>
+        <label><!-- No history of clinically bleeding --></label>
+        <name>No_history_of_clinically_bleeding__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has no history of deep venous thrombosis (DVT), arterial thromboembolism, or pulmonary thromboembolism within 12 months prior to screening. --></help>
+        <label><!-- No history of deep venous thrombosis DVT --></label>
+        <name>No_history_of_deep_venous_thrombosis_DVT__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has no history of hypertensive crisis or hypertensive encephalopathy within 6 months prior to enrollment in the screening phase. --></help>
+        <label><!-- No history of hypertensive crisis --></label>
+        <name>No_history_of_hypertensive_crisis__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has no history of stroke (cerebrovascular accident), or transient ischemic attack (TIA) within 12 months prior to screening. --></help>
+        <label><!-- No history of stroke/transient ischemic --></label>
+        <name>No_history_of_stroke_transient_ischemic__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has had no major surgery within 28 days prior to enrollment in the screening phase or has a persistent open wound. --></help>
+        <label><!-- No major surgery within 28 days --></label>
+        <name>No_major_surgery_within_28_days__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has had no minor surgical procedure within 3 days prior to enrollment in the screening phase (placement of tunneled central venous access device is acceptable). --></help>
+        <label><!-- No minor surgical procedure within 3days --></label>
+        <name>No_minor_surgical_procedure_within_3days__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has no serious non-healing wound, ulcer (including gastrointestinal), or bone fracture. --></help>
+        <label><!-- No serious non-healing wound --></label>
+        <name>No_serious_non_healing_wound__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has no uncontrolled intercurrent illness including but not limited to, ongoing or active infection, diabetes, or psychiatric illness/social situations that would limit compliance with study requirements, per protocol 4.2 C. --></help>
+        <label><!-- No uncontrolled intercurrent illness --></label>
+        <name>No_uncontrolled_intercurrent_illness__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient is non-pregnant and non-lactating, per protocol 4.1.1 G. --></help>
+        <label><!-- Non-pregnant and non-lactating --></label>
+        <name>Non_pregnant_and_non_lactating__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has not been treated with immune modulators such as systemic cyclosporine or tacrolimus within 30 days prior to study treatment. --></help>
+        <label><!-- Not been treated with immune modulators --></label>
+        <name>Not_been_treated_with_immune_modulators__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has not had a sentinel lymph node dissection on the nodes draining from the study index tumor site prior to the start of chemotherapy, per protocol 4.2 D. --></help>
+        <label><!-- Not had a sentinel lymph node --></label>
+        <name>Not_had_a_sentinel_lymph_node__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has not had other investigational agents within 30 days of study enrollment, per protocol 4.2 A. --></help>
+        <label><!-- Not had other investigational agents? --></label>
+        <name>Not_had_other_investigational_agents__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has not had prior RT to the ipsilateral breast for this malignancy, per protocol 4.1.1 C. --></help>
+        <label><!-- Not had prior RT to the ipsilateral --></label>
+        <name>Not_had_prior_RT_to_the_ipsilateral__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has not had prior cytotoxic regimens or other targeted anticancer therapies to the ipsilateral breast for this malignancy, per protocol 4.1.1 C. --></help>
+        <label><!-- Not had prior cytotoxic regimens --></label>
+        <name>Not_had_prior_cytotoxic_regimens__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient is not taking a therapentic anticoagulant (e.g. warfarin or LMWH). --></help>
+        <label><!-- Not taking a therapentic anticoagulant --></label>
+        <name>Not_taking_a_therapentic_anticoagulant__c</name>
+    </fields>
+    <fields>
+        <label><!-- OriginalCRF --></label>
+        <name>OriginalCRF__c</name>
+        <relationshipLabel><!-- On Study Eligibility Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Other Reason for Cancer first detected --></label>
+        <name>Other_Reason_for_Cancer_first_detected__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has PTT or APTT ≤ 1.5 x ULN per institutional laboratory range and INR ≤ 1.5. --></help>
+        <label><!-- PTT or APTT ≤ 1.5 x ULN --></label>
+        <name>PTT_or_APTT_1_5_x_ULN__c</name>
+    </fields>
+    <fields>
+        <label><!-- Patient --></label>
+        <name>Patient__c</name>
+        <relationshipLabel><!-- On Study Eligibility Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Patient is 18 years or older, per protocol 4.1.1 D. --></help>
+        <label><!-- Patient is 18 years or older? --></label>
+        <name>Patient_is_18_years_or_older__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient is willing to have study MRI. --></help>
+        <label><!-- Patient is willing to have study MRI --></label>
+        <name>Patient_is_willing_to_have_study_MRI__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Follow-up</masterLabel>
+            <translation><!-- Follow-up --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Screening</masterLabel>
+            <translation><!-- Screening --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment</masterLabel>
+            <translation><!-- Treatment --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Platelets ≥ 100,000/µL --></label>
+        <name>Platelets_100_000_L__c</name>
+    </fields>
+    <fields>
+        <label><!-- PreEligibility Checklist --></label>
+        <name>PreEligibility_Checklist__c</name>
+        <relationshipLabel><!-- On Study Eligibility Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Root CRF Id --></label>
+        <name>Root_CRF_Id__c</name>
+    </fields>
+    <fields>
+        <help><!-- Screening Memogram Prior to Mass Detection. --></help>
+        <label><!-- Screening Memogram Prior to Mass Detect --></label>
+        <name>Screening_Memogram_Prior_to_Mass_Detect__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Not Required</masterLabel>
+            <translation><!-- Approval Not Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval Pending</masterLabel>
+            <translation><!-- Approval Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cloned</masterLabel>
+            <translation><!-- Cloned --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Completed</masterLabel>
+            <translation><!-- Not Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted by Lab</masterLabel>
+            <translation><!-- Submitted by Lab --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Submitter --></label>
+        <name>Submitter__c</name>
+        <relationshipLabel><!-- On Study Eligibility Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Total Bilirubin within institutional normal limits, unless patient has Gilbert&apos;s disease, for which Bilirubin must be ≤ 2.0 x ULN. --></help>
+        <label><!-- Total Bilirubin within institutional --></label>
+        <name>Total_Bilirubin_within_institutional__c</name>
+    </fields>
+    <fields>
+        <label><!-- TrialPatient --></label>
+        <name>TrialPatient__c</name>
+        <relationshipLabel><!-- On Study Eligibility CRF --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- pg_OnStudyEligibility_Id --></label>
+        <name>pg_OnStudyEligibility_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- pg_status --></label>
+        <name>pg_status__c</name>
+    </fields>
+    <fields>
+        <help><!-- Patient has a urinary protein quantitative value of ≤ 30 mg/dL in urnalysis or ≤ 1+ on dipstick (if criteria cannot be met a 24-hour urine collection can be done to calculate total protein excretion and must be &lt; 1000 mg). --></help>
+        <label><!-- Has urinary protein quantitative ≤ 30mg --></label>
+        <name>urinary_protein_quantitative_30mg__c</name>
+    </fields>
+    <layouts>
+        <layout>Approval Pending</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Investigational Agent Specific Eligibility Criteria: --></label>
+            <section>Investigational Agent Specific Eligibility Criteria:</section>
+        </sections>
+        <sections>
+            <label><!-- Method of detection --></label>
+            <section>Method of detection</section>
+        </sections>
+        <sections>
+            <label><!-- PreEligibility Checklists (Completed in  PreEligibility wizard): --></label>
+            <section>PreEligibility Checklists (Completed in  PreEligibility wizard):</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>DeleteButton</layout>
+        <sections>
+            <label><!-- Comments --></label>
+            <section>Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Investigational Agent Specific Eligibility Criteria: --></label>
+            <section>Investigational Agent Specific Eligibility Criteria:</section>
+        </sections>
+        <sections>
+            <label><!-- Method of detection --></label>
+            <section>Method of detection</section>
+        </sections>
+        <sections>
+            <label><!-- PreEligibility Checklists (Completed in PreEligibility wizard): --></label>
+            <section>PreEligibility Checklists (Completed in PreEligibility wizard):</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Live</layout>
+        <sections>
+            <label><!-- Comments --></label>
+            <section>Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Investigational Agent Specific Eligibility Criteria: --></label>
+            <section>Investigational Agent Specific Eligibility Criteria:</section>
+        </sections>
+        <sections>
+            <label><!-- Method of detection --></label>
+            <section>Method of detection</section>
+        </sections>
+        <sections>
+            <label><!-- PreEligibility Checklists (Completed in  PreEligibility wizard): --></label>
+            <section>PreEligibility Checklists (Completed in  PreEligibility wizard):</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>On Study Eligibility Form Layout</layout>
+        <sections>
+            <label><!-- Comments --></label>
+            <section>Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Investigational Agent Specific Eligibility Criteria: --></label>
+            <section>Investigational Agent Specific Eligibility Criteria:</section>
+        </sections>
+        <sections>
+            <label><!-- Method of detection --></label>
+            <section>Method of detection</section>
+        </sections>
+        <sections>
+            <label><!-- PreEligibility Checklists (Completed in PreEligibility wizard): --></label>
+            <section>PreEligibility Checklists (Completed in PreEligibility wizard):</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- AdHoc --></label>
+        <name>AdHoc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Approval Pending --></label>
+        <name>Approval_Pending</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Live --></label>
+        <name>Live</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Please select mass palpable --></errorMessage>
+        <name>How_was_the_cancer_first_detected</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Mass_Identification_should_not_be_future</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please provide Most Recent Date for Memogram --></errorMessage>
+        <name>Most_Recent_Date</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have entered a future date --></errorMessage>
+        <name>Most_Recent_Date_Cannot_be_Future_Date</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Complete --></label>
+        <name>Complete</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Delete --></label>
+        <name>Delete</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Delete_Button --></label>
+        <name>Delete_Button</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Edit --></label>
+        <name>Edit</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Sign_and_Submit --></label>
+        <name>Sign_and_Submit</name>
+    </webLinks>
+</CustomObjectTranslation>

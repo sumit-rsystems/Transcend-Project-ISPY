@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>PreEligibility_Checklist__c.CRF_Id__c</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <description>Patient signed up for I-SPY2 screening</description>
+    <filter>
+        <criteriaItems>
+            <column>PreEligibility_Checklist__c.Patient_signed_up_for_I_SPY2_screening__c</column>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>PreEligibility_Checklist__c.Patient_signed_up_for_I_SPY2_screening__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Patient signed up for I-SPY2 screening</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$PreEligibility_Checklist__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <timeFrameFilter>
+        <dateColumn>PreEligibility_Checklist__c.CompletedDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

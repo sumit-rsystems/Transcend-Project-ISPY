@@ -1,0 +1,17 @@
+<apex:page standardController="Patient_Custom__c" recordSetvar="patients">
+  <apex:form id="theForm">
+  	<input type="button" value="New Patient" onClick="window.location='/apex/Patient'" Class="btn"></input>  
+    <apex:pageBlock >
+    <apex:pageBlockTable value="{!patients}" var="a">
+      <apex:column style="width:400px" headerValue="Patient Name">
+       	<apex:outputLink value="/{!a.Id}">{!a.Name}</apex:outputLink>
+		</apex:column>
+      <apex:column value="{!a.Institution__r.Name}" headerValue="Institution Name"/>
+    </apex:pageBlockTable>
+  </apex:pageBlock>
+    <apex:panelGrid columns="2">
+      <apex:commandLink action="{!previous}">Previous</apex:commandlink>
+      <apex:commandLink action="{!next}">Next</apex:commandlink>
+    </apex:panelGrid>
+  </apex:form> 
+</apex:page>

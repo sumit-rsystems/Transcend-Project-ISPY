@@ -1,0 +1,150 @@
+<apex:page controller="TrialSummaryReport" contentType="application/vnd.ms-excel#summaryReport.csv">
+Trial Summary Report,
+Study: {!trial.Name},
+As of: <apex:outputText value=" {0,date,dd MMMM yyyy}" ><apex:param value="{!asOfDate}" /></apex:outputText>,
+,
+STUDY ACCRUAL SUMMARY,
+Total assessed for eligibility,{!totalPreEligibility},
+Total not enrolled,{!totalNotEnrolled},
+Total enrolled,{!totalEnrolled},
+Total pending randomization,{!totalPendingRandomization},
+Total not proceeding to treatment phase,{!totalNotProceedingToTreatmentPhase},
+Total randomized who proceeded to treatment phase,{!totalRandomizedWhoProceededToTreatmentPhase},
+Total receiving treatment,{!totalReceivingTreatment},
+Total in follow-up,{!totalInFollowUp},
+Total lost to follow-up,{!totalLostToFollowUp},
+Total off-study,{!totalOffStudy},
+Total completing study per protocol,{!totalCompletingStudyPerProtocol},
+Total not completing study per protocol,{!totalNotCompletingStudyPerProtocol},
+,
+Enrolled by month,
+, , Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec,
+<apex:repeat value="{!wrapYearList}" var="wy">
+{!wy.year},New,<apex:repeat value="{!wy.wrapMonthList}" var="wm">{!wm.patientCount},</apex:repeat>
+{!wy.year},To date,<apex:repeat value="{!wy.wrapToDateMonthList}" var="wm">{!wm.patientCount},</apex:repeat>
+</apex:repeat>
+
+Enrolled by study site,
+"Study Site","Total Enrolled","Percent","First Participant Enrolled",
+<apex:repeat value="{!WrapSiteList}" var="site">  
+"{!site.site.Name}",{!site.enrolled},{!site.percent},<apex:outputText value="{0,date,dd MMM yyyy}" rendered="{!NOT(ISNULL(site.firstPatientEnrolled))}"><apex:param value="{!site.firstPatientEnrolled}" /></apex:outputText><apex:outputText rendered="{!ISNULL(site.firstPatientEnrolled)}" value="N/A" />,
+</apex:repeat>
+Total,{!totalEnrolledPatient},100%, 
+
+STUDY PARTICIPANT DEMOGRAPHICS,
+Age at Enrollment,
+Median Age,{!patientAvgAge},Minimum Age,{!patientMinAge},Maximum Age,{!patientMaxAge},
+
+Enrolled Participants by Race/Ethnicity by Study Site,
+"","","Race","","","","","Ethnicity",
+"Study Site","Total Enrolled","American Indian or Alaska Native","Asian","Black or African American","Native Hawaiian or Pacific Islander","White","Hispanic or Latino","Not Hispanic or Latino",
+Overall Study,{!totalEnrolledPatient},{!totalAmericanAlaskaRaceCount},{!totalAsianRaceCount},{!totalBlackAmericanRaceCount},{!totalNativeOtherIslanderRaceCount},{!totalWhiteRaceCount},{!totalHispanicEthnicityCount},{!totalNotHispanicEthnicityCount},
+<apex:repeat value="{!WrapSiteList}" var="site">
+"{!site.site.Name}",{!site.enrolled},{!site.americanAlaskaRaceCount},{!site.asianRaceCount},{!site.blackAmericanRaceCount},{!site.nativeOtherIslanderRaceCount},{!site.whiteRaceCount},{!site.hispanicEthnicityCount},{!site.notHispanicEthnicityCount},   
+</apex:repeat>
+
+PATIENTS NOT ENROLLING IN TRIAL,
+Reasons patients did not enroll in trial,
+Reason,Patients, 
+"Total patients not enrolling in trial",{!totalNotEnrolled},
+"Patients ineligible for the trial",{!totalPatientNotEligible},
+"Patient does not have histologically confirmed new primary adenocarcinoma of the female breast confirmed by core needle, fine needle aspirate or incisional biopsy",{!patientNotHistologicallyConfirmed},
+"Patient does not have clinically or radiologically measurable or non-measurable disease in breast defined as longest diameter >= 2.5cm",{!patientNotRadiologicallyMeasurable},
+"Patient has received prior cytotoxic regimens for this malignancy",{!totalPatientReceivedCytotoxicRegiments},
+"Patient has received investigational agents within 30 days of study enrollment",{!totalPatient30DaysInvestigationalAgents},
+"Patient has received radiation therapy on the ipsilateral breast for this same malignancy",{!totalPatientReceivedRadiationTherapy},
+"Patient is under 18 years old",{!totalPatientUnder18Years},
+"Patient is pregnant or lactating",{!totalPatientPregnantOrLactating},
+"Patient has ferromagnetic prostheses that are not compatible with an MRI machine",{!totalPatientFerromagneticProstheses},
+"Patient is not willing to have a core biopsy",{!totalPatientNotWillingCoreBiopsy},
+"Patient is not willing to have a study MRI",{!totalPatientNotWillingStudyMRI},
+"Patient has an ECOG score of 2 (Symptomatic, less than 50% in bed)",{!totalPatientHasECOGScore2},
+"Patient has an ECOG score of 3 (Symptomatic, >= 50% in bed)",{!totalPatientHasECOGScore3},  
+"Patient has an ECOG score of 4 (Bedbound)",{!totalPatientHasECOGScore4},
+"Patient has an ECOG score of 5 (Death)",{!totalPatientHasECOGScore5},  
+"Patients eligible for the trial but did not sign screening consent",{!totalPatientEligibleForTrialNotSign},
+"Patient did not want to participant in a clinical trial",{!totalPatientNotParticipateInClinicalTrial},
+"Patient is not willing to be treated with an investigational agent",{!totalPatientNotWillingInInvestigationalAgent},
+"Patient decided to be treated with a different neoadjuvant regimen",{!totalPatientDecidedWithNeoadjuvantRegimen},
+"Patient decided to have surgery before treatment",{!totalPatientDecidedSurgeryBeforeTreatment},
+"Patient decided to be treated at another clinic",{!totalPatientDecidedAtAnotherClinic},
+"Insurance will not cover standard of care",{!totalPatientInsurance},
+
+PARTICIPANTS NOT PROCEEDING TO STUDY TREATMENT PHASE
+Reasons participants did not proceed to treatment phase
+Reason,Patients
+Total participants not proceeding to study treatment phase,{!totalCount}
+Participant decided not to be treated with a novel agent,{!novelAgentCount}
+Participant decided not to have neoadjuvant chemotherapy,{!neoadjuvantCount}
+Participant found to be ineligible because of inability to complete MammaPrint test,{!mammaPrinttestCount}
+Participant found to be ineligible because patient could not complete core biopsy,{!coreBiopsyCount}
+Participant found to be ineligible because patient could not complete MRI,{!completeMRICount}
+Participant found to be ineligible because patient was MP Low ER Positive and Her2 Negative,{!mPLowERPositiveCount}
+Participant found to be ineligible for the study because they did not meet other eligibility criteria,{!eligibilityCriteriaCount}
+Other,{!otherCount} 
+[text from other reason field],{!otherCount}
+
+ACCRUAL SUMMARY BY STUDY SITE
+<apex:repeat value="{!lstAccrualSiteWrapper}" var="accSiteWrap">
+
+"{!accSiteWrap.site.Name}"
+Total assessed for pre-eligibility,{!accSiteWrap.totalPreEligibilityforSite}
+Total not enrolled,{!accSiteWrap.totalNotEnrolledforSite}
+Total enrolled,{!accSiteWrap.totalEnrolledforSite}
+Total pending Randomization,{!accSiteWrap.totalPendingRandomizationforSite}
+Total not proceeding to treatment phase,{!accSiteWrap.totalNotProceedingToTreatmentPhaseforSite}
+Total randomized who proceeded to treatment phase,{!accSiteWrap.totalRandomizedWhoProceededToTreatmentPhaseforSite}
+Total receiving treatment, {!accSiteWrap.totalReceivingTreatment}
+Total in follow-up,{!accSiteWrap.totalInFollowUp}
+Total lost to follow-up,{!accSiteWrap.totalLostToFollowUpforSite}
+Total off-study,{!accSiteWrap.totalOffStudyforSite}
+Total completing study per protocol,{!accSiteWrap.totalCompletingStudyPerProtocolforSite}
+Total not completing study per protocol,{!accSiteWrap.totalNotCompletingStudyPerProtocolforSite}
+
+Enrolled by month
+,,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec
+<apex:repeat value="{!accSiteWrap.wrapYearListforSite}" var="wy">
+	{!wy.year},New,<apex:repeat value="{!wy.wrapMonthList}" var="wm">{!wm.patientCount},</apex:repeat>
+	,To date,<apex:repeat value="{!wy.wrapToDateMonthList}" var="wm">{!wm.patientCount},</apex:repeat>
+</apex:repeat>
+
+PATIENTS NOT ENROLLING IN TRIAL
+Reasons patients did not enroll in trial
+Reason,Patients
+Total patients not enrolling in trial,{!accSiteWrap.totalNotEnrolledforSite}
+Patients ineligible for the trial,{!accSiteWrap.patientIneligibleforTrial}
+Patient does not have histologically confirmed new primary adenocarcinoma of the female breast confirmed by core needle fine needle aspirate or incisional biopsy,{!accSiteWrap.notHaveHistologicallyConfirmed}
+Patient does not have clinically or radiologically measureable or non-measurable disease in breast defined as longest diameter greater than or equal to 2.5 cm,{!accSiteWrap.NotClinicallyRadiologicallyMeasurable}
+Patient has received prior cytotoxic regimens for this malignancy,{!accSiteWrap.notHadPriorCytotoxicRegimensantiCancer}
+Patient has received investigational agents within 30 days of study enrollment,{!accSiteWrap.notInvestigationalAgents}
+Patient has received radiation therapy on the ipsilateral breast for this same malignancy,{!accSiteWrap.notHadpriorRT}
+Patient is under 18 years old,{!accSiteWrap.notPatientis18yearsorolder}
+Patient is pregnant or lactating,{!accSiteWrap.pregnantLactating}
+Patient has ferromagnetic prostheses that are not compatible with an MRI machine,{!accSiteWrap.notFerromegnaticProstheses}
+Patient is not willing to have a core biopsy,{!accSiteWrap.notPatientiswillingtohavecorebiospy}
+Patient is not willing to have a study MRI,{!accSiteWrap.notPatientiswillintohavestudyMRI}
+Patient has an ECOG score of 2,{!accSiteWrap.not2Symplomaticbed}
+Patient has an ECOG score of 3,{!accSiteWrap.not3Symplomatic}
+Patient has an ECOG score of 4,{!accSiteWrap.not4Bedbound}
+Patient has an ECOG score of 5,{!accSiteWrap.not5Death}
+Patients eligible for the trial but did not sign screening consent,{!accSiteWrap.patienteligibleforTrial}
+Patient did not want to participate in a clinical trial,{!accSiteWrap.patientDoesNotWantToParticipateClinicalTrial }
+Patient is not willing to be treated with an investigational agent,{!accSiteWrap.patientNotWillingTreatedInvestigationalAgent}
+Patient decided to be treated with a different neoadjuvant regimen,{!accSiteWrap.patientTreatedNeoadjuvantRegimen}
+Patient decided to have surgery before treatment,{!accSiteWrap.patientDecidedSurgeryTreatment}
+Patient decided to be treated at another clinic,{!accSiteWrap.patientTreatedAnotherClinic}
+Insurance will not cover standard of care,{!accSiteWrap.insuranceWillNotcoverStandardCare}
+	
+Reasons participants did not proceed to treatment phase,
+Reason,Patients
+Total participants not proceeding to study treatment phase,{!accSiteWrap.totalCount}
+Participant decided not to be treated with a novel agent,{!accSiteWrap.novelAgentCount}
+Participant decided not to have neoadjuvant chemotherapy,{!accSiteWrap.neoadjuvantCount}
+Participant found to be ineligible because of inability to complete MammaPrint test,{!accSiteWrap.mammaPrinttestCount}
+Participant found to be ineligible because patient could not complete core biopsy,{!accSiteWrap.coreBiopsyCount}
+Participant found to be ineligible because patient could not complete MRI,{!accSiteWrap.completeMRICount}
+Participant found to be ineligible because patient was MP Low ER Positive and Her2 Negative,{!accSiteWrap.mPLowERPositiveCount}
+Participant found to be ineligible for the study because they did not meet other eligibility criteria,{!accSiteWrap.eligibilityCriteriaCount}
+Other,{!accSiteWrap.otherCount}
+</apex:repeat>
+</apex:page>

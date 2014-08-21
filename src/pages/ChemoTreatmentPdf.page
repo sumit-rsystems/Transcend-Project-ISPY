@@ -1,0 +1,317 @@
+<apex:page StandardController="Chemo_Treatment__c" extensions="ChemoTreatmentFormController" renderAs="pdf" sideBar="false" id="pageId"  tabStyle="Patient_Custom__c" >
+
+          
+  <apex:form >    
+  <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL : Chemo Treatment Form" initial="" 
+    instituteName="" subjectId="{!trialPatientObj .Patient_Id__c}"></c:CRFPdfHeader>
+    
+   
+    
+  <br/>
+    <b><apex:outputLabel value="Chemo Treatment Form"></apex:outputLabel></b>  
+    
+    <br/><br/>                  
+        
+   
+    <apex:outputPanel ><b>Chemotherapy</b></apex:outputPanel>
+                    <table>
+                        <tr>
+                            <td>Therapy Date</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                         <apex:param value="{!chemoTreatmentWrapper.chemoTreatment.Date_of_therapy__c}"/>
+                                    </apex:outputText>
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Patient's weight</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputText value="{0,number, 0.0}">
+                                          <apex:param value="{!chemoTreatmentWrapper.chemoTreatment.Patient_weight__c}"/>
+                                    </apex:outputText>
+                                     <apex:outputLabel value="" />&nbsp;kg
+                                   <!-- <apex:outputLabel value="{!chemoTreatmentWrapper.chemoTreatment.Patient_weight__c}" />&nbsp;kg -->
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Patient's height</td>
+                            <td>
+                                <apex:outputPanel >
+                                   <apex:outputText value="{0,number, 0.0}">
+                                          <apex:param value="{!chemoTreatmentWrapper.chemoTreatment.Patient_height__c}"/>
+                                    </apex:outputText>
+                                     <apex:outputLabel value="" />&nbsp;cm 
+                                   <!-- <apex:outputLabel value="{!chemoTreatmentWrapper.chemoTreatment.Patient_height__c}" />&nbsp;cm -->
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Randomization assignment</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputLabel value="{!treatmentArm}" />
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Did patient go off study treatment?</td>
+                            <td>
+                                <apex:outputPanel >
+                                    <apex:outputLabel value="{!chemoTreatmentWrapper.chemoTreatment.Did_patient_go_off_study_treatment__c}" />
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Cycle number</td>
+                            <td>
+                                <apex:outputText value="{0, number, integer}">
+                                <apex:param value="{!chemoTreatmentWrapper.chemoTreatment.Cycle_number__c}" />
+                            </apex:outputText>
+                            </td>
+                        </tr>
+                    </table>
+                    <br /><br />
+                    <!--<div style="background-color:#97C7EC"><b style="margin:10px;color:white">Chemo Therapy Agents </b></div>-->
+                    <div ><b style="margin:0px;color:black">Chemo Therapy Agents </b></div>
+                    
+                    <br/>
+                    <table  width="auto" border="1">
+                      <tr style="background-color:#F2F2F2;font-size:15px;" >
+                      <!--  <th><center>Agent(s)</center></th>-->
+                        <th>Agent(s)</th>
+                        <th >Day Number</th>
+                        <th >Prescribed Dose</th>
+                        <th >Total Dose Administered</th>
+                        <th >Dose Delay?</th>
+                        <th >Dose Mod</th>
+                        <th >Dose Mod Reason</th>
+                        <th >Did patient stop receiving?</th>
+                        <th >Reason why patient stopped receiving</th>
+                     </tr>
+            
+                    <apex:repeat value="{!lstCTWrapper}" var="ctWrapper">
+                     <tr >
+                       <td >
+                            <apex:outputText value="{!ctWrapper.agentName}" rendered="{!IF(ctWrapper.chemoTherapy.Other_Agent__c == null, true, false)}"/>
+                            <apex:outputText value="{!ctWrapper.chemoTherapy.Other_Agent__c}" rendered="{!IF(ctWrapper.chemoTherapy.Other_Agent__c == null, false, true)}"/>
+                       </td>
+                       <td>
+                            <apex:outputText value="{0, number, integer}">
+                                <apex:param value="{!ctWrapper.chemoTherapy.Day__c}" />
+                            </apex:outputText>
+                       </td>
+                       <td>
+                            <apex:outputText value="{!ctWrapper.chemoTherapy.Prescribed_Dose__c}" />&nbsp;
+                            {!ctWrapper.doseUnit}
+                       </td>
+                       <td>
+                            <apex:outputText value="{!ctWrapper.chemoTherapy.Total_Dose__c}" />&nbsp;
+                            {!ctWrapper.totalDoseUnit}
+                       </td>
+                       <td>
+                            <apex:outputText value="{!ctWrapper.chemoTherapy.Dose_Delay__c}" />
+                       </td>
+                       <td>
+                            <apex:outputText value="{0,number, 0.0}" rendered="{!IF(ctWrapper.isOtherAgent, false, true)}" >
+                                <apex:param value="{!ctWrapper.chemoTherapy.Dose_Mod__c}"/>
+                            </apex:outputText>
+                           <!-- <apex:outputText value="{!IF(ctWrapper.chemoTherapy.Dose_Mod__c != null, '%', '')}" rendered="{!IF(ctWrapper.isOtherAgent, false, true)}" />-->
+                            <apex:outputText value="---" rendered="{!ctWrapper.isOtherAgent}" />
+                       </td>
+                       <td>
+                            <apex:outputText value="{!ctWrapper.chemoTherapy.Dose_modification__c}" rendered="{!IF(ctWrapper.isOtherAgent, false, true)}"/>
+                            <apex:outputText value="---" rendered="{!ctWrapper.isOtherAgent}" />
+                       </td>
+                       <td>
+                            <apex:outputText value="{!IF(ctWrapper.chemoTherapy.Did_patient_stop_receiving__c, 'Yes', 'No')}" rendered="{!IF(ctWrapper.isOtherAgent, false, true)}"/>
+                            <apex:outputText value="---" rendered="{!ctWrapper.isOtherAgent}" />
+                       </td>
+                       <td >
+                            <apex:outputText rendered="{!IF(ctWrapper.isOtherAgent, false, true)}" value="{!ctWrapper.chemoTherapy.Reason_why_patient_stopped_receiving__c}" />
+                            <apex:outputText rendered="{!IF(ctWrapper.isOtherAgent, false, true)}" value="{!IF(ctWrapper.chemoTherapy.Other_Reason_Patient_Stop_Receiving__c != null, '-'+ctWrapper.chemoTherapy.Other_Reason_Patient_Stop_Receiving__c, '')}" />
+                            <apex:outputText value="---" rendered="{!ctWrapper.isOtherAgent}" />  
+                       </td>
+                    </tr>  
+            </apex:repeat> 
+        </table>
+        
+        <br />
+               <!-- <div style="background-color:#97C7EC"><b style="margin:10px;color:white">Growth Factors (for this cycle)  </b></div>-->
+                <div ><b style="margin:0px;color:black">Growth Factors (for this cycle) </b></div>
+        <br/>
+        
+       
+         <table  width="100%" border="1">
+            <tr style="background-color:#F2F2F2">
+                <th width="20%">Drug Name</th>
+                <th width="20%">Prescribed Dose</th>
+                <th width="20%">Total Dose Administered</th>
+                <th width="20%">Route</th>
+                <th width="20%">Notes</th>
+            </tr>
+            
+            <apex:repeat value="{!lstGrowthFactor}" var="gf">
+                <tr >
+                    <td >
+                         <apex:outputText value="{!gf.Name}" />
+                    </td>
+                    <td>
+                          <apex:outputText value="{0,number, 0.0}" >
+                                <apex:param value="{!gf.Dose__c}" />
+                            </apex:outputText>
+                         <!-- <apex:outputText value="{!gf.Dose__c}" />-->
+                          &nbsp;<apex:outputLabel value="{!IF(gf.Name == 'Neupogen', 'mcg', 'mg')}" />
+                          
+                    </td>
+                    <td>
+                          <!--<apex:outputText value="{!gf.TotalDose__c}" />-->
+                          <apex:outputText value="{0,number, 0.0}" >
+                                <apex:param value="{!gf.TotalDose__c}" />
+                            </apex:outputText>&nbsp;mg
+                          
+                    </td>
+                    <td>
+                          <apex:outputText value="{!gf.Route__c}" />
+                    </td>
+                    <td>
+                          <apex:outputText value="{!gf.Notes__c}" />
+                    </td>
+                </tr>  
+            </apex:repeat>  
+        </table>
+        <br/>
+         <!--<div style="background-color:#97C7EC"><b style="margin:10px;color:white">Concomitant Medications</b></div>-->
+         <div ><b style="margin:0px;color:black">Concomitant Medications </b></div>
+         <br/>
+         <table  width="100%" border="1">
+            <tr style="background-color:#F2F2F2">
+                <th width="14%">Medications</th>
+                <th width="15%">Start Date</th>
+                <th width="15%">End Date</th>
+                <th width="14%">Dose</th>
+                <th width="14%">Unit</th>
+                <th width="14%">Route</th>
+                <th width="14%">Frequency</th>
+            </tr>
+            
+            <apex:repeat value="{!chemoTreatmentWrapper.lstMedicationWrapper}" var="mediWrapper">
+                <tr >
+                    <td >
+                         <apex:outputPanel id="medPanel1">
+                                    <apex:outputField value="{!mediWrapper.concomitantMedication.Medication__r.Name}" rendered="{!mediWrapper.isReadOnly}" id="readMedicationId"/>
+                                  
+                                    
+                                   <!-- <apex:outputField value="{!medicationWrapper.concomitantMedication.Medication__c}" rendered="{!medicationWrapper.isReadOnly}" id="readMedicationId"/> -->
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel id="medPanel2" style="display: block;">
+                                   <!-- <apex:outputField value="{!mediWrapper.concomitantMedication.Other_Madication__c}" rendered="{!mediWrapper.isReadOnly}" id="readOtherMedId"/> -->
+                                    <apex:outputField value="{!mediWrapper.concomitantMedication.Other_Madication__c}" rendered="{!mediWrapper.isOtherMedication}" id="readOtherMedId"/>
+                                    <!-- <apex:outputField value="{!mediWrapper.concomitantMedication.Other_Madication__c}" rendered="{!IF(AND(mediWrapper.isReadOnly,mediWrapper.isOtherMedication)  == true, true, false)}" id="readOtherMedId"/> -->
+                                   <!-- <apex:outputField value="{!medicationWrapper.concomitantMedication.Other_Madication__c}" rendered="{!IF(AND(medicationWrapper.isReadOnly,medicationWrapper.isOtherMedication)  == true, true, false)}" id="readOtherMedId"/> -->
+                                    
+                                </apex:outputPanel>
+                                
+                                <script>
+                                    if('{!mediWrapper.isOtherMedication}' == 'true') {
+                                        document.getElementById('{!$Component.medPanel1}').style.display = 'none';
+                                        document.getElementById('{!$Component.medPanel2}').style.display = 'block';
+                                    } else {
+                                        document.getElementById('{!$Component.medPanel1}').style.display = 'block';
+                                        document.getElementById('{!$Component.medPanel2}').style.display = 'none';
+                                    }
+                                </script>
+                     </td>
+                    <td>
+                        <apex:outputText value="{!mediWrapper.concomitantMedication.Start_Month__c}" />/
+                            <apex:outputText value="{!mediWrapper.concomitantMedication.Start_Day__c}" />/
+                            <apex:outputText value="{!mediWrapper.concomitantMedication.Start_Year__c}" />
+                    </td>
+                    <td>
+                        <apex:outputText value="{!mediWrapper.concomitantMedication.End_Month__c}" />/
+                            <apex:outputText value="{!mediWrapper.concomitantMedication.End_Day__c}" />/
+                            <apex:outputText value="{!mediWrapper.concomitantMedication.End_Year__c}" />
+                    </td>
+                    <td>
+                        <apex:outputText value="{!mediWrapper.concomitantMedication.DoseValue__c}" />
+                    </td>
+                    <td>
+                         <apex:outputText value="{!mediWrapper.concomitantMedication.Dose__c}" />
+                    </td>
+                    <td>
+                         <apex:outputText value="{!mediWrapper.concomitantMedication.Route__c}" />
+                    </td>
+                    <td>
+                          <apex:outputText value="{!mediWrapper.concomitantMedication.Frequency__c}" />
+                    </td>
+                </tr>  
+            </apex:repeat>  
+        </table>
+        <br/>
+        <br/>
+        
+     <table  cellpadding="5"> 
+    <tr>
+        <td >
+            <apex:outputLabel style="font-weight:bold;"  value="CRF Status:" />
+        </td>
+        <td >
+            <apex:outputField value="{!chemoTreatmentWrapper.chemoTreatment.Status__c}"/>
+        </td>
+    </tr> 
+    
+    <tr>
+        <td >
+            <apex:outputLabel style="font-weight:bold;"   value="DCC Action:" />
+        </td>
+        <td >
+            <apex:outputField value="{!chemoTreatmentWrapper.chemoTreatment.Status__c}"/>
+        </td>
+    </tr>
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="DCC Comments:" />
+        </td>
+        <td >
+           <!-- <apex:outputField value="{!}"/>-->
+           <c:CRFEventComponentcomments rId="{!chemoTreatmentWrapper.chemoTreatment.Id}" objectNamec="Chemo_Treatment__c" rtId="{!chemoTreatmentWrapper.chemoTreatment.Root_CRF_Id__c}"/>
+        </td>
+    </tr>  
+  </table>
+  <br/>
+  <br/>
+  
+  <apex:pageBlock tabStyle="Account">
+ 
+  <c:CRFAttachmentComponentPdf rId="{!chemoTreatmentWrapper.chemoTreatment.Id}" feedCRFNamePdf="Chemo_Treatment__Feed" rtId="{!chemoTreatmentWrapper.chemoTreatment.Root_CRF_Id__c}"/>
+  <br/>
+  
+  <div style="background-color:#97C7EC"><b style="margin:10px;color:white">CRF Events</b></div>
+  
+  <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(chemoTreatmentWrapper.chemoTreatment.Id))}">
+         <c:CRFEventComponent rId="{!chemoTreatmentWrapper.chemoTreatment.Id}" objectName="Chemo_Treatment__c" rtId="{!chemoTreatmentWrapper.chemoTreatment.Root_CRF_Id__c}"/>
+   </apex:pageBlockSection>
+                       
+  </apex:pageBlock>   
+           
+           
+  <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  </apex:form>
+</apex:page>

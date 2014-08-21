@@ -1,0 +1,433 @@
+<apex:page standardController="PreEligibility_Checklist__c" extensions="PreEligibilityChecklist" action="{!insertCRF}" sidebar="false" id="pageId" tabStyle="Patient_Custom__c">
+<script>
+    function checkCancel() {
+        if(confirm("Completely cancel and remove?")){ 
+            return true;
+        } else {
+            return false;
+        }
+    } 
+    
+    function checkDelete() {
+        if(confirm("Are you sure you want to Delete this form?")){ 
+            return true;
+        } else {
+            return false;
+        }
+    } 
+    
+    function patientSigned(){
+        var var1 = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:pageBlockSectionitemId1:HistologicallyconfirmedinvasivecancerId');
+        var var2 = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:pageBlockSectionitemId2:ClinicallyradiologicallymeasurableId');
+        var var3 = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:pageBlockSectionitemId3:HadpriorcytotoxicregimensanticancerId');
+        var var4 = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:pageBlockSectionitemId4:OtherinvestigationalagentsId');
+        var var5 = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:pageBlockSectionitemId5:NothadpriorRTId');
+        var var6 = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:pageBlockSectionitemId6:Patientis18yearsorolderId');
+        var var7 = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:pageBlockSectionitemId7:NonPregnantNotLactatingId');
+        var var8 = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:pageBlockSectionitemId8:FerromegnaticProsthesesId');
+        var var9 = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:pageBlockSectionitemId9:PatientiswillingtohavecorebiospyId');
+        var var10 = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:pageBlockSectionitemId10:PatientiswillintohavestudyMRIId');
+        //var var11 = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:pageBlockSectionitemId11:DiseaseInBreastId');
+        //var var12 = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId:pageBlockSectionitemId12:PrimaryAdenocarcinomaId');
+        var var13 = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId1:pageBlockSectionitemId13:ECOGScoreId');
+        var parentObj = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId2:pageBlockSectionitemId14:PatientiseligibletobescreenedId');
+        var parentObj1 = document.getElementById('pageId:formId:pageBlockCompleteId:pageBlockSectionCompleteId:pageBlockSectionItemCompleteId:imgCompleteId');
+        
+        if(var1.checked && var2.checked && var3.checked && var4.checked && var5.checked && var6.checked && var7.checked && var8.checked && var9.checked && var10.checked && (var13.value == '0-Asymptomatic' || var13.value == '1-Symptomatic but ambulatory')){
+            parentObj.getElementsByTagName('img')[0].src = '/img/checkbox_checked.gif';
+            parentObj1.getElementsByTagName('img')[0].src = '/img/checkbox_checked.gif';
+            document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId2:screeningId').style.display = '';
+            document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId2:primaryId').style.display = '';
+            //document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId2:reasonItem:ReasonfornotsigningscreeningconsentId').value = '';
+        } else {
+            parentObj.getElementsByTagName('img')[0].src = '/img/checkbox_unchecked.gif';
+            parentObj1.getElementsByTagName('img')[0].src = '/img/checkbox_unchecked.gif';
+            document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId2:Patient_signedItem:PatientSignedCheck').checked = false;
+            //var parentObj1 = document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId2:pageBlockSectionitemId14:PatientiseligibletobescreenedId').document.getElementByTagName('img')[0].src = '/img/checkbox_unchecked.gif';
+            document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId2:screeningId').style.display = 'none';
+            document.getElementById('pageId:formId:pageBlockId:pageBlockSectionId2:primaryId').style.display = 'none';
+        }
+    }
+    
+    function enterToNextTab(val){
+        //alert(val);
+        if('{!isComplete}' != 'false'){
+            document.getElementById('pageId:formId:nextTabNameID').value = val;
+            next();
+        }
+     }
+    
+    function startSplash() {
+        var divObj = document.getElementById('splashDiv');
+        var msgSplash =document.getElementById('waitMsg');
+        var browserName = navigator.appName;
+        if(browserName == 'Netscape'){
+            divObj.style.display='table-cell';
+        } else {
+            divObj.style.display='table-cell';
+        }
+    }
+    function endSplash() {            
+        document.getElementById('splashDiv').style.display='none';
+    }
+    
+</script>
+<style>
+.tableProcedureHeadPage {
+    width: 22%;
+}
+.tableLateralityHeadPage {
+    width: 6%; 
+}
+.tableLocationHeadPage {
+    width: 18%;
+}
+
+.activeTab {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    color: #000000;
+    font-weight: 600;
+    width: 198px;
+}
+
+.inactiveTab {
+        cursor: pointer;
+        /*background-color: #7A9FA0;*/
+        background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+        color: white; /*#3C3C3C;*/
+        font-weight: bold;
+        font-size: 12px;
+        height: 15px; 
+        width: 195px;
+        vertical-align: middle;
+        /*padding-top: 4px;*/
+        border: none;
+}
+    
+.rich-tab-inactive { 
+    background-repeat: repeat-x;
+    border-color: #FFFFFF;
+    border-style: none;
+    border-width: 0;
+    cursor: pointer;
+}
+
+.rich-tabhdr-side-border {
+    background-image:none; 
+    border-radius: 4px 4px 0 0;
+    background-color: none;
+    width: 2px;
+}
+
+.rich-tabhdr-side-cell {
+    box-shadow: 0 -2px 2px #A7A7A8;
+    /*border: 2px solid #056FC1;*/
+    border-top: 2px solid #056FC1;
+    border-left: 2px solid #056FC1;
+    border-right: 2px solid #056FC1;
+    border-radius: 4px 4px 0 0;
+}
+
+.rich-tabpanel-content {
+    background-color: #fff;
+    border-left: 2px solid #056FC1;
+    border-right: 2px solid #056FC1;
+    border-bottom: 2px solid #056FC1;
+}
+
+.rich-tab-bottom-line {
+    border-bottom: 1px solid #056FC1;
+}
+
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+.name {
+        font-size: 1.50em;
+        font-weight: bold;
+        }
+.selectbox{
+            background-color: #2F96E4;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            height: 25px;
+            position: relative;
+            width: 152px;
+            border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+            color:#fff;
+            font-size:12px; font-weight: bold;
+            padding:3px 0 3px 10px;
+        }
+</style>
+<div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+    <div style="text-align: center; top: 50%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+</div>
+<span class ="name"> Patient's Details </span>
+<br/>
+    <c:PatientDetailReadOnly patientId="{!preObj.Patient__c}"/>
+<br/>
+    <table width="100%">
+        <tr>
+            <td width="40%" align="left">
+                <span class ="name"> Pre-Eligibility Checklist </span>
+            </td>
+            <td width="60%" align="left">
+                <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!preObj.Trial__r.Name}" />
+            </td>
+        </tr>
+    </table>
+    <apex:form id="formId">  
+                <apex:pageBlock tabStyle="Account" id="pageBlockIdbtn" helpTitle="Help"  helpUrl="/apex/preeligibilityuserguide" rendered="{!isComplete}">
+                    <apex:pageBlockButtons location="top" >
+                        <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel" status="splashStatus">
+                            <apex:param name="tabNext" value="saveAndClose"/>
+                        </apex:commandButton>
+                        <apex:commandButton action="{!customCancel}" value="  Cancel  " onclick="return checkCancel();"/>
+                    </apex:pageBlockButtons>  
+                </apex:pageBlock>
+<!-- -----   delete button fuctionlity- start   ---------------------------------->
+                <apex:pageBlock rendered="{!isDelete}">
+                      <apex:pageBlockButtons location="top" >
+                            <apex:commandButton action="{!customCancel}" value="Delete" onclick="return checkDelete();" rendered="{!profileName =='System Administrator'}"/>
+                             <apex:commandLink style="text-decoration:none;" value="Generate Pdf" target="_blank" styleClass="btn" action="{!redirect}" rendered="{!preObj.Status__c == 'Approval Not Required'}"/>
+                      
+                      </apex:pageBlockButtons>
+                </apex:pageBlock> 
+<!-- -----  delete button fuctionlity- end   -------------------------------------->     
+                <apex:pageBlock >
+                <apex:pageBlockButtons location="top" >
+                  
+                </apex:pageBlockButtons>
+                </apex:pageBlock>
+            <apex:actionFunction name="next" action="{!next}"  rerender="theTabPanel" status="splashStatus"/>
+            <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+            <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />
+<!--        <apex:inputHidden  -->             
+        <apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+            <apex:tab label="Pre-Eligibility Checklist" name="PreEligibilityChecklist" id="tabOne" rendered="{!isComplete}">                
+                <apex:pageBlock tabStyle="Account" id="pageBlockId" >
+                    <apex:pageBlockButtons location="top">
+                        <!--<apex:commandButton action="{!customCancel}" value="  Cancel  " onclick="return checkCancel();"/>  -->
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel" status="splashStatus">
+                             <apex:param name="tabNext" value="Complete"/>
+                        </apex:commandButton>
+                        <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); "/>
+                    </apex:pageBlockButtons>
+                    <apex:pageMessages />
+                    <apex:pageBlockSection >
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Site: "/> 
+                            <apex:outputPanel >
+                                <apex:outputPanel id="thePanel3" rendered="{!userAssociatedWithMultipleSites}">
+                                    <apex:selectList value="{!selectedSite}" size="1">
+                                        <apex:selectOptions value="{!sites}"/>
+                                    </apex:selectList> 
+                                </apex:outputPanel> 
+                                <apex:outputPanel id="thePanel2" rendered="{!NOT(userAssociatedWithMultipleSites)}">
+                                    <apex:outputLabel value="{!instituteUsreObj.Site__r.Name}"/>  
+                                </apex:outputPanel>
+                                <!--<apex:outputPanel rendered="{!NOT(ISNULL(preObj.Site__c))}">
+                                    <apex:outputLabel value="{!preObj.Site__r.Name}"/>
+                                </apex:outputPanel>-->
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" title="Pre-Eligibility Checklist" id="pageBlockSectionId">
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%" id="pageBlockSectionitemId1">
+                            <apex:inputField value="{!preObj.Histologically_confirmed_invasive_cancer__c}" id="HistologicallyconfirmedinvasivecancerId" onChange="patientSigned();"/>
+                            <apex:outputText value="Patient has histologically confirmed invasive cancer of the female breast as confirmed by core needle, fine needle aspirate, or incisional biopsy* (*Incisional biopsy is allowed if residual tumor after biopsy measures at least 2.5cm), per protocol 4.1.1 A (incisional biopsy is allowed if residual tumor after biopsy measures at least 2.5 cm)" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%" id="pageBlockSectionitemId2">
+                            <apex:inputField value="{!preObj.Clinically_radiologically_measurable__c}" id="ClinicallyradiologicallymeasurableId" onChange="patientSigned();"/>
+                            <apex:outputText value="Patient has clinically or radiologically measurable disease in breast defined as longest diameter = 2.5cm, per protocol 4.1.1 B" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%" id="pageBlockSectionitemId3">
+                            <apex:inputField value="{!preObj.Cytotoxic_Regiments__c}" id="HadpriorcytotoxicregimensanticancerId" onChange="patientSigned();"/>
+                            <apex:outputText value="Patient has not had prior cytotoxic regimens or other targeted anticancer therapies to the ipsilateral breast for this malignancy, per protocol 4.1.1 C" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%" id="pageBlockSectionitemId4">
+                            <apex:inputField value="{!preObj.X30_Days_Investigational_Agents__c}" id="OtherinvestigationalagentsId" onChange="patientSigned();"/>
+                            <apex:outputText value="Patient has not had other investigational agents within 30 days of study enrollment, per protocol 4.2 A" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%" id="pageBlockSectionitemId5">
+                            <apex:inputField value="{!preObj.Not_had_prior_RT__c}" id="NothadpriorRTId" onChange="patientSigned();"/>
+                            <apex:outputText value="Patient has not had prior RT to the ipsilateral breast for this malignancy, per protocol 4.1.1 C" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%" id="pageBlockSectionitemId6">
+                            <apex:inputField value="{!preObj.Patient_is_18_years_or_older__c}" id="Patientis18yearsorolderId" onChange="patientSigned();"/>
+                            <apex:outputText value="Patient is 18 years or older, per protocol 4.1.1 D" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%" id="pageBlockSectionitemId7">
+                            <apex:inputField value="{!preObj.Non_Pregnant_Not_Lactating__c}" id="NonPregnantNotLactatingId" onChange="patientSigned();"/>
+                            <apex:outputText value="Patient is non-pregnant and non-lactating, per protocol 4.1.1 G" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%" id="pageBlockSectionitemId8">
+                            <apex:inputField value="{!preObj.Ferromegnatic_Prostheses__c}" id="FerromegnaticProsthesesId" onChange="patientSigned();"/>
+                            <apex:outputText value="Patient has no ferromagnetic prostheses that are not compatible with an MRI machine, per protocol 4.1.1 H" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%" id="pageBlockSectionitemId9">
+                            <apex:inputField value="{!preObj.Patient_is_willing_to_have_core_biospy__c}" id="PatientiswillingtohavecorebiospyId" onChange="patientSigned();"/>
+                            <apex:outputText value="Patient is willing to have study core biopsy" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%" id="pageBlockSectionitemId10">
+                            <apex:inputField value="{!preObj.Patient_is_willin_to_have_study_MRI__c}" id="PatientiswillintohavestudyMRIId" onChange="patientSigned();"/>
+                            <apex:outputText value="Patient is willing to have study MRI" />
+                        </apex:pageBlockSectionItem>
+                        <!--<apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%" id="pageBlockSectionitemId11">
+                            <apex:inputField value="{!preObj.Disease_In_Breast__c}" id="DiseaseInBreastId" onChange="patientSigned();"/>
+                            <apex:outputText value="Disease In Breast" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%" id="pageBlockSectionitemId12">
+                            <apex:inputField value="{!preObj.Primary_Adenocarcinoma__c}" id="PrimaryAdenocarcinomaId" onChange="patientSigned();"/>
+                            <apex:outputText value="Primary Adenocarcinoma" />
+                        </apex:pageBlockSectionItem>
+                    --></apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" title="ECOG Score" id="pageBlockSectionId1">
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%" id="pageBlockSectionitemId13"> 
+                            <apex:outputText value="ECOG: " />
+                            <apex:inputField value="{!preObj.ECOG_Score__c}" id="ECOGScoreId" onChange="patientSigned();"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" title="Patient is eligible to be screened for the study " id="pageBlockSectionId2">
+                        <apex:pageBlockSectionItem labelStyle="width : 22%;" dataStyle="width : 78%" id="pageBlockSectionitemId14">
+                            <apex:outputPanel > 
+                                <b><apex:outputText value="Patient is eligible to be screened for the study" /></b>
+                            </apex:outputPanel>
+                            <apex:outputField value="{!preObj.Patient_is_eligible_to_be_screened_for_t__c}" id="PatientiseligibletobescreenedId"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:outputPanel style="display : none;" id="screeningId">
+                            <apex:pageBlockSectionItem labelStyle="width : 30%;" dataStyle="width : 70%" id="Patient_signedItem">
+                                <apex:outputPanel >
+                                    <apex:outputText value="Did patient sign the I-SPY 2 Screening Consent Form?" /> &nbsp;&nbsp;
+                                </apex:outputPanel>
+                                <apex:inputField value="{!preObj.Patient_signed_up_for_I_SPY2_screening__c}" id="PatientSignedCheck"/>
+                            </apex:pageBlockSectionItem>
+                        </apex:outputPanel>
+                        <apex:outputPanel style="display : none;" id="primaryId">   
+                            <apex:pageBlockSectionItem id="reasonItem" labelStyle="width : 35%;" dataStyle="width : 65%">
+                                <apex:outputPanel >
+                                    <apex:outputText value="If patient did not sign screening consent, what was the primary reason?" /> &nbsp;&nbsp;
+                                </apex:outputPanel>
+                                <apex:inputField value="{!preObj.Reason_for_not_signing_screening_consent__c}" id="ReasonfornotsigningscreeningconsentId"/>
+                            </apex:pageBlockSectionItem>
+                        </apex:outputPanel>   
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                
+            </apex:tab> 
+                  
+            <apex:tab label="Complete" name="Complete" id="tabTwo" ontabenter="enterToNextTab('Complete');" >       
+                <apex:pageBlock tabStyle="Account" id="pageBlockCompleteId" >
+                    <apex:pageBlockButtons location="top" > 
+                  <!-- <apex:commandButton action="{!customCancel}" value="Delete" onclick="return checkCancel();" rendered="{!profileName =='System Administrator'}"/> -->
+                        <!--<apex:commandButton action="{!customCancel}" value="  Cancel  " onclick="return checkCancel();" rendered="{!isComplete}"/>  -->
+                        <apex:commandButton action="{!previous}" value="  Previous  " reRender="theTabPanel" status="splashStatus" rendered="{!isComplete}">
+                             <apex:param name="tabPrevious" value="PreEligibilityChecklist"/>
+                        </apex:commandButton>
+                         <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); "/>
+                    </apex:pageBlockButtons>
+                    <apex:pageBlockButtons location="bottom">
+                        <br />  
+                        <apex:outputPanel id="msgPanelId" layout="block" style="text-align: center;"><font color="{!msgColor}">{!errorMsg}&nbsp;</font></apex:outputPanel>
+                        <br />
+                        <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!isComplete}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <apex:outputLabel value="Secure Code :"  style="font-weight: bold;" rendered="{!isComplete}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!isComplete}"/>&nbsp;&nbsp;
+                        <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" rendered="{!isComplete}"/>
+                        <apex:commandButton value="Resend Secure Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" rendered="{!isComplete}"/>
+                        <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/>
+                    </apex:pageBlockButtons> 
+                    <apex:pageBlockSection >
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Site: "/> 
+                            <apex:outputText value="{!preObj.Site__r.Name}"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" title="Pre-Eligibility Checklist" >
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%">
+                            <apex:outputField value="{!preObj.Histologically_confirmed_invasive_cancer__c}" />
+                            <apex:outputText value="Patient has histologically confirmed invasive cancer of the female breast as confirmed by core needle, fine needle aspirate, or incisional biopsy* (*Incisional biopsy is allowed if residual tumor after biopsy measures at least 2.5cm), per protocol 4.1.1 A (incisional biopsy is allowed if residual tumor after biopsy measures at least 2.5 cm)" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%">
+                            <apex:outputField value="{!preObj.Clinically_radiologically_measurable__c}" />
+                            <apex:outputText value="Patient has clinically or radiologically measurable disease in breast defined as longest diameter = 2.5cm, per protocol 4.1.1 B" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%">
+                            <apex:outputField value="{!preObj.Cytotoxic_Regiments__c}" />
+                            <apex:outputText value="Patient has not had prior cytotoxic regimens or other targeted anticancer therapies to the ipsilateral breast for this malignancy, per protocol 4.1.1 C" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%">
+                            <apex:outputField value="{!preObj.X30_Days_Investigational_Agents__c}" />
+                            <apex:outputText value="Patient has not had other investigational agents within 30 days of study enrollment, per protocol 4.2 A" />
+                        </apex:pageBlockSectionItem>  
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%">
+                            <apex:outputField value="{!preObj.Not_had_prior_RT__c}" />
+                            <apex:outputText value="Patient has not had prior RT to the ipsilateral breast for this malignancy, per protocol 4.1.1 C" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%">
+                            <apex:outputField value="{!preObj.Patient_is_18_years_or_older__c}" />
+                            <apex:outputText value="Patient is 18 years or older, per protocol 4.1.1 D" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%">
+                            <apex:outputField value="{!preObj.Non_Pregnant_Not_Lactating__c}" />
+                            <apex:outputText value="Patient is non-pregnant and non-lactating, per protocol 4.1.1 G" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%">
+                            <apex:outputField value="{!preObj.Ferromegnatic_Prostheses__c}" />
+                            <apex:outputText value="Patient has no ferromagnetic prostheses that are not compatible with an MRI machine, per protocol 4.1.1 H" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%">
+                            <apex:outputField value="{!preObj.Patient_is_willing_to_have_core_biospy__c}" />
+                            <apex:outputText value="Patient is willing to have study core biopsy" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%">
+                            <apex:outputField value="{!preObj.Patient_is_willin_to_have_study_MRI__c}" />
+                            <apex:outputText value="Patient is willing to have study MRI" />
+                        </apex:pageBlockSectionItem>
+                        <!--<apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%">
+                            <apex:outputField value="{!preObj.Disease_In_Breast__c}" />
+                            <apex:outputText value="Disease In Breast" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%">
+                            <apex:outputField value="{!preObj.Primary_Adenocarcinoma__c}" />
+                            <apex:outputText value="Primary Adenocarcinoma" />
+                        </apex:pageBlockSectionItem>
+                    --></apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" title="ECOG Score">
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%">
+                            <apex:outputText value="ECOG: " />
+                            <apex:outputField value="{!preObj.ECOG_Score__c}" />
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" title="Patient is eligible to be screened for the study" id="pageBlockSectionCompleteId">
+                        <apex:pageBlockSectionItem labelStyle="width : 10%;" dataStyle="width : 90%" id="pageBlockSectionItemCompleteId">
+                            <apex:outputPanel id="patientSignedId"> 
+                                <b><apex:outputText value="Patient is eligible to be screened for the study" /></b>
+                            </apex:outputPanel>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!preObj.Patient_is_eligible_to_be_screened_for_t__c}" id="imgCompleteId"/> 
+                                <!--<script> 
+                                    document.getElementById('{!$Component.ANCRangeId}').disabled = true;
+                                </script>--> 
+                            </apex:outputPanel> 
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="width : 30%;" dataStyle="width : 70%">
+                            <apex:outputText value="Did patient sign the I-SPY 2 Screening Consent Form?" />
+                            <apex:outputField value="{!preObj.Patient_signed_up_for_I_SPY2_screening__c}" />
+                        </apex:pageBlockSectionItem> 
+                        <apex:pageBlockSectionItem labelStyle="width : 30%;" dataStyle="width : 70%">
+                            <apex:outputText value="If patient did not sign screening consent, what was the primary reason?" />
+                            <apex:outputText value="{!preObj.Reason_for_not_signing_screening_consent__c}" />
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <script>patientSigned();</script>
+            </apex:tab> 
+        </apex:tabPanel>
+    </apex:form>
+</apex:page>

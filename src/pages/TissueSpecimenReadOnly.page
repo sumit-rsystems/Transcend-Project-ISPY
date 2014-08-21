@@ -1,0 +1,106 @@
+<apex:page StandardController="TissueSpecimenDetail__c" extensions="TissueSpecimenFormController" sideBar="false" id="pageId" tabStyle="Account" showHeader="false">
+<style>
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+</style>
+	<apex:pageBlock title="Tissue Specimen Tracking Summary"> 
+	 <apex:pageBlockSection title="Core Biopsy" columns="1">
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Procedure Date"/>
+				<apex:outputPanel >
+					<apex:outputField value="{!tissueSpecimenForm.ProcedureDate__c}"  /><label  style="color: red;"></label>
+				</apex:outputPanel>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Guidance Method (s)"/>
+				<apex:outputField value="{!tissueSpecimenForm.Guidance_Method_s__c}"/>
+			</apex:pageBlockSectionItem> 
+			 <apex:pageBlockSectionItem >
+				<apex:outputLabel value="Other (Guidance Method)" />
+				<apex:outputField value="{!tissueSpecimenForm.Other_Guidance_Method__c}"/>
+			</apex:pageBlockSectionItem>  
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Time Point"/>
+				<apex:outputPanel >
+					<apex:outputField value="{!tissueSpecimenForm.Time_Point__c}">
+					<!-- <apex:actionSupport event="onchange" action="{!addSpecimen}" reRender="coreBiopsySpecimenTableId, coreBiopsySecId, pageBlockId" status="addingStatus"/>-->
+					</apex:outputField>
+					<label id="tpErrorlblId" style="color: red;"></label>
+				</apex:outputPanel>
+			</apex:pageBlockSectionItem>
+		</apex:pageBlockSection>
+	<!--===================coreBiopsySpecimen==========-->
+		<apex:pageBlockSection title="Core Biopsy Specimens" columns="1">
+		<apex:pageBlockTable value="{!lstCoreBiopsyWrapper}" var="cbWrapper">
+			<apex:column headerClass="tableHead" width="7%" >
+				<apex:facet name="header">#</apex:facet>
+	<!--					<apex:inputCheckbox value="{!cbWrapper.isCollected}"/>-->
+				<apex:outputPanel rendered="{!cbWrapper.isCollected}">
+					<img src="/img/checkbox_checked.gif" alt="Checked" width="21" height="16" class="checkImg" title="Checked" />
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!NOT(cbWrapper.isCollected)}">
+					<img src="/img/checkbox_unchecked.gif" alt="Unchecked" width="21" height="16" class="checkImg" title="Unchecked" />
+				</apex:outputPanel>
+				<apex:outputText value="{!cbWrapper.coreBiopsyNumber}"/>
+			</apex:column> 
+	<!--  ========================================Specimen ID===========================================================	-->
+			<apex:column headerClass="tableHead" width="7%">
+				<apex:facet name="header">Specimen ID</apex:facet>
+				<apex:outputPanel >
+					<apex:outputField value="{!cbWrapper.coreBiopsySpecimen.SpecimenID__c}"/>
+				</apex:outputPanel>
+			</apex:column>
+			<apex:column headerClass="tableHead" width="7%">
+				<apex:facet name="header">Shipped?</apex:facet>
+				<apex:outputPanel >
+					<apex:outputField value="{!cbWrapper.coreBiopsySpecimen.Shipped__c}"/>
+				</apex:outputPanel>
+			</apex:column>
+			<apex:column headerClass="tableHead" width="7%">
+				<apex:facet name="header">Reason sample not shipped?</apex:facet>
+				<apex:outputField value="{!cbWrapper.coreBiopsySpecimen.Reason_samples_not_shipped__c}"/>
+			</apex:column>
+			<apex:column headerClass="tableHead" width="7%">
+				<apex:facet name="header">Other</apex:facet>
+				<apex:outputPanel >
+					<apex:outputField value="{!cbWrapper.coreBiopsySpecimen.Other_Reason_samples_not_shipped__c}"/>
+				</apex:outputPanel>
+			</apex:column>
+		</apex:pageBlockTable>
+		</apex:pageBlockSection>
+		<apex:pageBlockSection title="Reason Section"> 
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Reason all Sample not Collected"/>
+				<apex:outputPanel >
+					<apex:outputField value="{!tissueSpecimenForm.Reason_all_samples_not_collected__c}"/>
+				</apex:outputPanel>
+			</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+				<apex:outputLabel value="Other"/>
+				<apex:outputField value="{!tissueSpecimenForm.Other_Reason_not_all_samples_collected__c}"/>
+			</apex:pageBlockSectionItem>
+		</apex:pageBlockSection>
+		<apex:pageBlockSection title="Specimen Used" columns="1"> 
+			<apex:pageBlockSectionItem >
+				<apex:outputField value="{!tissueSpecimenForm.PatientConsentedStudy__c}"/>
+				<apex:outputLabel value="Patient consented to use specimen for this study"/> 
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem >
+				<apex:outputField value="{!tissueSpecimenForm.PatientConsentedOutsideStudy__c}" id="specimenUsedId2" />
+				<apex:outputLabel value="Patient consented to use specimen for research outside of this study"/>
+			</apex:pageBlockSectionItem>
+		</apex:pageBlockSection>
+		<apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(tissueSpecimenForm.Id))}">
+			<c:CRFAttachmentComponent rId="{!tissueSpecimenForm.Id}" feedCRFName="TissueSpecimenDetail__Feed" rtId="{!tissueSpecimenForm.Root_CRF_Id__c}" />
+		</apex:pageBlockSection>
+		
+		<apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(tissueSpecimenForm.Id))}">
+	    	<c:CRFEventComponent rId="{!tissueSpecimenForm.Id}" objectName="TissueSpecimenDetail__c" rtId="{!tissueSpecimenForm.Root_CRF_Id__c}"/>
+	    </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

@@ -1,0 +1,47 @@
+<apex:page controller="SummaryReport" sidebar="false">
+	<script>
+		function cancelConfirm() {
+			if(confirm('Completely Cancel and Remove?')) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	</script>
+	
+	<apex:form >
+		<apex:pageBlock >
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancelForm}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/>
+				<apex:commandButton action="{!next}" value="  Submit  " status="tabChangeStatus"/>
+				<apex:actionStatus id="tabChangeStatus" startText="Processing..."/>
+			</apex:pageBlockButtons>
+			<table width="100%">
+				<tr>
+					<td width="50%">
+						<table>
+							<tr>
+								<td><b>As of Date:</b>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+								<td style="border-left: 3px solid #CC0000;">
+									<apex:inputField value="{!aeRep.End_Date__c}" required="true"/>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td width="50%">
+						<table>
+							<tr>
+								<td><b>Trial:</b>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+								<td style="border-left: 3px solid #CC0000;">
+									<apex:selectList value="{!selectTrial}" size="1" required="true">
+				                        <apex:selectOptions value="{!trialLst}"/>
+				                    </apex:selectList>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</apex:pageBlock>	
+	</apex:form>
+</apex:page>

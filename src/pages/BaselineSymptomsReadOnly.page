@@ -1,0 +1,144 @@
+<apex:page StandardController="BaselineSymptomsForm__c" extensions="BaselineSymptomsFormController" sideBar="false" id="pageId" tabStyle="Account" showHeader="false">
+<style>
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+</style>
+    <apex:pageBlock title="Baseline Symptoms Form" id="pageBlockId3">
+        <apex:pageBlockSection >
+            <apex:outputField value="{!baselineSymptoms.Visit_Date__c}" />
+        </apex:pageBlockSection>
+        <br />
+        <apex:outputPanel id="allergyDisplaySecId" >
+            <b><font size="3">Allergies</font></b>
+        </apex:outputPanel>
+        <br />
+        <br />
+        <apex:pageBlockTable value="{!lstAllergyDisplayWrapper}" var="adWrapper" id="tableId1">
+            <apex:column headerClass="tableHead" width="7%" >
+                <apex:facet name="header">Allergen</apex:facet>
+                <apex:outputText value="{!adWrapper.Allergen}" />
+            </apex:column>
+            <apex:column headerClass="tableHead" width="7%" >
+                <apex:facet name="header">Reaction(s)</apex:facet>
+                <apex:outputText value="{!adWrapper.Reaction}" />
+            </apex:column>
+            <apex:column headerClass="tableHead" width="7%" >
+                <apex:facet name="header">Severity</apex:facet>
+                <apex:outputText value="{!adWrapper.Severity}" />
+            </apex:column>
+            <apex:column headerClass="tableHead" width="7%" >
+                <apex:facet name="header">Year first seen</apex:facet>
+                <apex:outputText value="{!adWrapper.year}" />
+            </apex:column>
+        </apex:pageBlockTable>
+        <br />
+        <br />
+        <apex:outputPanel >
+            <b><font size="3">Baseline Conditions</font></b>
+        </apex:outputPanel>
+        <br />
+        <apex:messages />
+        <br />
+        <apex:pageBlockTable value="{!lstConditionWrapper}" var="conditionWrapper" id="tableId2">
+			<apex:column headerClass="tableHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+				<apex:facet name="header">Onset Date (MM/DD/YYYY)</apex:facet> 
+				<apex:outputField value="{!conditionWrapper.baselineCondition.Onset_Month__c}" rendered="{!conditionWrapper.isReadOnly}" />
+				<apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+				<apex:outputField value="{!conditionWrapper.baselineCondition.Onset_Day__c}" rendered="{!conditionWrapper.isReadOnly}" />
+				<apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+				<apex:outputField value="{!conditionWrapper.baselineCondition.Onset_Year__c}" rendered="{!conditionWrapper.isReadOnly}" />
+			</apex:column>
+			<apex:column headerClass="tableHead"  style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+				<apex:facet name="header">Condition</apex:facet> 
+				<apex:outputPanel id="conPanel" >  
+					<apex:outputText value="{!conditionWrapper.baselineCondition.Daignosis__r.Name}" rendered="{!conditionWrapper.isReadOnly}" id="readConId"/>
+				</apex:outputPanel>
+				<apex:outputPanel id="otherConPanel">
+					<script>
+		   				changeConType(document.getElementById('{!$Component.typeId}'));
+		   			</script>
+					<apex:outputPanel rendered="{!IF(conditionWrapper.baselineCondition.OtherDaignosis__c == null,false,true)}">
+						<apex:outputField value="{!conditionWrapper.baselineCondition.OtherDaignosis__c}" rendered="{!conditionWrapper.isReadOnly}" id="readOtherConId"/>
+					</apex:outputPanel>
+				</apex:outputPanel>
+			</apex:column>
+			<apex:column headerClass="tableHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+				<apex:facet name="header">Severity Grade</apex:facet>
+				<apex:outputField value="{!conditionWrapper.baselineCondition.Severity_Grade__c}" rendered="{!conditionWrapper.isReadOnly}"/>
+			</apex:column>
+			<apex:column headerClass="tableHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+				<apex:facet name="header">Attribution</apex:facet>  
+				<apex:outputField value="{!conditionWrapper.baselineCondition.Attribution__c}" rendered="{!conditionWrapper.isReadOnly}"/>
+			</apex:column>
+			<apex:column headerClass="tableHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+				<apex:facet name="header">Resolved</apex:facet>
+				<apex:outputField value="{!conditionWrapper.baselineCondition.Resolved__c}" rendered="{!conditionWrapper.isReadOnly}" style="width: 35px;" />
+			</apex:column> 
+			<apex:column headerClass="tableHead" style="vertical-align: top;{!IF(conditionWrapper.isDuplicateRow == true,'background-color: Yellow;','' )}" >
+				<apex:facet name="header">End Date (MM/DD/YYYY)</apex:facet>
+				<apex:outputField value="{!conditionWrapper.baselineCondition.End_Month__c}" rendered="{!conditionWrapper.isReadOnly}" />
+				<apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+				<apex:outputField value="{!conditionWrapper.baselineCondition.End_Day__c}" rendered="{!conditionWrapper.isReadOnly}" />
+				<apex:outputLabel value=" / " rendered="{!conditionWrapper.isReadOnly}" />
+				<apex:outputField value="{!conditionWrapper.baselineCondition.End_Year__c}" rendered="{!conditionWrapper.isReadOnly}" />
+			</apex:column>
+		</apex:pageBlockTable>
+        <br />
+        <br />
+        <apex:outputPanel >
+            <b><font size="3">Baseline Symptoms</font></b>
+        </apex:outputPanel>
+        <br />
+        <br />
+        <apex:pageBlockTable value="{!toxicityDisplayList}" var="toxicity" id="tableId3">
+            <apex:column headerClass="tableHead" width="7%" >
+                <apex:facet name="header">AE ID</apex:facet>
+                <apex:outputField value="{!toxicity.AE_ID__c}" />
+            </apex:column>
+            <apex:column headerClass="tableHead" width="7%" >
+                <apex:facet name="header">Onset Date</apex:facet>
+                <apex:outputField value="{!toxicity.Onset_Date__c}" />
+            </apex:column>
+            <apex:column headerClass="tableHead" width="7%" >
+                <apex:facet name="header">Adverse Event</apex:facet>
+                <apex:outputText value="{!toxicity.Toxicity_Master__r.Toxicity_Name__c}" />
+				<apex:outputPanel rendered="{!NOT(ISNULL(toxicity.Toxicity_Other__c))}">
+                	&nbsp;(<apex:outputText value="{!toxicity.Toxicity_Other__c}" />)
+               	</apex:outputPanel>
+            </apex:column>
+            <apex:column headerClass="tableHead" width="7%" >
+                <apex:facet name="header">Grade/Revised Grade/Patient complaint</apex:facet>
+                <apex:outputText value="{!toxicity.Grade__c}" />
+                <apex:outputPanel rendered="{!NOT(ISNULL(toxicity.Patient_Complaint__c))}">
+                	<br/><br/><apex:outputText value="{!toxicity.Patient_Complaint__c}" />
+               	</apex:outputPanel>
+            </apex:column>
+            <apex:column headerClass="tableHead" width="7%" >
+                <apex:facet name="header">Attribution</apex:facet>
+                <apex:outputText value="{!toxicity.Attribution__c}" />
+            </apex:column>
+            <apex:column headerClass="tableHead" width="7%" >
+                <apex:facet name="header">Status</apex:facet>
+<!--                <apex:outputText value="{!toxicity.Toxicity_Status__c}" />-->
+				<apex:outputText value="{!IF((toxicity.Resolved__c), 'Resolved', IF((LEFT(toxicity.Baseline_Symptoms_Form__c, 15) = LEFT(baselineFormId, 15)), 'New', 'Ongoing'))}" />
+            </apex:column>
+            <apex:column headerClass="tableHead" width="7%" >
+                <apex:facet name="header">End Date</apex:facet>
+                <apex:outputField value="{!toxicity.AE_End_Date__c}" />
+            </apex:column>
+        </apex:pageBlockTable>
+        <br />
+        <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(baselineSymptoms.Id))}">
+			<c:CRFAttachmentComponent rId="{!baselineSymptoms.Id}" feedCRFName="BaselineSymptomsForm__Feed" rtId="{!baselineSymptoms.Root_CRF_Id__c}"/>
+		</apex:pageBlockSection>
+		
+		<apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(baselineSymptoms.Id))}">
+	    	<c:CRFEventComponent rId="{!baselineSymptoms.Id}" objectName="BaselineSymptomsForm__c" rtId="{!baselineSymptoms.Root_CRF_Id__c}"/>
+	    </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

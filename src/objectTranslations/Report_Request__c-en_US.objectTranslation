@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Report Request</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Report Requests</value>
+    </caseValues>
+    <fields>
+        <label><!-- AsOfDate --></label>
+        <name>AsOfDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Future Count --></label>
+        <name>Future_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report Type --></label>
+        <name>Report_Type__c</name>
+        <picklistValues>
+            <masterLabel>Adverse Event</masterLabel>
+            <translation><!-- Adverse Event --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient Summary</masterLabel>
+            <translation><!-- Patient Summary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trial Summary</masterLabel>
+            <translation><!-- Trial Summary --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Selected Institution Id --></label>
+        <name>Selected_Institution_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Selected Institution Name --></label>
+        <name>Selected_Institution_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Selected Trial Id --></label>
+        <name>Selected_Trial_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Selected Trial Name --></label>
+        <name>Selected_Trial_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation><!-- In Progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Started</masterLabel>
+            <translation><!-- Not Started --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Report Request Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>ChemoSummaryRegimenDetail</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>ChemoSummaryRegimenDetail</value>
+    </caseValues>
+    <fields>
+        <label><!-- Chemo Regimen --></label>
+        <name>Chemo_Regimen__c</name>
+        <relationshipLabel><!-- ChemoSummaryRegimenDetail --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Chemo Summary Form --></label>
+        <name>Chemo_Summary_Form__c</name>
+        <relationshipLabel><!-- ChemoSummaryRegimenDetail --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- First Date of Therapy --></label>
+        <name>First_Date_of_Therapy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Date of Therapy --></label>
+        <name>Last_Date_of_Therapy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Reason --></label>
+        <name>Other_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Treatment End Reasons --></label>
+        <name>Treatment_End_Reasons__c</name>
+        <picklistValues>
+            <masterLabel>Alternative therapy</masterLabel>
+            <translation><!-- Alternative therapy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Death during treatment</masterLabel>
+            <translation><!-- Death during treatment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Disease progression, relapse during active treatment</masterLabel>
+            <translation><!-- Disease progression, relapse during active treatment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other complicating disease</masterLabel>
+            <translation><!-- Other complicating disease --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient declared ineligible</masterLabel>
+            <translation><!-- Patient declared ineligible --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient withdrawal or refusal after beginning protocol therapy</masterLabel>
+            <translation><!-- Patient withdrawal or refusal after beginning protocol therapy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Patient withdrawal or refusal prior to beginning protocol therapy</masterLabel>
+            <translation><!-- Patient withdrawal or refusal prior to beginning protocol therapy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Toxicity/side effects/complications</masterLabel>
+            <translation><!-- Toxicity/side effects/complications --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Treatment completed per protocol criteria</masterLabel>
+            <translation><!-- Treatment completed per protocol criteria --></translation>
+        </picklistValues>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

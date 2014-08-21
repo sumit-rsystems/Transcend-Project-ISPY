@@ -1,0 +1,350 @@
+<apex:page standardController="MammaPrintDetail__c" extensions="MammaPrintNewController" id="pageId" action="{!specimenCollectionDate}" sidebar="false" tabStyle="Patient_Custom__c"> 
+<script type="text/javascript">
+    function addYearInDateField(relatedYearShow) {
+        //alert(document.getElementById('datePicker').innerHTML);
+         var currentYear = new Date().getFullYear();
+         var startYear;
+         var endYear;
+         
+         if(relatedYearShow == 'past'){
+             startYear= 1900;
+             endYear=currentYear;
+         }else if(relatedYearShow == 'future'){
+            startYear= currentYear;
+            endYear= currentYear + 30;
+         }else{
+             startYear= 1950;
+             endYear=currentYear + 20;
+         }
+         
+         var htmlStr='';
+         if(startYear<endYear){
+            for(i=startYear;i<endYear+1;i++){
+                if(i == currentYear) {
+                    htmlStr += "<option value=\""+i+"\" selected=\"selected\">"+i+"</option>";
+                } else {
+                    htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+                }
+            }
+        }
+        //alert(htmlStr);
+        document.getElementById('calYearPicker').innerHTML = htmlStr; 
+    }
+</script>
+    <style>
+        .mystyle
+        {
+            background-color: #cf00f8;
+        }
+         
+        .activeTab {
+            background: none repeat scroll 0 0 #FFFFFF;
+            border-bottom: 2px solid #FFFFFF;
+            color: #000000;
+            font-weight: 600;
+            width: 180px;
+        }
+         
+        .inactiveTab {
+          cursor: pointer;
+          background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+          color: white; /*#3C3C3C;*/
+          font-weight: bold;
+          font-size: 12px;
+          height: 15px;
+          width: 180px;
+          vertical-align: middle;
+          border: none;
+        }
+         
+        .rich-tab-inactive {
+         background-repeat: repeat-x;
+         border-color: #FFFFFF;
+         border-style: none; 
+         border-width: 0;
+         cursor: pointer;
+        }
+        
+        .rich-tabhdr-side-border {
+         background-image:none; 
+         border-radius: 4px 4px 0 0;
+         background-color: none;
+         width: 2px;
+        }
+        
+        .rich-tabhdr-side-cell {
+         box-shadow: 0 -2px 2px #A7A7A8;
+         border-top: 2px solid #056FC1;
+         border-left: 2px solid #056FC1;
+         border-right: 2px solid #056FC1;
+         border-radius: 4px 4px 0 0;
+        }
+        
+        .rich-tabpanel-content {
+         background-color: #fff;
+         border-left: 2px solid #056FC1;
+         border-right: 2px solid #056FC1;
+         border-bottom: 2px solid #056FC1;
+        }
+        
+        .rich-tab-bottom-line {
+         border-bottom: 1px solid #056FC1;
+        }
+        
+        .accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+         background-color: #97C7EC;
+        }
+        
+        body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+         background-color: #fff;
+        }
+        .name 
+        {
+        font-size: 1.50em;
+        font-weight: bold;
+        }
+        .requiredfield {
+            border-left: 3px solid #CC0000;
+        }
+        .selectbox{
+            background-color: #2F96E4;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            height: 25px;
+            position: relative;
+            width: 152px;
+            border:1px solid #adaeae; -moz-border-radius: 6px; -webkit-border-radius:6px; -khtml-border-radius: 6px; border-radius:6px;
+            color:#fff;
+            font-size:12px; font-weight: bold;
+            padding:3px 0 3px 10px;
+        }
+    </style>
+    
+    <script>
+    function cancelConfirm() {
+            if(confirm('Completely Cancel and Remove?')) {
+                return true;
+            } else {
+                return false;
+            } 
+    }
+    
+    function checkDelete() {
+            if(confirm('Are you sure you want to Delete this form?')) {
+                return true;
+            } else {
+                return false;
+            } 
+    }
+    
+    function enterToNextTab(val){
+        //alert(val);
+        if('{!isComplete}' != 'false'){
+            document.getElementById('pageId:formId:nextTabNameID').value = val;
+            next();
+        }
+    }
+    function startSplash() {
+        var divObj = document.getElementById('splashDiv');
+        var msgSplash =document.getElementById('waitMsg');
+        var browserName = navigator.appName;
+        if(browserName == 'Netscape'){
+            divObj.style.display='table-cell'; 
+        } else {
+            divObj.style.display='table-cell';
+        }
+    } 
+    function endSplash() {            
+        document.getElementById('splashDiv').style.display='none';
+    }
+    </script>
+    <div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+        <div style="text-align: center; top: 50%;width:100%;height:100%;position: fixed;" class="circle"><apex:image value="{!$Resource.LoadingImg1}"></apex:image></div>
+    </div>
+    <apex:form >
+        <apex:pageMessages ></apex:pageMessages>
+        <span class ="name">Patient's Details</span>
+        <span style="padding-left: 75%;">
+            <apex:outputPanel >
+                <apex:commandLink value="Back to MamaPrint View page" action="/apex/MammaPrintView" style="font-weight: bold; font-size: 12px;" immediate="true"> </apex:commandLink>
+            </apex:outputPanel>
+        </span> 
+    </apex:form>
+    <br/>
+        <c:PatientDetailReadOnly patientId="{!trialPatientObj.Patient_Id__c}"/> 
+    <br/>
+    <table width="100%">
+    <tr>
+        <td width="40%" align="left">
+             <span class ="name"> MammaPrint Microarray Form </span>
+        </td>
+        <td width="60%" align="left">
+            <apex:outputText style="font-weight: bold; color:#fff; padding-right:7px;" styleClass="selectbox" id="trialName" value="Trial: {!trialPatientObj.Trial_Id__r.Name}" />
+        </td>
+    </tr>
+</table>
+    <apex:form id="formId">
+    <apex:pageBlock tabStyle="Account" helpTitle="Help"  helpUrl="/apex/MammaPrintUserGuide" rendered="{!isComplete}">
+        <apex:pageBlockButtons location="top"> 
+            <apex:commandButton action="{!next}" value="Save & Close" reRender="theTabPanel" status="splashStatus">
+                <apex:param name="nextTab" value="saveAndClose"/>
+            </apex:commandButton>
+            <apex:commandButton action="{!cancelCRF}" value="Cancel" onClick="return cancelConfirm();" immediate="true"/> 
+        </apex:pageBlockButtons>
+        <!-----  delete button fuctionlity- start    ----------------------------------> 
+    </apex:pageBlock>
+    <apex:pageBlock rendered="{!isDelete}">
+          <apex:pageBlockButtons location="top" >
+               <apex:commandButton action="{!cancelCRF}" value="Delete" onClick="return checkDelete();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+                  <apex:commandLink target="_blank" style="text-decoration:none;" styleClass="btn" action="{!redirect}" value="Generate Pdf"  rendered="{!MammaObj.Status__c =='Approval Not Required'}"/> 
+              
+          </apex:pageBlockButtons>
+    </apex:pageBlock>  
+    <!-----  delete button fuctionlity- end   ------------------------------------->  
+        <apex:actionFunction name="next" action="{!next}"  rerender="theTabPanel" status="splashStatus"/>
+        <apex:inputHidden value="{!nextTabName}" id="nextTabNameID"/>
+        <apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />
+        
+        <apex:tabPanel switchType="client" value="{!currentTab}" id="theTabPanel" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+            <apex:tab label="MammaPrint" name="firstTab" id="firstTabId" ontabenter="enterToNextTab('firstTab');" rendered="{!isComplete}">
+            <apex:pageMessages />           
+            <apex:pageblock tabStyle="Account">
+                <apex:pageBlockButtons location="top">
+                        <!--<apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true"/> -->
+                        <apex:commandButton action="{!next}" value="  Next  " reRender="theTabPanel, SecondTabId" status="splashStatus">
+                            <apex:param name="nextTab" value="SecondTab"/>
+                        </apex:commandButton>   
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection title="Report Details" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Report Date"/>
+                        <apex:outputPanel >
+                        <apex:inputField value="{!MammaObj.Report_Date__c}" required="true" id="reportDateId"/>
+                        <script type="text/javascript">
+                            document.getElementById('{!$Component.reportDateId}').onfocus = function onfocus(event) {
+                            DatePicker.pickDate(true, '{!$Component.reportDateId}', false); 
+                            addYearInDateField(''); 
+                            };
+                        </script>
+                    </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Specimen Collection Dates"/>
+                        <apex:actionRegion >
+                            <apex:selectList value="{!selectSpecimen}" size="1" title="Select From Drop Down List." >
+                                <apex:selectOptions value="{!specimenCollDate}"/>
+                                <apex:actionSupport event="onchange"  action="{!collectSpecimenIDs}" rerender="selectSpPanel" status="processStatusId"/>
+                            </apex:selectList>
+                        </apex:actionRegion>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Specimen used"/>
+                        <apex:outputPanel id="selectSpPanel" >
+                             <apex:selectList value="{!MammaObj.Specimen_Used__c}" size="1" id="selectSpecimen" title="Select From Drop Down List.">
+                                <apex:selectOptions value="{!specimenUsed}"/>
+                             </apex:selectList>
+                             <apex:actionStatus id="processStatusId" startText="Processing..."/>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="MammaPrint Risk"/>
+                        <apex:inputField value="{!MammaObj.MammaPrint_Risk__c}"/> 
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="MammaPrint Index"/>
+                        <apex:inputField value="{!MammaObj.MammaPrint_Index__c}"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="TargetPrint HER 2 index">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="TargetPrint HER 2 index"/>
+                        <apex:inputField value="{!MammaObj.TargetPrint_Her_2_Index__c}"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:pageblock>
+            </apex:tab>
+            <apex:tab label="Complete" name="SecondTab" id="SecondTabId" ontabenter="enterToNextTab('SecondTab');">
+            <apex:pageblock tabStyle="Account"> 
+             <!--  <apex:pageBlockButtons location="top" >
+                      <apex:commandButton action="{!cancelCRF}" value="Delete" onClick="return cancelConfirm();" immediate="true" rendered="{!profileName =='System Administrator'}"/>
+                </apex:pageBlockButtons> -->
+                
+                 <apex:pageBlockButtons location="top" >
+                    <apex:commandButton action="{!previous}" value="Previous" reRender="theTabPanel" status="splashStatus" rendered="{!isComplete}">
+                        <apex:param name="tabPrevious" value="firstTab"/>
+                    </apex:commandButton>
+                    <apex:commandButton value="Complete" action="{!complete}" rendered="{!IF(($UserRole.Name != 'Lab Supervisor' || $Profile.Name != 'System Administrator') && (MammaObj.Status__c == 'Not Completed'),true,false)}" status="counterStatus"/>
+                 </apex:pageBlockButtons>
+                <font size="3"><b><apex:outputlabel value="MammaPrint results are not to be used for treatment decisions outside of the I-SPY 2 TRIAL per FDA IND# 105,139" >
+                </apex:outputlabel></b></font> <br /><br />
+                <table width="100%">
+                    <tr>
+                        <td width="30%"><b>Collection Details</b></td>
+                        <td width="70%"></td>
+                    </tr>
+                    <tr>
+                        <td width="30%"> Report Date </td>
+                        <td width="70%"><apex:outputField value="{!MammaObj.Report_Date__c}"/> </td>
+                    </tr>
+                    <tr>
+                        <td width="30%"> Specimen used: </td>
+                        <td width="70%"> <apex:outputField value="{!MammaObj.Specimen_Used__c}"/></td> 
+                    </tr>
+                </table>
+                <table width="100%">
+                    <tr>
+                        <td width="30%"><b>MammaPrint Risk</b></td>
+                        <td width="70%"></td>
+                    </tr>
+                    <tr>
+                        <td width="30%">Risk:</td>
+                        <td width="70%"><apex:outputField value="{!MammaObj.MammaPrint_Risk__c}"/> </td> 
+                    </tr>
+                    <tr>
+                        <td width="30%">MammaPrint Index</td>
+                        <td width="70%"><apex:outputField value="{!MammaObj.MammaPrint_Index__c}"/> </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">H1 H2 status</td>
+                        <td width="70%"><apex:outputPanel rendered="{!NOT(ISNULL(MammaObj.H1_H2_status__c))}"><apex:outputField value="{!MammaObj.H1_H2_status__c}"/></apex:outputPanel></td>
+                    </tr>
+                </table>
+                <table width="100%">
+                    <tr>   
+                        <td width="30%"><b>TargetPrint HER 2 index</b></td> 
+                        <td width="70%"> </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">TargetPrint HER 2 index:</td>
+                        <td width="70%"> <apex:outputField value="{!MammaObj.TargetPrint_Her_2_Index__c}"/> </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">TargetPrint HER 2 Status:</td>    
+                        <td width="70%"> <apex:outputField value="{!MammaObj.TargetPrint_Her_2_Status__c}"/> </td>
+                    </tr>
+                </table>
+            </apex:pageblock> 
+                <div align="center">   
+                    <!--<apex:commandButton action="{!cancelCRF}" value="  Cancel  " onClick="return cancelConfirm();" immediate="true" rendered="{!isComplete}"/> -->
+                    <apex:outputPanel id="msgPanelId" layout="block" style="text-align: center;"><font color="{!msgColor}">{!errorMsg}&nbsp;</font></apex:outputPanel>
+                    <br />
+                    <apex:outputPanel rendered="{!IF($UserRole.Name == 'Lab Supervisor',true,false)}">
+                        
+                        <apex:outputLabel value="User Id :" style="font-weight: bold;" rendered="{!IF(MammaObj.Status__c == 'Completed',true,false)}"/>&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" rendered="{!IF(MammaObj.Status__c == 'Completed',true,false)}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" rendered="{!IF(MammaObj.Status__c == 'Completed',true,false)}"/>&nbsp;&nbsp;<apex:inputSecret value="{!password}" rendered="{!IF(MammaObj.Status__c == 'Completed',true,false)}"/>&nbsp;&nbsp;
+                        <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" rendered="{!IF(MammaObj.Status__c == 'Completed',true,false)}"/>
+                        <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" rendered="{!IF(MammaObj.Status__c == 'Completed',true,false)}"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!IF($Profile.Name == 'System Administrator' && MammaObj.Status__c != 'Approval Not Required',true,false)}">
+                        <apex:outputLabel value="User Id :" style="font-weight: bold;" />&nbsp;&nbsp;<apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+                        <apex:outputLabel value="Secure Code: "  style="font-weight: bold;" />&nbsp;&nbsp;<apex:inputSecret value="{!password}" />&nbsp;&nbsp;
+                        <apex:commandButton value="  Sign and Submit  " action="{!signAndSubmit}" />
+                        <apex:commandButton value="Resend Security Code" action="{!resendCode}" rerender="msgPanelId" status="counterStatus" />
+                    </apex:outputPanel>
+                    <apex:actionStatus id="counterStatus" startText="Processing..." onstop=""/> 
+                </div>
+            </apex:tab>
+        </apex:tabPanel>
+    </apex:form>
+</apex:page>

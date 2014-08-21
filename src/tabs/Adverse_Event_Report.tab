@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Adverse Event Report</description>
+    <label>Adverse Event Report</label>
+    <mobileReady>false</mobileReady>
+    <motif>Custom62: Chalkboard</motif>
+    <page>AdverseEventReportPage</page>
+</CustomTab>

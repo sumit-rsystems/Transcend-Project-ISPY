@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Randomization Condition</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Randomization Conditions</value>
+    </caseValues>
+    <fields>
+        <label><!-- ER --></label>
+        <name>ER__c</name>
+    </fields>
+    <fields>
+        <label><!-- Eligble --></label>
+        <name>Eligble__c</name>
+    </fields>
+    <fields>
+        <label><!-- FISH --></label>
+        <name>FISH__c</name>
+    </fields>
+    <fields>
+        <label><!-- IHC --></label>
+        <name>IHC__c</name>
+    </fields>
+    <fields>
+        <label><!-- MP --></label>
+        <name>MP__c</name>
+    </fields>
+    <fields>
+        <label><!-- PR --></label>
+        <name>PR__c</name>
+    </fields>
+    <fields>
+        <label><!-- TP --></label>
+        <name>TP__c</name>
+    </fields>
+    <fields>
+        <label><!-- Test Case Number --></label>
+        <name>Test_Case_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- XML HER2 --></label>
+        <name>XML_HER2__c</name>
+    </fields>
+    <fields>
+        <label><!-- XML HR --></label>
+        <name>XML_HR__c</name>
+    </fields>
+    <fields>
+        <label><!-- XML MP --></label>
+        <name>XML_MP__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

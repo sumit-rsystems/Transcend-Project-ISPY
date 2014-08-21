@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>caIntegrator Data</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>caIntegrator Data</value>
+    </caseValues>
+    <fields>
+        <label><!-- Adj_AromataseInhib --></label>
+        <name>Adj_AromataseInhib__c</name>
+    </fields>
+    <fields>
+        <label><!-- Adj_ChemoReg --></label>
+        <name>Adj_ChemoReg__c</name>
+    </fields>
+    <fields>
+        <label><!-- Adj_Chemo --></label>
+        <name>Adj_Chemo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Adj_Other --></label>
+        <name>Adj_Other__c</name>
+    </fields>
+    <fields>
+        <label><!-- Adj_OvarianAbl --></label>
+        <name>Adj_OvarianAbl__c</name>
+    </fields>
+    <fields>
+        <label><!-- Adj_OvarianSup --></label>
+        <name>Adj_OvarianSup__c</name>
+    </fields>
+    <fields>
+        <label><!-- Adj_Tam --></label>
+        <name>Adj_Tam__c</name>
+    </fields>
+    <fields>
+        <label><!-- Adj_Trastuzumab --></label>
+        <name>Adj_Trastuzumab__c</name>
+    </fields>
+    <fields>
+        <label><!-- Adu_OtherReg --></label>
+        <name>Adu_OtherReg__c</name>
+    </fields>
+    <fields>
+        <label><!-- Age --></label>
+        <name>Age__c</name>
+    </fields>
+    <fields>
+        <label><!-- BaseDiseaseExt --></label>
+        <name>BaseDiseaseExt__c</name>
+    </fields>
+    <fields>
+        <label><!-- BaseNodeExt --></label>
+        <name>BaseNodeExt__c</name>
+    </fields>
+    <fields>
+        <label><!-- BilateralCa --></label>
+        <name>BilateralCa__c</name>
+    </fields>
+    <fields>
+        <label><!-- BirthCountry --></label>
+        <name>BirthCountry__c</name>
+    </fields>
+    <fields>
+        <label><!-- Breast Conserv --></label>
+        <name>Breast_Conserv__c</name>
+    </fields>
+    <fields>
+        <label><!-- ChemoCat --></label>
+        <name>ChemoCat__c</name>
+    </fields>
+    <fields>
+        <label><!-- ChemoGrowthMeds --></label>
+        <name>ChemoGrowthMeds__c</name>
+    </fields>
+    <fields>
+        <label><!-- Completed Tx --></label>
+        <name>Completed_Tx__c</name>
+    </fields>
+    <fields>
+        <label><!-- DCISGrade_PS --></label>
+        <name>DCISGrade_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- DCISHistology_PS --></label>
+        <name>DCISHistology_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- DCIS%_PS --></label>
+        <name>DCIS_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- DCISspan_PS --></label>
+        <name>DCISspan_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- DermInvolve_PS --></label>
+        <name>DermInvolve_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- DistProgSite --></label>
+        <name>DistProgSite__c</name>
+    </fields>
+    <fields>
+        <label><!-- DistProgTimeD --></label>
+        <name>DistProgTimeD__c</name>
+    </fields>
+    <fields>
+        <label><!-- DistProgress --></label>
+        <name>DistProgress__c</name>
+    </fields>
+    <fields>
+        <label><!-- ECOG --></label>
+        <name>ECOG__c</name>
+    </fields>
+    <fields>
+        <label><!-- ERstatus_OS --></label>
+        <name>ERstatus_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- ERstatus_PS --></label>
+        <name>ERstatus_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ethn --></label>
+        <name>Ethn__c</name>
+    </fields>
+    <fields>
+        <label><!-- ExtractDate --></label>
+        <name>ExtractDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- GrossPathSize1_PS --></label>
+        <name>GrossPathSize1_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- GrossPathSize2_PS --></label>
+        <name>GrossPathSize2_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- Height --></label>
+        <name>Height__c</name>
+    </fields>
+    <fields>
+        <label><!-- Her2FISHstatus_OS --></label>
+        <name>Her2FISHstatus_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- Her2FISHtest_OS --></label>
+        <name>Her2FISHtest_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- Her2IHCstatus_OS --></label>
+        <name>Her2IHCstatus_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- Her2IHCtest_OS --></label>
+        <name>Her2IHCtest_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- Her2TargetPrint_OS --></label>
+        <name>Her2TargetPrint_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- Her2status_PS --></label>
+        <name>Her2status_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- ISPY2ID --></label>
+        <name>ISPY2ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- InSitu_OS --></label>
+        <name>InSitu_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- InSitu_PS --></label>
+        <name>InSitu_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- InflamCa_OS --></label>
+        <name>InflamCa_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- Institution --></label>
+        <name>Institution__c</name>
+    </fields>
+    <fields>
+        <label><!-- InterDiseaseExt --></label>
+        <name>InterDiseaseExt__c</name>
+    </fields>
+    <fields>
+        <label><!-- InterNodeExt --></label>
+        <name>InterNodeExt__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interval_Cancer --></label>
+        <name>Interval_Cancer__c</name>
+    </fields>
+    <fields>
+        <label><!-- InvHistology_OS --></label>
+        <name>InvHistology_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- InvHistology_PS --></label>
+        <name>InvHistology_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- InvMargin_PS --></label>
+        <name>InvMargin_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- InvMultifocal_PS --></label>
+        <name>InvMultifocal_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- InvPathSize1_PS --></label>
+        <name>InvPathSize1_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- InvPathSize2_PS --></label>
+        <name>InvPathSize2_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- InvSBR_OS --></label>
+        <name>InvSBR_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- InvSBR_PS --></label>
+        <name>InvSBR_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- Inv%_PS --></label>
+        <name>Inv_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- LCISHistology_PS --></label>
+        <name>LCISHistology_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- LCIS%_PS --></label>
+        <name>LCIS_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- LCISspan_PS --></label>
+        <name>LCISspan_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- LNdissection_PS --></label>
+        <name>LNdissection_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- LNresult_OS --></label>
+        <name>LNresult_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- LNsampled_OS --></label>
+        <name>LNsampled_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- LVI_PS --></label>
+        <name>LVI_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- Laterality --></label>
+        <name>Laterality__c</name>
+    </fields>
+    <fields>
+        <label><!-- LocalProgSite --></label>
+        <name>LocalProgSite__c</name>
+    </fields>
+    <fields>
+        <label><!-- LocalProgTimeD --></label>
+        <name>LocalProgTimeD__c</name>
+    </fields>
+    <fields>
+        <label><!-- LocalProgress --></label>
+        <name>LocalProgress__c</name>
+    </fields>
+    <fields>
+        <label><!-- MP_Cat --></label>
+        <name>MP_Cat__c</name>
+    </fields>
+    <fields>
+        <label><!-- MP_Index --></label>
+        <name>MP_Index__c</name>
+    </fields>
+    <fields>
+        <label><!-- MP_Risk --></label>
+        <name>MP_Risk__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRILD_T0 --></label>
+        <name>MRILD_T0__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRILD_T1 --></label>
+        <name>MRILD_T1__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRILD_T2 --></label>
+        <name>MRILD_T2__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRILD_T3 --></label>
+        <name>MRILD_T3__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRIvol_T0-T1 --></label>
+        <name>MRIvol_T0_T1__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRIvol_T0-T2 --></label>
+        <name>MRIvol_T0_T2__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRIvol_T0-T3 --></label>
+        <name>MRIvol_T0_T3__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRIvol_T0 --></label>
+        <name>MRIvol_T0__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRIvol_T1 --></label>
+        <name>MRIvol_T1__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRIvol_T2 --></label>
+        <name>MRIvol_T2__c</name>
+    </fields>
+    <fields>
+        <label><!-- MRIvol_T3 --></label>
+        <name>MRIvol_T3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Menopausal_OS --></label>
+        <name>Menopausal_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- Method_Detect --></label>
+        <name>Method_Detect__c</name>
+    </fields>
+    <fields>
+        <label><!-- NewPrimeCa --></label>
+        <name>NewPrimeCa__c</name>
+    </fields>
+    <fields>
+        <label><!-- NewPrimeTimeD --></label>
+        <name>NewPrimeTimeD__c</name>
+    </fields>
+    <fields>
+        <label><!-- NewPrimeTx --></label>
+        <name>NewPrimeTx__c</name>
+    </fields>
+    <fields>
+        <label><!-- NonStudyChemo --></label>
+        <name>NonStudyChemo__c</name>
+    </fields>
+    <fields>
+        <label><!-- NumExLN_PS --></label>
+        <name>NumExLN_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- NumPosLN_PS --></label>
+        <name>NumPosLN_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- PRstatus_OS --></label>
+        <name>PRstatus_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- PRstatus_PS --></label>
+        <name>PRstatus_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- PathologyStage_PS --></label>
+        <name>PathologyStage_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- PresDiseaseExt --></label>
+        <name>PresDiseaseExt__c</name>
+    </fields>
+    <fields>
+        <label><!-- PresNodeExt --></label>
+        <name>PresNodeExt__c</name>
+    </fields>
+    <fields>
+        <label><!-- RCB_class --></label>
+        <name>RCB_class__c</name>
+    </fields>
+    <fields>
+        <label><!-- RCB_index --></label>
+        <name>RCB_index__c</name>
+    </fields>
+    <fields>
+        <label><!-- RFS --></label>
+        <name>RFS__c</name>
+    </fields>
+    <fields>
+        <label><!-- RFS_ind --></label>
+        <name>RFS_ind__c</name>
+    </fields>
+    <fields>
+        <label><!-- Race --></label>
+        <name>Race__c</name>
+    </fields>
+    <fields>
+        <label><!-- Randomized --></label>
+        <name>Randomized__c</name>
+    </fields>
+    <fields>
+        <label><!-- RtSite --></label>
+        <name>RtSite__c</name>
+    </fields>
+    <fields>
+        <label><!-- RtTherapy --></label>
+        <name>RtTherapy__c</name>
+    </fields>
+    <fields>
+        <label><!-- SizeMetLN_PS --></label>
+        <name>SizeMetLN_PS__c</name>
+    </fields>
+    <fields>
+        <label><!-- StudyChemo --></label>
+        <name>StudyChemo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Surgery_Br --></label>
+        <name>Surgery_Br__c</name>
+    </fields>
+    <fields>
+        <label><!-- SurvDateD --></label>
+        <name>SurvDateD__c</name>
+    </fields>
+    <fields>
+        <label><!-- SurvStat --></label>
+        <name>SurvStat__c</name>
+    </fields>
+    <fields>
+        <label><!-- Weight --></label>
+        <name>Weight__c</name>
+    </fields>
+    <fields>
+        <label><!-- cNstage_OS --></label>
+        <name>cNstage_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- cStaging_OS --></label>
+        <name>cStaging_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- cTstage_OS --></label>
+        <name>cTstage_OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- pCR --></label>
+        <name>pCR__c</name>
+    </fields>
+    <fields>
+        <label><!-- ypM --></label>
+        <name>ypM__c</name>
+    </fields>
+    <fields>
+        <label><!-- ypN --></label>
+        <name>ypN__c</name>
+    </fields>
+    <fields>
+        <label><!-- ypT --></label>
+        <name>ypT__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

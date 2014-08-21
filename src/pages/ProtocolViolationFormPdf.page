@@ -1,0 +1,126 @@
+<apex:page StandardController="ProtocolViolationDetail__c" renderAs="pdf" extensions="ProtocolViolationController" sideBar="false" tabStyle="Patient_Custom__c" >
+   <apex:form >
+    <c:CRFPdfHeader crfFormName="I-SPY 2 TRIAL: Protocol Violation " initial="" 
+    instituteName="" subjectId="{!trialPatientObj.Patient_Id__c}"></c:CRFPdfHeader>
+    <br/>             
+    <br/>
+    <table width="100%"  cellpadding="5">
+        <tr>
+            <td valign="top" width="30%" align="right"><b>Date of protocol violation:</b>&nbsp;</td>
+            <td>
+                <apex:outputField value="{!protocolViolation.DateOfProtocolViolation__c}" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" align="right"><b>Type of Protocol Violation:</b>&nbsp;</td>
+            <td>
+                <apex:outputLabel value="Medication non-complicance" rendered="{!protocolViolation.Medication_non_complicance__c}"/>
+                <apex:outputLabel value=", Visit non-complicance" rendered="{!protocolViolation.Visit_non_complicance__c}"/>
+                <apex:outputLabel value=", On-study procedure required by protocol not completed" rendered="{!protocolViolation.On_study_procedure_required_by_protocol__c}"/>
+                <apex:outputLabel value=", Incorrect therapy given to patient" rendered="{!protocolViolation.Incorrect_therapy_given_to_patient__c}"/>
+                <apex:outputLabel value=", Screening and on-study test/lab done outside the protocol required time" rendered="{!protocolViolation.Screening_and_on_study_test_lab_done__c}"/>
+                <apex:outputLabel value=", Screening procedure required by protocol not done" rendered="{!protocolViolation.Screening_procedure_required__c}"/>
+                <apex:outputLabel value=", Eligibility criteria exception" rendered="{!protocolViolation.Eligibility_criteria_exception__c}"/>
+                <apex:outputLabel value=", Enrollment of ineligible patient" rendered="{!protocolViolation.Enrollment_of_ineligeligibleible_patient__c}"/>
+                <apex:outputLabel value=", Patient became pregnant prior to surgery" rendered="{!protocolViolation.Patient_became_pregnant_prior_to_surgery__c}"/>
+                <apex:outputLabel value=", {!protocolViolation.Other_Type_of_Violation__c}" rendered="{!protocolViolation.Other_Violation_Checkbox__c}"/>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" align="right"><b>Action taken:</b>&nbsp;</td>
+            <td>
+                <apex:outputLabel value="Patient remains on study but data analysis will be modified" rendered="{!protocolViolation.Patient_Remains_on_Study__c}"/>
+                <apex:outputLabel value=", Patient withdrawn" rendered="{!protocolViolation.Patient_withdrawn__c}"/>
+                <apex:outputLabel value=", {!protocolViolation.Other_Action__c}" rendered="{!protocolViolation.Other_Action_Checkbox__c}"/>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" align="right"><b>Was the local IRB notified?</b></td>
+            <td>
+                <apex:outputField value="{!protocolViolation.Local_IRB_Notified__c}" />
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <div style="background-color:#97C7EC"><b style="color:white;margin:10px;">Narrative description of protocol violation:</b></div>
+    <!--<c:CRFAttachmentComponent rId="{!protocolViolation.Id}" feedCRFName="ProtocolViolationDetail__Feed"/>
+    -->
+    <br/>
+    <br/>
+           <!--   <table width="100%">
+       <tr>
+           <td width="20%">&nbsp;</td>
+           <td width="80%">
+               <apex:outputLabel value="Electronically Signed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;&nbsp;&nbsp;
+           </td>
+       </tr>
+   </table>
+    
+    <c:CRFPDFFooter crfFormName="Protocol Violation Form , v1"  /> 
+    
+</apex:page>-->
+<table > 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="CRF Status:" />
+        </td>
+        <td >
+            <apex:outputField value="{!protocolViolation.Status__c}"/>
+        </td>
+    
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"   value="DCC Action:" />
+        </td>
+        <td >
+            <apex:outputField value="{!protocolViolation.Status__c}"/>
+        </td>
+    </tr> 
+    </tr> 
+    <tr>
+        <td  >
+            <apex:outputLabel style="font-weight:bold;"  value="DCC Comments:" />
+        </td>
+        <td >
+           <!-- <apex:outputField value="{!}"/>-->
+           
+    <c:CRFEventComponentcomments rId="{!protocolViolation.Id}" objectNamec="ProtocolViolationDetail__c" rtId="{!protocolViolation.Root_CRF_Id__c}"/>
+        </td>
+    </tr> 
+  </table>
+  <br/>
+  <br/>
+  
+  <apex:pageBlock tabStyle="Account">
+<!-- <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(protocolViolation.Id))}">
+       <c:CRFAttachmentComponent rId="{!protocolViolation.Id}" feedCRFName="ProtocolViolationDetail__Feed"/>
+ </apex:pageBlockSection> -->
+  <c:CRFAttachmentComponentPdf rId="{!protocolViolation.Id}" feedCRFNamePdf="ProtocolViolationDetail__Feed" rtId="{!protocolViolation.Root_CRF_Id__c}"/>
+  <br/>
+  
+  <div style="background-color:#97C7EC"><b style="margin:10px;color:white">CRF Events</b></div>
+  
+  <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(protocolViolation.Id))}">
+        <c:CRFEventComponent rId="{!protocolViolation.Id}" objectName="ProtocolViolationDetail__c" rtId="{!protocolViolation.Root_CRF_Id__c}"/>
+  </apex:pageBlockSection>
+        
+  </apex:pageBlock>   
+           
+           
+  <table width="100%">
+       <tr>
+           <td width="10%">&nbsp;</td>
+           <td width="90%">
+               <apex:outputLabel value="Electronically Printed By" style="font-weight: bold;" />&nbsp;&nbsp;
+               <apex:outputLabel value="{!$User.Username}" />&nbsp;&nbsp;<B>ON</B>&nbsp;&nbsp;
+               <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!TODAY()}" />
+               </apex:outputText>     
+          </td>   
+            
+       </tr>
+   </table>  
+  <!-- <c:CRFPDFFooter crfFormName="Adverse Event Form , v1"  />  -->
+  </apex:form>
+</apex:page>

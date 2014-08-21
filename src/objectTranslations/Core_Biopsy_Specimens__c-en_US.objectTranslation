@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Core Biopsy Specimens</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Core Biopsy Specimens</value>
+    </caseValues>
+    <fields>
+        <label><!-- Core Specimen # --></label>
+        <name>Core_Specimen__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective Time --></label>
+        <name>Effective_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Integration Timestamp --></label>
+        <name>Integration_Timestamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Integration Success --></label>
+        <name>Is_Integration_Success__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other (Reason samples not shipped) --></label>
+        <name>Other_Reason_samples_not_shipped__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reason samples not shipped --></label>
+        <name>Reason_samples_not_shipped__c</name>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Spilled on floor</masterLabel>
+            <translation><!-- Spilled on floor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Thawed</masterLabel>
+            <translation><!-- Thawed --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Shipped? --></label>
+        <name>Shipped__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Specimen ID --></label>
+        <name>SpecimenID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tissue Specimen Detail --></label>
+        <name>TissueSpecimenDetail__c</name>
+        <relationshipLabel><!-- Core Biopsy Specimens --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Core Biopsy Specimens Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Other (Reason samples not shipped) --></errorMessage>
+        <name>ValidateReasonSamplesNotShipped</name>
+    </validationRules>
+</CustomObjectTranslation>

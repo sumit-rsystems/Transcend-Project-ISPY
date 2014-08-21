@@ -1,0 +1,976 @@
+<apex:page controller="TrialSummaryReport" sidebar="false" showHeader="false" title="HTML View">
+<style>
+	.odd{
+		background-color: #ECECFF;
+	}
+	
+	.siteTableFooter{
+		font-weight: bold;
+		border-top: 1px solid #000;
+		border-bottom: 1px solid #000;
+	}
+	
+	.siteTableHeader{
+		border-bottom: 1px solid #000;
+	}
+</style>
+	<script>
+		var locker;
+		function generateReport() {
+			//startSplash();
+			//locker = lockScroll();
+			startMethodCalling();
+			
+		}
+		
+		function startSplash() {
+            var divObj = document.getElementById('splashDiv');
+            var msgSplash = document.getElementById('waitMsg');
+            var browserName = navigator.appName;
+            if(browserName == 'Netscape'){
+                divObj.style.display='table-cell'; 
+            } else {
+                divObj.style.display='table-cell';
+            }
+    	}
+    	
+        function endSplash() {            
+            document.getElementById('splashDiv').style.display='none';
+        }
+        
+        function lockScroll() {
+		    var lockX = window.scrollX;
+		    var lockY = window.scrollY;
+		
+		    function lockIt() {
+		        window.scrollTo(lockX,lockY);
+		        return false;
+		    }
+		
+		    window.addEventListener("scroll",lockIt,false)
+		
+		    return {
+		        stop: function(){
+		            window.removeEventListener("scroll",lockIt,false)
+		        }
+		    }
+		}
+        
+	</script>
+	<div id="splashDiv" style="display: none;width:100%;height:100%;background-color: #000;z-index: 1; position: absolute;opacity:0.5;">
+        <div style="text-align: center; top: 50%;width:100%;height:100%;position: fixed;" class="circle">
+        	<apex:image value="{!$Resource.LoadingImg1}"></apex:image>
+        	<br />
+        	<label style="color: #FFF;">Report is being generated! Please wait. . . . .</label>
+        </div>
+    </div> 
+	<apex:outputPanel id="parentPanel" >
+		<apex:outputPanel id="panel1" rendered="{!IF(siteId != null, true, false)}">
+			<script>
+				startMethodCallingForSite();
+			</script>
+		</apex:outputPanel>
+		<apex:outputPanel id="panel2" rendered="{!IF(siteId != null, false, true)}">
+			<script>
+				//alert("Report Sucessfully Generated!");
+				//endSplash();
+				//locker.stop();
+			</script>
+		</apex:outputPanel>
+	</apex:outputPanel>
+	<apex:form id="formId">
+		<apex:actionFunction name="startMethodCalling" action="{!prepareAccrualSummaryForAll}" oncomplete="method2();" reRender="formId" >
+			<apex:param value="{!trial.Id}" name="trialId"/>
+		</apex:actionFunction>
+		<apex:actionFunction name="method2" action="{!prepareDataEnrolledByMonthForAll}" oncomplete="method3();" reRender="formId" >
+			<apex:param value="{!trial.Id}" name="trialId"/>
+		</apex:actionFunction>
+		<apex:actionFunction name="method3" action="{!prepareDataEnrolledByStudySiteForAll}" oncomplete="method4();" reRender="formId" >
+			<apex:param value="{!trial.Id}" name="trialId"/>
+		</apex:actionFunction>
+		<apex:actionFunction name="method4" action="{!prepareStudyParticipantDemographicsForAll}" oncomplete="method5();" reRender="formId" >
+			<apex:param value="{!trial.Id}" name="trialId"/>
+		</apex:actionFunction>
+		<apex:actionFunction name="method5" action="{!prepareNotEnrolledPatientForAll}" oncomplete="method6();" reRender="formId" >
+			<apex:param value="{!trial.Id}" name="trialId"/>
+		</apex:actionFunction>
+		<apex:actionFunction name="method6" action="{!prepareDataNotProceedingTreatmentPhaseForAll}" oncomplete="startMethodCallingForSite();" reRender="formId" >
+			<apex:param value="{!trial.Id}" name="trialId"/>
+		</apex:actionFunction>
+		
+		<apex:actionFunction name="startMethodCallingForSite" action="{!prepareAccrualSummaryForSite}" oncomplete="method1ForSite();" reRender="formId" >
+			<apex:param value="{!trial.Id}" name="trialId"/>
+			<apex:param value="{!siteId}" name="siteId"/> 
+		</apex:actionFunction>
+		<apex:actionFunction name="method1ForSite" action="{!prepareDataEnrolledByMonthForSite}" oncomplete="method2ForSite();" reRender="formId" >
+			<apex:param value="{!trial.Id}" name="trialId"/>
+			<apex:param value="{!siteId}" name="siteId"/>
+		</apex:actionFunction>
+		<apex:actionFunction name="method2ForSite" action="{!prepareNotEnrolledPatientForSite}" oncomplete="method3ForSite();" reRender="formId" >
+			<apex:param value="{!trial.Id}" name="trialId"/>
+			<apex:param value="{!siteId}" name="siteId"/>
+		</apex:actionFunction>
+		<apex:actionFunction name="method3ForSite" action="{!prepareDataNotProceedingTreatmentPhaseForSite}" reRender="parentPanel" >
+			<apex:param value="{!trial.Id}" name="trialId"/>
+			<apex:param value="{!siteId}" name="siteId"/>
+		</apex:actionFunction>
+		
+		<apex:actionStatus id="splashStatus" onstart="startSplash();" onstop="endSplash(); " />
+		
+		<apex:outputPanel id="reportDiv" layout="block" style="font-family :Arial,sans-serif;">
+			<table style="border: 2px black solid; height: 110; width: 100%">
+		        <tr>
+		            <td style="width: 150px;">
+		                <apex:image id="theImage" value="{!$Resource.Logo}" width="150" height="100"/>
+		            </td>
+		            <td valign="top">
+		                <table width="100%" height="108px;">
+		                    <tr>
+		                        <td style="font-size: 20px; font-family: Arial;">
+		                            <center><b>Trial Summary Report</b></center>
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                        <td >
+		                            <table>
+		                                <tr>
+		                                    <td style="font-size: 17px; font-family: Arial;"> 
+		                                        <b>Study: </b>
+		                                    </td>
+		                                    <td style="font-size: 14px; font-family: Arial;">
+		                                        {!trial.Name}
+		                                    </td>
+		                                </tr> 
+		                                <tr> 
+		                                    <td style="font-size: 17px; font-family: Arial;">    
+		                                        <b>As of:</b>
+		                                    </td>
+		                                    <td>
+		                                        <apex:outputText value="{0,date,dd MMMM yyyy}" style="font-size: 14px; font-family: Arial;">
+		                                            <apex:param value="{!asOfDate}" />
+		                                        </apex:outputText>&nbsp;
+		                                    </td>
+		                                </tr> 
+		                            </table>
+		                        </td>
+		                    </tr>
+		                </table>
+		            </td>
+		        </tr>
+		    </table>
+		    <br/>
+		   	<br/>
+		    <div style="width: 100%; background-color: #D3D3D3; padding-left: 5px; font-size: 16px;"><b>STUDY ACCRUAL SUMMARY</b></div>
+		   	<div style="padding-top: 10px;">
+			    <table width="98%" align="right" cellpadding="5" cellspacing="0" style="border-top: 1px solid #000; border-bottom: 1px solid #000;">
+			    	<tr style="background-color: #ECECFF">
+			    		<td width="55%">Total assessed for pre-eligibility</td> 
+			    		<td width="45%" >{!totalPreEligibility}</td>
+			    	</tr>
+			    	<tr>
+			    		<td style="padding-left: 15px;">
+				    		<a href="#notEnroll">Total not enrolled</a>
+			    		</td> 
+			    		<td style="padding-left: 15px;">{!totalNotEnrolled}</td>
+			    	</tr>
+			    	<tr style="background-color: #ECECFF">
+			    		<td style="padding-left: 15px;">Total enrolled </td> 
+			    		<td style="padding-left: 15px;">{!totalEnrolled}</td>
+			    	</tr>
+			    	<tr>
+			    		<td style="padding-left: 30px;">Total pending Randomization </td> 
+			    		<td style="padding-left: 30px;">{!totalPendingRandomization}</td>
+			    	</tr>
+			    	<tr style="background-color: #ECECFF">
+			    		<td style="padding-left: 30px;">
+			    			<a href="#notProceeding">Total not proceeding to treatment phase</a>
+				    	</td> 
+			    		<td style="padding-left: 30px;">{!totalNotProceedingToTreatmentPhase}</td>
+			    	</tr>
+			    	<tr>
+			    		<td style="padding-left: 30px;">
+			    			Total randomized who proceeded to treatment phase
+				    	</td> 
+			    		<td style="padding-left: 30px;">{!totalRandomizedWhoProceededToTreatmentPhase}</td>
+			    	</tr>
+			    	<tr style="background-color: #ECECFF">
+			    		<td style="padding-left: 45px;">Total receiving treatment </td> 
+			    		<td style="padding-left: 45px;">{!totalReceivingTreatment}</td>
+			    	</tr>
+			    	<tr>
+			    		<td style="padding-left: 45px;">Total in follow-up </td> 
+			    		<td style="padding-left: 45px;">{!totalInFollowUp}</td>
+			    	</tr>
+			    	<tr style="background-color: #ECECFF">
+			    		<td style="padding-left: 60px;">Total lost to follow-up </td> 
+			    		<td style="padding-left: 60px;">{!totalLostToFollowUp}</td>
+			    	</tr>
+			    	<tr>
+			    		<td style="padding-left: 45px;">
+			    			Total off-study
+				    	</td> 
+			    		<td style="padding-left: 45px;">{!totalOffStudy}</td>
+			    	</tr>
+			    	<tr style="background-color: #ECECFF">
+			    		<td style="padding-left: 60px;">Total completing study per protocol </td> 
+			    		<td style="padding-left: 60px;">{!totalCompletingStudyPerProtocol}</td>
+			    	</tr>
+			    	<tr>
+			    		<td style="padding-left: 60px;">Total not completing study per protocol </td> 
+			    		<td style="padding-left: 60px;">{!totalNotCompletingStudyPerProtocol}</td>
+			    	</tr>
+			    </table>
+			    <table width="98%" align="right" cellpadding="5" cellspacing="0">
+			    	<tr>
+			    		<th><b><u>Enrolled by month</u></b></th>
+			    	</tr>
+			    </table>
+			    <table width="98%" align="right" cellpadding="5" cellspacing="0">
+			    	<tr style="border-collapse: collapse;">
+			    		<th style="border-bottom: 1px solid #000;">&nbsp;</th>
+			    		<th style="border-bottom: 1px solid #000;">&nbsp;</th>
+			    		<th style="border-bottom: 1px solid #000;">Jan</th>
+			    		<th style="border-bottom: 1px solid #000;">Feb</th>
+			    		<th style="border-bottom: 1px solid #000;">Mar</th>
+			    		<th style="border-bottom: 1px solid #000;">Apr</th>
+			    		<th style="border-bottom: 1px solid #000;">May</th>
+			    		<th style="border-bottom: 1px solid #000;">Jun</th>
+			    		<th style="border-bottom: 1px solid #000;">Jul</th>
+			    		<th style="border-bottom: 1px solid #000;">Aug</th>
+			    		<th style="border-bottom: 1px solid #000;">Sep</th>
+			    		<th style="border-bottom: 1px solid #000;">Oct</th>
+			    		<th style="border-bottom: 1px solid #000;">Nov</th>
+			    		<th style="border-bottom: 1px solid #000;">Dec</th>
+			    	</tr>
+			    	<apex:repeat value="{!wrapYearList}" var="wy">
+			    		<tr>
+			    			<td rowspan="2" valign="top" style="border-bottom: 1px solid #000;">{!wy.year}</td>
+			    			<td style="border-bottom: 1px solid #a3a3a3;">New</td>
+			    			<apex:repeat value="{!wy.wrapMonthList}" var="wm">
+				    			<td style="border-bottom: 1px solid #a3a3a3;background-color: {!IF(ISNULL(wm.patientCount),'#d3d3d3;', '#fff;')}">{!wm.patientCount}</td>
+			    			</apex:repeat>
+			    		</tr>
+			    		<tr>
+			    			<td style="border-bottom: 1px solid #000;">To date</td>
+			    			<apex:repeat value="{!wy.wrapToDateMonthList}" var="wm">
+				    			<td style="border-bottom: 1px solid #000;background-color: {!IF(ISNULL(wm.patientCount),'#d3d3d3;', '#fff;')}">{!wm.patientCount}</td>
+			    			</apex:repeat>
+			    		</tr>
+			    	</apex:repeat>
+			    </table>
+			    <table width="98%" align="right" cellpadding="5" cellspacing="0">
+			    	<tr>
+			    		<th><b><u>Enrolled by Study Site</u></b></th>
+			    	</tr>
+			    </table>
+			    <table style="margin-bottom: 20px;" cellpadding="5" cellspacing="0" width="98%" align="right">
+			    	<tr>
+			    		<th class="siteTableHeader">Study Site</th>
+			    		<th class="siteTableHeader">Enrolled</th>
+			    		<th class="siteTableHeader">Percent</th>
+			    		<th class="siteTableHeader">First Participant Enrolled</th>
+			    	</tr>
+			    	<apex:repeat value="{!WrapSiteList}" var="site">
+			    		<tr style="background-color: {!site.oddRowColor}">
+			    			<td>
+			    				<apex:outputField value="{!site.site.Name}" rendered="{!IF((site.enrolled = 0),true, false)}"/>
+			    				<apex:outputPanel rendered="{!IF((site.enrolled = 0),false, true)}">
+									<a href="#{!site.site.Name}">{!site.site.Name}</a>
+								</apex:outputPanel>
+							</td>
+							<td>{!site.enrolled}</td>
+							<td>{!site.percent}</td>
+							<td>
+								<apex:outputText value="{0,date,dd MMM yyyy}" rendered="{!NOT(ISNULL(site.firstPatientEnrolled))}"><apex:param value="{!site.firstPatientEnrolled}" /></apex:outputText>
+								<apex:outputText rendered="{!ISNULL(site.firstPatientEnrolled)}" value="N/A" />
+							</td>
+			    		</tr>
+			    	</apex:repeat>
+			    	<tr> 
+			    		<th class="siteTableFooter">Total</th>
+			    		<th class="siteTableFooter">{!totalEnrolledPatient}</th>
+			    		<th class="siteTableFooter">100%</th>
+			    		<th class="siteTableFooter">&nbsp;</th>
+			    	</tr>
+			    </table>
+		    </div>
+		    <br/>
+		    <div style="width: 100%; background-color: #D3D3D3; padding-left: 5px; clear: both; font-size: 16px;"><b>STUDY PARTICIPANT DEMOGRAPHICS</b></div>
+		   	<div style="padding-top: 10px;">
+		   		<table width="98%" align="right" cellpadding="5" cellspacing="0">
+		   			<tr>
+		   				<th colspan="3"><b><u>Age at Enrollment</u></b></th>
+		   			</tr>
+		   			<tr>
+		   				<td>Average Age: &nbsp;{!patientAvgAge}</td>
+		   				<td>Minimum Age: &nbsp;{!patientMinAge}</td>
+		   				<td>Maximum Age: &nbsp;{!patientMaxAge}</td>
+		   			</tr>
+		   		</table>
+		   		<table width="98%" align="right" cellpadding="5" cellspacing="0">
+		   			<tr>
+		   				<th><b><u>Enrolled Participants by Race/Ethnicity by Study Site</u></b></th>
+		   			</tr>
+		   			<tr>
+		   				<td>Note:&nbsp; Uses 2000 US Census categories.</td>
+		   			</tr>
+		   		</table>
+		   		<table width="98%" align="right" cellpadding="5" cellspacing="0" style="margin-bottom: 20px;">
+		   			<tr>
+		   				<th colspan="2">&nbsp;</th>
+		   				<th colspan="5" style="border-bottom: 1px solid #000; text-align: center;">Race</th>
+		   				<th colspan="2" style="border-bottom: 1px solid #000; text-align: center;">Ethnicity</th>
+		   			</tr>
+		   			<tr>
+		   				<th>&nbsp;</th>
+		   				<th width="6%" valign="top" style="border-right: 1px solid #000;">Total Enrolled</th>
+		   				<th width="9%" valign="top" style="border-right: 1px solid #c1c1c1;white-space: normal;">American Indian or Alaska Native</th>
+		   				<th width="9%" valign="top" style="border-right: 1px solid #c1c1c1;white-space: normal;">Asian</th>
+		   				<th width="9%" valign="top" style="border-right: 1px solid #c1c1c1;white-space: normal;">Black or African American</th>
+		   				<th width="9%" valign="top" style="border-right: 1px solid #c1c1c1;white-space: normal;">Native Hawaiian or Pacific Islander</th>
+		   				<th width="9%" valign="top" style="border-right: 1px solid #000;white-space: normal;">White</th>
+		   				<th width="9%" valign="top" style="border-right: 1px solid #c1c1c1;white-space: normal;">Hispanic or Latino</th>
+		   				<th width="9%" valign="top" style="border-right: 1px solid #000;white-space: normal;">Not Hispanic or Latino</th>
+		   			</tr>
+		   			<tr>
+		   				<td style="border-top: 1px solid #000;"><b>Overall Study</b></td>
+		   				<td style="border-top: 1px solid #000;">{!totalEnrolledPatient}</td>
+		   				<td style="border-top: 1px solid #000;">{!totalAmericanAlaskaRaceCount}</td>
+		   				<td style="border-top: 1px solid #000;">{!totalAsianRaceCount}</td>
+		   				<td style="border-top: 1px solid #000;">{!totalBlackAmericanRaceCount}</td>
+		   				<td style="border-top: 1px solid #000;">{!totalNativeOtherIslanderRaceCount}</td>
+		   				<td style="border-top: 1px solid #000;">{!totalWhiteRaceCount}</td>
+		   				<td style="border-top: 1px solid #000;">{!totalHispanicEthnicityCount}</td>
+		   				<td style="border-top: 1px solid #000;">{!totalNotHispanicEthnicityCount}</td>
+		   			</tr>
+		   			<apex:repeat value="{!WrapSiteList}" var="site">
+		   				<tr style="background-color: {!site.oddRowColor}">
+		   					<td>{!site.site.Name}</td>
+		   					<td>{!site.enrolled}</td>
+		   					<td>{!site.americanAlaskaRaceCount}</td>
+		   					<td>{!site.asianRaceCount}</td>
+		   					<td>{!site.blackAmericanRaceCount}</td>
+		   					<td>{!site.nativeOtherIslanderRaceCount}</td>
+		   					<td>{!site.whiteRaceCount}</td>
+		   					<td>{!site.hispanicEthnicityCount}</td>
+		   					<td>{!site.notHispanicEthnicityCount}</td>
+		   				</tr>
+		   			</apex:repeat>
+		   		</table>
+		   	</div>
+		   	<br/>
+		    <div id="notEnroll" style="width: 100%; background-color: #D3D3D3; padding-left: 5px; clear: both; font-size: 16px;"><b>PATIENTS NOT ENROLLING IN TRIAL</b></div>
+		   	<div style="padding-top: 10px;">
+		   		<table width="98%" align="right" cellpadding="5" cellspacing="0">
+		   			<tr>
+		   				<th colspan="2" style="border-bottom: 1px solid #000;"><b>Reasons patient did not enroll in trial</b></th>
+		   			</tr>
+		   			<tr>
+		   				<th style="border-bottom: 1px solid #000;" width="85%"><b>Reasons</b></th>
+		   				<th style="border-bottom: 1px solid #000; text-align: center;" width="15%">Patients</th>
+		   			</tr>
+		   			<tr>
+		   				<th style="border-bottom: 1px solid #000;"><b>Total patients not enrolling in trial</b></th>
+		   				<th style="border-bottom: 1px solid #000;"><b>{!totalNotEnrolled}</b></th>
+		   			</tr>
+		   			<tr style="background-color: #ECECFF;">
+		   				<td style="padding-left: 10px;">Patients ineligible for the trial</td>
+		   				<td style="" align="center">{!totalPatientNotEligible}</td>
+		   			</tr>
+		   			<tr>
+		   				<td style="padding-left: 20px;">Patient does not have histologically confirmed new primary adenocarcinoma of the female breast confirmed by core needle, fine needle aspirate or incisional biopsy</td>
+		   				<td style="" align="right">{!patientNotHistologicallyConfirmed}</td>
+		   			</tr>
+		   			<tr style="background-color: #ECECFF;">
+		   				<td style="padding-left: 20px;">Patient does not have clinically or radiologically measureable or non-measurable disease in breast defined as longest diameter ≥ 2.5 cm</td>
+		   				<td style="" align="right">{!patientNotRadiologicallyMeasurable}</td>
+		   			</tr>
+		   			<tr>
+		   				<td style="padding-left: 20px;">Patient has received prior cytotoxic regimens for this malignancy</td>
+		   				<td style="" align="right">{!totalPatientReceivedCytotoxicRegiments}</td>
+		   			</tr>
+		   			<tr style="background-color: #ECECFF;">
+		   				<td style="padding-left: 20px;">Patient has received investigational agents within 30 days of study enrollment</td>
+		   				<td style="" align="right">{!totalPatient30DaysInvestigationalAgents}</td>
+		   			</tr>
+		   			<tr>
+		   				<td style="padding-left: 20px;">Patient has received radiation therapy on the ipsilateral breast for this same malignancy</td>
+		   				<td style="" align="right">{!totalPatientReceivedRadiationTherapy}</td>
+		   			</tr>
+		   			<tr style="background-color: #ECECFF;">
+		   				<td style="padding-left: 20px;">Patient is under 18 years old</td>
+		   				<td style="" align="right">{!totalPatientUnder18Years}</td>
+		   			</tr>
+		   			<tr>
+		   				<td style="padding-left: 20px;">Patient is pregnant or lactating</td>
+		   				<td style="" align="right">{!totalPatientPregnantOrLactating}</td>
+		   			</tr>
+		   			<tr style="background-color: #ECECFF;">
+		   				<td style="padding-left: 20px;">Patient has ferromagnetic prostheses that are not compatible with an MRI machine</td>
+		   				<td style="" align="right">{!totalPatientFerromagneticProstheses}</td>
+		   			</tr>
+		   			<tr>
+		   				<td style="padding-left: 20px;">Patient is not willing to have a core biopsy</td>
+		   				<td style="" align="right">{!totalPatientNotWillingCoreBiopsy}</td>
+		   			</tr>
+		   			<tr style="background-color: #ECECFF;">
+		   				<td style="padding-left: 20px;">Patient is not willing to have a study MRI</td>
+		   				<td style="" align="right">{!totalPatientNotWillingStudyMRI}</td>
+		   			</tr>
+		   			<tr>
+		   				<td style="padding-left: 20px;">Patient has an ECOG score of 2</td>
+		   				<td style="" align="right">{!totalPatientHasECOGScore2}</td>
+		   			</tr>
+		   			<tr style="background-color: #ECECFF;">
+		   				<td style="padding-left: 20px;">Patient has an ECOG score of 3</td>
+		   				<td style="" align="right">{!totalPatientHasECOGScore3}</td>
+		   			</tr>
+		   			<tr>
+		   				<td style="padding-left: 20px;">Patient has an ECOG score of 4</td>
+		   				<td style="" align="right">{!totalPatientHasECOGScore4}</td>
+		   			</tr>
+		   			<tr style="background-color: #ECECFF;">
+		   				<td style="padding-left: 20px;">Patient has an ECOG score of 5</td>
+		   				<td style="" align="right">{!totalPatientHasECOGScore5}</td>
+		   			</tr>
+		   			<tr>
+		   				<td style="padding-left: 10px;">Patients eligible for the trial but did not sign screening consent</td>
+		   				<td style="" align="center">{!totalPatientEligibleForTrialNotSign}</td>
+		   			</tr>
+		   			<tr style="background-color: #ECECFF;">
+		   				<td style="padding-left: 20px;">Patient did not want to participate in a clinical trial</td>
+		   				<td style="" align="right">{!totalPatientNotParticipateInClinicalTrial}</td>
+		   			</tr>
+		   			<tr>
+		   				<td style="padding-left: 20px;">Patient is not willing to be treated with an investigational agent</td>
+		   				<td style="" align="right">{!totalPatientNotWillingInInvestigationalAgent}</td>
+		   			</tr>
+		   			<tr style="background-color: #ECECFF;">
+		   				<td style="padding-left: 20px;">Patient decided to be treated with a different neoadjuvant regimen</td>
+		   				<td style="" align="right">{!totalPatientDecidedWithNeoadjuvantRegimen}</td>
+		   			</tr>
+		   			<tr>
+		   				<td style="padding-left: 20px;">Patient decided to have surgery before treatment</td>
+		   				<td style="" align="right">{!totalPatientDecidedSurgeryBeforeTreatment}</td>
+		   			</tr>
+		   			<tr style="background-color: #ECECFF;">
+		   				<td style="padding-left: 20px;">Patient decided to be treated at another clinic</td>
+		   				<td style="" align="right">{!totalPatientDecidedAtAnotherClinic}</td>
+		   			</tr>
+		   			<tr>
+		   				<td style="padding-left: 20px; border-bottom: 1px solid #000;">Insurance will not cover standard of care</td>
+		   				<td style="border-bottom: 1px solid #000;" align="right">{!totalPatientInsurance}</td>
+		   			</tr>
+		   		</table>
+		   		<table width="98%" align="right" cellpadding="5" cellspacing="0" style="font-style: italic;margin-bottom: 10px;">
+		   			<tr>
+		   				<td width="4%">Note:</td>
+		   				<td width="96%">Because a potential participant may be ineligible for more than one reason, the sum of the individual reasons a patient was ineligible may not total the count of patients ineligible.</td>
+		   			</tr>
+		   		</table> 
+		   	</div>
+		   	<br/>
+		   	<div id="notProceeding" style="width: 100%; background-color: #D3D3D3; padding-left: 5px; clear: both; font-size: 16px;"><b>PARTICIPANTS NOT PROCEEDING TO STUDY TREATMENT PHASE</b></div>
+			<div style="width: 98%; padding-top: 6px; margin-left: 28px; border-bottom: 3px solid #000;"><b>Reasons participants did not proceed to treatment phase</b></div>
+			<table width="98%" align="right" cellpadding="5" cellspacing="0" style="border-bottom: 1px solid #000;margin-bottom: 10px;">
+				<tr>
+					<td style="border-bottom: 3px solid #000;" width="90%">
+						<b>Reason</b>
+					</td>
+					<td style="border-bottom: 3px solid #000;" width="10%">
+						<b>Patients</b>
+					</td>
+				</tr>
+				<tr>
+					<td style="padding-left: 20px;border-bottom: 1px solid #000;">
+						<b>Total participants not proceeding to study treatment phase</b>
+					</td>
+					<td style="border-bottom: 1px solid #000;" align="left">
+						{!totalCount}
+					</td>
+				</tr> 
+				<tr style="background-color: #ECECFF; padding-left: 20px;">
+					<td style="padding-left: 30px;">
+						Participant decided not to be treated with a novel agent
+					</td>
+					<td align="center">
+						{!novelAgentCount}
+					</td>
+				</tr>
+				<tr> 
+					<td style="padding-left: 30px;">
+						Participant decided not to have neoadjuvant chemotherapy
+					</td>
+					<td align="center">
+						{!neoadjuvantCount}
+					</td>
+				</tr>
+				<tr style="background-color: #ECECFF;">
+					<td style="padding-left: 30px;">
+						Participant found to be ineligible because of inability to complete MammaPrint test
+					</td>
+					<td align="center">
+						{!mammaPrinttestCount}
+					</td>
+				</tr>
+				<tr style="padding-left: 20px;">
+					<td style="padding-left: 30px;">
+						Participant found to be ineligible because patient could not complete core biopsy
+					</td>
+					<td align="center">
+						{!coreBiopsyCount}
+					</td>
+				</tr>
+				<tr style="background-color: #ECECFF;">
+					<td style="padding-left: 30px;">
+						Participant found to be ineligible because patient could not complete MRI
+					</td>
+					<td align="center">
+						{!completeMRICount}
+					</td>
+				</tr>
+				<tr>
+					<td style="padding-left: 30px;">
+						Participant found to be ineligible because patient was MP Low, ER Positive, and Her2 Negative
+					</td>
+					<td align="center">
+						{!mPLowERPositiveCount}
+					</td>
+				</tr>
+				<tr style="background-color: #ECECFF;">
+					<td style="padding-left: 30px;">
+						Participant found to be ineligible for the study because they did not meet other eligibility criteria
+					</td>
+					<td align="center">
+						{!eligibilityCriteriaCount}
+					</td>
+				</tr>
+				<tr>
+					<td style="padding-left: 30px;">
+						Other
+					</td>
+					<td align="center">
+						{!otherCount}
+					</td>
+				</tr>
+				<apex:repeat value="{!lstOtherWrapper}" var="otherVar">
+					<tr style="background-color: {!otherVar.colorCode};">
+						<td style="padding-left: 30px;">
+							&nbsp;&nbsp;<apex:outputText value="{!otherVar.otherReason}" /> 
+						</td>
+						<td align="center">
+							&nbsp;&nbsp;<apex:outputText value="{!otherVar.otherCount}"/>
+						</td>
+					</tr>
+				</apex:repeat>
+			</table>
+			<br/>
+			<br/>
+			<table width="100%" >
+				<tr>
+					<td>
+						<div style="width: 100%; background-color: #D3D3D3; padding-left: 5px; clear: both; font-size: 16px;"><b>ACCRUAL SUMMARY BY STUDY SITE</b></div>
+					</td>
+				</tr> 
+			</table>
+			<apex:repeat value="{!lstAccrualSiteWrapper}" var="accSiteWrap">
+				<table width="100%" style="margin-top: 10px;margin-bottom: 10px;">
+					<tr>
+						<td>
+							<div id="{!accSiteWrap.site.Name}" style="width: 100%; background-color: #D3D3D3; padding-left: 5px; clear: both; font-size: 16px;"><b>{!accSiteWrap.site.Name}</b></div>
+						</td>
+					</tr>
+				</table>
+			    <table width="98%" align="right" cellpadding="5" cellspacing="0" style="border-top: 1px solid #000; border-bottom: 1px solid #000;">
+			    	<tr style="background-color: #ECECFF">
+			    		<td width="90%">Total assessed for pre-eligibility</td> 
+			    		<td width="10%" >{!accSiteWrap.totalPreEligibilityforSite}</td>
+			    	</tr>
+			    	<tr>
+			    		<td style="padding-left: 15px;">
+				    		<a href="#notEnroll{!accSiteWrap.reDir}">Total not enrolled</a>
+				    	</td> 
+			    		<td style="padding-left: 15px;">{!accSiteWrap.totalNotEnrolledforSite}</td>
+			    	</tr> 
+			    	<tr style="background-color: #ECECFF">
+			    		<td style="padding-left: 15px;">Total enrolled </td> 
+			    		<td style="padding-left: 15px;">{!accSiteWrap.totalEnrolledforSite}</td>
+			    	</tr>
+			    	<tr>
+			    		<td style="padding-left: 30px;">Total pending Randomization </td> 
+			    		<td style="padding-left: 30px;">{!accSiteWrap.totalPendingRandomizationforSite}</td>
+			    	</tr> 
+			    	<tr style="background-color: #ECECFF">
+			    		<td style="padding-left: 30px;">
+			    			<a href="#notProceeding{!accSiteWrap.reDir}">Total not proceeding to treatment phase</a>
+				    		</td> 
+			    		<td style="padding-left: 30px;">{!accSiteWrap.totalNotProceedingToTreatmentPhaseforSite}</td>
+			    	</tr>
+			    	<tr>
+			    		<td style="padding-left: 30px;">
+			    			Total randomized who proceeded to treatment phase
+				    	</td> 
+			    		<td style="padding-left: 30px;">{!accSiteWrap.totalRandomizedWhoProceededToTreatmentPhaseforSite}</td>
+			    	</tr>
+			    	<tr style="background-color: #ECECFF">
+			    		<td style="padding-left: 45px;">Total receiving treatment </td> 
+			    		<td style="padding-left: 45px;">{!accSiteWrap.totalReceivingTreatment}</td>
+			    	</tr>
+			    	<tr>
+			    		<td style="padding-left: 45px;">Total in follow-up </td> 
+			    		<td style="padding-left: 45px;">{!accSiteWrap.totalInFollowUp}</td>
+			    	</tr>
+			    	<tr style="background-color: #ECECFF">
+			    		<td style="padding-left: 60px;">Total lost to follow-up </td> 
+			    		<td style="padding-left: 60px;">{!accSiteWrap.totalLostToFollowUpforSite}</td>
+			    	</tr>
+			    	<tr>
+			    		<td style="padding-left: 45px;"> 
+			    			Total off-study
+				    	</td> 
+			    		<td style="padding-left: 45px;">{!accSiteWrap.totalOffStudyforSite}</td>
+			    	</tr>
+			    	<tr style="background-color: #ECECFF">
+			    		<td style="padding-left: 60px;">Total completing study per protocol </td> 
+			    		<td style="padding-left: 60px;">{!accSiteWrap.totalCompletingStudyPerProtocolforSite}</td>
+			    	</tr>
+			    	<tr>
+			    		<td style="padding-left: 60px;">Total not completing study per protocol </td> 
+			    		<td style="padding-left: 60px;">{!accSiteWrap.totalNotCompletingStudyPerProtocolforSite}</td>
+			    	</tr>
+			    </table>
+			    <table width="98%" align="right" cellpadding="5" cellspacing="0">
+			    	<tr>
+			    		<th><b><u>Enrolled by month</u></b></th>
+			    	</tr>
+			    </table>
+			    <table width="98%" align="right" cellpadding="5" cellspacing="0">
+			    	<tr style="border-collapse: collapse;">
+			    		<th style="border-bottom: 1px solid #000;">&nbsp;</th>
+			    		<th style="border-bottom: 1px solid #000;">&nbsp;</th>
+			    		<th style="border-bottom: 1px solid #000;">Jan</th>
+			    		<th style="border-bottom: 1px solid #000;">Feb</th>
+			    		<th style="border-bottom: 1px solid #000;">Mar</th>
+			    		<th style="border-bottom: 1px solid #000;">Apr</th>
+			    		<th style="border-bottom: 1px solid #000;">May</th>
+			    		<th style="border-bottom: 1px solid #000;">Jun</th>
+			    		<th style="border-bottom: 1px solid #000;">Jul</th>
+			    		<th style="border-bottom: 1px solid #000;">Aug</th>
+			    		<th style="border-bottom: 1px solid #000;">Sep</th>
+			    		<th style="border-bottom: 1px solid #000;">Oct</th>
+			    		<th style="border-bottom: 1px solid #000;">Nov</th>
+			    		<th style="border-bottom: 1px solid #000;">Dec</th>
+			    	</tr>
+			    	<apex:repeat value="{!accSiteWrap.wrapYearListforSite}" var="wy">
+			    		<tr>
+			    			<td rowspan="2" valign="top" style="border-bottom: 1px solid #000;">{!wy.year}</td>
+			    			<td style="border-bottom: 1px solid #a3a3a3;">New</td>
+			    			<apex:repeat value="{!wy.wrapMonthList}" var="wm">
+				    			<td style="border-bottom: 1px solid #a3a3a3;background-color: {!IF(ISNULL(wm.patientCount),'#d3d3d3;', '#fff;')}">{!wm.patientCount}</td>
+			    			</apex:repeat>
+			    		</tr>
+			    		<tr>
+			    			<td style="border-bottom: 1px solid #000;">To date</td>
+			    			<apex:repeat value="{!wy.wrapToDateMonthList}" var="wm">
+				    			<td style="border-bottom: 1px solid #000;background-color: {!IF(ISNULL(wm.patientCount),'#d3d3d3;', '#fff;')}">{!wm.patientCount}</td>
+			    			</apex:repeat>
+			    		</tr>
+			    	</apex:repeat> 
+			    </table>
+			    <table width="98%" align="right" cellpadding="5" cellspacing="0" style="border-bottom: 1px solid #000;">
+					<tr>
+						<td colspan="2" style="border-bottom: 3px solid #000;">
+							<div id="notEnroll{!accSiteWrap.reDir}" ><b>Reasons patients did not enroll in trial</b></div>
+						</td>
+					</tr>
+					<tr>
+						<td style="border-bottom: 3px solid #000;" width="90%">
+							<b>Reason</b>
+						</td>
+						<td style="border-bottom: 3px solid #000;" width="10%"> 
+							<b>Patients</b>
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-left: 20px;border-bottom: 0.2px solid #000;">
+							<b>Total patients not enrolling in trial</b>
+						</td>
+						<td style="border-bottom: 0.2px solid #000;" align="left">
+							{!accSiteWrap.totalNotEnrolledforSite}
+						</td>
+					</tr> 
+					<tr style="background-color: #ECECFF;">
+						<td style="padding-left: 30px;">
+							Patients ineligible for the trial
+						</td>
+						<td align="center">
+							{!accSiteWrap.patientIneligibleforTrial}
+						</td>
+					</tr>
+					<tr >
+						<td style="padding-left: 40px;">
+							Patient does not have histologically confirmed new primary adenocarcinoma of the female breast confirmed by core needle, fine needle aspirate or incisional biopsy
+						</td>
+						<td align="right"> 
+							{!accSiteWrap.notHaveHistologicallyConfirmed}
+						</td>
+					</tr>
+					<tr style="background-color: #ECECFF;">
+						<td style="padding-left: 40px;">
+							Patient does not have clinically or radiologically measureable or non-measurable disease in breast defined as longest diameter ≥ 2.5 cm
+						</td>
+						<td align="right">
+							{!accSiteWrap.NotClinicallyRadiologicallyMeasurable}
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-left: 40px;">
+							Patient has received prior cytotoxic regimens for this malignancy
+						</td>
+						<td align="right">
+							{!accSiteWrap.notHadPriorCytotoxicRegimensantiCancer}
+						</td>
+					</tr>
+					<tr style="background-color: #ECECFF;">
+						<td style="padding-left: 40px;">
+							Patient has received investigational agents within 30 days of study enrollment
+						</td>
+						<td align="right">
+							{!accSiteWrap.notInvestigationalAgents}
+						</td>
+					</tr> 
+					<tr>
+						<td style="padding-left: 40px;">
+							Patient has received radiation therapy on the ipsilateral breast for this same malignancy
+						</td>
+						<td align="right">
+							{!accSiteWrap.notHadpriorRT}
+						</td>
+					</tr> 
+					<tr style="background-color: #ECECFF;">
+						<td style="padding-left: 40px;">
+							Patient is under 18 years old
+						</td>
+						<td align="right">
+							 {!accSiteWrap.notPatientis18yearsorolder}
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-left: 40px;">
+							Patient is pregnant or lactating
+						</td>
+						<td align="right">
+							{!accSiteWrap.pregnantLactating}
+						</td>
+					</tr>
+					<tr style="background-color: #ECECFF;">
+						<td style="padding-left: 40px;">
+							Patient has ferromagnetic prostheses that are not compatible with an MRI machine
+						</td>
+						<td align="right">
+							{!accSiteWrap.notFerromegnaticProstheses}
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-left: 40px;">
+							Patient is not willing to have a core biopsy
+						</td>
+						<td align="right">
+							{!accSiteWrap.notPatientiswillingtohavecorebiospy}
+						</td>
+					</tr>
+					<tr style="background-color: #ECECFF;">
+						<td style="padding-left: 40px;">
+							Patient is not willing to have a study MRI
+						</td>
+						<td align="right">
+							{!accSiteWrap.notPatientiswillintohavestudyMRI}
+						</td>
+					</tr>
+					<tr> 
+						<td style="padding-left: 40px;">
+							Patient has an ECOG score of 2
+						</td>
+						<td align="right">
+							{!accSiteWrap.not2Symplomaticbed}
+						</td>
+					</tr>
+					<tr style="background-color: #ECECFF;">
+						<td style="padding-left: 40px;">
+							Patient has an ECOG score of 3
+						</td>
+						<td align="right">
+							{!accSiteWrap.not3Symplomatic}
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-left: 40px;">
+							Patient has an ECOG score of 4
+						</td>
+						<td align="right">
+							{!accSiteWrap.not4Bedbound}
+						</td>
+					</tr>
+					<tr style="background-color: #ECECFF;">
+						<td style="padding-left: 40px;">
+							Patient has an ECOG score of 5
+						</td>
+						<td align="right">
+							{!accSiteWrap.not5Death}
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-left: 30px;">
+							Patients eligible for the trial but did not sign screening consent
+						</td>
+						<td align="center">
+							{!accSiteWrap.patienteligibleforTrial}
+						</td>
+					</tr>
+					<tr style="background-color: #ECECFF;"> 
+						<td style="padding-left: 40px;">
+							Patient did not want to participate in a clinical trial
+						</td>
+						<td align="right">
+							{!accSiteWrap.patientDoesNotWantToParticipateClinicalTrial }
+						</td>
+					</tr>
+					<tr> 
+						<td style="padding-left: 40px;">
+							Patient is not willing to be treated with an investigational agent
+						</td>
+						<td align="right">
+							{!accSiteWrap.patientNotWillingTreatedInvestigationalAgent}
+						</td>
+					</tr>
+					<tr style="background-color: #ECECFF;" >
+						<td style="padding-left: 40px;">
+							Patient decided to be treated with a different neoadjuvant regimen
+						</td>
+						<td align="right">
+							{!accSiteWrap.patientTreatedNeoadjuvantRegimen}
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-left: 40px;">
+							Patient decided to have surgery before treatment
+						</td>
+						<td align="right">
+							{!accSiteWrap.patientDecidedSurgeryTreatment}
+						</td>
+					</tr>
+					<tr style="background-color: #ECECFF;">
+						<td style="padding-left: 40px;">
+							Patient decided to be treated at another clinic
+						</td>
+						<td align="right">
+							{!accSiteWrap.patientTreatedAnotherClinic}
+						</td>
+					</tr> 
+					<tr>
+						<td style="padding-left: 40px;">
+							Insurance will not cover standard of care
+						</td>
+						<td align="right">
+							{!accSiteWrap.insuranceWillNotcoverStandardCare}
+						</td>
+					</tr>
+				</table>
+				<table width="98%" align="right" cellpadding="5" cellspacing="0">
+					<tr>
+						<td style="font-style: italic;">
+							Note: Because a potential participant may be ineligible for more than one reason, the sum of the individual reasons a patient was ineligible may not total the count of patient ineligible.
+						</td>
+					</tr>
+				</table>
+				<div id="notProceeding{!accSiteWrap.reDir}" style="width: 98%; padding-top: 10px; margin-left: 28px; border-bottom: 3px solid #000;"><b>Reasons participants did not proceed to treatment phase</b></div>
+				<table width="98%" align="right" cellpadding="5" cellspacing="0" style="border-bottom: 1px solid #000;margin-bottom: 10px;">
+					<tr>
+						<td style="border-bottom: 3px solid #000;" width="90%">
+							<b>Reason</b>
+						</td>
+						<td style="border-bottom: 3px solid #000;" width="10%">
+							<b>Patients</b>
+						</td>
+					</tr> 
+					<tr>
+						<td style="padding-left: 20px;border-bottom: 1px solid #000;">
+							<b>Total participants not proceeding to study treatment phase</b>
+						</td>
+						<td style="border-bottom: 1px solid #000;" align="center">
+							{!accSiteWrap.totalCount}
+						</td>
+					</tr>
+					<tr style="background-color: #ECECFF; padding-left: 20px;">
+						<td style="padding-left: 30px;">
+							Participant decided not to be treated with a novel agent
+						</td>
+						<td align="right">
+							{!accSiteWrap.novelAgentCount}
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-left: 30px;">
+							Participant decided not to have neoadjuvant chemotherapy
+						</td>
+						<td align="right">
+							{!accSiteWrap.neoadjuvantCount}
+						</td>
+					</tr>
+					<tr style="background-color: #ECECFF;">
+						<td style="padding-left: 30px;">
+							Participant found to be ineligible because of inability to complete MammaPrint test
+						</td>
+						<td align="right">
+							{!accSiteWrap.mammaPrinttestCount}
+						</td>
+					</tr>
+					<tr style="padding-left: 20px;">
+						<td style="padding-left: 30px;">
+							Participant found to be ineligible because patient could not complete core biopsy
+						</td>
+						<td align="right">
+							{!accSiteWrap.coreBiopsyCount}
+						</td>
+					</tr>
+					<tr style="background-color: #ECECFF;">
+						<td style="padding-left: 30px;">
+							Participant found to be ineligible because patient could not complete MRI
+						</td>
+						<td align="right">
+							{!accSiteWrap.completeMRICount}
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-left: 30px;">
+							Participant found to be ineligible because patient was MP Low, ER Positive, and Her2 Negative
+						</td>
+						<td align="right">
+							{!accSiteWrap.mPLowERPositiveCount}
+						</td>
+					</tr>
+					<tr style="background-color: #ECECFF;">
+						<td style="padding-left: 30px;">
+							Participant found to be ineligible for the study because they did not meet other eligibility criteria
+						</td>
+						<td align="right">
+							{!accSiteWrap.eligibilityCriteriaCount}
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-left: 30px;">
+							Other
+						</td>
+						<td align="right">
+							{!accSiteWrap.otherCount}
+						</td>
+					</tr>
+				</table>
+				<br/>
+		    </apex:repeat>
+		</apex:outputPanel>
+	</apex:form>
+	<script>
+		generateReport();
+	</script>
+</apex:page>

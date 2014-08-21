@@ -1,0 +1,90 @@
+<apex:component controller="RegimenAgentController" allowDML="true" id="compId">
+    
+    <apex:attribute name="regimenName" description="This is RegimenName." type="String" required="false" assignTo="{!regimenName}" />
+    <apex:attribute name="trialPatientId" description="Trial Patient Id." type="String" required="false" assignTo="{!trialPatientId}" />
+    <apex:attribute name="key" description="This is Key"  type="String" required="false"  assignTo="{!Key}" /> 
+    <apex:attribute name="pageController" type="PageControllerBase" assignTo="{!pageController}" required="true" description="The controller for the page." />
+    <apex:attribute name="crfId" description="This is chemo treatment record id."  type="String" required="false"  assignTo="{!chemoSummaryId}" /> 
+    <table width="100%">
+        <tr>
+            <td colspan="2">
+                <!---<font size="5"><apex:outputText value="{!regimenName}" /></font>-->
+                <b><font size="5"><apex:outputText value="{!regimenName}" /></font></b>
+            </td>
+        </tr>
+        <apex:repeat value="{!regimenDetailWrapper.lstAgentCollectionWrapperForPage}" var="lstAgentDetails">
+            <tr>
+                <apex:repeat value="{!lstAgentDetails}" var="agentDetail">
+                    <td  width="50%" cellPadding="4"  >
+                        <table width="100%" cellspacing = "10" cellPadding="10">
+                            <tr>
+                                <td width="60%">Therapy Dates:</td>
+                                <td width="40%">
+                                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!regimenDetailWrapper.firstDate}" />
+                                    </apex:outputText>
+                                    <apex:outputText value=" to " rendered="{!IF(IsNull(regimenDetailWrapper.lastDate), false, true)}"/>
+                                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!regimenDetailWrapper.lastDate}" />
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="60%">Agent:</td>
+                                <td width="40%">
+                                    {!agentDetail.agentName}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="60%">Initial Dose (C1):</td>
+                                <td width="40%">
+                                    {!agentDetail.cycle1Dose}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="60%">Number of cycles:</td>
+                                <td width="40%">
+                                    {!agentDetail.completedCycle}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="60%">Cumulative dose:</td>
+                                <td width="40%">
+                                    {!agentDetail.totalDose}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="60%">Treatment Schedule:</td>
+                                <td width="40%">
+                                    {!agentDetail.treatmentSchedule}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="60%">Dose delay:</td>
+                                <td width="40%">
+                                    {!agentDetail.doseDelay}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="60%">Dose modification:</td>
+                                <td width="40%">
+                                    {!agentDetail.doseMod}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="60%">Therapy End Reason</td>
+                                <td width="40%">{!regimenDetailWrapper.reason} 
+                                <apex:outputPanel rendered="{!IF(regimenDetailWrapper.reason = 'Other',true,false)}"> - {!regimenDetailWrapper.otherReason}</apex:outputPanel></td>
+                            </tr>
+                            <tr>
+                                <td width="60%">&nbsp;</td>
+                                <td width="40%">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </apex:repeat>
+            </tr>
+        </apex:repeat>
+    </table>
+</apex:component>

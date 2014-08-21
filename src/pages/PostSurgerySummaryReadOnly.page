@@ -1,0 +1,839 @@
+<apex:page standardController="Post_Surgaory_Summary__c" extensions="PostSurgerySummaryController" id="pageId" tabStyle="Account" sidebar="false" showHeader="false">
+<style>
+.activeTab {
+	background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    color: #000000;
+    font-weight: 600;
+    width: 150px;
+}
+
+.inactiveTab {
+		cursor: pointer;
+		/*background-color: #7A9FA0;*/
+		background:#2e84c5 url({!$Resource.Tabmenubg}) left top repeat-x;
+		color: white; /*#3C3C3C;*/
+		font-weight: bold;
+		font-size: 12px;
+		/*height: 22px;*/
+		height: 15px;
+		width: 150px;
+		vertical-align: middle;
+		/*padding-top: 4px;*/
+		border: none;
+}
+	
+.rich-tab-inactive {
+	background-repeat: repeat-x;
+	border-color: #FFFFFF;
+	border-style: none;
+	border-width: 0;
+	cursor: pointer;
+}
+
+.rich-tabhdr-side-border {
+	background-image:none; 
+	border-radius: 4px 4px 0 0;
+	background-color: none;
+	width: 2px;
+}
+
+.rich-tabhdr-side-cell {
+	box-shadow: 0 -2px 2px #A7A7A8;
+	/*border: 2px solid #056FC1;*/
+	border-top: 2px solid #056FC1;
+	border-left: 2px solid #056FC1;
+	border-right: 2px solid #056FC1;
+	border-radius: 4px 4px 0 0;
+}
+
+.rich-tabpanel-content {
+	background-color: #fff;
+	border-left: 2px solid #056FC1;
+	border-right: 2px solid #056FC1;
+	border-bottom: 2px solid #056FC1;
+}
+
+.rich-tab-bottom-line {
+	border-bottom: 1px solid #056FC1;
+}
+
+.accountTab .tertiaryPalette, .individualPalette .accountBlock .tertiaryPalette, .layoutEdit .individualPalette .accountBlock .tertiaryPalette {
+    background-color: #97C7EC;
+}
+
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #fff;
+}
+</style>
+    <apex:form >
+    <apex:pageBlock >
+<!--  
+      ================================================================================================================================================
+      =====================================================Procedure Section==============================================================================
+      ======================================================================================================================================================
+-->     
+            <!--<apex:actionFunction name="editCRF" action="{!editCRF}" rerender="theTabPanel" status="processStatus"/>
+            <apex:outputPanel id="dummayPanel">
+                <script>
+                    //alert("{!openInEditMode}");
+                    if("{!openInEditMode}" == "true") {
+                        editCRF(); 
+                    }
+                </script>
+            </apex:outputPanel>-->
+            <apex:outputPanel rendered="{!IF($Profile.Name == 'Custom Read Only User' || $Profile.Name == 'Trial Administrator', false, true)}">
+                <apex:pageBlock tabStyle="Account">
+                    <apex:pageBlockButtons location="top">
+                        <apex:commandButton action="{!editCRF}" value=" Edit " reRender="formId" status="processStatus" rendered="{!IF(AND(postSurObj.Status__c == 'Rejected', isShowEditButton),true,false)}"/>
+                        <apex:actionStatus id="processStatus" startText="Processing..."/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+             </apex:outputPanel>
+           <apex:outputPanel >  
+                <apex:pageBlockSection >
+                    <apex:outputField value="{!postSurObj.Date_Of_Procedure__c}"/>
+                    <apex:outputText value="{!postSurObj.Surgeon__r.Name}" label="Surgeon" rendered="{!IF(AND($Profile.Name == 'Custom Read Only User', $Profile.Name == 'DCC User'), true, false)}" id="surgeonId"/>
+                    <apex:outputField value="{!postSurObj.Surgeon__c}" label="Surgeon" rendered="{!IF(NOT(AND($Profile.Name == 'Custom Read Only User', $Profile.Name == 'DCC User')), true, false)}"/>
+                </apex:pageBlockSection>
+           </apex:outputPanel>  
+           
+<!--        
+      ================================================================================================================================================
+      =====================================================Specimens Section==============================================================================
+      ======================================================================================================================================================
+-->
+        <apex:pageBlockSection columns="1">
+           <apex:repeat value="{!wrapProcedureList}" var="procData">
+               <apex:pageBlockSection columns="1" >
+                   <apex:facet name="header"><b style="font-size: 12px;">Procedure:</b> {!procData.procedure.Procedure_Name__c} - {!procData.procedure.Laterality__c} {!procData.procedure.Location__c}</apex:facet>
+                   <apex:repeat value="{!procData.proSpecimen}" var="speciData">
+                       <apex:pageBlockSectionItem >
+                           <apex:outputLabel >Specimen</apex:outputLabel>
+                           <apex:outputField value="{!speciData.proSpecimen.Specimen__c}" />
+                       </apex:pageBlockSectionItem>
+                       
+                       <apex:pageBlockSectionItem rendered="{!speciData.isShowMainSecimen}">
+                           <apex:outputLabel >Specimen entirely submitted for histology?</apex:outputLabel>
+                           <apex:outputField value="{!speciData.proSpecimen.Main_Specimen_submitted_for_histology__c}" />
+                       </apex:pageBlockSectionItem>
+                       
+                       <apex:pageBlockSectionItem rendered="{!speciData.isShowSingleSecimen}">
+                           <apex:outputLabel >Specimen entirely submitted for histology?</apex:outputLabel>
+                           <apex:outputField value="{!speciData.proSpecimen.Single_Speciment_submitted_for_histology__c}" />
+                       </apex:pageBlockSectionItem>
+                       
+                       <apex:pageBlockSectionItem >
+                           <strong>Gross Specimen Size</strong>
+                       </apex:pageBlockSectionItem>
+                       
+                       <apex:pageBlockSectionItem >
+                           <apex:outputLabel >Medial-lateral</apex:outputLabel>
+                           <apex:outputPanel >
+                               <apex:outputField value="{!speciData.proSpecimen.Medial_lateral_Gross_specimen_size__c}" />
+                               <apex:outputField value="{!speciData.proSpecimen.Medial_lateral_size_unit__c}" />
+                           </apex:outputPanel>
+                       </apex:pageBlockSectionItem>
+                       
+                       <apex:pageBlockSectionItem >
+                           <apex:outputLabel >Anterior-deep</apex:outputLabel>
+                           <apex:outputPanel >
+                               <apex:outputField value="{!speciData.proSpecimen.Anterior_deep_Gross_specimen_size__c}" />
+                               <apex:outputField value="{!speciData.proSpecimen.Anterior_deep_size_unit__c}" />
+                           </apex:outputPanel>
+                       </apex:pageBlockSectionItem>
+                       
+                       <apex:pageBlockSectionItem >
+                           <apex:outputLabel >Superor-inferior</apex:outputLabel>
+                           <apex:outputPanel >
+                               <apex:outputField value="{!speciData.proSpecimen.Superor_inferior_Gross_specimen_size__c}" />
+                               <apex:outputField value="{!speciData.proSpecimen.Superor_inferior_size_unit__c}" />
+                           </apex:outputPanel>
+                       </apex:pageBlockSectionItem>
+                       
+                       <apex:pageBlockSectionItem >
+                           <strong>Specimen Slicing</strong>
+                       </apex:pageBlockSectionItem>
+                       
+                       <apex:pageBlockSectionItem >
+                           <apex:outputLabel >Total Slice</apex:outputLabel>
+                           <apex:outputField value="{!speciData.proSpecimen.Total_Slices__c}" />
+                       </apex:pageBlockSectionItem>
+                       
+                       <apex:pageBlockSectionItem >
+                           <apex:outputLabel >Slicing Method</apex:outputLabel>
+                           <apex:outputField value="{!speciData.proSpecimen.Slicing_Method__c}" />
+                       </apex:pageBlockSectionItem>
+                       
+                       <apex:pageBlockSectionItem >
+                           <strong>Most periperal slices</strong>  
+                       </apex:pageBlockSectionItem>
+                       
+                       <apex:pageBlockSectionItem >
+                           <apex:outputField value="{!speciData.proSpecimen.Slice_Plane1__c}" />
+                           <apex:outputPanel >
+                               <apex:outputLabel styleClass="labelCol" >Slice </apex:outputLabel>
+                               <apex:outputField value="{!speciData.proSpecimen.Slice1__c}" />&nbsp;
+                               <apex:outputLabel styleClass="labelCol">Block </apex:outputLabel>
+                               <apex:outputField value="{!speciData.proSpecimen.Block1__c}" />
+                           </apex:outputPanel>
+                       </apex:pageBlockSectionItem>
+                       
+                       <apex:pageBlockSectionItem >
+                           <apex:outputField value="{!speciData.proSpecimen.Slice_Plane2__c}" />
+                           <apex:outputPanel >
+                               <apex:outputLabel styleClass="labelCol">Slice </apex:outputLabel>
+                               <apex:outputField value="{!speciData.proSpecimen.Slice2__c}" />
+                               <apex:outputLabel styleClass="labelCol">Block </apex:outputLabel>
+                               <apex:outputField value="{!speciData.proSpecimen.Block2__c}" />
+                           </apex:outputPanel>
+                       </apex:pageBlockSectionItem>
+                     <apex:outputPanel >
+                           <apex:pageBlockSection >
+<!--                               <apex:outputLabel >Performing Lab</apex:outputLabel>-->
+                               <apex:outputField value="{!speciData.proSpecimen.Lab__c}" label="Performing Lab" rendered="{!IF(($Profile.Name != 'Custom Read Only User'), true, false)}" />
+                               <apex:outputText value="{!speciData.proSpecimen.Lab__r.Name}" label="Performing Lab" rendered="{!IF(($Profile.Name == 'Custom Read Only User'), true, false)}" />
+                           </apex:pageBlockSection>
+                     </apex:outputPanel>
+                       <apex:pageBlockSectionItem >
+                           <apex:outputLabel >Lymph node tissue present in sample</apex:outputLabel>
+                           <apex:outputField value="{!speciData.proSpecimen.Lymph_node_tissue_present_in_sample__c}" />
+                       </apex:pageBlockSectionItem>
+                   </apex:repeat>
+               </apex:pageBlockSection>
+           </apex:repeat>
+       </apex:pageBlockSection>
+       
+       <apex:pageBlockSection title="Gross Pathology" columns="1">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >{!postSurObj.Type_Of_Tumor__c}</apex:outputLabel>
+                <apex:outputPanel >
+                    <apex:outputPanel rendered="{!IF((postSurObj.Type_Of_Tumor__c = 'Single Discrete Mass'), true, false)}">
+                         <apex:outputLabel >Size of gross mass</apex:outputLabel>
+                        <apex:outputField value="{!postSurObj.Size_of_Gross_Mass_Width__c}" /><b>&nbsp;X&nbsp;</b>
+                        <apex:outputField value="{!postSurObj.Size_of_Gross_Mass_Height__c}" />
+                        <apex:outputField value="{!postSurObj.Gross_Mass_Measurement_Unit__c}" />
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!IF((postSurObj.Type_Of_Tumor__c = 'Multifocal Discrete Masses'), true, false)}">
+                        <apex:outputLabel >Size of largest gross mass</apex:outputLabel>
+                        <apex:outputField value="{!postSurObj.Size_of_Largest_Gross_Mass_Width__c}" /><b>&nbsp;X&nbsp;</b>
+                        <apex:outputField value="{!postSurObj.Size_of_Largest_Gross_Mass_Height__c}" />
+                        <apex:outputField value="{!postSurObj.Largest_Gross_Mass_Measurement_Unit__c}" />
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!IF((postSurObj.Type_Of_Tumor__c = 'Multifocal Discrete Masses'), true, false)}">
+                        <apex:outputLabel >;&nbsp;Total span multifocal gross masses</apex:outputLabel>
+                        <apex:outputField value="{!postSurObj.Total_span_multifocal_gross_mass_width__c}" /><b>&nbsp;X&nbsp;</b>
+                        <apex:outputField value="{!postSurObj.Total_span_multifocal_gross_mass_height__c}" />
+                        <apex:outputField value="{!postSurObj.Total_Span_Measurement_Unit__c}" />
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!IF((postSurObj.Type_Of_Tumor__c = 'Gross Stromal Alterations/Fibrosis'), true, false)}">
+                        <apex:outputLabel >Span of gross changes</apex:outputLabel>
+                        <apex:outputField value="{!postSurObj.Span_of_gross_changes_width__c}" /><b>&nbsp;X&nbsp;</b>
+                        <apex:outputField value="{!postSurObj.Span_of_gross_changes_height__c}" />
+                        <apex:outputField value="{!postSurObj.Gross_Changes_Measurement_Unit__c}" />
+                    </apex:outputPanel>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+       </apex:pageBlockSection>
+<!--  
+      ================================================================================================================================================
+      =====================================================Lymph Nodes Section==============================================================================
+      ======================================================================================================================================================
+-->
+       <apex:pageBlockSection title="Lymph Nodes" columns="1">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >Lymph node dissection done?</apex:outputLabel>
+                <apex:outputField value="{!postSurObj.Lymph_node_dissection_done__c}"/>
+            </apex:pageBlockSectionItem>
+       </apex:pageBlockSection>
+       <apex:pageBlockSection columns="1">
+               <apex:pageBlockSection title="Left Nodes" columns="1" rendered="{!showLeftLymphNodes}">
+                    <apex:repeat value="{!leftLymphNodes}" var="proLymph" >
+                        <apex:pageBlockSectionItem rendered="{!IF((proLymph.Node_Checkbox_Value__c == 'Sentinel Nodes'), true, false)}" >
+                            <apex:outputPanel >
+                                <apex:outputField value="{!proLymph.Sentinel_Nodes__c}" />
+                                <apex:outputLabel style="font-weight: bold;">Sentinel nodes:</apex:outputLabel>&nbsp;
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!IF((proLymph.Node_Checkbox_Value__c == 'Axillary Nodes'), true, false)}" >
+                            <apex:outputPanel >
+                                <apex:outputField value="{!proLymph.Axillary_Nodes__c}" />
+                                <apex:outputLabel style="font-weight: bold;">Axillary Nodes:</apex:outputLabel>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!IF((proLymph.Node_Checkbox_Value__c == 'Additional Nodes'), true, false)}" >
+                            <apex:outputPanel >
+                                <apex:outputField value="{!proLymph.Additional_Nodes__c}" />
+                                <apex:outputLabel style="font-weight: bold;">Additional Nodes:</apex:outputLabel>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!IF((proLymph.Node_Checkbox_Value__c == 'Axillary Nodes'), false, true)}" >
+                            <apex:outputLabel >Location</apex:outputLabel>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!proLymph.Node_Checkbox_Value__c}"/>
+                                <apex:outputField value="{!proLymph.Location__c}"/>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Positive Nodes </apex:outputLabel>
+                            <apex:outputField value="{!proLymph.Positive__c}" />
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Examined Nodes </apex:outputLabel>
+                            <apex:outputField value="{!proLymph.Examined__c}" />
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!IF((proLymph.Node_Checkbox_Value__c == 'Additional Nodes'), false, true)}">
+                            <apex:outputLabel >Method of detection</apex:outputLabel>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!proLymph.Method_of_Detection__c}"/>&nbsp;
+                                <apex:outputField value="{!proLymph.Single_Detection_Result__c}"/> Single cell(s)
+                                <apex:outputField value="{!proLymph.Cluster_Detection_Result__c}"/> Cluster
+                                <apex:outputField value="{!proLymph.Focus_Detection_Result__c}"/> Focus
+                                <apex:outputField value="{!proLymph.Not_reported_Detection_Result__c}" /> Not reported
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Size of largest tumor deposit</apex:outputLabel>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!proLymph.Size_of_Largest_Tumor__c}" />&nbsp;
+                                <apex:outputField value="{!proLymph.Specific_Size_of_Largest_Tumor__c}" />
+                                <apex:outputField value="{!proLymph.Tumor_Size_Measurement_Unit__c}"/>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Extramodal Extension</apex:outputLabel>
+                            <apex:outputField value="{!proLymph.Extramodal_Extension__c}"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:repeat>
+                    <apex:pageBlockSectionItem >&nbsp;</apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputPanel >
+                            <table>
+                                <tr>
+                                    <td rowspan="2"><apex:outputLabel >Total Nodes: </apex:outputLabel></td>
+                                    <td align="center"><apex:outputLabel ><apex:outputText value="{!totalLeftPositive}"/></apex:outputLabel></td>
+                                    <td><apex:outputLabel >/</apex:outputLabel></td>
+                                    <td align="center"><apex:outputLabel ><apex:outputText value="{!totalLeftExmined}"/></apex:outputLabel></td>
+                                </tr>
+                                <tr>
+                                    <td><apex:outputLabel >Positive</apex:outputLabel></td>
+                                    <td>&nbsp;</td>
+                                    <td><apex:outputLabel >Examined</apex:outputLabel></td>
+                                </tr>
+                            </table>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="Right Nodes" columns="1" rendered="{!showRightLymphNodes}">
+                    <apex:repeat value="{!rightLymphNodes}" var="proLymph" >
+                        <apex:pageBlockSectionItem rendered="{!IF((proLymph.Node_Checkbox_Value__c == 'Sentinel Nodes'), true, false)}" >
+                            <apex:outputPanel >
+                                <apex:outputField value="{!proLymph.Sentinel_Nodes__c}" />
+                                <apex:outputLabel style="font-weight: bold;">Sentinel nodes:</apex:outputLabel>&nbsp;
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!IF((proLymph.Node_Checkbox_Value__c == 'Axillary Nodes'), true, false)}" >
+                            <apex:outputPanel >
+                                <apex:outputField value="{!proLymph.Axillary_Nodes__c}" />
+                                <apex:outputLabel style="font-weight: bold;">Axillary Nodes:</apex:outputLabel>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!IF((proLymph.Node_Checkbox_Value__c == 'Additional Nodes'), true, false)}" >
+                            <apex:outputPanel >
+                                <apex:outputField value="{!proLymph.Additional_Nodes__c}" />
+                                <apex:outputLabel style="font-weight: bold;">Additional Nodes:</apex:outputLabel>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!IF((proLymph.Node_Checkbox_Value__c == 'Axillary Nodes'), false, true)}" >
+                            <apex:outputLabel >Location</apex:outputLabel>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!proLymph.Node_Checkbox_Value__c}"/>
+                                <apex:outputField value="{!proLymph.Location__c}"/>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Positive Nodes </apex:outputLabel>
+                            <apex:outputField value="{!proLymph.Positive__c}" />
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Examined Nodes </apex:outputLabel>
+                            <apex:outputField value="{!proLymph.Examined__c}" />
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!IF((proLymph.Node_Checkbox_Value__c == 'Additional Nodes'), false, true)}">
+                            <apex:outputLabel >Method of detection</apex:outputLabel>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!proLymph.Method_of_Detection__c}"/>&nbsp;
+                                <apex:outputField value="{!proLymph.Single_Detection_Result__c}"/> Single cell(s)
+                                <apex:outputField value="{!proLymph.Cluster_Detection_Result__c}"/> Cluster
+                                <apex:outputField value="{!proLymph.Focus_Detection_Result__c}"/> Focus
+                                <apex:outputField value="{!proLymph.Not_reported_Detection_Result__c}" /> Not reported
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Size of largest tumor deposit</apex:outputLabel>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!proLymph.Size_of_Largest_Tumor__c}" />&nbsp;
+                                <apex:outputField value="{!proLymph.Specific_Size_of_Largest_Tumor__c}" />
+                                <apex:outputField value="{!proLymph.Tumor_Size_Measurement_Unit__c}"/>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Extramodal Extension</apex:outputLabel>
+                            <apex:outputField value="{!proLymph.Extramodal_Extension__c}"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:repeat>
+                    <apex:pageBlockSectionItem >&nbsp;</apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputPanel >
+                            <table>
+                                <tr>
+                                    <td rowspan="2"><apex:outputLabel >Total Nodes: </apex:outputLabel></td>
+                                    <td align="center"><apex:outputLabel ><apex:outputText value="{!totalRightPositive}"/></apex:outputLabel></td>
+                                    <td><apex:outputLabel >/</apex:outputLabel></td>
+                                    <td align="center"><apex:outputLabel ><apex:outputText value="{!totalRightExmined}"/></apex:outputLabel></td>
+                                </tr>
+                                <tr>
+                                    <td><apex:outputLabel >Positive</apex:outputLabel></td>
+                                    <td>&nbsp;</td>
+                                    <td><apex:outputLabel >Examined</apex:outputLabel></td>
+                                </tr>
+                            </table>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+        </apex:pageBlockSection>
+<!--  
+      ================================================================================================================================================
+      =====================================================Histology Section==============================================================================
+      ======================================================================================================================================================
+-->
+        <apex:pageBlockSection title="Histology" columns="1" collapsible="false"/>
+            <apex:tabPanel switchType="client" selectedTab="Calcification" tabClass="activeTab" inactiveTabClass="inactiveTab" activeTabClass="activeTab" contentStyle="font-size: 12px;">
+                <apex:tab label="Calcification" name="Calcification">
+                        <apex:pageBlock tabStyle="Account">
+                            <apex:pageBlockSection columns="1">
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="Are Calcifications present?" />
+                                    <apex:outputField value="{!postSurObj.Are_Calcifications_Present__c}"/>
+                                </apex:pageBlockSectionItem>
+                            </apex:pageBlockSection>
+                        </apex:pageBlock>
+                        <apex:outputPanel rendered="{!IF((postSurObj.Are_Calcifications_Present__c = 'Yes'), true, false)}">
+                            <apex:pageBlock tabStyle="Account">
+                                <apex:pageBlockSection columns="1">
+                                    <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Calcifications Details" />
+                                        <apex:outputField value="{!postSurObj.Calcification_Details__c}" />
+                                    </apex:pageBlockSectionItem>
+                                </apex:pageBlockSection>
+                            </apex:pageBlock>
+                        </apex:outputPanel>
+                </apex:tab>
+                <apex:tab label="DCIS" name="DCIS">
+                        <apex:pageBlock tabStyle="Account">
+                            <apex:pageBlockSection >
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="Is DCIS present?" />
+                                    <apex:outputField value="{!postSurObj.Is_DCIS_Present__c}" />
+                                </apex:pageBlockSectionItem>
+                            </apex:pageBlockSection>
+                        </apex:pageBlock>
+                    <apex:outputPanel rendered="{!IF((postSurObj.Is_DCIS_Present__c = 'Yes'), true, false)}">
+                        <apex:pageBlock title="Procedure(s): DCIS Details" tabStyle="Account">
+                            <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(postSurObj.Id))}">
+                                <c:DCISComplete pageController="{!postSurObj.Id}" key="dcis" subFormNew="Post Surgery Summary"  pathid="null" />
+                            </apex:pageBlockSection>
+                        </apex:pageBlock>
+                    </apex:outputPanel>                     
+                </apex:tab>
+                <apex:tab label="LCIS" name="LCIS">
+                        <apex:pageBlock tabStyle="Account">
+                            <apex:pageBlockSection >
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="Is LCIS present?" />
+                                    <apex:outputField value="{!postSurObj.Is_LCIS_Present__c}"/>
+                                </apex:pageBlockSectionItem>
+                            </apex:pageBlockSection>
+                        </apex:pageBlock>
+                    <apex:outputPanel rendered="{!IF((postSurObj.Is_LCIS_Present__c = 'Yes'), true, false)}">
+                        <apex:pageBlock title="Procedure(s): LCIS Details" tabStyle="Account">
+                            <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(postSurObj.Id))}">
+                                <c:LCISReadOnly pageController="{!postSurObj.Id}" key="lcis" subFormLCIS="Post Surgery Summary"  pathid="null"/>
+                            </apex:pageBlockSection>
+                        </apex:pageBlock>
+                    </apex:outputPanel>
+                </apex:tab>
+                <apex:tab label="Invasive Tumor" name="Invasive Tumor">
+                        <apex:pageBlock tabStyle="Account">
+                            <apex:pageBlockSection >
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="Is invasive tumor present?" />
+                                    <apex:outputField value="{!postSurObj.Is_invasive_tumor_present__c}" />
+                                </apex:pageBlockSectionItem>
+                            </apex:pageBlockSection>
+                        </apex:pageBlock>
+                    <apex:outputPanel rendered="{!IF((postSurObj.Is_invasive_tumor_present__c = 'Yes'), true, false)}">
+                        <apex:pageBlock title="Invasive Tumor Details" tabStyle="Account">
+                            <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(postSurObj.Id))}">
+                                <c:InvasiveTumorReadOnly pageController="{!postSurObj.Id}" key="ivt" subFormIT="Post Surgery Summary"  pathid="null"/>
+                            </apex:pageBlockSection>
+                        </apex:pageBlock>
+                    </apex:outputPanel>
+                </apex:tab>
+            </apex:tabPanel>
+<!--  
+      ================================================================================================================================================
+      =====================================================Margins Section==============================================================================
+      ======================================================================================================================================================
+-->       
+        <apex:pageBlockSection title="Separately Submitted Margins" columns="1">
+           <apex:pageBlockSectionItem labelStyle="width:30%">
+               <apex:outputLabel value="Separately Submitted Margins" />
+               <apex:outputField value="{!postSurObj.separately_submitted_margins__c}" />
+           </apex:pageBlockSectionItem>
+           <apex:pageBlockSectionItem labelStyle="width:30%">
+               <apex:outputLabel value="Invasive CA in any of the separately submitted margins?" />
+               <apex:outputField value="{!postSurObj.Invasive_CA_present__c}" />
+           </apex:pageBlockSectionItem>
+           <apex:pageBlockSectionItem labelStyle="width:30%">
+               <apex:outputLabel value="If invasive CA is present, is it at the true margin?" />
+               <apex:outputField value="{!postSurObj.Invasive_CA_at_true_margin__c}"/>
+           </apex:pageBlockSectionItem>
+           <apex:pageBlockSectionItem labelStyle="width:30%">
+               <apex:outputLabel value="In Situ disease in any of the separately submitted margins?" />
+               <apex:outputField value="{!postSurObj.In_Situ_Disease_Present__c}"/>
+           </apex:pageBlockSectionItem>
+           <apex:pageBlockSectionItem labelStyle="width:30%">
+               <apex:outputLabel value="If in situ disease present, is it at the true margin?" />
+               <apex:outputField value="{!postSurObj.In_Situ_Disease_At_True_Margin__c}"/>
+           </apex:pageBlockSectionItem>
+           <apex:pageBlockSectionItem labelStyle="width:30%">
+               <apex:outputLabel value="Other Changes Present?" />
+               <apex:outputField value="{!postSurObj.Other_Changes_Present__c}"/>
+           </apex:pageBlockSectionItem>
+           <apex:pageBlockSectionItem labelStyle="width:30%">
+               <apex:outputLabel value="" />
+               <apex:outputPanel >
+                <apex:outputField value="{!postSurObj.Other_Changes__c}"/><br/>
+                <apex:outputField value="{!postSurObj.Other_Change__c}"/>
+               </apex:outputPanel>
+           </apex:pageBlockSectionItem>
+       </apex:pageBlockSection>
+<!--  
+      ================================================================================================================================================
+      =====================================================Receptors Section==============================================================================
+      ======================================================================================================================================================
+-->
+    <apex:pageBlockSection title="Receptors" columns="1">
+        <apex:outputPanel rendered="{!isReceptorLeftLaterlity}">
+            <b>Receptors(s):</b><apex:outputText value="Left"/>
+            <apex:outputPanel >
+                <apex:pageBlock tabStyle="Account" rendered="{!NOT(ISNULL(postSurObj.Id))}">
+                    <c:ReceptorsReadOnly objId="{!postSurObj.Id}" key="rcpt" subFormReceptors="Post Surgery Summary" subFormLaterlity="left"/>
+                </apex:pageBlock>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!isReceptorRightLaterlity}">
+            <b>Receptors(s):</b><apex:outputText value="Right"/>
+            <apex:outputPanel >
+                <apex:pageBlock tabStyle="Account" rendered="{!NOT(ISNULL(postSurObj.Id))}">
+                    <c:ReceptorsReadOnly objId="{!postSurObj.Id}" key="rcptRight" subFormReceptors="Post Surgery Summary" subFormLaterlity="right"/>
+                </apex:pageBlock>
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:pageBlockSection>
+<!--  
+      ================================================================================================================================================
+      =====================================================Staging Section==============================================================================
+      ======================================================================================================================================================
+-->
+    <apex:pageBlockSection title="Staging" columns="1">
+        <apex:outputPanel id="stagePanelLeft" rendered="{!isReceptorLeftLaterlity}">
+            <b>Staging: </b><apex:outputText value="Left Breast"/>
+            <apex:outputPanel rendered="{!NOT(ISNULL(postSurObj.Id))}">
+<!--                <c:StagingReadOnlyComponent subFormLaterlity="left" recId="{!postSurObj.Id}"/>-->
+                <apex:pageBlock tabStyle="Account">
+                    <apex:pageBlockSection title="Staging Modifier" columns="1" >
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Modifier" />
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjLeft.Staging_Modifier_Type__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 24%;">
+                            <apex:outputLabel value="m-multiple primary tumors in a single site"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjLeft.Modifier_multiple_primary__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 24%;">
+                            <apex:outputLabel value="y-classification done during/following initial therapy"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjLeft.Modifier_classification_done__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 24%;">
+                            <apex:outputLabel value="r-indicates a recurrent tumor"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjLeft.Modifier_indicates_recurrent__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 24%;">
+                            <apex:outputLabel value="a-designates the staging done at autopsy"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjLeft.Modifier_designates__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="Stages">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Tumor"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjLeft.Tumor_Type__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Node"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjLeft.Node_Type__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Metastasis" />
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjLeft.Metastasis__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="Calculation">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Calculated Stage" />
+                            <apex:outputPanel >
+                                <apex:outputLabel value="" style="float: left; width: 84px;" />&nbsp;
+                                <apex:outputLabel value="" style="padding-left: 55px; width: 84px;" />
+                                <apex:outputField value="{!stagObjLeft.Calculated_Stage__c}" />&nbsp;
+                                <apex:outputField value="{!stagObjLeft.Calculated_Stage_Value__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="Adjudicate">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Adjudicated Stage" />
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjLeft.Adjudicated_Stage__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:outputPanel >
+                            <apex:pageBlockSection >                                
+                                <apex:outputField value="{!stagObjLeft.Adjudicated_By__c}" label="Adjudicated By" rendered="{!IF(($Profile.Name != 'Custom Read Only User'), true, false)}" />
+                                <apex:outputText value="{!stagObjLeft.Adjudicated_By__r.Name}" label="Adjudicated By" rendered="{!IF(($Profile.Name == 'Custom Read Only User'), true, false)}" />
+                            </apex:pageBlockSection>
+                        </apex:outputPanel>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="If patient diagnosed with T4 at baseline, indicate final status" columns="1">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="T4 Tumor"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjLeft.T4_Tumor_final_status__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        
+        <apex:outputPanel id="stagePanelRight" rendered="{!isReceptorRightLaterlity}">
+            <b>Staging: </b><apex:outputText value="Right Breast"/>
+            <apex:outputPanel rendered="{!NOT(ISNULL(postSurObj.Id))}">
+<!--                <c:StagingReadOnlyComponent subFormLaterlity="right" recId="{!postSurObj.Id}"/>-->
+                <apex:pageBlock tabStyle="Account">
+                    <apex:pageBlockSection title="Staging Modifier" columns="1" >
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Modifier" />
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjRight.Staging_Modifier_Type__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 24%;">
+                            <apex:outputLabel value="m-multiple primary tumors in a single site"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjRight.Modifier_multiple_primary__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 24%;">
+                            <apex:outputLabel value="y-classification done during/following initial therapy"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjRight.Modifier_classification_done__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 24%;">
+                            <apex:outputLabel value="r-indicates a recurrent tumor"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjRight.Modifier_indicates_recurrent__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem labelStyle="width: 24%;">
+                            <apex:outputLabel value="a-designates the staging done at autopsy"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjRight.Modifier_designates__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="Stages">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Tumor"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjRight.Tumor_Type__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Node"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjRight.Node_Type__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Metastasis" />
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjRight.Metastasis__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="Calculation">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Calculated Stage" />
+                            <apex:outputPanel >
+                                <apex:outputLabel value="" style="float: left; width: 84px;" />&nbsp;
+                                <apex:outputLabel value="" style="padding-left: 55px; width: 84px;" />
+                                <apex:outputField value="{!stagObjRight.Calculated_Stage__c}" />&nbsp;
+                                <apex:outputField value="{!stagObjRight.Calculated_Stage_Value__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="Adjudicate">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Adjudicated Stage" />
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjRight.Adjudicated_Stage__c}"  />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:outputPanel >
+                            <apex:pageBlockSection >                                
+                                <apex:outputField value="{!stagObjRight.Adjudicated_By__c}" label="Adjudicated By" rendered="{!IF(($Profile.Name != 'Custom Read Only User'), true, false)}" />
+                                <apex:outputText value="{!stagObjRight.Adjudicated_By__r.Name}" label="Adjudicated By" rendered="{!IF(($Profile.Name == 'Custom Read Only User'), true, false)}" />
+                            </apex:pageBlockSection>
+                        </apex:outputPanel>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="If patient diagnosed with T4 at baseline, indicate final status" columns="1">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="T4 Tumor"/>
+                            <apex:outputPanel >
+                                <apex:outputField value="{!stagObjRight.T4_Tumor_final_status__c}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:pageBlockSection>
+    
+<!--  
+      ================================================================================================================================================
+      =====================================================RCB Section==============================================================================
+      ======================================================================================================================================================
+-->
+    <apex:pageBlockSection title="Residual tumor burden calculations" columns="1">
+        <apex:pageBlockSectionItem labelStyle="width: 24%;">
+            <apex:outputLabel value="Patient has a pathologic complete response"/>
+            <apex:outputField value="{!postSurObj.pcr__c}"/>
+         </apex:pageBlockSectionItem>
+         
+         <apex:pageBlockSectionItem >
+            <apex:outputLabel value="Primary Tumor Bed Area" />
+            <apex:outputText value="{!areaBedTumorStr}" />
+          </apex:pageBlockSectionItem>
+          
+          <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Overall Center Cellularity" />
+                <apex:outputField value="{!postSurObj.RCB_Overall_Center_Cellularity__c}" />
+          </apex:pageBlockSectionItem>
+          
+          <apex:pageBlockSectionItem >
+                <apex:outputLabel value="% of CA in Situ Disease" />
+                <apex:outputField value="{!postSurObj.percentage_of_CA_in_Situ_Disease__c}" />
+          </apex:pageBlockSectionItem>
+          
+          <apex:pageBlockSectionItem >
+                <apex:outputLabel value="# of lymph nodes positive" />
+                <apex:outputText value="{!TotalPositiveNodesStr}" />
+          </apex:pageBlockSectionItem>
+          
+          <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Diameter of largest met" />
+                <apex:outputText value="{!LargestMetSizeStr}" />
+          </apex:pageBlockSectionItem>
+          
+          <apex:pageBlockSectionItem >
+                <apex:outputLabel value="RCB index" />
+                <apex:outputField value="{!postSurObj.RCB_index__c}" />
+          </apex:pageBlockSectionItem>
+          
+          <apex:pageBlockSectionItem >
+                <apex:outputLabel value="RCB Class" />
+                <apex:outputField value="{!postSurObj.RCB_Class__c}" />
+          </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+<!--  
+      ================================================================================================================================================
+      =====================================================Feed/ Attachment Section==============================================================================
+      ======================================================================================================================================================
+--> 
+    <apex:pageBlockSection columns="1" rendered="{!NOT(ISNULL(postSurObj.Id))}">
+        <c:CRFAttachmentComponent rId="{!postSurObj.Id}" feedCRFName="Post_Surgaory_Summary__Feed" rtId="{!postSurObj.Root_CRF_Id__c}"/>
+    </apex:pageBlockSection>
+    
+    <apex:pageBlockSection title="CRF Events" columns="1" rendered="{!NOT(ISNULL(postSurObj.Id))}">
+        <c:CRFEventComponent rId="{!postSurObj.Id}" objectName="Post_Surgaory_Summary__c" rtId="{!postSurObj.Root_CRF_Id__c}"/>
+    </apex:pageBlockSection>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

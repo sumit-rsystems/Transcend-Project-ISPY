@@ -1,0 +1,3 @@
+<apex:page standardController="Menopausal_Status_Detail__c" extensions="MenopausalNew" action="{!CustomeNew}">
+
+</apex:page>

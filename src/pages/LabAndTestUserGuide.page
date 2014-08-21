@@ -1,0 +1,63 @@
+<apex:page showHeader="false" sidebar="false">
+<style>
+	.headingDiv {
+		border-bottom: 1px solid #000;
+	}
+	.contentDiv {
+		width:1000px;
+		padding-left:160px;  
+	}
+	.redColor{
+		color:red;    
+	}
+</style>
+	<apex:outputPanel layout="block" styleClass="contentDiv">
+		<apex:outputPanel layout="block" styleClass="headingDiv">
+			<h2>How to complete Lab and Test form?</h2>
+		</apex:outputPanel>
+		<p>The Lab and Test Form is used to report any and all protocol blood tests and cardiac function tests the patient has prior to treatment, during neoadjuvant chemotherapy, and as needed during adjuvant treatment (e.g. every 3 months for patients receiving adjuvant trastuzumab).  This helps in monitoring specific lab results that may indicate a response to treatment and for general patient safety.</p>
+		<p>The information used to complete this form comes from lab test and procedure test results.</p>
+		<p class="redColor"><i><b>NOTE: Clinical significance for lab values do NOT need to be assessed for this CRF but do for the AE CRF.</b></i></p>
+		<p><i>To open the Lab and Test Form, select the patient from the 'Patient' Tab; select 'Trial'; Select ‘Treatment’ tab and select ‘Submit New’ for 'Lab and Test Form.'</i></p>
+		<p><apex:image url="{!URLFOR($Resource.LabandTestScreenshot, 'LabandTest1.png')}" width="115%" height="115%"/></p>
+		<ul>
+			<li>Select the collection date using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format.</li>
+			<li>Check the checkbox next each blood test that you are reporting for the date entered. Leave the checkbox unchecked for those tests that were not run on that date.  The list of tests on this screen comes from section 4.1.2 of the I-SPY 2 Protocol.</li>
+			<li>For each test that was performed (checkbox checked) enter the test result in the units defined in the text box [<i>numerical values to 1-decimal place</i>].</li>
+			<li>For each test that was performed (checkbox checked) enter the institutional reference range in the units defined in the text box <i>[numerical values to 2-decimal places</i>].</li>
+			<li>Enter the longest diameter of the index lesion as measured by MRI in cm in the text box [0.0-99.9].  If the longest diameter is more than 1-decimal place, round up if the second-decimal place is 5 or larger.</li>
+			<p class="redColor"><i><b>NOTE: The institutional reference range for the specific blood test completed will automatically populate the next time this form is completed.  If the institutional reference range changes for the test results on this next form, you can simply replace the prior range with the new range.</b></i></p>
+		</ul>
+		<li><i>Select 'Next' to advance to the 'Cardiac Function Tests' tab.</i></li>
+		<p><apex:image url="{!URLFOR($Resource.LabandTestScreenshot, 'LabandTest2.png')}" width="115%" height="115%"/></p>
+		<ul>
+			<li>Select the type of cardiac function test that was done by checking the checkbox. </li>
+			<li>For the cardiac function test selected (checkbox checked) enter in the date of the procedure using the using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format. </li>
+			<li>For the cardiac function test selected (checkbox checked) enter in the LVEF % score in the text box[<i>limited to 3-digit numerical value</i>]. </li>
+			<li>For the cardiac function test selected (checkbox checked) enter in the LVEF% Institutional lower limit of normal in the text box [<i>limited to 3-digit numerical value</i>]. </li>
+			<li>The institutional reference range for the specific blood test completed will automatically populate the next time this form is completed.  If the institutional reference range changes for the test results on this next form, you can simply replace the prior range with the new range.</li>
+		</ul>
+		
+		<p><i>Select 'Next to advance to the 'Investigative Agent Specific Tests' tab.</i></p>
+		<p>If the patient has been randomized to an Investigational Agent, there may be additional safety monitoring tests specific to that agent (listed in section 2.5 of the agent's appendix in the I-SPY 2 Protocol) and they will appear on this screen.  Additionally, the randomization treatment will display below the collection date field. If there are no tests listed in the protocol, the screen will display the message:  No test for this treatment arm.</p>
+		<p><apex:image url="{!URLFOR($Resource.LabandTestScreenshot, 'LabandTest3.png')}" width="115%" height="115%"/></p>
+		<p class ="redColor"><i><b>NOTE: if a laboratory does not regularly provide the results for an anion gap test, you should provide source documentation of how the calculation was done and the lower normal value (LNV).</b></i></p>
+		<p>Additionally, if a creatinine clearance is calculated, you should provide source documentation of either: all the components used to calculate the clearance, or how the calculation was done.</p>
+		<ul>
+			<li>Select the collection date using the blue calendar button to the right of the data field.  You can also manually enter the date in mm/dd/yyyy format. </li>
+			<li>Check the checkbox next to each blood test that you are reporting for the date entered. Leave the checkbox unchecked for those tests that were not run on that date.  The list of tests on this screen comes from section 2.5 of the agent's appendix in the I-SPY 2 Protocol.  If there are no tests listed in the protocol, the screen will display the message:  No test for this treatment arm. </li>
+			<li>For each test that was performed (checkbox checked) enter the test result in the units defined in the text box [<i>numerical values to 1-decimal place</i>]. </li>
+			<li>For each test that was performed (checkbox checked) enter the institutional reference range in the units defined in the text box [<i>numerical values to 2-decimal places</i>]. </li>
+		</ul>
+		<p class ="redColor"><i><b>NOTE: The institutional reference range for the specific blood test completed will automatically populate the next time this form is completed.  If the institutional reference range changes for the test results on this next form, you can simply replace the prior range with the new range.</b></i></p>
+		<p><i>Select 'Next' to advance to the 'Comments &amp; Attachments' tab</i></p>
+		<p>Attach all relevant de-identified pathology reports, clinical notes, laboratory notes, and imaging reports (source documents) that document the data that is listed on this CRF.  Refer to section Attaching Source Documents for detailed steps on how to appropriately attach de-identified source documents to a CRF.</p>
+		<p>Provide any comments to the DCC that you would like to add about this CRF in the comments box.</p>
+		<p><i>Select 'Next' to advance to the 'Complete' tab.</i></p>
+		<ul>
+			<li>Review that the information on the 'Complete' screen is correct. If any of the information is not correct, select 'Previous' to go back to the screen to update the incorrect information.</li>
+			<li>When you are ready to send the CRF to the DCC for verification, enter your password and select 'Sign and Submit.'</li>
+		</ul>
+		<p><apex:image url="{!URLFOR($Resource.LabandTestScreenshot, 'LabandTest4.png')}" width="115%" height="115%"/></p>
+	</apex:outputPanel>
+</apex:page>
